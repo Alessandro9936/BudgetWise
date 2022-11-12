@@ -4,10 +4,13 @@ const express = require("express");
 const logger = require("morgan");
 const createHttpError = require("http-errors");
 
+const dbConnect = require("./config/db.config");
+
 // Import middlewares
 
-// Initiate app
+// Initiate app and connect to database
 const app = express();
+dbConnect();
 app.listen(process.env.PORT || 3000);
 
 // Connect database
@@ -29,6 +32,5 @@ app.use((req, res, next) => {
 });
 
 // Error handler
-app.use();
 
 module.exports = app;
