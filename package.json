@@ -1,0 +1,22 @@
+{
+  "name": "s2i_finalproject",
+  "version": "1.0.0",
+  "description": "Budgeting app for students",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alessandro9936/S2I_FinalProject.git"
+  },
+  "author": "Alessandro Crinella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alessandro9936/S2I_FinalProject/issues"
+  },
+  "homepage": "https://github.com/Alessandro9936/S2I_FinalProject#readme",
+  "devDependencies": {
+    "concurrently": "^7.5.0"
+  }
+}
