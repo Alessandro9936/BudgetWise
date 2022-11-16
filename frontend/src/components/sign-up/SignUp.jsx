@@ -3,12 +3,12 @@ import React from "react";
 import { Form } from "react-router-dom";
 
 import { Button } from "../UI/Button";
-import { Input } from "../UI/Input";
 
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import classes from "./SignUp.module.css";
+import FormikControl from "../UI/FormikControl";
 
 const signUpSchema = yup.object().shape({
   firstName: yup
@@ -57,35 +57,47 @@ export function SignUp() {
         alert(JSON.stringify(values, null, 2));
       }}
     >
-      {(props) => (
+      {(formik) => (
         <Form
-          onSubmit={props.handleSubmit}
+          onSubmit={formik.handleSubmit}
           className={classes["form-container"]}
         >
           <h1>Start budgeting for free</h1>
           <div className={classes["flex-field"]}>
-            <Input
+            <FormikControl
+              control="input"
               label="First name"
               name="firstName"
               type="text"
               placeholder="John"
             />
-
-            <Input
+            <FormikControl
+              control="input"
               label="Last name"
               name="lastName"
               type="text"
               placeholder="Smidth"
             />
           </div>
-          <Input
+          <FormikControl
+            control="input"
             label="Email"
             name="email"
             type="email"
             placeholder="john@example.com"
           />
-          <Input label="Your starting budget" name="userBudget" type="number" />
-          <Input label="Password" name="password" type="password" />
+          <FormikControl
+            control="input"
+            label="Your starting budget"
+            name="userBudget"
+            type="number"
+          />
+          <FormikControl
+            control="input"
+            label="Password"
+            name="password"
+            type="password"
+          />
           <ul className={classes["passw-requirements"]}>
             <div>
               <li>A minimum of 8 character</li>
@@ -96,7 +108,7 @@ export function SignUp() {
               <li>At least one upper letter</li>
             </div>
           </ul>
-          {!props.isSubmitting && (
+          {!formik.isSubmitting && (
             <Button type="submit" label="Create account" />
           )}
 
