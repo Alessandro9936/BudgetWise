@@ -2,13 +2,12 @@ import React from "react";
 
 import { Form } from "react-router-dom";
 
-import { Button } from "../UI/Button";
-
 import { Formik } from "formik";
 import * as yup from "yup";
 
-import classes from "./SignUp.module.css";
-import FormikControl from "../UI/FormikControl";
+import classes from "./styles/SignUp.module.css";
+import FormikControl from "../../components/FormikControl";
+import { Button } from "../../components/Button";
 
 const signUpSchema = yup.object().shape({
   firstName: yup
