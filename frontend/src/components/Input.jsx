@@ -18,12 +18,12 @@ export function Input({ label, ...props }) {
 
   let inputClasses;
 
-  if (meta.touched && meta.error) {
-    inputClasses = classes["input-error"];
+  if (field.value && !meta.error && meta.touched) {
+    inputClasses = classes["input-valid"];
   }
 
-  if ((meta.touched && !meta.error) || (!meta.touched && field.value)) {
-    inputClasses = classes["input-valid"];
+  if (meta.touched && meta.error) {
+    inputClasses = classes["input-error"];
   }
 
   return (
