@@ -11,8 +11,6 @@ const userSchema = new schema({
   email: { type: String, required: true, unique: true },
   userBudget: { type: Number, required: true },
   password: { type: String, required: true },
-  token: { type: String },
-  refreshToken: { type: String },
 });
 
 userSchema.pre("save", async function (next) {
@@ -26,15 +24,15 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.generateAuthToken = function () {
   const user = this;
   const secret = JWT_SECRET;
-  const token = jwt.sign({ id: user.id }, secret, { expiresIn: "2m" });
-  user.token = token;
+  const token = jwt.sign({ id: user.id }, secret, { expiresIn: "10m" });
+  return token;
 };
 
 userSchema.methods.generateRefreshToken = function () {
   const user = this;
   const secret = REFRESH_TOKEN_SECRET;
-  const refreshToken = jwt.sign({ id: user.id }, secret, { expiresIn: "5m" });
-  user.refreshToken = refreshToken;
+  const refreshToken = jwt.sign({ id: user.id }, secret, { expiresIn: "1d" });
+  return refreshToken;
 };
 
 userSchema.methods.isValidPassword = async function (password) {
