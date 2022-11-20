@@ -2,27 +2,26 @@ require("dotenv").config();
 
 const express = require("express");
 const logger = require("morgan");
+const cookieParser = require("cookie-parser");
 const createHttpError = require("http-errors");
+const cors = require("cors");
+const errorHandler = require("./middlewares/error-handler");
 
 const dbConnect = require("./config/db.config");
 
-// Import middlewares
+// Import routes
 
 // Initiate app and connect to database
 const app = express();
 dbConnect();
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 8000);
 
-// Connect database
-
-// Import routes
-
-// Parse incoming requests
+// Initiate middlewares
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// Log the request
-app.use(logger("dev"));
+app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000" }));
 
 // Initiate routes
 
@@ -32,5 +31,6 @@ app.use((req, res, next) => {
 });
 
 // Error handler
+app.use(errorHandler);
 
 module.exports = app;
