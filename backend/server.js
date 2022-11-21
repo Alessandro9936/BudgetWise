@@ -10,6 +10,7 @@ const errorHandler = require("./middlewares/error-handler");
 const dbConnect = require("./config/db.config");
 
 // Import routes
+const userRoutes = require("./routes/user-routes");
 
 // Initiate app and connect to database
 const app = express();
@@ -19,11 +20,12 @@ app.listen(process.env.PORT || 8000);
 // Initiate middlewares
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000" }));
 
 // Initiate routes
+app.use("/", userRoutes);
 
 // Handle error if route not found (error 404) ot DB connection error
 app.use((req, res, next) => {
