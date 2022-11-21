@@ -1,11 +1,12 @@
+const User = require("../models/userModel");
 const { body, validationResult } = require("express-validator");
 
-const validateInputs = (req, res, next) => {
+const validateResults = (req, res, next) => {
   const errors = validationResult(req);
 
   // If validation result got errors throw them to be handled
   if (!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
+    res.status(400).json(errors.array());
     return;
   }
   next();
@@ -20,7 +21,7 @@ const registationInputs = [
     .escape(),
   body("lastName")
     .notEmpty()
-    .withMessage("First name is required")
+    .withMessage("Last name is required")
     .isAlpha()
     .withMessage("Only letters allowed")
     .escape(),
@@ -30,7 +31,14 @@ const registationInputs = [
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Use a valid email format (john@example.com)")
-    .normalizeEmail(),
+    .normalizeEmail()
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({ email: value });
+
+      if (user && user.email !== req.user?.email) {
+        return Promise.reject("Email already in use");
+      }
+    }),
   body("password")
     .trim()
     .notEmpty()
@@ -46,7 +54,7 @@ const registationInputs = [
       "Password must be greater than 6 and contain at least one uppercase letter, one number and one symbol"
     ),
   (req, res, next) => {
-    validateInputs(req, res, next);
+    validateResults(req, res, next);
   },
 ];
 
@@ -57,10 +65,26 @@ const loginInputs = [
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Use a valid email format (john@example.com)")
-    .normalizeEmail(),
-  body("password").trim().notEmpty().withMessage("Password is required"),
+    .normalizeEmail()
+    .custom(async (value) => {
+      const user = await User.findOne({ email: value });
+      if (!user) {
+        return Promise.reject("Email is not valid");
+      }
+    }),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({ email: req.body.email });
+      const isValid = await user.isValidPassword(value);
+      if (!isValid) {
+        return Promise.reject("Invalid password");
+      }
+    }),
   (req, res, next) => {
-    validateInputs(req, res, next);
+    validateResults(req, res, next);
   },
 ];
 
