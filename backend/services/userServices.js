@@ -15,12 +15,10 @@ const loginUser = async (email) => {
   try {
     const user = await User.findOne({ email });
 
-    const accessToken = await user.generateAuthToken();
     const refreshToken = await user.generateRefreshToken();
 
     return {
       id: user.id,
-      accessToken,
       refreshToken,
     };
   } catch (error) {
@@ -63,7 +61,6 @@ const updateUser = async (body, id) => {
 
     properties.forEach((property) => {
       if (user[property] !== body[property]) {
-        console.log(user[property]);
         user[property] = body[property];
       }
     });

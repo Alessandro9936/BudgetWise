@@ -26,7 +26,7 @@ const registerUserHandler = async (req, res, next) => {
 // @access Public
 const loginUserHandler = async (req, res, next) => {
   try {
-    const { accessToken, refreshToken, id } = await loginUser(req.body.email);
+    const { refreshToken, id } = await loginUser(req.body.email);
 
     // Assign refresh token in http-only cookie
     // to prevent it from being exposed to client-side
@@ -36,7 +36,7 @@ const loginUserHandler = async (req, res, next) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({ accessToken, id });
+    res.status(200).json(id);
   } catch (error) {
     next(createHttpError(error));
   }
@@ -64,7 +64,7 @@ const refreshTokenHandler = async (req, res, next) => {
       const refToken = req.cookies.jwt;
 
       const newAccessToken = await refreshToken(refToken);
-      console.log(newAccessToken);
+
       res.status(200).json(newAccessToken);
     } else {
       next(createHttpError(403, "Forbidden"));
