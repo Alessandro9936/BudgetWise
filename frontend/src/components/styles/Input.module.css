@@ -35,18 +35,20 @@ label {
 }
 
 .input-error {
-  border: 1px solid var(--red);
+  outline: 1px solid var(--red);
+  outline-offset: -1px;
 }
 
 .input-error:focus {
-  border: 1px solid var(--red);
   outline: 1px solid var(--red);
+  outline-offset: -1px;
 }
 
 .input-valid {
-  border: 1px solid var(--green);
+  outline: 1px solid var(--green);
+  outline-offset: -1px;
 }
 .input-valid:focus {
-  border: 1px solid var(--green);
   outline: 1px solid var(--green);
+  outline-offset: -1px;
 }
