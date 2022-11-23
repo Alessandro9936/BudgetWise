@@ -16,13 +16,13 @@ const {
   loginInputs,
 } = require("../middlewares/validateInputs");
 
-router.post("/register", registationInputs, registerUserHandler);
-router.post("/login", loginInputs, loginUserHandler);
-router.post("/refresh", refreshTokenHandler);
+router.post("/api/register", registationInputs, registerUserHandler);
+router.post("/api/login", loginInputs, loginUserHandler);
+router.post("/api/refresh", refreshTokenHandler);
 
-router.get("/user", protect, getUserHandler);
-router.put("/user", protect, registationInputs, updateUserHandler);
-router.post("/user", protect, logoutUser);
-router.delete("/user", protect, deleteUserHandler);
+router.get("/api/user", protect, getUserHandler);
+router.put("/api/user", protect, registationInputs, updateUserHandler);
+router.post("/api/user", protect, logoutUser);
+router.delete("/api/user", protect, deleteUserHandler);
 
 module.exports = router;
