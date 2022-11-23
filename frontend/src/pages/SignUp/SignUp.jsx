@@ -1,43 +1,14 @@
 import React from "react";
 
-import { Form } from "react-router-dom";
-
-import { Formik } from "formik";
-import * as yup from "yup";
+import { Formik, Form } from "formik";
 
 import classes from "./styles/SignUp.module.css";
 import FormikControl from "../../components/FormikControl";
 import { Button } from "../../components/Button";
+import { Loader } from "../../components/Loader";
 
-const signUpSchema = yup.object().shape({
-  firstName: yup
-    .string()
-    .matches(/^[A-Za-z]+$/, {
-      excludeEmptyString: true,
-      message: "Only letters allowed.",
-    })
-    .required("First name is required."),
-  lastName: yup
-    .string()
-    .matches(/^[A-Za-z]+$/, {
-      excludeEmptyString: true,
-      message: "Only letters allowed.",
-    })
-    .required("Last name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  userBudget: yup
-    .number()
-    .integer()
-    .required("Please inserting your starting budget"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[0-9]/, "Password requires a number")
-    .matches(/[a-z]/, "Password requires a lowercase letter")
-    .matches(/[A-Z]/, "Password requires an uppercase letter")
-    .matches(/[^\w]/, "Password requires a symbol"),
-});
+import { signUpSchema } from "./utils/signUpSchema";
+import { registerNewUserHandler } from "./services/signUpQuery";
 
 const initialValues = {
   firstName: "",
@@ -52,9 +23,7 @@ export function SignUp() {
     <Formik
       initialValues={initialValues}
       validationSchema={signUpSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        alert(JSON.stringify(values, null, 2));
-      }}
+      onSubmit={async (values, { setSubmitting }) => {}}
     >
       {(formik) => (
         <Form
@@ -69,6 +38,7 @@ export function SignUp() {
               name="firstName"
               type="text"
               placeholder="John"
+              disabled={formik.isSubmitting ? true : false}
             />
             <FormikControl
               control="input"
@@ -76,6 +46,7 @@ export function SignUp() {
               name="lastName"
               type="text"
               placeholder="Smidth"
+              disabled={formik.isSubmitting ? true : false}
             />
           </div>
           <FormikControl
@@ -84,18 +55,21 @@ export function SignUp() {
             name="email"
             type="email"
             placeholder="john@example.com"
+            disabled={formik.isSubmitting ? true : false}
           />
           <FormikControl
             control="input"
             label="Your starting budget"
             name="userBudget"
             type="number"
+            disabled={formik.isSubmitting ? true : false}
           />
           <FormikControl
             control="input"
             label="Password"
             name="password"
             type="password"
+            disabled={formik.isSubmitting ? true : false}
           />
           <ul className={classes["passw-requirements"]}>
             <div>
@@ -107,9 +81,10 @@ export function SignUp() {
               <li>At least one upper letter</li>
             </div>
           </ul>
-          {!formik.isSubmitting && (
-            <Button type="submit" label="Create account" />
-          )}
+
+          <Button type="submit" disabled={formik.isSubmitting ? true : false}>
+            {!formik.isSubmitting ? "Create account" : <Loader />}
+          </Button>
 
           <p className={classes["sign-in"]}>
             Have an account?
