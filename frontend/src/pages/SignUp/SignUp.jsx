@@ -1,14 +1,14 @@
 import React from "react";
 
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 
 import classes from "./styles/SignUp.module.css";
 import FormikControl from "../../components/FormikControl";
-import { Button } from "../../components/Button";
-import { Loader } from "../../components/Loader";
 
-import { signUpSchema } from "./utils/signUpSchema";
-import { registerNewUserHandler } from "./services/signUpQuery";
+import { useNavigate } from "react-router-dom";
+import { userActionHandler } from "../../services/userAccess";
+import { UserForm } from "../../components/Utilities/UserForm";
+import { signUpSchema } from "./utils/SignUpSchema";
 
 const initialValues = {
   firstName: "",
@@ -19,18 +19,41 @@ const initialValues = {
 };
 
 export function SignUp() {
+  const mutation = userActionHandler();
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={signUpSchema}
-      onSubmit={async (values, { setSubmitting }) => {}}
+      onSubmit={async (values, { setSubmitting, setFieldError }) => {
+        mutation.mutate(
+          { userData: values, endpoint: "register" },
+          {
+            onSuccess: async (data) => {
+              if (data.status === 201) {
+                navigate("/login");
+                setSubmitting(false);
+              }
+            },
+            onError: (error) => {
+              const { param: field, msg: message } = error.response.data[0];
+              setFieldError(field, message);
+              setSubmitting(false);
+            },
+          }
+        );
+      }}
     >
       {(formik) => (
-        <Form
-          onSubmit={formik.handleSubmit}
-          className={classes["form-container"]}
+        <UserForm
+          isSubmitting={formik.isSubmitting}
+          handleSubmit={formik.handleSubmit}
+          title="Start budgeting for free"
+          action="Register"
+          redirectLabel="Have an account?"
+          redirectAction="Login"
         >
-          <h1>Start budgeting for free</h1>
           <div className={classes["flex-field"]}>
             <FormikControl
               control="input"
@@ -81,18 +104,7 @@ export function SignUp() {
               <li>At least one upper letter</li>
             </div>
           </ul>
-
-          <Button type="submit" disabled={formik.isSubmitting ? true : false}>
-            {!formik.isSubmitting ? "Create account" : <Loader />}
-          </Button>
-
-          <p className={classes["sign-in"]}>
-            Have an account?
-            <a href="#" className={classes["sign-in__link"]}>
-              Sign in
-            </a>
-          </p>
-        </Form>
+        </UserForm>
       )}
     </Formik>
   );
