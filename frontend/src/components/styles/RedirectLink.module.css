@@ -1,0 +1,11 @@
+.sign-in {
+  font-size: 0.8rem;
+}
+
+.sign-in__link {
+  color: var(--primary);
+}
+
+.sign-in__link:hover {
+  color: var(--secondary);
+}
