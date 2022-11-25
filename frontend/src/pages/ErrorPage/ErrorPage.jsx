@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import classes from "./styles/ErrorPage.module.css";
 
 export default function ErrorPage() {
@@ -13,9 +13,9 @@ export default function ErrorPage() {
       </p>
       <div className={classes["redirect-links"]}>
         <p>Here are some helpful link instead:</p>
-        <a href="">Somewhere</a>
-        <a href="">Somewhere</a>
-        <a href="">Somewhere</a>
+        <Link to="">Somewhere</Link>
+        <Link to="">Somewhere</Link>
+        <Link to="">Somewhere</Link>
       </div>
     </div>
   );
