@@ -6,9 +6,10 @@ import classes from "./styles/SignUp.module.css";
 import FormikControl from "../../components/FormikControl";
 
 import { useNavigate } from "react-router-dom";
-import { userActionHandler } from "../../services/userAccess";
 import { UserForm } from "../../components/Utilities/UserForm";
 import { signUpSchema } from "./utils/SignUpSchema";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 const initialValues = {
   firstName: "",
@@ -19,7 +20,9 @@ const initialValues = {
 };
 
 export function SignUp() {
-  const mutation = userActionHandler();
+  const { mutate } = useMutation((values) => {
+    return axios.post("/api/register", values);
+  });
   const navigate = useNavigate();
 
   return (
@@ -27,22 +30,19 @@ export function SignUp() {
       initialValues={initialValues}
       validationSchema={signUpSchema}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
-        mutation.mutate(
-          { userData: values, endpoint: "register" },
-          {
-            onSuccess: async (data) => {
-              if (data.status === 201) {
-                navigate("/login");
-                setSubmitting(false);
-              }
-            },
-            onError: (error) => {
-              const { param: field, msg: message } = error.response.data[0];
-              setFieldError(field, message);
+        mutate(values, {
+          onSuccess: async (data) => {
+            if (data.status === 201) {
+              navigate("/login");
               setSubmitting(false);
-            },
-          }
-        );
+            }
+          },
+          onError: (error) => {
+            const { param: field, msg: message } = error.response.data[0];
+            setFieldError(field, message);
+            setSubmitting(false);
+          },
+        });
       }}
     >
       {(formik) => (
