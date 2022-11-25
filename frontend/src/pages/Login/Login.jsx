@@ -3,8 +3,10 @@ import { Formik } from "formik";
 import { logInSchema } from "./utils/loginSchema";
 import FormikControl from "../../components/Utilities/FormikControl";
 import { useNavigate } from "react-router-dom";
-import { userActionHandler } from "../../services/userAccess";
-import { generateAccessToken } from "../../services/generateToken";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 const initialValues = {
   email: "",
@@ -12,7 +14,11 @@ const initialValues = {
 };
 
 export function Login() {
-  const mutation = userActionHandler();
+  const mutation = useMutation((values) => {
+    return axios.post("/api/login", values);
+  });
+
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   return (
@@ -20,27 +26,20 @@ export function Login() {
       initialValues={initialValues}
       validationSchema={logInSchema}
       onSubmit={(values, { setSubmitting, setFieldError }) => {
-        mutation.mutate(
-          { userData: values, endpoint: "login" },
-          {
-            onSuccess: async (data) => {
-              if (data.status === 200 && data.data) {
-                try {
-                  await generateAccessToken();
-                  navigate("/dashboard");
-                  setSubmitting(false);
-                } catch (err) {
-                  console.log(err);
-                }
-              }
-            },
-            onError: (error) => {
-              const { param: field, msg: message } = error.response.data[0];
-              setFieldError(field, message);
+        mutation.mutate(values, {
+          onSuccess: async (data) => {
+            if (data.status === 200 && data.data) {
+              setUser(data.data);
+              navigate("/dashboard");
               setSubmitting(false);
-            },
-          }
-        );
+            }
+          },
+          onError: (error) => {
+            const { param: field, msg: message } = error.response.data[0];
+            setFieldError(field, message);
+            setSubmitting(false);
+          },
+        });
       }}
     >
       {(formik) => (
