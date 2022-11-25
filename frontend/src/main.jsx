@@ -7,6 +7,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { SignUp } from "./pages/SignUp/SignUp";
 import { Login } from "./pages/Login/Login";
+import UserProvider from "./context/userContext";
 
 const queryClient = new QueryClient();
 
@@ -30,8 +31,10 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </UserProvider>
   </React.StrictMode>
 );
