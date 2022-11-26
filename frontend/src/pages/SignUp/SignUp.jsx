@@ -2,8 +2,8 @@ import React from "react";
 
 import { Formik } from "formik";
 
-import classes from "./styles/SignUp.module.css";
-import FormikControl from "../../components/FormikControl";
+import classes from "./SignUp.module.css";
+import FormikControl from "../../components/Utilities/FormikControl";
 
 import { useNavigate } from "react-router-dom";
 import { UserForm } from "../../components/Utilities/UserForm";
