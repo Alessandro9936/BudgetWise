@@ -1,13 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { SignUp } from "./pages/SignUp/SignUp";
 import { Login } from "./pages/Login/Login";
 import UserProvider from "./context/userContext";
+import App from "./pages/App/App";
+import "./index.css";
+import Summary from "./pages/Summary/Summary";
+import Invoices from "./pages/Invoices/Invoices";
+import Budgets from "./pages/Budgets/Budgets";
+import Reports from "./pages/Reports/Reports";
+import Profile from "./pages/Profile/Profile";
 
 const queryClient = new QueryClient();
 
@@ -25,9 +36,34 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/app",
+    element: <App />,
+    children: [
+      { index: true, element: <Navigate replace to="dashboard" /> },
+      {
+        path: "dashboard",
+        element: <Summary />,
+      },
+      {
+        path: "invoices",
+        element: <Invoices />,
+      },
+      {
+        path: "budgets",
+        element: <Budgets />,
+      },
+      {
+        path: "reports",
+        element: <Reports />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+    ],
+  },
 ]);
-
-import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
