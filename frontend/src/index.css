@@ -26,6 +26,7 @@
   --m40px: 40px;
   --m48px: 48px;
   --m56px: 56px;
+  --m64px: 64px;
 
   /* RADIUS */
   --border5: 5px;
@@ -34,12 +35,21 @@
 }
 
 body {
-  min-height: 100vh;
-
   font: var(--font);
   color: var(--primary);
 
   line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "aside content";
 }
 
 button {
