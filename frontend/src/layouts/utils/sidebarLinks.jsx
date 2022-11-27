@@ -23,7 +23,7 @@ const sidebarLinks = [
   },
   {
     name: "Profile",
-    route: "/app/user",
+    route: "/app/profile",
     icon: <User size={20} />,
   },
 ];
