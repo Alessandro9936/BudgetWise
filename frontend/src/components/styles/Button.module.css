@@ -1,4 +1,4 @@
-button {
+.button {
   display: inline-block;
   width: 100%;
 
@@ -16,9 +16,9 @@ button {
   border-radius: var(--border5);
 }
 
-button:hover,
-button:focus,
-button:active {
+.button:hover,
+.button:focus,
+.button:active {
   background-color: var(--secondary);
   outline: none;
 }

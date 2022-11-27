@@ -3,8 +3,8 @@ import classes from "../styles/Button.module.css";
 
 export function Button({ children, ...buttonAttributes }) {
   const isSubmitting = buttonAttributes.disabled
-    ? classes.isSubmitting
-    : undefined;
+    ? classes.isSubmitting + classes.button
+    : classes.button;
 
   return (
     <button className={isSubmitting} {...buttonAttributes}>
