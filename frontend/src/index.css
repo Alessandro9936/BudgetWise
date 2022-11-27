@@ -10,12 +10,13 @@
   --font: 16px "Montserrat", sans-serif;
 
   /* COLORS */
+  --main-bg: white;
   --primary: #1e2936;
-  --secondary: #7bc7c1;
+  --secondary: #6f48eb;
   --red: #ee7172;
   --green: #95cba0;
   --gray-text: #929292;
-  --gray-bg: #fcfcfc;
+  --gray-bg: #f6f6f6;
 
   /* SPACING VALUES */
   --m8px: 8px;
@@ -36,6 +37,7 @@
 
 body {
   font: var(--font);
+  font-size: 0.9rem;
   color: var(--primary);
 
   line-height: 1.5;

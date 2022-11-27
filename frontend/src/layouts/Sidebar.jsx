@@ -11,7 +11,7 @@ export default function Sidebar() {
   return (
     <aside className={classes["aside-container"]}>
       <p className={classes["logo-text"]}>
-        Budget<span style={{ color: "#7bc7c1" }}>Wise</span>
+        Budget<span style={{ color: "var(--secondary)" }}>Wise</span>
       </p>
 
       <nav>

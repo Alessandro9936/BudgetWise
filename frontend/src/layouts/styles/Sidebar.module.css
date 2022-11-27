@@ -3,9 +3,9 @@
   flex-direction: column;
 
   height: 100%;
-  background-color: rgb(223, 255, 244);
+  background-color: var(--main-bg);
 
-  padding: var(--m24px) 0 var(--m64px) var(--m24px);
+  padding: var(--m12px) 0 var(--m48px) var(--m24px);
 
   grid-area: aside;
 }
@@ -36,13 +36,12 @@ nav {
 
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.9rem;
   color: var(--primary);
 }
 
 .link:hover {
   color: var(--secondary);
-  border-right: 2px solid var(--primary);
+  border-right: 2px solid var(--secondary);
 }
 
 .active-link {
@@ -54,7 +53,7 @@ nav {
   font-weight: 500;
   font-size: 0.9rem;
   color: var(--secondary);
-  border-right: 2px solid var(--primary);
+  border-right: 2px solid var(--secondary);
 }
 
 li:last-of-type {
