@@ -1,0 +1,28 @@
+.section-title {
+  margin-bottom: var(--m8px);
+}
+.transaction-container {
+  padding: var(--m12px);
+  border-bottom: 1px solid var(--gray-bg);
+}
+
+.transaction-top,
+.transaction-bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--m8px);
+}
+
+.description {
+  font-weight: bold;
+}
+
+.date {
+  color: var(--gray-text);
+  font-weight: 600;
+}
+
+.amount {
+  font-weight: 600;
+}
