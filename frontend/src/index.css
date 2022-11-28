@@ -11,7 +11,7 @@
 
   /* COLORS */
   --main-bg: white;
-  --primary: #1e2936;
+  --primary: rgb(30, 41, 54);
   --secondary: #6f48eb;
   --red: #ee7172;
   --green: #95cba0;
@@ -41,16 +41,19 @@ body {
   color: var(--primary);
 
   line-height: 1.5;
+
+  overflow: hidden;
 }
 
 #root {
+  height: 100vh;
   min-height: 100vh;
 
   display: grid;
   grid-template-columns: 1fr 6fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:
-    "header header"
+    "aside header"
     "aside content";
 }
 

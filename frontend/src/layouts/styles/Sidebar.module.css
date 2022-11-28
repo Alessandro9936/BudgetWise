@@ -5,7 +5,7 @@
   height: 100%;
   background-color: var(--main-bg);
 
-  padding: var(--m12px) 0 var(--m48px) var(--m24px);
+  padding: var(--m12px) 0 var(--m32px) var(--m24px);
 
   grid-area: aside;
 }
