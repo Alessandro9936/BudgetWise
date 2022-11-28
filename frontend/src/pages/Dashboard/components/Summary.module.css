@@ -1,0 +1,23 @@
+.summary div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  flex: 1;
+}
+
+.summary-field__text {
+  font-weight: 600;
+}
+.summary-amount {
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-top: auto;
+}
+
+.positive {
+  color: var(--green);
+}
+.negative {
+  color: var(--red);
+}
