@@ -3,26 +3,48 @@ import { MoreHorizontal } from "react-feather";
 import Card from "../../../components/UI/Card";
 import classes from "./Activity.module.css";
 
-export function Activity({}) {
+export function Activity({ transactionMapped }) {
+  /*
+   * NEW TRANSACTION MUST BE ADDED AT [0] NOT END
+   */
+
   return (
     <section className={classes.activity}>
       <h3>Recent activity</h3>
+
       <Card>
-        <div className={classes["transaction-container"]}>
-          <div className={classes["transaction-top"]}>
-            <p className={classes.description}>Monthly Home Rent</p>
-            <MoreHorizontal
-              style={{
-                color: "var(--primary)",
-                cursor: "pointer",
-              }}
-            />
-          </div>
-          <div className={classes["transaction-bot"]}>
-            <p className={classes.date}>11 Jul 2022</p>
-            <p className={classes.amount}>- 500 USD</p>
-          </div>
-        </div>
+        <ul className={classes["transactions-list"]}>
+          {transactionMapped.map((transaction) => (
+            <li
+              className={classes["transaction-container"]}
+              key={transaction.id}
+            >
+              <div className={classes["transaction-top"]}>
+                <p className={classes.description}>{transaction.description}</p>
+                <MoreHorizontal
+                  style={{
+                    color: "var(--primary)",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+              <div className={classes["transaction-bot"]}>
+                <p className={classes.date}>{transaction.date}</p>
+                <p
+                  className={`${classes.amount}  ${
+                    transaction.type === "income"
+                      ? classes.positive
+                      : classes.negative
+                  }`}
+                >
+                  {transaction.type === "expense"
+                    ? `- ${transaction.amount} USD`
+                    : `+ ${transaction.amount} USD`}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </Card>
     </section>
   );

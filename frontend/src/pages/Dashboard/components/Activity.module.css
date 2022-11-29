@@ -1,3 +1,11 @@
+.activity > div:first-of-type {
+  overflow-y: scroll;
+}
+
+.transactions-list {
+  list-style-type: none;
+}
+
 .section-title {
   margin-bottom: var(--m8px);
 }
@@ -25,4 +33,11 @@
 
 .amount {
   font-weight: 600;
+}
+
+.positive {
+  color: var(--green);
+}
+.negative {
+  color: var(--red);
 }
