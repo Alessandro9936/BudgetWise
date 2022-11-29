@@ -79,9 +79,29 @@ abbr[title] {
   font-size: 0.75em;
   font-weight: bold;
 }
-.react-calendar__month-view__days__day--weekend {
-  color: var(--red);
+
+.react-calendar__month-view__days__day {
+  position: relative;
 }
+
+.calendar-transaction {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+
+  border-radius: var(--border10);
+  padding: 4px;
+}
+
+.income {
+  background-color: var(--green);
+}
+
+.expense {
+  background-color: var(--red);
+}
+
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
 }
@@ -137,3 +157,5 @@ abbr[title] {
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
+
+/*********************/
