@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./TransactionPopup.module.css";
 
-export function TransactionPopup({ coords, transaction }) {
+export function TransactionPopup({ coords, transactions }) {
   return (
     <ul
       className={classes.popup}
@@ -10,18 +10,24 @@ export function TransactionPopup({ coords, transaction }) {
         left: coords.left,
       }}
     >
-      <li>{transaction.description}</li>
-      <li>
-        Type: <span className={classes.property}>{transaction.type}</span>
-      </li>
-      <li>
-        Amount: <span className={classes.property}>{transaction.amount}</span>
-      </li>
-      {transaction?.type === "expense" && (
-        <li>
-          Budget: <span className={classes.property}>{transaction.budget}</span>
+      {transactions.map((transaction) => (
+        <li className={classes.transaction} key={transaction.id}>
+          <p>{transaction.description}</p>
+          <p>
+            Type: <span className={classes.property}>{transaction.type}</span>
+          </p>
+          <p>
+            Amount:{" "}
+            <span className={classes.property}>{transaction.amount}</span>
+          </p>
+          {transaction?.type === "expense" && (
+            <p>
+              Budget:{" "}
+              <span className={classes.property}>{transaction.budget}</span>
+            </p>
+          )}
         </li>
-      )}
+      ))}
     </ul>
   );
 }
