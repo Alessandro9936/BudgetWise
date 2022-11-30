@@ -26,17 +26,16 @@ const registerUserHandler = async (req, res, next) => {
 // @access Public
 const loginUserHandler = async (req, res, next) => {
   try {
-    const { refreshToken, id } = await loginUser(req.body.email);
+    const { refreshToken, accessToken, id } = await loginUser(req.body.email);
 
     // Assign refresh token in http-only cookie
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json(id);
+    res.status(200).json({ id, accessToken });
   } catch (error) {
     next(createHttpError(error));
   }

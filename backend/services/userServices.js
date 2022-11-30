@@ -15,11 +15,13 @@ const loginUser = async (email) => {
   try {
     const user = await User.findOne({ email });
 
+    const accessToken = await user.generateAuthToken();
     const refreshToken = await user.generateRefreshToken();
 
     return {
       id: user.id,
       refreshToken,
+      accessToken,
     };
   } catch (error) {
     throw new Error(error);
