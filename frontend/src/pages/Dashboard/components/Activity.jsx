@@ -29,7 +29,11 @@ export function Activity({ transactionMapped }) {
                 />
               </div>
               <div className={classes["transaction-bot"]}>
-                <p className={classes.date}>{transaction.date}</p>
+                <p className={classes.date}>
+                  {transaction.date.toLocaleString("en-GB", {
+                    timeZone: "UTC",
+                  })}
+                </p>
                 <p
                   className={`${classes.amount}  ${
                     transaction.type === "income"
