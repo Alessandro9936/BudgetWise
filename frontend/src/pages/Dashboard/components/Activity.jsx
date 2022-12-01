@@ -3,10 +3,14 @@ import { MoreHorizontal } from "react-feather";
 import Card from "../../../components/UI/Card";
 import classes from "./Activity.module.css";
 
-export function Activity({ transactionMapped }) {
-  /*
-   * NEW TRANSACTION MUST BE ADDED AT [0] NOT END
-   */
+import { transactionMapped } from "../../../../data/data";
+import { Button } from "../../../components/UI/Button";
+import { ButtonRedirect } from "../../../components/UI/ButtonRedirect";
+
+export function Activity() {
+  const last8Transactions = transactionMapped
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, 8);
 
   return (
     <section className={classes.activity}>
@@ -14,10 +18,10 @@ export function Activity({ transactionMapped }) {
 
       <Card>
         <ul className={classes["transactions-list"]}>
-          {transactionMapped.map((transaction) => (
+          {last8Transactions.map((transaction) => (
             <li
-              className={classes["transaction-container"]}
               key={transaction.id}
+              className={classes["transaction-container"]}
             >
               <div className={classes["transaction-top"]}>
                 <p className={classes.description}>{transaction.description}</p>
@@ -48,6 +52,12 @@ export function Activity({ transactionMapped }) {
               </div>
             </li>
           ))}
+          <div className={classes["action-buttons"]}>
+            <Button>New transaction</Button>
+            <ButtonRedirect redirectLink="/app/invoices">
+              All transactions
+            </ButtonRedirect>
+          </div>
         </ul>
       </Card>
     </section>
