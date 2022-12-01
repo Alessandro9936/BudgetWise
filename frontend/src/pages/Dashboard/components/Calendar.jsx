@@ -6,33 +6,35 @@ import Calendar from "react-calendar";
 import "../../../components/styles/Calendar.css";
 import { isSameDay } from "date-fns";
 
-export function CalendarDashboard({ transactionMapped }) {
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const [transactionPopup, setTransactionPopup] = useState();
-  const [modalCoords, setModalCoords] = useState(null);
+import { transactionMapped } from "../../../../data/data";
 
-  const showPreview = (e, date) => {
-    setModalCoords({
+export function CalendarDashboard() {
+  const [previewVisibility, setPreviewVisibility] = useState(false);
+  const [transactionsPreview, setTransactionsPreview] = useState([]);
+  const [previewModalCoords, setPreviewModalCoords] = useState(null);
+
+  const showPreview = (e, currentDate) => {
+    setPreviewModalCoords({
       top: e.clientY + 10 + "px",
       left: e.clientX - 150 + "px",
     });
 
-    setTransactionPopup(
-      transactionMapped.filter((transaction) =>
-        isSameDay(date, transaction.date)
-      )
+    const transactionOnDate = transactionMapped.filter((transaction) =>
+      isSameDay(currentDate, transaction.date)
     );
 
-    setModalVisibility(true);
+    setTransactionsPreview(transactionOnDate);
+
+    setPreviewVisibility(true);
   };
 
   return (
     <section>
       <h3>Calendar</h3>
-      {modalVisibility && (
+      {previewVisibility && (
         <TransactionPopup
-          coords={modalCoords}
-          transactions={transactionPopup}
+          coords={previewModalCoords}
+          transactions={transactionsPreview}
         />
       )}
 
@@ -49,8 +51,8 @@ export function CalendarDashboard({ transactionMapped }) {
                       transaction.type === "income" ? "income" : "expense"
                     }`}
                     onMouseOver={(e) => showPreview(e, date)}
-                    onMouseOut={() => setModalVisibility(false)}
-                  ></span>
+                    onMouseOut={() => setPreviewVisibility(false)}
+                  />
                 );
               }
             });
