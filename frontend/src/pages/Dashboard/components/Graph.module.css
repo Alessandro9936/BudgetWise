@@ -19,9 +19,57 @@
   border-radius: var(--border5);
 }
 
-.selector:hover,
-.selector:active {
+.active {
   color: var(--primary);
   background-color: white;
   box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 10%);
+}
+
+.selector:hover {
+  color: var(--primary);
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 10%);
+}
+
+.summary-header {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  align-items: center;
+}
+
+.value-container {
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--m8px);
+
+  font-weight: 500;
+  font-size: 0.9rem;
+
+  user-select: none;
+  text-align: center;
+
+  border-radius: var(--border5);
+  color: var(--primary);
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 10%);
+}
+
+.value-container > * {
+  cursor: pointer;
+}
+
+.value-container p {
+  min-width: 300px;
+}
+.value-container svg {
+  background-color: var(--primary);
+  border-radius: var(--border5);
+  transition: background-color 0.1s ease-in-out;
+}
+.value-container svg:hover,
+.value-container svg:active {
+  background-color: var(--secondary);
 }
