@@ -1,0 +1,30 @@
+.invoice-areas__income {
+  grid-template-columns: 3fr 1fr;
+
+  grid-template-areas: "transactions sidebar";
+}
+.invoice-areas__expense {
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: auto 1fr;
+
+  grid-template-areas:
+    "header sidebar"
+    "transactions sidebar";
+}
+
+.invoice-areas__expense section:nth-of-type(1) {
+  grid-area: header;
+}
+.invoice-areas__expense section:nth-of-type(2) {
+  grid-area: transactions;
+}
+.invoice-areas__expense section:nth-of-type(3) {
+  grid-area: sidebar;
+}
+
+.invoice-areas__income section:nth-of-type(1) {
+  grid-area: transactions;
+}
+.invoice-areas__income section:nth-of-type(2) {
+  grid-area: sidebar;
+}
