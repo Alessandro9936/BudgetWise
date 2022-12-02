@@ -1,0 +1,80 @@
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  border-radius: var(--border10);
+  padding-left: var(--m40px);
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 10%);
+
+  border: none;
+  padding: var(--m8px);
+  padding-left: var(--m40px);
+
+  font: inherit;
+}
+.search-input:focus {
+  outline: 1px solid var(--primary);
+}
+.transactions {
+  overflow: hidden;
+}
+
+.transactions div:first-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m24px);
+}
+
+.transactions-list {
+  list-style: none;
+  overflow-y: scroll;
+}
+
+.transaction {
+  cursor: pointer;
+  padding-block: var(--m24px);
+}
+.transaction:not(:last-of-type) {
+  border-bottom: 1px solid var(--gray-lines);
+}
+
+.transaction,
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.transaction > p,
+.list-header > p {
+  flex: 1;
+}
+
+.list-header > p {
+  font-weight: bold;
+  color: var(--gray-text);
+}
+
+.state {
+  padding: var(--m8px) var(--m12px);
+  border-radius: var(--border10);
+
+  color: white;
+}
+
+.red {
+  border: 1px solid var(--red);
+  color: var(--red);
+}
+.orange {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+}
+.green {
+  border: 1px solid var(--green);
+  color: var(--green);
+}
