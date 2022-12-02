@@ -15,7 +15,9 @@
   --secondary: #6f48eb;
   --red: #ee7172;
   --green: #95cba0;
+  --orange: #faaa4c;
   --gray-text: #929292;
+  --gray-lines: #e4e4e4;
   --gray-bg: #f6f6f6;
 
   /* SPACING VALUES */
@@ -38,6 +40,7 @@
 body {
   font: var(--font);
   font-size: 0.9rem;
+  font-weight: 500;
   color: var(--primary);
 
   line-height: 1.5;

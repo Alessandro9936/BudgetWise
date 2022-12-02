@@ -15,8 +15,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: var(--m8px);
   padding: var(--m12px);
-  border-bottom: 1px solid var(--gray-bg);
+}
+
+.transaction-container:not(:last-of-type) {
+  border-bottom: 1px solid var(--gray-lines);
 }
 
 .transaction-top,
