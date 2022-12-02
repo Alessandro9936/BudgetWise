@@ -1,0 +1,15 @@
+.content-grid {
+  padding: var(--m32px);
+  display: grid;
+
+  gap: var(--m24px);
+
+  background-color: var(--gray-bg);
+
+  overflow-y: scroll;
+}
+.content-grid > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m12px);
+}

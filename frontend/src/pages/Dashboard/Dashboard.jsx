@@ -1,3 +1,4 @@
+import { ContentGrid } from "../../components/UI/ContentGrid";
 import { Activity } from "./components/Activity";
 import { CalendarDashboard } from "./components/Calendar";
 import { Graph } from "./components/Graph";
@@ -6,11 +7,11 @@ import classes from "./Dashboard.module.css";
 
 export default function Dashboard() {
   return (
-    <section className={classes["dashboard-grid"]}>
+    <ContentGrid gridAreas={classes["dashboard-areas"]}>
       <Summary />
       <CalendarDashboard />
       <Activity />
       <Graph />
-    </section>
+    </ContentGrid>
   );
 }

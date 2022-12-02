@@ -1,35 +1,21 @@
-.dashboard-grid {
-  padding: var(--m32px);
-  display: grid;
+.dashboard-areas {
   grid-template-columns: 1fr 400px 1fr;
   grid-template-rows: 1fr 1.5fr;
 
   grid-template-areas:
     "summary calendar activity"
     "graph graph activity";
-
-  gap: var(--m24px);
-
-  background-color: var(--gray-bg);
-
-  overflow-y: scroll;
 }
 
-.dashboard-grid section:nth-of-type(1) {
+.dashboard-areas section:nth-of-type(1) {
   grid-area: summary;
 }
-.dashboard-grid section:nth-of-type(2) {
+.dashboard-areas section:nth-of-type(2) {
   grid-area: calendar;
 }
-.dashboard-grid section:nth-of-type(3) {
+.dashboard-areas section:nth-of-type(3) {
   grid-area: activity;
 }
-.dashboard-grid section:nth-of-type(4) {
+.dashboard-areas section:nth-of-type(4) {
   grid-area: graph;
-}
-
-.dashboard-grid > section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--m12px);
 }
