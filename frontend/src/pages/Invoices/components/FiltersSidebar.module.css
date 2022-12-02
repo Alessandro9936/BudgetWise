@@ -1,0 +1,38 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m8px);
+  margin-bottom: var(--m16px);
+}
+
+.filter-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+.block-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--m8px);
+  margin-left: var(--m16px);
+
+  cursor: pointer;
+}
+
+.radio-btn {
+  cursor: pointer;
+  display: inline-block;
+  width: fit-content;
+  accent-color: var(--secondary);
+}
+
+.block .field:has(input:checked) {
+  border-right: 2px solid var(--secondary);
+}
