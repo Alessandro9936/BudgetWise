@@ -28,8 +28,10 @@ export function Input({ label, ...props }) {
 
   return (
     <div>
-      <label htmlFor={props.name}>{label}</label>
-      <input {...field} {...props} className={inputClasses} />
+      <label className={classes.label} htmlFor={props.name}>
+        {label}
+      </label>
+      <input {...field} {...props} className={inputClasses + classes.input} />
       {meta.touched && meta.error ? (
         <div className={classes["error-message"]}>
           <AlertTriangle size={14} />
