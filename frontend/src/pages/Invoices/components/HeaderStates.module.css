@@ -1,0 +1,19 @@
+.header-states > div:first-of-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.state-container {
+  display: flex;
+  align-items: center;
+  gap: var(--m12px);
+}
+
+.state-info p {
+  font-weight: 600;
+}
+
+.state-info p:first-of-type {
+  font-size: 1.2rem;
+}
