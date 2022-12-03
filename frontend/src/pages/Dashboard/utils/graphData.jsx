@@ -15,6 +15,20 @@ const dayNames = [
   "Saturday",
   "Sunday",
 ];
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const reduceTransaction = (transactions, time) => {
   return transactions.reduce(
@@ -34,7 +48,7 @@ const reduceTransaction = (transactions, time) => {
   );
 };
 
-export const getDataMonths = (transactionMapped, activeDate, monthNames) => {
+export const getDataMonths = (transactionMapped, activeDate) => {
   const transactionsInActiveYear = transactionMapped.filter((transaction) =>
     isSameYear(transaction.date, activeDate)
   );

@@ -1,15 +1,5 @@
-import {
-  addMonths,
-  addWeeks,
-  addYears,
-  startOfWeek,
-  startOfYear,
-  subWeeks,
-  subYears,
-  subMonths,
-} from "date-fns";
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, RefreshCw } from "react-feather";
+import React from "react";
+import { RefreshCw } from "react-feather";
 
 import {
   AreaChart,
@@ -27,91 +17,24 @@ import classes from "./Graph.module.css";
 import { transactionMapped } from "../../../../data/data";
 
 import { getDataDaily, getDataMonths, getDataWeekly } from "../utils/graphData";
-import { endOfWeek } from "date-fns/esm";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const formatDateString = (timeSpan, activeDate) => {
-  const year = activeDate.getFullYear();
-  const month = monthNames[activeDate.getMonth()];
-  const week = {
-    start: startOfWeek(activeDate, { weekStartsOn: 1 }),
-    end: endOfWeek(activeDate, { weekStartsOn: 1 }),
-  };
-
-  const formatString = {
-    Monthly: year,
-    Weekly: `${month} ${year}`,
-    Daily: `${week.start.toLocaleDateString("en-GB", {
-      dateStyle: "long",
-    })} - ${week.end.toLocaleDateString("en-GB", {
-      dateStyle: "long",
-    })} `,
-  };
-
-  return formatString[timeSpan];
-};
+import { useActiveDates } from "../hooks/useActiveDates";
+import { DateBar } from "../../../components/UI/DateBar";
 
 export function Graph() {
-  const [activeTimeSpan, setActiveTimeSpan] = useState("Monthly");
-  const [activeDate, setActiveDate] = useState(new Date());
+  const {
+    updateActiveDate,
+    updateActiveTimeSpan,
+    refreshDate,
+    activeDate,
+    activeTimeSpan,
+    activeDateFormatted,
+  } = useActiveDates();
 
   const graphData = {
-    Monthly: getDataMonths(transactionMapped, activeDate, monthNames),
+    Monthly: getDataMonths(transactionMapped, activeDate),
     Weekly: getDataWeekly(transactionMapped, activeDate),
     Daily: getDataDaily(transactionMapped, activeDate),
   }[activeTimeSpan];
-
-  const updateActiveDate = (action) => {
-    switch (activeTimeSpan) {
-      case "Monthly":
-        {
-          setActiveDate((prev) =>
-            action === "add"
-              ? addYears(startOfYear(prev), 1)
-              : subYears(startOfYear(prev), 1)
-          );
-        }
-        break;
-      case "Weekly":
-        {
-          setActiveDate((prev) =>
-            action === "add" ? addMonths(prev, 1) : subMonths(prev, 1)
-          );
-        }
-        break;
-      case "Daily": {
-        setActiveDate((prev) =>
-          action === "add"
-            ? addWeeks(startOfWeek(prev, { weekStartsOn: 1 }), 1)
-            : subWeeks(startOfWeek(prev, { weekStartsOn: 1 }), 1)
-        );
-      }
-    }
-  };
-
-  const updateActiveTimeSpan = (e) => {
-    setActiveTimeSpan(e.target.textContent);
-  };
-
-  const refreshDate = () => {
-    setActiveDate(new Date());
-  };
-
-  const formatActiveValue = formatDateString(activeTimeSpan, activeDate);
 
   return (
     <section>
@@ -139,21 +62,10 @@ export function Graph() {
             cursor={"pointer"}
             onClick={refreshDate}
           />
-          <div className={classes["value-container"]}>
-            <ChevronLeft
-              size={20}
-              color={"white"}
-              strokeWidth={3}
-              onClick={() => updateActiveDate("sub")}
-            />
-            <p>{formatActiveValue}</p>
-            <ChevronRight
-              size={20}
-              color={"white"}
-              strokeWidth={3}
-              onClick={() => updateActiveDate("add")}
-            />
-          </div>
+          <DateBar
+            updateActiveDate={updateActiveDate}
+            activeDate={activeDateFormatted}
+          />
         </div>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
