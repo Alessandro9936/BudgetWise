@@ -16,11 +16,9 @@ export function HeaderStates() {
       },
       { Paid: 0, "To pay": 0, Upcoming: 0 }
     );
-
-  console.log(statesNumber);
-
   return (
     <section className={classes["header-states"]}>
+      <h3>Expense states</h3>
       <Card>
         <div className={classes["state-container"]}>
           <FileText

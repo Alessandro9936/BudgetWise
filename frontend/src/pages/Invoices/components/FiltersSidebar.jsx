@@ -3,22 +3,43 @@ import classes from "./FiltersSidebar.module.css";
 
 import Card from "../../../components/UI/Card";
 import { BarChart } from "react-feather";
+import { Button } from "../../../components/UI/Button";
 
 const InputField = ({ id, label, ...attributes }) => {
   return (
-    <div className={classes.field}>
-      <input className={classes["radio-btn"]} {...attributes} />
-      <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
-    </div>
+    <>
+      {attributes.type !== "text" && (
+        <li className={classes.field}>
+          <input className={classes["radio-btn"]} {...attributes} />
+          <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
+        </li>
+      )}
+
+      {attributes.type === "text" && (
+        <li className={classes.field}>
+          <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
+          <input className={classes["radio-btn"]} {...attributes} />
+        </li>
+      )}
+    </>
   );
 };
 
 const IconField = ({ icon, label }) => {
   return (
-    <div className={classes.field}>
+    <li className={classes.field}>
       {icon}
       <span>{label}</span>
-    </div>
+    </li>
+  );
+};
+
+const FilterBlock = ({ children, label }) => {
+  return (
+    <ul className={classes.block}>
+      <p className={classes["block-title"]}>{label}</p>
+      {children}
+    </ul>
   );
 };
 
@@ -27,77 +48,102 @@ const budgets = [
   "Groceries",
   "Bills",
   "Education",
-  "Health",
+  "Health & Fitness",
   "Personal care",
   "Shopping",
   "Entertaiment",
   "Travelling",
-  "Gifts",
+  "Others",
 ];
 
 const transactionStatus = ["Paid", "Not paid", "Upcoming"];
+const transactionTimeSpans = [
+  "This week",
+  "This month",
+  "Last 90 days",
+  new Date().getFullYear().toString(),
+  (new Date().getFullYear() - 1).toString(),
+  (new Date().getFullYear() - 2).toString(),
+];
+
 export function FiltersSidebar() {
   return (
     <section className={classes["sidebar-filters"]}>
+      <h3>Filters</h3>
       <Card>
-        <div className={classes.block}>
-          <p className={classes["block-title"]}>Transaction type</p>
-          <InputField type="radio" name="transaction-type" id="expense" />
-          <InputField type="radio" name="transaction-type" id="income" />
-        </div>
-        <div className={classes.block}>
-          <p className={classes["block-title"]}>Amount</p>
-          <IconField
-            icon={<BarChart style={{ rotate: "90deg" }} />}
-            label="Lower to higher"
-          />
-          <IconField
-            icon={
-              <BarChart style={{ rotate: "90deg", transform: "scaleX(-1)" }} />
-            }
-            label="Higher to lower"
-          />
-        </div>
-        <div className={classes.block}>
-          <p className={classes["block-title"]}>Invoice date</p>
-          <IconField
-            icon={<BarChart style={{ rotate: "90deg" }} />}
-            label="Oldest to newest"
-          />
-          <IconField
-            icon={
-              <BarChart style={{ rotate: "90deg", transform: "scaleX(-1)" }} />
-            }
-            label="Newest to oldest"
-          />
-        </div>
-        <div className={classes.block}>
-          <p className={classes["block-title"]}>Transaction state</p>
-          {transactionStatus.map((status) => {
-            return (
-              <InputField
-                key={status}
-                type="checkbox"
-                name={status}
-                value={status}
-                id={status}
-              />
-            );
-          })}
-        </div>
-        <div className={classes.block}>
-          <p className={classes["block-title"]}>Budget</p>
-          {budgets.map((budget) => {
-            return (
-              <InputField
-                key={budget}
-                type="checkbox"
-                name={budget}
-                value={budget}
-                id={budget}
-              />
-            );
-          })}
+        <div className={classes.scroll}>
+          <FilterBlock label="Transaction type">
+            <InputField type="radio" name="transaction-type" id="expense" />
+            <InputField type="radio" name="transaction-type" id="income" />
+          </FilterBlock>
+          <FilterBlock label="Time span">
+            <select className={classes.select} name="timeSpan" id="timeSpan">
+              {transactionTimeSpans.map((timeSpan) => (
+                <option
+                  key={timeSpan}
+                  className={classes.option}
+                  value={timeSpan.toLocaleLowerCase()}
+                >
+                  {timeSpan}
+                </option>
+              ))}
+            </select>
+          </FilterBlock>
+          <FilterBlock label="Amount">
+            <IconField
+              icon={<BarChart style={{ rotate: "90deg" }} />}
+              label="Lower to higher"
+            />
+            <IconField
+              icon={
+                <BarChart
+                  style={{ rotate: "90deg", transform: "scaleX(-1)" }}
+                />
+              }
+              label="Higher to lower"
+            />
+          </FilterBlock>
+          <FilterBlock label="Invoice date">
+            <IconField
+              icon={<BarChart style={{ rotate: "90deg" }} />}
+              label="Lower to higher"
+            />
+            <IconField
+              icon={
+                <BarChart
+                  style={{ rotate: "90deg", transform: "scaleX(-1)" }}
+                />
+              }
+              label="Higher to lower"
+            />
+          </FilterBlock>
+          <FilterBlock label="Budget">
+            {transactionStatus.map((status) => {
+              return (
+                <InputField
+                  key={status}
+                  type="checkbox"
+                  name={status}
+                  value={status}
+                  id={status}
+                />
+              );
+            })}
+          </FilterBlock>
+          <FilterBlock label="Transaction state">
+            {budgets.map((budget) => {
+              return (
+                <InputField
+                  key={budget}
+                  type="checkbox"
+                  name={budget.replaceAll(" ", "").toLowerCase()}
+                  value={budget}
+                  id={budget}
+                />
+              );
+            })}
+          </FilterBlock>
+          <Button>Clear filters</Button>
         </div>
       </Card>
     </section>

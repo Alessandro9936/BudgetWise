@@ -66,6 +66,11 @@
   color: white;
 }
 
+.list-header,
+.transaction {
+  margin-inline: var(--m8px);
+}
+
 .red {
   border: 1px solid var(--red);
   color: var(--red);

@@ -35,10 +35,11 @@ const transactionMarkup = (transaction) => {
   );
 };
 
-export function Transactions({}) {
+export function Transactions() {
   const transSliced = transactionMapped.slice(0, 20);
   return (
     <section className={classes["transactions"]}>
+      <h3>Transactions</h3>
       <Card>
         <div className={classes["search-container"]}>
           <Search
@@ -48,7 +49,7 @@ export function Transactions({}) {
             style={{
               position: "absolute",
               top: "50%",
-              left: "10",
+              left: "20",
               transform: "translateY(-50%)",
             }}
           />
