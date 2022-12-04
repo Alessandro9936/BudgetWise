@@ -49,7 +49,7 @@ export function Transactions() {
             style={{
               position: "absolute",
               top: "50%",
-              left: "20",
+              left: "10",
               transform: "translateY(-50%)",
             }}
           />

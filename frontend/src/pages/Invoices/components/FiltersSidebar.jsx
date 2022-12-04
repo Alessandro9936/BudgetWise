@@ -76,18 +76,18 @@ export function FiltersSidebar() {
             <InputField type="radio" name="transaction-type" id="expense" />
             <InputField type="radio" name="transaction-type" id="income" />
           </FilterBlock>
-          <FilterBlock label="Time span">
-            <select className={classes.select} name="timeSpan" id="timeSpan">
-              {transactionTimeSpans.map((timeSpan) => (
-                <option
+          <FilterBlock label="Date range">
+            {transactionTimeSpans.map((timeSpan) => {
+              return (
+                <InputField
                   key={timeSpan}
-                  className={classes.option}
+                  type="checkbox"
+                  name={timeSpan.replaceAll(" ", "-").toLowerCase()}
                   value={timeSpan.toLocaleLowerCase()}
-                >
-                  {timeSpan}
-                </option>
-              ))}
-            </select>
+                  id={timeSpan}
+                />
+              );
+            })}
           </FilterBlock>
           <FilterBlock label="Amount">
             <IconField
@@ -117,26 +117,26 @@ export function FiltersSidebar() {
               label="Higher to lower"
             />
           </FilterBlock>
-          <FilterBlock label="Budget">
+          <FilterBlock label="Transaction state">
             {transactionStatus.map((status) => {
               return (
                 <InputField
                   key={status}
                   type="checkbox"
-                  name={status}
+                  name={status.replaceAll(" ", "-").toLowerCase()}
                   value={status}
                   id={status}
                 />
               );
             })}
           </FilterBlock>
-          <FilterBlock label="Transaction state">
+          <FilterBlock label="Budget">
             {budgets.map((budget) => {
               return (
                 <InputField
                   key={budget}
                   type="checkbox"
-                  name={budget.replaceAll(" ", "").toLowerCase()}
+                  name={budget.replaceAll(" ", "-").toLowerCase()}
                   value={budget}
                   id={budget}
                 />

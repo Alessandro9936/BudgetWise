@@ -17,7 +17,6 @@
 }
 
 .button:hover,
-.button:focus,
 .button:active {
   background-color: var(--secondary);
   outline: none;
