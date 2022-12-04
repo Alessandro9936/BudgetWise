@@ -1,3 +1,4 @@
+import { TimeSpanSelector } from "./../../../components/UI/TimeSpanSelector";
 import React from "react";
 import { RefreshCw } from "react-feather";
 
@@ -16,7 +17,7 @@ import classes from "./Graph.module.css";
 
 import { transactionMapped } from "../../../../data/data";
 
-import { getDataDaily, getDataMonths, getDataWeekly } from "../utils/graphData";
+import { getDataYears, getDataMonths, getDataWeeks } from "../utils/graphData";
 import { useActiveDates } from "../hooks/useActiveDates";
 import { DateBar } from "../../../components/UI/DateBar";
 
@@ -31,28 +32,20 @@ export function Graph() {
   } = useActiveDates();
 
   const graphData = {
+    Yearly: getDataYears(transactionMapped, activeDate),
     Monthly: getDataMonths(transactionMapped, activeDate),
-    Weekly: getDataWeekly(transactionMapped, activeDate),
-    Daily: getDataDaily(transactionMapped, activeDate),
+    Weekly: getDataWeeks(transactionMapped, activeDate),
   }[activeTimeSpan];
 
   return (
     <section>
       <div className={classes["graph-header"]}>
         <h3>Summary</h3>
-        <div className={classes["time-selectors"]}>
-          {["Monthly", "Weekly", "Daily"].map((timeSpan) => (
-            <span
-              key={timeSpan}
-              onClick={updateActiveTimeSpan}
-              className={`${classes.selector} + ${
-                activeTimeSpan === timeSpan ? classes.active : undefined
-              }`}
-            >
-              {timeSpan}
-            </span>
-          ))}
-        </div>
+        <TimeSpanSelector
+          timeSpans={["Yearly", "Monthly", "Weekly"]}
+          updateActiveTimeSpan={updateActiveTimeSpan}
+          activeTimeSpan={activeTimeSpan}
+        />
       </div>
       <Card>
         <div className={classes["summary-header"]}>

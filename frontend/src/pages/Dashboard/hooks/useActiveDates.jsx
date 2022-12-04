@@ -35,9 +35,9 @@ const formatDateString = (timeSpan, activeDate) => {
   };
 
   const formatString = {
-    Monthly: year,
-    Weekly: `${month} ${year}`,
-    Daily: `${week.start.toLocaleDateString("en-GB", {
+    Yearly: year,
+    Monthly: `${month} ${year}`,
+    Weekly: `${week.start.toLocaleDateString("en-GB", {
       dateStyle: "long",
     })} - ${week.end.toLocaleDateString("en-GB", {
       dateStyle: "long",
@@ -48,12 +48,12 @@ const formatDateString = (timeSpan, activeDate) => {
 };
 
 export function useActiveDates() {
-  const [activeTimeSpan, setActiveTimeSpan] = useState("Monthly");
+  const [activeTimeSpan, setActiveTimeSpan] = useState("Yearly");
   const [activeDate, setActiveDate] = useState(new Date());
 
   const updateActiveDate = (action) => {
     switch (activeTimeSpan) {
-      case "Monthly":
+      case "Yearly":
         {
           setActiveDate((prev) =>
             action === "add"
@@ -62,14 +62,14 @@ export function useActiveDates() {
           );
         }
         break;
-      case "Weekly":
+      case "Monthly":
         {
           setActiveDate((prev) =>
             action === "add" ? addMonths(prev, 1) : subMonths(prev, 1)
           );
         }
         break;
-      case "Daily": {
+      case "Weekly": {
         setActiveDate((prev) =>
           action === "add"
             ? addWeeks(startOfWeek(prev, { weekStartsOn: 1 }), 1)

@@ -48,7 +48,7 @@ const reduceTransaction = (transactions, time) => {
   );
 };
 
-export const getDataMonths = (transactionMapped, activeDate) => {
+export const getDataYears = (transactionMapped, activeDate) => {
   const transactionsInActiveYear = transactionMapped.filter((transaction) =>
     isSameYear(transaction.date, activeDate)
   );
@@ -68,7 +68,7 @@ export const getDataMonths = (transactionMapped, activeDate) => {
   return reducedMonthTransactions;
 };
 
-export const getDataWeekly = (transactionMapped, activeDate) => {
+export const getDataMonths = (transactionMapped, activeDate) => {
   const transactionsInActiveMonth = transactionMapped.filter((transaction) =>
     isSameMonth(transaction.date, activeDate)
   );
@@ -92,7 +92,7 @@ export const getDataWeekly = (transactionMapped, activeDate) => {
   return reducedWeekTransactions;
 };
 
-export const getDataDaily = (transactionMapped, activeDate) => {
+export const getDataWeeks = (transactionMapped, activeDate) => {
   const transactionsInActiveWeek = transactionMapped.filter((transaction) =>
     isSameWeek(transaction.date, activeDate)
   );
