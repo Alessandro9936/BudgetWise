@@ -2,7 +2,7 @@ import React from "react";
 
 import { useField } from "formik";
 
-import { AlertTriangle } from "react-feather";
+import { InputError } from "./InputError";
 import classes from "../styles/Input.module.css";
 
 export function Input({ label, ...props }) {
@@ -27,17 +27,12 @@ export function Input({ label, ...props }) {
   }
 
   return (
-    <div>
+    <div className={classes["input-field"]}>
       <label className={classes.label} htmlFor={props.name}>
         {label}
       </label>
       <input {...field} {...props} className={inputClasses + classes.input} />
-      {meta.touched && meta.error ? (
-        <div className={classes["error-message"]}>
-          <AlertTriangle size={14} />
-          <p>{meta.error}</p>
-        </div>
-      ) : null}
+      {meta.touched && meta.error ? <InputError message={meta.error} /> : null}
     </div>
   );
 }

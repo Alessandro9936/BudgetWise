@@ -1,4 +1,4 @@
-.input {
+.input-field input {
   display: block;
   padding: var(--m12px);
   border: none;
@@ -10,28 +10,18 @@
   font-family: inherit;
 }
 
-.input:focus {
+.input-field input:focus {
   background-color: white;
   outline: 1px solid var(--primary);
 }
 
-.input:-webkit-autofill {
+.input-field input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px rgb(237, 237, 237) inset;
 }
 
 .label {
   font-weight: 500;
   margin-bottom: var(--m8px);
-}
-
-.error-message {
-  margin-top: 0.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-
-  font-size: 0.8rem;
-  color: var(--red);
 }
 
 .input-error {
