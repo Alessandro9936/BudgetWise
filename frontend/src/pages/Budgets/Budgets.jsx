@@ -20,10 +20,29 @@ export default function Budgets() {
     activeDateFormatted,
   } = useActiveDates();
 
-  const activeBudgets =
-    activeTimeSpan === "Yearly"
-      ? budgets.filter((budget) => isSameYear(budget.month, activeDate))
-      : budgets.filter((budget) => isSameMonth(budget.month, activeDate));
+  const budgetsInActiveDate =
+    activeTimeSpan !== "Yearly"
+      ? budgets.filter((budget) => isSameMonth(budget.month, activeDate))
+      : budgets
+          .filter((budget) => isSameYear(budget.month, activeDate))
+          .reduce((acc, curBudget) => {
+            const budgetByName = acc.find((bud) => bud.name === curBudget.name);
+            if (!budgetByName) {
+              acc = [
+                ...acc,
+                {
+                  name: curBudget.name,
+                  usedAmount: curBudget.usedAmount,
+                  maxAmount: curBudget.maxAmount,
+                  id: curBudget.id,
+                },
+              ];
+            } else {
+              budgetByName.usedAmount += curBudget.usedAmount;
+              budgetByName.maxAmount += curBudget.maxAmount;
+            }
+            return acc;
+          }, []);
 
   return (
     <ContentGrid gridAreas={classes["budget-areas"]}>
@@ -38,10 +57,14 @@ export default function Budgets() {
           activeDate={activeDateFormatted}
         />
       </Bar>
-      <BudgetPreviews />
-      <BudgetChart
-        activeBudgets={activeBudgets}
+      <BudgetPreviews
+        budgetsInActiveDate={budgetsInActiveDate}
         activeTimeSpan={activeTimeSpan}
+        activeDate={activeDate}
+      />
+      <BudgetChart
+        budgetsInActiveDate={budgetsInActiveDate}
+        activeDateFormatted={activeDateFormatted}
       />
     </ContentGrid>
   );
