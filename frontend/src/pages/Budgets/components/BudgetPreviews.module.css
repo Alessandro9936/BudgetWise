@@ -1,0 +1,59 @@
+.previews-grid {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--m32px);
+
+  overflow-y: auto;
+}
+
+.budget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.budget-header__title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.budget-header__handlers {
+  display: flex;
+  align-items: center;
+  gap: var(--m8px);
+}
+
+.budget-date {
+  color: var(--gray-text);
+  font-size: 0.8rem;
+  margin-bottom: var(--m16px);
+}
+
+.budget-amount {
+  font-size: 1rem;
+  margin-bottom: var(--m8px);
+}
+
+.progress-bar_container {
+  width: 100%;
+  background-color: whitesmoke;
+  border-radius: 50px;
+  margin-bottom: var(--m8px);
+}
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 100%;
+  border-radius: 50px;
+  margin-block: auto;
+  font-weight: 600;
+  max-width: 100%;
+}
+
+.bar-text {
+  margin-right: var(--m8px);
+  color: white;
+}
