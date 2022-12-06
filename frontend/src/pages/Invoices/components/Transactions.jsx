@@ -3,6 +3,8 @@ import classes from "./Transactions.module.css";
 
 import { transactionMapped } from "../../../../data/data";
 import Card from "../../../components/UI/Card";
+import { DeleteIcon } from "../../../components/UI/DeleteIcon";
+import { UpdateIcon } from "../../../components/UI/UpdateIcon";
 import { Search } from "react-feather";
 
 const transactionMarkup = (transaction) => {
@@ -31,6 +33,10 @@ const transactionMarkup = (transaction) => {
           {transaction.state || "Received"}
         </span>
       </p>
+      <div className={classes["transaction-handlers"]}>
+        <UpdateIcon />
+        <DeleteIcon />
+      </div>
     </li>
   );
 };
