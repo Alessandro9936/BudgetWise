@@ -1,0 +1,15 @@
+.type {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.type__option {
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.type__option:hover {
+  box-shadow: 0 0.1rem 0 var(--secondary);
+}
