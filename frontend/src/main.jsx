@@ -19,6 +19,7 @@ import Budgets from "./pages/Budgets/Budgets";
 import Reports from "./pages/Reports/Reports";
 import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import TransactionModal from "./pages/Transaction/TransactionModal";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,12 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+        children: [
+          {
+            path: "transaction",
+            element: <TransactionModal />,
+          },
+        ],
       },
       {
         path: "invoices",

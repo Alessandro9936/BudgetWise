@@ -2,6 +2,7 @@ import React from "react";
 import { MoreHorizontal } from "react-feather";
 import Card from "../../../components/UI/Card";
 import classes from "./Activity.module.css";
+import { Link } from "react-router-dom";
 
 import { transactionMapped } from "../../../../data/data";
 import { Button } from "../../../components/UI/Button";
@@ -53,7 +54,9 @@ export function Activity() {
             </li>
           ))}
           <div className={classes["action-buttons"]}>
-            <Button>New transaction</Button>
+            <Link to={"transaction"}>
+              <Button>New transaction</Button>
+            </Link>
             <ButtonRedirect redirectLink="/app/invoices">
               All transactions
             </ButtonRedirect>

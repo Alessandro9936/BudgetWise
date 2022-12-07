@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { ContentGrid } from "../../components/UI/ContentGrid";
 import { Activity } from "./components/Activity";
 import { CalendarDashboard } from "./components/Calendar";
@@ -12,6 +13,7 @@ export default function Dashboard() {
       <CalendarDashboard />
       <Activity />
       <Graph />
+      <Outlet />
     </ContentGrid>
   );
 }
