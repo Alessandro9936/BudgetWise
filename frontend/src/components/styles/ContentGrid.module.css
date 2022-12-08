@@ -6,7 +6,7 @@
 
   background-color: var(--gray-bg);
 
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .content-grid > section {
   display: flex;

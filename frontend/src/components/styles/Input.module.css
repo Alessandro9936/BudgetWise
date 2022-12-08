@@ -7,7 +7,7 @@
 
   width: 100%;
 
-  font-family: inherit;
+  font: inherit;
 }
 
 .input-field input:focus {
@@ -22,23 +22,4 @@
 .label {
   font-weight: 500;
   margin-bottom: var(--m8px);
-}
-
-.input-error {
-  outline: 1px solid var(--red);
-  outline-offset: -1px;
-}
-
-.input-error:focus {
-  outline: 1px solid var(--red);
-  outline-offset: -1px;
-}
-
-.input-valid {
-  outline: 1px solid var(--green);
-  outline-offset: -1px;
-}
-.input-valid:focus {
-  outline: 1px solid var(--green);
-  outline-offset: -1px;
 }

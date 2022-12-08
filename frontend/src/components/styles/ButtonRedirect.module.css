@@ -12,4 +12,6 @@
   border: 1px solid var(--secondary);
 
   border-radius: var(--border5);
+
+  opacity: 65%;
 }
