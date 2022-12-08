@@ -20,6 +20,7 @@ import Reports from "./pages/Reports/Reports";
 import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
+import BudgetModal from "./pages/Budget/BudgetModal";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,12 @@ const router = createBrowserRouter([
       {
         path: "budgets",
         element: <Budgets />,
+        children: [
+          {
+            path: "budget",
+            element: <BudgetModal />,
+          },
+        ],
       },
       {
         path: "reports",

@@ -1,8 +1,10 @@
 import { UpdateIcon } from "./../../../components/UI/UpdateIcon";
 import { DeleteIcon } from "./../../../components/UI/DeleteIcon";
+import { Button } from "./../../../components/UI/Button";
 import React from "react";
 import Card from "../../../components/UI/Card";
 import classes from "./BudgetPreviews.module.css";
+import { Link } from "react-router-dom";
 
 const colorsPerBudgetLabel = {
   Rent: "#ff595e",
@@ -52,7 +54,7 @@ export function BudgetPreviews({
         })} `;
 
   return (
-    <section>
+    <section className={classes["preview-section"]}>
       <h3>Budget previews</h3>
       <ul className={classes["previews-grid"]}>
         {budgetsInActiveDate.map((budget) => (
@@ -88,6 +90,10 @@ export function BudgetPreviews({
           </li>
         ))}
       </ul>
+
+      <Link to={"budget"}>
+        <Button>Create new budget</Button>
+      </Link>
     </section>
   );
 }

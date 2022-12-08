@@ -10,6 +10,7 @@ import { DateBar } from "../../components/UI/DateBar";
 
 import { budgets } from "../../../data/data";
 import { isSameMonth, isSameYear } from "date-fns";
+import { Outlet } from "react-router-dom";
 
 export default function Budgets() {
   const {
@@ -66,6 +67,7 @@ export default function Budgets() {
         budgetsInActiveDate={budgetsInActiveDate}
         activeDateFormatted={activeDateFormatted}
       />
+      <Outlet />
     </ContentGrid>
   );
 }

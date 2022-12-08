@@ -57,3 +57,13 @@
   margin-right: var(--m8px);
   color: white;
 }
+.preview-section a {
+  display: block;
+  margin-top: auto;
+  margin-left: auto;
+}
+
+.preview-section button {
+  width: fit-content;
+  padding-inline: var(--m32px);
+}
