@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerUserHandler,
-  loginUserHandler,
-  getUserHandler,
-  refreshTokenHandler,
-  updateUserHandler,
-  deleteUserHandler,
+  registerUser,
+  loginUser,
+  getUser,
+  refreshToken,
+  updateUser,
+  deleteUser,
   logoutUser,
 } = require("../controllers/userController");
 
@@ -16,13 +16,13 @@ const {
   loginInputs,
 } = require("../middlewares/validateInputs");
 
-router.post("/api/register", registationInputs, registerUserHandler);
-router.post("/api/login", loginInputs, loginUserHandler);
-router.post("/api/refresh", refreshTokenHandler);
+router.post("/api/register", registationInputs, registerUser);
+router.post("/api/login", loginInputs, loginUser);
+router.post("/api/refresh", refreshToken);
 
-router.get("/api/user", protect, getUserHandler);
-router.put("/api/user", protect, registationInputs, updateUserHandler);
-router.post("/api/user", protect, logoutUser);
-router.delete("/api/user", protect, deleteUserHandler);
+router.get("/api/user", protect, getUser);
+router.put("/api/user", protect, registationInputs, updateUser);
+router.delete("/api/user", protect, deleteUser);
+router.post("/api/user/logout", protect, logoutUser);
 
 module.exports = router;

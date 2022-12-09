@@ -1,19 +1,19 @@
 const createHttpError = require("http-errors");
 const {
-  registerUser,
-  loginUser,
-  refreshToken,
-  getUser,
-  updateUser,
-  deleteUser,
+  registerUserService,
+  loginUserService,
+  refreshTokenService,
+  getUserService,
+  updateUserService,
+  deleteUserService,
 } = require("../services/userServices");
 
 // @desc Register new user
-// @route POST /register
+// @route POST /api/register
 // @access Public
-const registerUserHandler = async (req, res, next) => {
+const registerUser = async (req, res, next) => {
   try {
-    await registerUser(req.body);
+    await registerUserService(req.body);
 
     res.status(201).end();
   } catch (error) {
@@ -22,11 +22,13 @@ const registerUserHandler = async (req, res, next) => {
 };
 
 // @desc Authenticate user
-// @route POST /login
+// @route POST /api/login
 // @access Public
-const loginUserHandler = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   try {
-    const { refreshToken, accessToken, id } = await loginUser(req.body.email);
+    const { refreshToken, accessToken, id } = await loginUserService(
+      req.body.email
+    );
 
     // Assign refresh token in http-only cookie
     // to prevent it from being exposed to client-side
@@ -42,11 +44,11 @@ const loginUserHandler = async (req, res, next) => {
 };
 
 // @desc Authenticate user
-// @route GET /user
+// @route GET /api/user
 // @access Private
-const getUserHandler = async (req, res, next) => {
+const getUser = async (req, res, next) => {
   try {
-    const user = await getUser(req.user.id);
+    const user = await getUserService(req.user.id);
 
     res.status(200).json(user);
   } catch (error) {
@@ -55,14 +57,14 @@ const getUserHandler = async (req, res, next) => {
 };
 
 // @desc Generate new token
-// @route POST /refresh
+// @route POST /api/refresh
 // @access Public
-const refreshTokenHandler = async (req, res, next) => {
+const refreshToken = async (req, res, next) => {
   try {
     if (req.cookies?.jwt) {
       const refToken = req.cookies.jwt;
 
-      const newAccessToken = await refreshToken(refToken);
+      const newAccessToken = await refreshTokenService(refToken);
 
       res.status(200).json(newAccessToken);
     } else {
@@ -74,11 +76,11 @@ const refreshTokenHandler = async (req, res, next) => {
 };
 
 // @desc Update user
-// @route PUT /user
+// @route PUT /api/user
 // @access Private
-const updateUserHandler = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   try {
-    await updateUser(req.body, req.user.id);
+    await updateUserService(req.body, req.user.id);
 
     res.status(204).end();
   } catch (error) {
@@ -87,11 +89,11 @@ const updateUserHandler = async (req, res, next) => {
 };
 
 // @desc Delete user
-// @route POST /user
+// @route POST /api/user
 // @access Private
-const deleteUserHandler = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   try {
-    await deleteUser(req.user.id);
+    await deleteUserService(req.user.id);
 
     res.status(204).end();
   } catch (error) {
@@ -100,23 +102,23 @@ const deleteUserHandler = async (req, res, next) => {
 };
 
 // @desc Logout user
-// @route GET /user
+// @route GET /api/user/logout
 // @access Private
 const logoutUser = async (req, res, next) => {
   try {
     res.clearCookie("jwt", { httpOnly: true, sameSite: "none" });
     res.status(204).end();
   } catch (error) {
-    next(createHttpError(500, error.message));
+    next(createHttpError(error));
   }
 };
 
 module.exports = {
-  registerUserHandler,
-  loginUserHandler,
-  getUserHandler,
-  refreshTokenHandler,
+  registerUser,
+  loginUser,
+  getUser,
+  refreshToken,
   logoutUser,
-  deleteUserHandler,
-  updateUserHandler,
+  deleteUser,
+  updateUser,
 };
