@@ -14,7 +14,7 @@ const validateTransaction = [
   body("date")
     .notEmpty()
     .withMessage("Transaction date is required")
-    .isDate()
+    .isDate({ format: "YYYY-MM-DDTHH:mm:ss. sssZ" })
     .withMessage("Transaction date must be a date"),
   body("budget")
     .if(body("type").equals("expense"))

@@ -31,7 +31,7 @@ const validateBudget = [
   body("date")
     .notEmpty()
     .withMessage("Transaction date is required")
-    .isDate()
+    .isDate({ format: "YYYY-MM-DDTHH:mm:ss. sssZ" })
     .withMessage("Transaction date must be a date"),
   (req, res, next) => {
     const errors = validationResult(req);
