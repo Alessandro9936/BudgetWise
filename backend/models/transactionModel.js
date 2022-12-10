@@ -7,7 +7,7 @@ const transactionSchema = new schema({
   amount: { type: Number },
   description: { type: String },
   date: { type: Date },
-  budget: { type: String },
+  budget: { type: schema.Types.ObjectId, ref: "Budget" },
   state: { type: String, enum: ["paid", "topay", "upcoming"] },
 });
 
