@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const { REFRESH_TOKEN_SECRET } = process.env;
 
-const registerUser = async (body) => {
+const registerUserService = async (body) => {
   try {
     const newUser = await User.create(body);
     return newUser;
@@ -11,7 +11,7 @@ const registerUser = async (body) => {
   }
 };
 
-const loginUser = async (email) => {
+const loginUserService = async (email) => {
   try {
     const user = await User.findOne({ email });
 
@@ -28,7 +28,7 @@ const loginUser = async (email) => {
   }
 };
 
-const refreshToken = async (refreshToken) => {
+const refreshTokenService = async (refreshToken) => {
   try {
     const newAccessToken = jwt.verify(
       refreshToken,
@@ -47,7 +47,7 @@ const refreshToken = async (refreshToken) => {
   }
 };
 
-const getUser = async (id) => {
+const getUserService = async (id) => {
   try {
     const user = await User.findById(id).select("-password");
     return user;
@@ -56,7 +56,7 @@ const getUser = async (id) => {
   }
 };
 
-const updateUser = async (body, id) => {
+const updateUserService = async (body, id) => {
   try {
     let user = await User.findById(id);
     const properties = Object.keys(body);
@@ -78,7 +78,7 @@ const updateUser = async (body, id) => {
   }
 };
 
-const deleteUser = async (id) => {
+const deleteUserService = async (id) => {
   try {
     const deletedUser = await User.findByIdAndDelete(id);
     return deletedUser;
@@ -88,10 +88,10 @@ const deleteUser = async (id) => {
 };
 
 module.exports = {
-  registerUser,
-  loginUser,
-  refreshToken,
-  getUser,
-  updateUser,
-  deleteUser,
+  registerUserService,
+  loginUserService,
+  refreshTokenService,
+  getUserService,
+  updateUserService,
+  deleteUserService,
 };
