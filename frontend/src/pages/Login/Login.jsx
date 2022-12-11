@@ -7,6 +7,7 @@ import { useMutation } from "react-query";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import { setAccessToken } from "../../utils/accessToken";
 
 const initialValues = {
   email: "",
@@ -18,7 +19,7 @@ export function Login() {
     return axios.post("/api/login", values);
   });
 
-  const { setUser } = useContext(UserContext);
+  //const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   return (
@@ -29,9 +30,11 @@ export function Login() {
         mutation.mutate(values, {
           onSuccess: async (data) => {
             if (data.status === 200 && data.data) {
-              setUser(data.data);
-              navigate("/dashboard");
+              const { accessToken } = data.data;
+              //setUser({ id, accessToken });
+              setAccessToken(accessToken);
               setSubmitting(false);
+              navigate("/app/dashboard");
             }
           },
           onError: (error) => {
