@@ -1,0 +1,28 @@
+.form-success {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: var(--m8px);
+}
+
+.redirect-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--green);
+  border-radius: var(--border5);
+}
+
+.redirect-container p:first-of-type {
+  color: white;
+  font-weight: 600;
+}
+.redirect-container p:last-of-type {
+  color: white;
+  font-weight: 400;
+}
+.form-success button {
+  width: fit-content;
+  padding-inline: var(--m32px);
+}
