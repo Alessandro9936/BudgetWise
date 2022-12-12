@@ -1,0 +1,9 @@
+.form-buttons {
+  display: flex;
+  grid-column: 2 /3;
+  gap: var(--m8px);
+}
+.form-buttons button {
+  width: fit-content;
+  padding-inline: var(--m32px);
+}
