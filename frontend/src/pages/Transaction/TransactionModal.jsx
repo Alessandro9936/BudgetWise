@@ -3,7 +3,6 @@ import Modal from "../../components/Utilities/Modal";
 
 import classes from "./TransactionModal.module.css";
 
-import * as yup from "yup";
 import { useState } from "react";
 import FormikControl from "../../components/Utilities/FormikControl";
 import { ChevronRight, XCircle } from "react-feather";
@@ -11,23 +10,17 @@ import { Button } from "../../components/UI/Button";
 import { ButtonRedirect } from "../../components/UI/ButtonRedirect";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
+import { useBudgets } from "../../context/budgetsContenxt";
+import { useMemo } from "react";
+import { isSameMonth } from "date-fns";
+import { Loader } from "../../components/UI/Loader";
+import { initialValues, transactionSchema } from "./utils/transactionSchema";
+import { useCloseModal } from "../../hooks/useCloseModal";
 
-const transactionSchema = yup.object().shape({
-  type: yup.string().oneOf(["expense", "income"]).required("Type is required"),
-  amount: yup.number().required("Amount is required"),
-  date: yup.date().required("Date is required"),
-  budget: yup.string().when("type", {
-    is: (type) => type === "expense",
-    then: yup.string().required("Insert budget of this expense"),
-  }),
-  state: yup.string().when("type", {
-    is: (type) => type === "expense",
-    then: yup
-      .string()
-      .oneOf(["paid", "topay"])
-      .required("Insert state to this transaction"),
-  }),
-});
+import { SuccessRedirect } from "../../components/UI/SuccessRedirect";
+import { FormikActionButtons } from "../../components/UI/FormikActionButtons";
 
 const Field = ({ children, label, handleActiveDropdown, activeDropdown }) => {
   const { errors, touched } = useFormikContext();
@@ -58,27 +51,34 @@ const Field = ({ children, label, handleActiveDropdown, activeDropdown }) => {
 };
 
 export default function TransactionModal() {
+  useCloseModal();
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { budgetsState } = useBudgets();
+
+  const [activeDate, setActiveDate] = useState(new Date());
+
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useMutation((values) =>
+    axiosPrivate.post("/api/transactions", values)
+  );
+
   const navigate = useNavigate();
   const [transactionType, setTransactionType] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
-  useEffect(() => {
-    function handleEscape(e) {
-      if (e.code === "Escape") navigate("..");
-    }
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
-
-  const initialValues = {
-    type: "",
-    amount: "",
-    budget: "",
-    state: "",
-    date: new Date(),
-    description: "",
-  };
+  const budgetsInActiveDate = useMemo(() => {
+    return budgetsState.reduce((acc, cur) => {
+      if (isSameMonth(cur.date, activeDate)) {
+        acc = [...acc, { key: cur.name, value: cur._id }];
+      }
+      return acc;
+    }, []);
+  }, [activeDate.getMonth()]);
 
   const handleActiveDropdown = (value) =>
     value !== activeDropdown
@@ -90,8 +90,21 @@ export default function TransactionModal() {
       <Formik
         initialValues={initialValues}
         validationSchema={transactionSchema}
-        onSubmit={(values, { setSubmitting, setFieldErrors }) => {
-          console.log(values);
+        onSubmit={(values, { setSubmitting, setFieldError }) => {
+          mutate(values, {
+            onSuccess: (data) => {
+              if (data.status === 201) {
+                queryClient.invalidateQueries(["user-transactions"]);
+                setSubmitting(false);
+                setIsSubmitted(true);
+              }
+            },
+            onError: (error) => {
+              const { param: field, msg: message } = error.response.data[0];
+              setFieldError(field, message);
+              setSubmitting(false);
+            },
+          });
         }}
       >
         {(formik) => (
@@ -109,6 +122,15 @@ export default function TransactionModal() {
               />
             </div>
             <div className={classes["form-grid"]}>
+              <div className={classes["form-date"]}>
+                <FormikControl
+                  control="date"
+                  name="date"
+                  calendarProps={{ minDetail: "year" }}
+                  setActiveDate={setActiveDate}
+                  disabled={formik.isSubmitting}
+                />
+              </div>
               <Field
                 activeDropdown={activeDropdown}
                 label="type"
@@ -124,7 +146,7 @@ export default function TransactionModal() {
                       { key: "Income", value: "income" },
                       { key: "Expense", value: "expense" },
                     ]}
-                    disabled={formik.isSubmitting ? true : false}
+                    disabled={formik.isSubmitting}
                   />
                 )}
               </Field>
@@ -138,7 +160,7 @@ export default function TransactionModal() {
                     control="input"
                     name="amount"
                     type="number"
-                    disabled={formik.isSubmitting ? true : false}
+                    disabled={formik.isSubmitting}
                   />
                 )}
               </Field>
@@ -155,20 +177,8 @@ export default function TransactionModal() {
                         control="radio"
                         label="Budget"
                         name="budget"
-                        options={[
-                          { key: "Rent", value: "rent" },
-                          { key: "Groceries", value: "groceries" },
-                          { key: "Bills", value: "bills" },
-                          { key: "Transport", value: "transport" },
-                          { key: "Education", value: "education" },
-                          { key: "Fitness", value: "health&fitness" },
-                          { key: "Personal care", value: "personalcare" },
-                          { key: "Shopping", value: "shopping" },
-                          { key: "Entertainment", value: "entertainment" },
-                          { key: "Travelling", value: "travelling" },
-                          { key: "Others", value: "others" },
-                        ]}
-                        disabled={formik.isSubmitting ? true : false}
+                        options={budgetsInActiveDate}
+                        disabled={formik.isSubmitting}
                       />
                     )}
                   </Field>
@@ -186,21 +196,13 @@ export default function TransactionModal() {
                           { key: "Paid", value: "paid" },
                           { key: "To pay", value: "topay" },
                         ]}
-                        disabled={formik.isSubmitting ? true : false}
+                        disabled={formik.isSubmitting}
                       />
                     )}
                   </Field>
                 </>
               )}
 
-              <div className={classes["form-date"]}>
-                <FormikControl
-                  control="date"
-                  name="date"
-                  calendarProps={{ minDetail: "year" }}
-                  disabled={formik.isSubmitting ? true : false}
-                />
-              </div>
               <div className={classes["form-description"]}>
                 <FormikControl
                   control="textarea"
@@ -208,13 +210,14 @@ export default function TransactionModal() {
                   name="description"
                   id="description"
                   maxLength="50"
-                  disabled={formik.isSubmitting ? true : false}
+                  disabled={formik.isSubmitting}
                 />
               </div>
-              <div className={classes["form-buttons"]}>
-                <Button type="submit">Submit</Button>
-                <ButtonRedirect redirectLink={".."}>Go back</ButtonRedirect>
-              </div>
+              {!isSubmitted && (
+                <FormikActionButtons isSubmitting={formik.isSubmitting} />
+              )}
+
+              {isSubmitted && <SuccessRedirect isSubmitted={isSubmitted} />}
             </div>
           </Form>
         )}

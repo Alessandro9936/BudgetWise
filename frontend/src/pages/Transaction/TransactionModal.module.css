@@ -71,13 +71,3 @@
   align-items: flex-start;
   gap: var(--m8px);
 }
-
-.form-buttons {
-  display: flex;
-  margin-left: auto;
-  gap: var(--m8px);
-}
-.form-buttons button {
-  width: fit-content;
-  padding-inline: var(--m32px);
-}

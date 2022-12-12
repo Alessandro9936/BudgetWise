@@ -1,7 +1,7 @@
 import { Calendar } from "react-calendar";
 import { ErrorMessage, Field } from "formik";
 
-export function DatePicker({ name, calendarProps, ...props }) {
+export function DatePicker({ name, calendarProps, setActiveDate, ...props }) {
   return (
     <>
       <Field name={name}>
@@ -10,7 +10,10 @@ export function DatePicker({ name, calendarProps, ...props }) {
           return (
             <Calendar
               {...calendarProps}
-              onChange={(date) => setFieldValue(name, date)}
+              onChange={(date) => {
+                setActiveDate(date);
+                setFieldValue(name, date);
+              }}
             />
           );
         }}
