@@ -21,8 +21,12 @@ import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
 import BudgetModal from "./pages/Budget/BudgetModal";
+import { TransactionProvider } from "./context/transactionsContext";
+import { BudgetProvider } from "./context/budgetsContenxt";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
 
 const router = createBrowserRouter([
   {
@@ -82,9 +86,13 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <TransactionProvider>
+        <BudgetProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </BudgetProvider>
+      </TransactionProvider>
     </UserProvider>
   </React.StrictMode>
 );
