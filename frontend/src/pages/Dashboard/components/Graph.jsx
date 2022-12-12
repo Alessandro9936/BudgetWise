@@ -15,13 +15,11 @@ import Card from "../../../components/UI/Card";
 
 import classes from "./Graph.module.css";
 
-import { transactionMapped } from "../../../../data/data";
-
 import { getDataYears, getDataMonths, getDataWeeks } from "../utils/graphData";
 import { useActiveDates } from "../../hooks/useActiveDates";
 import { DateBar } from "../../../components/UI/DateBar";
 
-export function Graph() {
+export function Graph({ transactionMapped }) {
   const {
     updateActiveDate,
     updateActiveTimeSpan,

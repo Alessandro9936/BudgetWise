@@ -11,7 +11,7 @@ export function TransactionPopup({ coords, transactions }) {
       }}
     >
       {transactions.map((transaction) => (
-        <li className={classes.transaction} key={transaction.id}>
+        <li className={classes.transaction} key={transaction._id}>
           <p>{transaction.description}</p>
           <p>
             Type: <span className={classes.property}>{transaction.type}</span>
@@ -23,7 +23,9 @@ export function TransactionPopup({ coords, transactions }) {
           {transaction?.type === "expense" && (
             <p>
               Budget:{" "}
-              <span className={classes.property}>{transaction.budget}</span>
+              <span className={classes.property}>
+                {transaction.budget.name}
+              </span>
             </p>
           )}
         </li>

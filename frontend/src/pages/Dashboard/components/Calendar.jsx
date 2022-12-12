@@ -1,14 +1,12 @@
 import { TransactionPopup } from "./TransactionPopup";
-import React, { useState } from "react";
 import Card from "../../../components/UI/Card";
 import Calendar from "react-calendar";
 
 import "../../../components/styles/Calendar.css";
 import { isSameDay } from "date-fns";
+import { useState } from "react";
 
-import { transactionMapped } from "../../../../data/data";
-
-export function CalendarDashboard() {
+export function CalendarDashboard({ transactionMapped }) {
   const [previewVisibility, setPreviewVisibility] = useState(false);
   const [transactionsPreview, setTransactionsPreview] = useState([]);
   const [previewModalCoords, setPreviewModalCoords] = useState(null);
@@ -46,7 +44,7 @@ export function CalendarDashboard() {
               if (isSameDay(date, transaction.date) && view === "month") {
                 return (
                   <span
-                    key={transaction.id}
+                    key={transaction._id}
                     className={`calendar-transaction ${
                       transaction.type === "income" ? "income" : "expense"
                     }`}

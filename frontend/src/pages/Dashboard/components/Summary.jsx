@@ -2,9 +2,7 @@ import React from "react";
 import Card from "../../../components/UI/Card";
 import classes from "./Summary.module.css";
 
-import { transactionMapped } from "../../../../data/data";
-
-export function Summary() {
+export function Summary({ transactionMapped }) {
   const amounts = transactionMapped.reduce(
     (acc, cur) => {
       cur.type === "income"

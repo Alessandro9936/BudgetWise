@@ -4,14 +4,13 @@ import Card from "../../../components/UI/Card";
 import classes from "./Activity.module.css";
 import { Link } from "react-router-dom";
 
-import { transactionMapped } from "../../../../data/data";
 import { Button } from "../../../components/UI/Button";
 import { ButtonRedirect } from "../../../components/UI/ButtonRedirect";
 
-export function Activity() {
-  const last8Transactions = transactionMapped
+export function Activity({ transactionMapped }) {
+  const last9Transactions = transactionMapped
     .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, 8);
+    .slice(0, 9);
 
   return (
     <section className={classes.activity}>
@@ -19,9 +18,9 @@ export function Activity() {
 
       <Card>
         <ul className={classes["transactions-list"]}>
-          {last8Transactions.map((transaction) => (
+          {last9Transactions.map((transaction) => (
             <li
-              key={transaction.id}
+              key={transaction._id}
               className={classes["transaction-container"]}
             >
               <div className={classes["transaction-top"]}>
@@ -57,7 +56,7 @@ export function Activity() {
             <Link to={"transaction"}>
               <Button>New transaction</Button>
             </Link>
-            <ButtonRedirect redirectLink="/app/invoices">
+            <ButtonRedirect redirectLink="../invoices">
               All transactions
             </ButtonRedirect>
           </div>
