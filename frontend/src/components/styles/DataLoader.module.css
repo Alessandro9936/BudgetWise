@@ -1,0 +1,33 @@
+.loading-text {
+  font-size: 1.2rem;
+  color: var(--gray-text);
+  font-weight: 600;
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  background: #fff;
+  box-shadow: -24px 0 #fff, 24px 0 #fff;
+  box-sizing: border-box;
+  animation: shadowPulse 1s linear infinite;
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: #fff;
+    box-shadow: -24px 0 var(--secondary), 24px 0 #fff;
+  }
+  66% {
+    background: var(--secondary);
+    box-shadow: -24px 0 #fff, 24px 0 #fff;
+  }
+  100% {
+    background: #fff;
+    box-shadow: -24px 0 #fff, 24px 0 var(--secondary);
+  }
+}
