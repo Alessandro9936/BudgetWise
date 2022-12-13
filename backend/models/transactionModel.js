@@ -11,8 +11,4 @@ const transactionSchema = new schema({
   state: { type: String, enum: ["paid", "topay", "upcoming"] },
 });
 
-transactionSchema.statics.getUserTransactions = function (userID) {
-  return this.find({ user: userID });
-};
-
 module.exports = mongoose.model("Transaction", transactionSchema);

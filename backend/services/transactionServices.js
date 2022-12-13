@@ -1,9 +1,25 @@
 const Transaction = require("../models/transactionModel");
+const Budget = require("../models/budgetModel");
+const { isSameYear, isSameMonth } = require("date-fns");
 
-const userTransactionsService = async (userID) => {
+const userTransactionsService = async (userID, query) => {
   try {
-    const userTransactions = await Transaction.getUserTransactions(userID);
-    return userTransactions;
+    const { date, sort, ...filters } = query;
+
+    let transactions = await Transaction.find({
+      user: userID,
+      ...filters,
+    }).sort(sort);
+
+    if (date) {
+      transactions = transactions.filter((transaction) =>
+        Number(date)
+          ? isSameYear(new Date(transaction.date), new Date(date))
+          : isSameMonth(new Date(transaction.date), new Date(date))
+      );
+    }
+
+    return transactions;
   } catch (error) {
     throw new Error(error);
   }
@@ -22,6 +38,7 @@ const newTransactionService = async (req) => {
     if (transaction.type === "expense") {
       transaction.budget = req.body.budget;
       transaction.state = req.body.state;
+      Budget.addExpenseToBudget(req.body.budget, req.body.amount);
     }
 
     await transaction.save();
