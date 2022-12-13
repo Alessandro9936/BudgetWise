@@ -13,4 +13,10 @@ budgetSchema.statics.getUserBudgets = function (userID) {
   return this.find({ user: userID });
 };
 
+budgetSchema.statics.addExpenseToBudget = async function (budgetID, amount) {
+  const budget = await this.findById(budgetID);
+  budget.usedAmount += amount;
+  await budget.save();
+};
+
 module.exports = mongoose.model("Budget", budgetSchema);
