@@ -11,29 +11,11 @@ const validateTransaction = [
     .withMessage("Transaction amount is required")
     .isNumeric()
     .withMessage("Transaction amount must be a number"),
-  body("date")
-    .notEmpty()
-    .withMessage("Transaction date is required")
-    .isDate({ format: "YYYY-MM-DDTHH:mm:ss. sssZ" })
-    .withMessage("Transaction date must be a date"),
+  body("date").notEmpty().withMessage("Transaction date is required"),
   body("budget")
     .if(body("type").equals("expense"))
     .notEmpty()
-    .withMessage("Expense budget must be defined")
-    .isIn([
-      "rent",
-      "groceries",
-      "bills",
-      "transport",
-      "education",
-      "health&fitness",
-      "personalcare",
-      "shopping",
-      "entertainment",
-      "travelling",
-      "others",
-    ])
-    .withMessage("Indicated budget is not provided"),
+    .withMessage("Expense budget must be defined"),
   body("state")
     .if(body("type").equals("expense"))
     .notEmpty()
