@@ -18,12 +18,17 @@ export const SuccessRedirect = (isSubmitted) => {
     }
   }, [isSubmitted]);
 
+  useEffect(() => {
+    if (secondsRedirect === 0 && isSubmitted) {
+      navigate("..");
+    }
+  }, [secondsRedirect]);
+
   return (
     <div className={classes["form-success"]}>
       <div className={classes["redirect-container"]}>
         <p>Transaction successfully created!</p>
         <p>You'll be redirected in {secondsRedirect} seconds</p>
-        {secondsRedirect === 0 && navigate("..")}
       </div>
       <ButtonRedirect redirectLink={".."}>Go back</ButtonRedirect>
     </div>
