@@ -7,22 +7,20 @@ import { Graph } from "./components/Graph";
 import { Summary } from "./components/Summary";
 
 import classes from "./Dashboard.module.css";
-import { useTranctions } from "../../context/transactionsContext";
+import { useGetTransactions } from "../../utils/queryTransactions";
 
 export default function Dashboard() {
-  const { transactionState } = useTranctions();
-
-  const transactionIsEmpty = transactionState.length === 0;
+  const { data, isLoading } = useGetTransactions();
 
   return (
     <ContentGrid gridAreas={classes["dashboard-areas"]}>
-      {transactionIsEmpty && <DataLoader />}
-      {!transactionIsEmpty && (
+      {isLoading && <DataLoader />}
+      {!isLoading && data.length > 0 && (
         <>
-          <Summary transactionMapped={transactionState} />
-          <CalendarDashboard transactionMapped={transactionState} />
-          <Activity transactionMapped={transactionState} />
-          <Graph transactionMapped={transactionState} />
+          <Summary transactionMapped={data} />
+          <CalendarDashboard transactionMapped={data} />
+          <Activity transactionMapped={data} />
+          <Graph transactionMapped={data} />
           <Outlet />
         </>
       )}
