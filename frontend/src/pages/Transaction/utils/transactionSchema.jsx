@@ -1,4 +1,5 @@
 import * as yup from "yup";
+
 export const transactionSchema = yup.object().shape({
   type: yup.string().oneOf(["expense", "income"]).required("Type is required"),
   amount: yup.number().required("Amount is required"),
@@ -21,6 +22,6 @@ export const initialValues = {
   amount: "",
   budget: "",
   state: "",
-  date: new Date(),
+  date: "",
   description: "",
 };

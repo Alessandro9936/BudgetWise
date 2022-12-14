@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
-import { useBudgets } from "../../context/budgetsContenxt";
 import { useMemo } from "react";
 import { isSameMonth } from "date-fns";
 import { Loader } from "../../components/UI/Loader";
@@ -21,6 +20,7 @@ import { useCloseModal } from "../../hooks/useCloseModal";
 
 import { SuccessRedirect } from "../../components/UI/SuccessRedirect";
 import { FormikActionButtons } from "../../components/UI/FormikActionButtons";
+import { useGetBudgets } from "../../utils/queryBudget";
 
 const Field = ({ children, label, handleActiveDropdown, activeDropdown }) => {
   const { errors, touched } = useFormikContext();
@@ -57,8 +57,6 @@ export default function TransactionModal() {
 
   const queryClient = useQueryClient();
 
-  const { budgetsState } = useBudgets();
-
   const [activeDate, setActiveDate] = useState(new Date());
 
   const axiosPrivate = useAxiosPrivate();
@@ -71,8 +69,10 @@ export default function TransactionModal() {
   const [transactionType, setTransactionType] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(null);
 
+  const { data } = useGetBudgets();
+
   const budgetsInActiveDate = useMemo(() => {
-    return budgetsState.reduce((acc, cur) => {
+    return data.reduce((acc, cur) => {
       if (isSameMonth(cur.date, activeDate)) {
         acc = [...acc, { key: cur.name, value: cur._id }];
       }
