@@ -8,9 +8,9 @@ import { Button } from "../../../components/UI/Button";
 import { ButtonRedirect } from "../../../components/UI/ButtonRedirect";
 
 export function Activity({ transactionMapped }) {
-  const last9Transactions = transactionMapped
+  const last8Transactions = transactionMapped
     .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, 9);
+    .slice(0, 8);
 
   return (
     <section className={classes.activity}>
@@ -18,19 +18,21 @@ export function Activity({ transactionMapped }) {
 
       <Card>
         <ul className={classes["transactions-list"]}>
-          {last9Transactions.map((transaction) => (
+          {last8Transactions.map((transaction) => (
             <li
               key={transaction._id}
               className={classes["transaction-container"]}
             >
               <div className={classes["transaction-top"]}>
                 <p className={classes.description}>{transaction.description}</p>
-                <MoreHorizontal
-                  style={{
-                    color: "var(--primary)",
-                    cursor: "pointer",
-                  }}
-                />
+                <Link to={`transaction/${transaction._id}`}>
+                  <MoreHorizontal
+                    style={{
+                      color: "var(--primary)",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Link>
               </div>
               <div className={classes["transaction-bot"]}>
                 <p className={classes.date}>
