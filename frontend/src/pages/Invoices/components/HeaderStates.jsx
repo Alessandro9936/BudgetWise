@@ -4,9 +4,7 @@ import classes from "./HeaderStates.module.css";
 import Card from "../../../components/UI/Card";
 import { FileText } from "react-feather";
 
-import { transactionMapped } from "../../../../data/data";
-
-export function HeaderStates() {
+export function HeaderStates({ transactionMapped }) {
   const statesNumber = transactionMapped
     .filter((transaction) => transaction.type === "expense")
     .reduce(
@@ -14,7 +12,7 @@ export function HeaderStates() {
         acc[cur.state]++;
         return acc;
       },
-      { Paid: 0, "To pay": 0, Upcoming: 0 }
+      { paid: 0, topay: 0, upcoming: 0 }
     );
   return (
     <section className={classes["header-states"]}>
@@ -30,7 +28,7 @@ export function HeaderStates() {
             }}
           />
           <div className={classes["state-info"]}>
-            <p>{statesNumber.Paid}</p>
+            <p>{statesNumber.paid}</p>
             <p>Paid</p>
           </div>
         </div>
@@ -44,7 +42,7 @@ export function HeaderStates() {
             }}
           />
           <div className={classes["state-info"]}>
-            <p>{statesNumber["To pay"]}</p>
+            <p>{statesNumber.topay}</p>
             <p>To pay</p>
           </div>
         </div>
@@ -58,7 +56,7 @@ export function HeaderStates() {
             }}
           />
           <div className={classes["state-info"]}>
-            <p>{statesNumber.Upcoming}</p>
+            <p>{statesNumber.upcoming}</p>
             <p>Upcoming</p>
           </div>
         </div>

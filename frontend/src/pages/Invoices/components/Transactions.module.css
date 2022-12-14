@@ -24,7 +24,7 @@
   overflow: hidden;
 }
 
-.transactions div:first-of-type {
+.transactions > div:first-of-type {
   display: flex;
   flex-direction: column;
   gap: var(--m24px);
@@ -79,6 +79,10 @@
 .list-header,
 .transaction {
   margin-inline: var(--m8px);
+}
+
+.list-header {
+  margin-top: var(--m16px);
 }
 
 .red {
