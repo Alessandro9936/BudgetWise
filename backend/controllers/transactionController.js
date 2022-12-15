@@ -13,16 +13,8 @@ const {
 // @access Private
 const userTransactions = async (req, res, next) => {
   try {
-    let query = {};
-
-    for ([key, value] of Object.entries(req.query)) {
-      if (value) {
-        query = { ...query, [key]: value };
-      }
-    }
-
     const { id: userID } = req.user;
-    const transactions = await userTransactionsService(userID, query);
+    const transactions = await userTransactionsService(userID, req.query);
 
     res.status(200).json(transactions);
   } catch (error) {

@@ -12,6 +12,8 @@ import { useGetTransactions } from "../../utils/queryTransactions";
 export default function Dashboard() {
   const { data, isLoading } = useGetTransactions();
 
+  console.log(data);
+
   return (
     <ContentGrid gridAreas={classes["dashboard-areas"]}>
       {isLoading && <DataLoader />}

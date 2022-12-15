@@ -1,0 +1,4312 @@
+{
+  "transactions": [
+    {
+      "id": 18621,
+      "user": 348972,
+      "type": "expense",
+      "amount": 201,
+      "date": "2022-12-29T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Upcoming"
+    },
+    {
+      "id": 14499,
+      "user": 348972,
+      "type": "income",
+      "amount": 679,
+      "date": "2022-12-26T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 43386,
+      "user": 348972,
+      "type": "expense",
+      "amount": 289,
+      "date": "2022-12-25T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "To pay"
+    },
+    {
+      "id": 47911,
+      "user": 348972,
+      "type": "expense",
+      "amount": 717,
+      "date": "2022-12-24T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 46897,
+      "user": 348972,
+      "type": "income",
+      "amount": 545,
+      "date": "2022-12-11T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 27290,
+      "user": 348972,
+      "type": "income",
+      "amount": 792,
+      "date": "2022-11-29T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 19382,
+      "user": 348972,
+      "type": "income",
+      "amount": 106,
+      "date": "2022-11-28T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 39536,
+      "user": 348972,
+      "type": "expense",
+      "amount": 194,
+      "date": "2022-11-28T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "To pay"
+    },
+    {
+      "id": 27335,
+      "user": 348972,
+      "type": "income",
+      "amount": 815,
+      "date": "2022-11-27T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 49222,
+      "user": 348972,
+      "type": "expense",
+      "amount": 646,
+      "date": "2022-11-25T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "To pay"
+    },
+    {
+      "id": 16081,
+      "user": 348972,
+      "type": "expense",
+      "amount": 36,
+      "date": "2022-11-24T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "To pay"
+    },
+    {
+      "id": 40948,
+      "user": 348972,
+      "type": "income",
+      "amount": 106,
+      "date": "2022-11-23T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 48444,
+      "user": 348972,
+      "type": "expense",
+      "amount": 682,
+      "date": "2022-11-22T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Upcoming"
+    },
+    {
+      "id": 24278,
+      "user": 348972,
+      "type": "income",
+      "amount": 373,
+      "date": "2022-11-21T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 16704,
+      "user": 348972,
+      "type": "income",
+      "amount": 500,
+      "date": "2022-11-20T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 29832,
+      "user": 348972,
+      "type": "expense",
+      "amount": 989,
+      "date": "2022-11-16T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Paid"
+    },
+    {
+      "id": 32365,
+      "user": 348972,
+      "type": "expense",
+      "amount": 868,
+      "date": "2022-11-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Upcoming"
+    },
+    {
+      "id": 44122,
+      "user": 348972,
+      "type": "income",
+      "amount": 971,
+      "date": "2022-11-09T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 37570,
+      "user": 348972,
+      "type": "expense",
+      "amount": 836,
+      "date": "2022-11-05T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Upcoming"
+    },
+    {
+      "id": 10020,
+      "user": 348972,
+      "type": "expense",
+      "amount": 987,
+      "date": "2022-11-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Upcoming"
+    },
+    {
+      "id": 23306,
+      "user": 348972,
+      "type": "expense",
+      "amount": 749,
+      "date": "2022-10-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "To pay"
+    },
+    {
+      "id": 8724,
+      "user": 348972,
+      "type": "income",
+      "amount": 771,
+      "date": "2022-10-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 19835,
+      "user": 348972,
+      "type": "income",
+      "amount": 538,
+      "date": "2022-10-02T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 49470,
+      "user": 348972,
+      "type": "expense",
+      "amount": 754,
+      "date": "2022-09-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 17579,
+      "user": 348972,
+      "type": "income",
+      "amount": 423,
+      "date": "2022-09-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 32237,
+      "user": 348972,
+      "type": "income",
+      "amount": 491,
+      "date": "2022-09-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 33525,
+      "user": 348972,
+      "type": "income",
+      "amount": 874,
+      "date": "2022-08-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 16912,
+      "user": 348972,
+      "type": "expense",
+      "amount": 469,
+      "date": "2022-08-14T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Upcoming"
+    },
+    {
+      "id": 4641,
+      "user": 348972,
+      "type": "income",
+      "amount": 135,
+      "date": "2022-08-12T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 18801,
+      "user": 348972,
+      "type": "income",
+      "amount": 273,
+      "date": "2022-07-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 16170,
+      "user": 348972,
+      "type": "income",
+      "amount": 996,
+      "date": "2022-07-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 3360,
+      "user": 348972,
+      "type": "expense",
+      "amount": 218,
+      "date": "2022-07-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Upcoming"
+    },
+    {
+      "id": 11196,
+      "user": 348972,
+      "type": "income",
+      "amount": 734,
+      "date": "2022-06-29T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 25539,
+      "user": 348972,
+      "type": "income",
+      "amount": 646,
+      "date": "2022-06-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 27839,
+      "user": 348972,
+      "type": "income",
+      "amount": 558,
+      "date": "2022-06-04T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 24570,
+      "user": 348972,
+      "type": "income",
+      "amount": 621,
+      "date": "2022-05-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 39721,
+      "user": 348972,
+      "type": "income",
+      "amount": 807,
+      "date": "2022-05-18T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 3303,
+      "user": 348972,
+      "type": "income",
+      "amount": 317,
+      "date": "2022-05-03T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 11193,
+      "user": 348972,
+      "type": "income",
+      "amount": 850,
+      "date": "2022-04-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 10431,
+      "user": 348972,
+      "type": "income",
+      "amount": 388,
+      "date": "2022-04-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 49800,
+      "user": 348972,
+      "type": "expense",
+      "amount": 545,
+      "date": "2022-03-23T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "To pay"
+    },
+    {
+      "id": 18469,
+      "user": 348972,
+      "type": "expense",
+      "amount": 779,
+      "date": "2022-03-18T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Upcoming"
+    },
+    {
+      "id": 20712,
+      "user": 348972,
+      "type": "income",
+      "amount": 724,
+      "date": "2022-03-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 16998,
+      "user": 348972,
+      "type": "income",
+      "amount": 447,
+      "date": "2022-02-26T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 36707,
+      "user": 348972,
+      "type": "expense",
+      "amount": 30,
+      "date": "2022-02-06T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Upcoming"
+    },
+    {
+      "id": 31177,
+      "user": 348972,
+      "type": "expense",
+      "amount": 312,
+      "date": "2022-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "To pay"
+    },
+    {
+      "id": 40243,
+      "user": 348972,
+      "type": "income",
+      "amount": 118,
+      "date": "2022-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 11448,
+      "user": 348972,
+      "type": "expense",
+      "amount": 209,
+      "date": "2022-01-22T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 47476,
+      "user": 348972,
+      "type": "expense",
+      "amount": 607,
+      "date": "2022-01-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Upcoming"
+    },
+    {
+      "id": 3143,
+      "user": 348972,
+      "type": "income",
+      "amount": 89,
+      "date": "2021-12-29T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 21705,
+      "user": 348972,
+      "type": "expense",
+      "amount": 44,
+      "date": "2021-12-24T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "To pay"
+    },
+    {
+      "id": 41837,
+      "user": 348972,
+      "type": "income",
+      "amount": 913,
+      "date": "2021-12-11T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 836,
+      "user": 348972,
+      "type": "expense",
+      "amount": 480,
+      "date": "2021-11-28T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "To pay"
+    },
+    {
+      "id": 33042,
+      "user": 348972,
+      "type": "income",
+      "amount": 806,
+      "date": "2021-11-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 11201,
+      "user": 348972,
+      "type": "expense",
+      "amount": 643,
+      "date": "2021-11-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Paid"
+    },
+    {
+      "id": 12641,
+      "user": 348972,
+      "type": "expense",
+      "amount": 294,
+      "date": "2021-10-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "To pay"
+    },
+    {
+      "id": 3385,
+      "user": 348972,
+      "type": "income",
+      "amount": 857,
+      "date": "2021-10-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 11840,
+      "user": 348972,
+      "type": "expense",
+      "amount": 823,
+      "date": "2021-10-02T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 7300,
+      "user": 348972,
+      "type": "income",
+      "amount": 276,
+      "date": "2021-09-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 48382,
+      "user": 348972,
+      "type": "expense",
+      "amount": 296,
+      "date": "2021-09-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Upcoming"
+    },
+    {
+      "id": 27818,
+      "user": 348972,
+      "type": "expense",
+      "amount": 96,
+      "date": "2021-09-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "Paid"
+    },
+    {
+      "id": 3840,
+      "user": 348972,
+      "type": "expense",
+      "amount": 210,
+      "date": "2021-08-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Paid"
+    },
+    {
+      "id": 23547,
+      "user": 348972,
+      "type": "expense",
+      "amount": 385,
+      "date": "2021-08-14T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Upcoming"
+    },
+    {
+      "id": 42974,
+      "user": 348972,
+      "type": "expense",
+      "amount": 805,
+      "date": "2021-08-12T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Upcoming"
+    },
+    {
+      "id": 6638,
+      "user": 348972,
+      "type": "expense",
+      "amount": 988,
+      "date": "2021-07-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "Upcoming"
+    },
+    {
+      "id": 26784,
+      "user": 348972,
+      "type": "expense",
+      "amount": 353,
+      "date": "2021-07-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Upcoming"
+    },
+    {
+      "id": 10287,
+      "user": 348972,
+      "type": "income",
+      "amount": 14,
+      "date": "2021-07-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 40911,
+      "user": 348972,
+      "type": "income",
+      "amount": 658,
+      "date": "2021-06-29T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 6356,
+      "user": 348972,
+      "type": "income",
+      "amount": 120,
+      "date": "2021-06-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 38546,
+      "user": 348972,
+      "type": "income",
+      "amount": 432,
+      "date": "2021-06-04T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 19522,
+      "user": 348972,
+      "type": "income",
+      "amount": 822,
+      "date": "2021-05-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 3878,
+      "user": 348972,
+      "type": "income",
+      "amount": 374,
+      "date": "2021-05-18T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 17431,
+      "user": 348972,
+      "type": "expense",
+      "amount": 872,
+      "date": "2021-05-03T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Paid"
+    },
+    {
+      "id": 40685,
+      "user": 348972,
+      "type": "expense",
+      "amount": 787,
+      "date": "2021-04-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 47108,
+      "user": 348972,
+      "type": "expense",
+      "amount": 796,
+      "date": "2021-04-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Upcoming"
+    },
+    {
+      "id": 35834,
+      "user": 348972,
+      "type": "expense",
+      "amount": 802,
+      "date": "2021-03-23T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "To pay"
+    },
+    {
+      "id": 45530,
+      "user": 348972,
+      "type": "expense",
+      "amount": 90,
+      "date": "2021-03-18T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "To pay"
+    },
+    {
+      "id": 11126,
+      "user": 348972,
+      "type": "income",
+      "amount": 194,
+      "date": "2021-03-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 2361,
+      "user": 348972,
+      "type": "expense",
+      "amount": 375,
+      "date": "2021-02-26T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "To pay"
+    },
+    {
+      "id": 24318,
+      "user": 348972,
+      "type": "expense",
+      "amount": 243,
+      "date": "2021-02-06T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "To pay"
+    },
+    {
+      "id": 40238,
+      "user": 348972,
+      "type": "income",
+      "amount": 824,
+      "date": "2021-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 1361,
+      "user": 348972,
+      "type": "income",
+      "amount": 644,
+      "date": "2021-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 15713,
+      "user": 348972,
+      "type": "income",
+      "amount": 333,
+      "date": "2021-01-22T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 31316,
+      "user": 348972,
+      "type": "income",
+      "amount": 126,
+      "date": "2021-01-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 22228,
+      "user": 348972,
+      "type": "income",
+      "amount": 978,
+      "date": "2020-12-29T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 24404,
+      "user": 348972,
+      "type": "expense",
+      "amount": 100,
+      "date": "2020-12-24T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 23443,
+      "user": 348972,
+      "type": "income",
+      "amount": 390,
+      "date": "2020-12-11T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 36831,
+      "user": 348972,
+      "type": "income",
+      "amount": 886,
+      "date": "2020-11-28T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 14115,
+      "user": 348972,
+      "type": "expense",
+      "amount": 80,
+      "date": "2020-11-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "Paid"
+    },
+    {
+      "id": 37249,
+      "user": 348972,
+      "type": "income",
+      "amount": 324,
+      "date": "2020-11-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 35429,
+      "user": 348972,
+      "type": "expense",
+      "amount": 621,
+      "date": "2020-10-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Upcoming"
+    },
+    {
+      "id": 5902,
+      "user": 348972,
+      "type": "expense",
+      "amount": 60,
+      "date": "2020-10-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Upcoming"
+    },
+    {
+      "id": 12024,
+      "user": 348972,
+      "type": "income",
+      "amount": 443,
+      "date": "2020-10-02T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 13987,
+      "user": 348972,
+      "type": "expense",
+      "amount": 563,
+      "date": "2020-09-23T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 41008,
+      "user": 348972,
+      "type": "expense",
+      "amount": 272,
+      "date": "2020-09-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Parking",
+      "state": "Paid"
+    },
+    {
+      "id": 46526,
+      "user": 348972,
+      "type": "expense",
+      "amount": 36,
+      "date": "2020-09-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 20942,
+      "user": 348972,
+      "type": "expense",
+      "amount": 195,
+      "date": "2020-08-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 36264,
+      "user": 348972,
+      "type": "income",
+      "amount": 497,
+      "date": "2020-08-14T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 5329,
+      "user": 348972,
+      "type": "income",
+      "amount": 94,
+      "date": "2020-08-12T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 9329,
+      "user": 348972,
+      "type": "expense",
+      "amount": 245,
+      "date": "2020-07-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Paid"
+    },
+    {
+      "id": 47079,
+      "user": 348972,
+      "type": "income",
+      "amount": 766,
+      "date": "2020-07-10T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 30034,
+      "user": 348972,
+      "type": "income",
+      "amount": 824,
+      "date": "2020-07-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 4874,
+      "user": 348972,
+      "type": "expense",
+      "amount": 443,
+      "date": "2020-06-29T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Upcoming"
+    },
+    {
+      "id": 35543,
+      "user": 348972,
+      "type": "expense",
+      "amount": 88,
+      "date": "2020-06-06T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 30495,
+      "user": 348972,
+      "type": "income",
+      "amount": 475,
+      "date": "2020-06-04T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 44539,
+      "user": 348972,
+      "type": "expense",
+      "amount": 931,
+      "date": "2020-05-26T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 49921,
+      "user": 348972,
+      "type": "income",
+      "amount": 419,
+      "date": "2020-05-18T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 11524,
+      "user": 348972,
+      "type": "expense",
+      "amount": 84,
+      "date": "2020-05-03T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "To pay"
+    },
+    {
+      "id": 18338,
+      "user": 348972,
+      "type": "expense",
+      "amount": 262,
+      "date": "2020-04-16T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Groceries",
+      "state": "Paid"
+    },
+    {
+      "id": 24337,
+      "user": 348972,
+      "type": "income",
+      "amount": 331,
+      "date": "2020-04-01T22:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 37815,
+      "user": 348972,
+      "type": "expense",
+      "amount": 889,
+      "date": "2020-03-23T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Rent",
+      "state": "Paid"
+    },
+    {
+      "id": 28461,
+      "user": 348972,
+      "type": "income",
+      "amount": 228,
+      "date": "2020-03-18T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 32259,
+      "user": 348972,
+      "type": "expense",
+      "amount": 347,
+      "date": "2020-03-02T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "Paid"
+    },
+    {
+      "id": 7786,
+      "user": 348972,
+      "type": "income",
+      "amount": 556,
+      "date": "2020-02-26T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 30135,
+      "user": 348972,
+      "type": "income",
+      "amount": 50,
+      "date": "2020-02-06T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "state": "Received"
+    },
+    {
+      "id": 37178,
+      "user": 348972,
+      "type": "expense",
+      "amount": 75,
+      "date": "2020-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Gym",
+      "state": "To pay"
+    },
+    {
+      "id": 9827,
+      "user": 348972,
+      "type": "expense",
+      "amount": 579,
+      "date": "2020-01-31T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Doctor",
+      "state": "To pay"
+    },
+    {
+      "id": 46072,
+      "user": 348972,
+      "type": "expense",
+      "amount": 43,
+      "date": "2020-01-22T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Paid"
+    },
+    {
+      "id": 25829,
+      "user": 348972,
+      "type": "expense",
+      "amount": 447,
+      "date": "2020-01-12T23:00:00.000Z",
+      "description": "Lorem is dummy",
+      "budget": "Shopping",
+      "state": "Paid"
+    }
+  ],
+  "budget": [
+    {
+      "id": 39915,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 289,
+      "usedAmount": 565
+    },
+    {
+      "id": 43845,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 683,
+      "usedAmount": 91
+    },
+    {
+      "id": 3158,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 421,
+      "usedAmount": 209
+    },
+    {
+      "id": 40364,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 388,
+      "usedAmount": 890
+    },
+    {
+      "id": 44930,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 385,
+      "usedAmount": 651
+    },
+    {
+      "id": 46259,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 522,
+      "usedAmount": 121
+    },
+    {
+      "id": 21652,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 337,
+      "usedAmount": 930
+    },
+    {
+      "id": 45173,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 425,
+      "usedAmount": 9
+    },
+    {
+      "id": 11786,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 284,
+      "usedAmount": 965
+    },
+    {
+      "id": 15409,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 256,
+      "usedAmount": 993
+    },
+    {
+      "id": 2179,
+      "user": 348972,
+      "month": "2020-01-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 972,
+      "usedAmount": 991
+    },
+    {
+      "id": 7386,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 712,
+      "usedAmount": 546
+    },
+    {
+      "id": 32182,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 834,
+      "usedAmount": 702
+    },
+    {
+      "id": 29508,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 665,
+      "usedAmount": 551
+    },
+    {
+      "id": 29354,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 424,
+      "usedAmount": 378
+    },
+    {
+      "id": 6440,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 929,
+      "usedAmount": 635
+    },
+    {
+      "id": 40327,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 760,
+      "usedAmount": 492
+    },
+    {
+      "id": 22870,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 387,
+      "usedAmount": 377
+    },
+    {
+      "id": 13436,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 578,
+      "usedAmount": 845
+    },
+    {
+      "id": 44420,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 715,
+      "usedAmount": 248
+    },
+    {
+      "id": 17241,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 659,
+      "usedAmount": 757
+    },
+    {
+      "id": 19855,
+      "user": 348972,
+      "month": "2020-02-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 849,
+      "usedAmount": 133
+    },
+    {
+      "id": 7949,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 489,
+      "usedAmount": 260
+    },
+    {
+      "id": 40729,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 481,
+      "usedAmount": 476
+    },
+    {
+      "id": 49148,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 526,
+      "usedAmount": 400
+    },
+    {
+      "id": 18638,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 701,
+      "usedAmount": 580
+    },
+    {
+      "id": 38763,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 925,
+      "usedAmount": 735
+    },
+    {
+      "id": 36763,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 436,
+      "usedAmount": 221
+    },
+    {
+      "id": 9490,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 859,
+      "usedAmount": 885
+    },
+    {
+      "id": 17193,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 818,
+      "usedAmount": 618
+    },
+    {
+      "id": 13826,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 761,
+      "usedAmount": 475
+    },
+    {
+      "id": 43433,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 558,
+      "usedAmount": 457
+    },
+    {
+      "id": 1767,
+      "user": 348972,
+      "month": "2020-03-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 301,
+      "usedAmount": 879
+    },
+    {
+      "id": 11026,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 419,
+      "usedAmount": 235
+    },
+    {
+      "id": 23362,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 239,
+      "usedAmount": 28
+    },
+    {
+      "id": 25501,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 814,
+      "usedAmount": 972
+    },
+    {
+      "id": 3801,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 764,
+      "usedAmount": 878
+    },
+    {
+      "id": 2048,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 646,
+      "usedAmount": 922
+    },
+    {
+      "id": 16896,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 602,
+      "usedAmount": 845
+    },
+    {
+      "id": 43395,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 696,
+      "usedAmount": 25
+    },
+    {
+      "id": 34756,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 574,
+      "usedAmount": 468
+    },
+    {
+      "id": 31000,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 428,
+      "usedAmount": 165
+    },
+    {
+      "id": 2776,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 535,
+      "usedAmount": 35
+    },
+    {
+      "id": 9649,
+      "user": 348972,
+      "month": "2020-04-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 350,
+      "usedAmount": 54
+    },
+    {
+      "id": 5030,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 389,
+      "usedAmount": 545
+    },
+    {
+      "id": 11772,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 542,
+      "usedAmount": 799
+    },
+    {
+      "id": 30749,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 580,
+      "usedAmount": 597
+    },
+    {
+      "id": 37464,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 890,
+      "usedAmount": 198
+    },
+    {
+      "id": 38496,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 268,
+      "usedAmount": 817
+    },
+    {
+      "id": 752,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 539,
+      "usedAmount": 775
+    },
+    {
+      "id": 35110,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 852,
+      "usedAmount": 292
+    },
+    {
+      "id": 8736,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 699,
+      "usedAmount": 602
+    },
+    {
+      "id": 5489,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 484,
+      "usedAmount": 947
+    },
+    {
+      "id": 246,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 263,
+      "usedAmount": 531
+    },
+    {
+      "id": 7418,
+      "user": 348972,
+      "month": "2020-05-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 357,
+      "usedAmount": 868
+    },
+    {
+      "id": 32655,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 345,
+      "usedAmount": 194
+    },
+    {
+      "id": 44468,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 584,
+      "usedAmount": 928
+    },
+    {
+      "id": 44717,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 708,
+      "usedAmount": 873
+    },
+    {
+      "id": 45847,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 395,
+      "usedAmount": 791
+    },
+    {
+      "id": 20028,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 867,
+      "usedAmount": 770
+    },
+    {
+      "id": 21523,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 857,
+      "usedAmount": 613
+    },
+    {
+      "id": 20590,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 580,
+      "usedAmount": 291
+    },
+    {
+      "id": 1976,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 729,
+      "usedAmount": 428
+    },
+    {
+      "id": 47471,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 934,
+      "usedAmount": 286
+    },
+    {
+      "id": 4524,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 835,
+      "usedAmount": 650
+    },
+    {
+      "id": 41313,
+      "user": 348972,
+      "month": "2020-06-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 320,
+      "usedAmount": 13
+    },
+    {
+      "id": 14889,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 795,
+      "usedAmount": 71
+    },
+    {
+      "id": 37328,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 704,
+      "usedAmount": 833
+    },
+    {
+      "id": 35704,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 867,
+      "usedAmount": 705
+    },
+    {
+      "id": 44001,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 383,
+      "usedAmount": 545
+    },
+    {
+      "id": 13095,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 542,
+      "usedAmount": 394
+    },
+    {
+      "id": 13231,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 975,
+      "usedAmount": 939
+    },
+    {
+      "id": 33408,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 410,
+      "usedAmount": 38
+    },
+    {
+      "id": 9201,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 902,
+      "usedAmount": 802
+    },
+    {
+      "id": 41734,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 944,
+      "usedAmount": 58
+    },
+    {
+      "id": 24837,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 941,
+      "usedAmount": 965
+    },
+    {
+      "id": 46146,
+      "user": 348972,
+      "month": "2020-07-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 914,
+      "usedAmount": 632
+    },
+    {
+      "id": 5737,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 905,
+      "usedAmount": 973
+    },
+    {
+      "id": 8137,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 211,
+      "usedAmount": 447
+    },
+    {
+      "id": 37816,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 734,
+      "usedAmount": 508
+    },
+    {
+      "id": 28569,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 748,
+      "usedAmount": 808
+    },
+    {
+      "id": 36308,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 468,
+      "usedAmount": 298
+    },
+    {
+      "id": 243,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 279,
+      "usedAmount": 847
+    },
+    {
+      "id": 7521,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 267,
+      "usedAmount": 857
+    },
+    {
+      "id": 1451,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 423,
+      "usedAmount": 128
+    },
+    {
+      "id": 36938,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 372,
+      "usedAmount": 911
+    },
+    {
+      "id": 30052,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 793,
+      "usedAmount": 706
+    },
+    {
+      "id": 20557,
+      "user": 348972,
+      "month": "2020-08-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 548,
+      "usedAmount": 510
+    },
+    {
+      "id": 16495,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 466,
+      "usedAmount": 564
+    },
+    {
+      "id": 1412,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 651,
+      "usedAmount": 139
+    },
+    {
+      "id": 27284,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 305,
+      "usedAmount": 148
+    },
+    {
+      "id": 18508,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 641,
+      "usedAmount": 927
+    },
+    {
+      "id": 18308,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 543,
+      "usedAmount": 448
+    },
+    {
+      "id": 42623,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 403,
+      "usedAmount": 195
+    },
+    {
+      "id": 16945,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 781,
+      "usedAmount": 49
+    },
+    {
+      "id": 45606,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 626,
+      "usedAmount": 118
+    },
+    {
+      "id": 45758,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 269,
+      "usedAmount": 290
+    },
+    {
+      "id": 14367,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 337,
+      "usedAmount": 259
+    },
+    {
+      "id": 30955,
+      "user": 348972,
+      "month": "2020-09-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 844,
+      "usedAmount": 167
+    },
+    {
+      "id": 19066,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 657,
+      "usedAmount": 980
+    },
+    {
+      "id": 7676,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 957,
+      "usedAmount": 766
+    },
+    {
+      "id": 2647,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 800,
+      "usedAmount": 405
+    },
+    {
+      "id": 44163,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 551,
+      "usedAmount": 4
+    },
+    {
+      "id": 13104,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 701,
+      "usedAmount": 464
+    },
+    {
+      "id": 26014,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 410,
+      "usedAmount": 315
+    },
+    {
+      "id": 651,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 586,
+      "usedAmount": 285
+    },
+    {
+      "id": 5538,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 288,
+      "usedAmount": 939
+    },
+    {
+      "id": 10838,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 361,
+      "usedAmount": 756
+    },
+    {
+      "id": 40580,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 781,
+      "usedAmount": 613
+    },
+    {
+      "id": 36157,
+      "user": 348972,
+      "month": "2020-10-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 437,
+      "usedAmount": 99
+    },
+    {
+      "id": 49861,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 698,
+      "usedAmount": 825
+    },
+    {
+      "id": 17633,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 312,
+      "usedAmount": 145
+    },
+    {
+      "id": 42265,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 884,
+      "usedAmount": 114
+    },
+    {
+      "id": 27680,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 608,
+      "usedAmount": 859
+    },
+    {
+      "id": 7981,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 701,
+      "usedAmount": 193
+    },
+    {
+      "id": 26352,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 207,
+      "usedAmount": 641
+    },
+    {
+      "id": 19754,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 505,
+      "usedAmount": 934
+    },
+    {
+      "id": 47706,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 293,
+      "usedAmount": 609
+    },
+    {
+      "id": 8401,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 236,
+      "usedAmount": 215
+    },
+    {
+      "id": 10424,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 384,
+      "usedAmount": 977
+    },
+    {
+      "id": 20531,
+      "user": 348972,
+      "month": "2020-11-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 926,
+      "usedAmount": 748
+    },
+    {
+      "id": 44040,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 276,
+      "usedAmount": 13
+    },
+    {
+      "id": 11208,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 545,
+      "usedAmount": 987
+    },
+    {
+      "id": 22641,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 262,
+      "usedAmount": 71
+    },
+    {
+      "id": 19698,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 788,
+      "usedAmount": 463
+    },
+    {
+      "id": 32291,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 789,
+      "usedAmount": 641
+    },
+    {
+      "id": 28953,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 929,
+      "usedAmount": 54
+    },
+    {
+      "id": 28139,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 361,
+      "usedAmount": 446
+    },
+    {
+      "id": 39753,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 831,
+      "usedAmount": 524
+    },
+    {
+      "id": 34894,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 685,
+      "usedAmount": 492
+    },
+    {
+      "id": 16383,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 997,
+      "usedAmount": 374
+    },
+    {
+      "id": 3505,
+      "user": 348972,
+      "month": "2020-12-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 417,
+      "usedAmount": 702
+    },
+    {
+      "id": 28759,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 533,
+      "usedAmount": 171
+    },
+    {
+      "id": 27663,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 822,
+      "usedAmount": 193
+    },
+    {
+      "id": 20133,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 971,
+      "usedAmount": 458
+    },
+    {
+      "id": 24659,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 579,
+      "usedAmount": 591
+    },
+    {
+      "id": 11990,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 300,
+      "usedAmount": 621
+    },
+    {
+      "id": 1960,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 565,
+      "usedAmount": 341
+    },
+    {
+      "id": 33886,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 895,
+      "usedAmount": 696
+    },
+    {
+      "id": 4499,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 678,
+      "usedAmount": 893
+    },
+    {
+      "id": 39346,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 959,
+      "usedAmount": 574
+    },
+    {
+      "id": 11981,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 440,
+      "usedAmount": 518
+    },
+    {
+      "id": 3584,
+      "user": 348972,
+      "month": "2021-01-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 241,
+      "usedAmount": 522
+    },
+    {
+      "id": 15025,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 757,
+      "usedAmount": 205
+    },
+    {
+      "id": 33599,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 421,
+      "usedAmount": 587
+    },
+    {
+      "id": 8633,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 372,
+      "usedAmount": 637
+    },
+    {
+      "id": 20207,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 408,
+      "usedAmount": 333
+    },
+    {
+      "id": 10699,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 772,
+      "usedAmount": 33
+    },
+    {
+      "id": 8826,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 765,
+      "usedAmount": 96
+    },
+    {
+      "id": 38160,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 678,
+      "usedAmount": 157
+    },
+    {
+      "id": 24352,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 750,
+      "usedAmount": 87
+    },
+    {
+      "id": 31096,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 456,
+      "usedAmount": 732
+    },
+    {
+      "id": 32593,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 809,
+      "usedAmount": 762
+    },
+    {
+      "id": 1146,
+      "user": 348972,
+      "month": "2021-02-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 339,
+      "usedAmount": 921
+    },
+    {
+      "id": 12154,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 482,
+      "usedAmount": 381
+    },
+    {
+      "id": 18634,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 397,
+      "usedAmount": 282
+    },
+    {
+      "id": 746,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 907,
+      "usedAmount": 774
+    },
+    {
+      "id": 26807,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 328,
+      "usedAmount": 694
+    },
+    {
+      "id": 27140,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 317,
+      "usedAmount": 611
+    },
+    {
+      "id": 22670,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 981,
+      "usedAmount": 917
+    },
+    {
+      "id": 28292,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 659,
+      "usedAmount": 142
+    },
+    {
+      "id": 29135,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 282,
+      "usedAmount": 189
+    },
+    {
+      "id": 45700,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 487,
+      "usedAmount": 152
+    },
+    {
+      "id": 2250,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 472,
+      "usedAmount": 461
+    },
+    {
+      "id": 26636,
+      "user": 348972,
+      "month": "2021-03-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 670,
+      "usedAmount": 669
+    },
+    {
+      "id": 27167,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 909,
+      "usedAmount": 874
+    },
+    {
+      "id": 43236,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 750,
+      "usedAmount": 691
+    },
+    {
+      "id": 45806,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 514,
+      "usedAmount": 71
+    },
+    {
+      "id": 14370,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 360,
+      "usedAmount": 804
+    },
+    {
+      "id": 5565,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 694,
+      "usedAmount": 741
+    },
+    {
+      "id": 35283,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 335,
+      "usedAmount": 872
+    },
+    {
+      "id": 37731,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 556,
+      "usedAmount": 572
+    },
+    {
+      "id": 19940,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 740,
+      "usedAmount": 960
+    },
+    {
+      "id": 33867,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 367,
+      "usedAmount": 408
+    },
+    {
+      "id": 35410,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 355,
+      "usedAmount": 484
+    },
+    {
+      "id": 16265,
+      "user": 348972,
+      "month": "2021-04-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 818,
+      "usedAmount": 298
+    },
+    {
+      "id": 36715,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 872,
+      "usedAmount": 879
+    },
+    {
+      "id": 40330,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 470,
+      "usedAmount": 820
+    },
+    {
+      "id": 7223,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 957,
+      "usedAmount": 142
+    },
+    {
+      "id": 36963,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 545,
+      "usedAmount": 575
+    },
+    {
+      "id": 49452,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 852,
+      "usedAmount": 156
+    },
+    {
+      "id": 45818,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 569,
+      "usedAmount": 315
+    },
+    {
+      "id": 4135,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 944,
+      "usedAmount": 485
+    },
+    {
+      "id": 36075,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 910,
+      "usedAmount": 575
+    },
+    {
+      "id": 2245,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 719,
+      "usedAmount": 711
+    },
+    {
+      "id": 44550,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 962,
+      "usedAmount": 971
+    },
+    {
+      "id": 39504,
+      "user": 348972,
+      "month": "2021-05-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 522,
+      "usedAmount": 641
+    },
+    {
+      "id": 31953,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 659,
+      "usedAmount": 460
+    },
+    {
+      "id": 27152,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 918,
+      "usedAmount": 206
+    },
+    {
+      "id": 895,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 687,
+      "usedAmount": 347
+    },
+    {
+      "id": 30730,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 252,
+      "usedAmount": 81
+    },
+    {
+      "id": 48217,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 962,
+      "usedAmount": 589
+    },
+    {
+      "id": 31121,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 366,
+      "usedAmount": 52
+    },
+    {
+      "id": 168,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 937,
+      "usedAmount": 282
+    },
+    {
+      "id": 35038,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 814,
+      "usedAmount": 503
+    },
+    {
+      "id": 14367,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 231,
+      "usedAmount": 811
+    },
+    {
+      "id": 14106,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 866,
+      "usedAmount": 21
+    },
+    {
+      "id": 13105,
+      "user": 348972,
+      "month": "2021-06-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 899,
+      "usedAmount": 696
+    },
+    {
+      "id": 25,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 559,
+      "usedAmount": 340
+    },
+    {
+      "id": 48951,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 427,
+      "usedAmount": 612
+    },
+    {
+      "id": 32669,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 778,
+      "usedAmount": 758
+    },
+    {
+      "id": 20585,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 784,
+      "usedAmount": 582
+    },
+    {
+      "id": 19114,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 254,
+      "usedAmount": 632
+    },
+    {
+      "id": 37520,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 257,
+      "usedAmount": 909
+    },
+    {
+      "id": 2666,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 359,
+      "usedAmount": 106
+    },
+    {
+      "id": 49043,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 785,
+      "usedAmount": 640
+    },
+    {
+      "id": 20403,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 854,
+      "usedAmount": 77
+    },
+    {
+      "id": 20366,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 486,
+      "usedAmount": 597
+    },
+    {
+      "id": 613,
+      "user": 348972,
+      "month": "2021-07-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 492,
+      "usedAmount": 760
+    },
+    {
+      "id": 17561,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 915,
+      "usedAmount": 350
+    },
+    {
+      "id": 139,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 466,
+      "usedAmount": 809
+    },
+    {
+      "id": 36039,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 562,
+      "usedAmount": 88
+    },
+    {
+      "id": 8415,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 730,
+      "usedAmount": 580
+    },
+    {
+      "id": 16722,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 883,
+      "usedAmount": 527
+    },
+    {
+      "id": 17428,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 699,
+      "usedAmount": 457
+    },
+    {
+      "id": 49558,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 564,
+      "usedAmount": 163
+    },
+    {
+      "id": 18192,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 420,
+      "usedAmount": 934
+    },
+    {
+      "id": 49913,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 243,
+      "usedAmount": 133
+    },
+    {
+      "id": 15311,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 613,
+      "usedAmount": 964
+    },
+    {
+      "id": 6359,
+      "user": 348972,
+      "month": "2021-08-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 683,
+      "usedAmount": 667
+    },
+    {
+      "id": 5827,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 374,
+      "usedAmount": 243
+    },
+    {
+      "id": 7499,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 903,
+      "usedAmount": 433
+    },
+    {
+      "id": 16640,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 662,
+      "usedAmount": 947
+    },
+    {
+      "id": 4968,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 422,
+      "usedAmount": 918
+    },
+    {
+      "id": 16726,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 341,
+      "usedAmount": 148
+    },
+    {
+      "id": 43967,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 374,
+      "usedAmount": 471
+    },
+    {
+      "id": 13808,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 836,
+      "usedAmount": 903
+    },
+    {
+      "id": 48423,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 498,
+      "usedAmount": 286
+    },
+    {
+      "id": 19181,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 619,
+      "usedAmount": 294
+    },
+    {
+      "id": 15848,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 958,
+      "usedAmount": 289
+    },
+    {
+      "id": 33171,
+      "user": 348972,
+      "month": "2021-09-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 685,
+      "usedAmount": 775
+    },
+    {
+      "id": 13887,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 716,
+      "usedAmount": 342
+    },
+    {
+      "id": 13476,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 948,
+      "usedAmount": 111
+    },
+    {
+      "id": 9631,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 535,
+      "usedAmount": 270
+    },
+    {
+      "id": 19581,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 652,
+      "usedAmount": 452
+    },
+    {
+      "id": 24831,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 681,
+      "usedAmount": 710
+    },
+    {
+      "id": 21384,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 389,
+      "usedAmount": 376
+    },
+    {
+      "id": 17432,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 282,
+      "usedAmount": 770
+    },
+    {
+      "id": 35325,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 316,
+      "usedAmount": 340
+    },
+    {
+      "id": 35842,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 245,
+      "usedAmount": 766
+    },
+    {
+      "id": 22322,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 526,
+      "usedAmount": 115
+    },
+    {
+      "id": 14933,
+      "user": 348972,
+      "month": "2021-10-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 293,
+      "usedAmount": 56
+    },
+    {
+      "id": 29689,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 805,
+      "usedAmount": 451
+    },
+    {
+      "id": 21316,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 333,
+      "usedAmount": 662
+    },
+    {
+      "id": 39356,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 673,
+      "usedAmount": 826
+    },
+    {
+      "id": 36576,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 372,
+      "usedAmount": 7
+    },
+    {
+      "id": 10086,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 278,
+      "usedAmount": 476
+    },
+    {
+      "id": 42985,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 952,
+      "usedAmount": 771
+    },
+    {
+      "id": 41358,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 694,
+      "usedAmount": 324
+    },
+    {
+      "id": 45495,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 588,
+      "usedAmount": 728
+    },
+    {
+      "id": 9237,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 587,
+      "usedAmount": 571
+    },
+    {
+      "id": 49602,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 392,
+      "usedAmount": 914
+    },
+    {
+      "id": 25958,
+      "user": 348972,
+      "month": "2021-11-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 723,
+      "usedAmount": 585
+    },
+    {
+      "id": 22116,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 570,
+      "usedAmount": 54
+    },
+    {
+      "id": 7325,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 574,
+      "usedAmount": 780
+    },
+    {
+      "id": 18839,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 694,
+      "usedAmount": 240
+    },
+    {
+      "id": 17274,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 679,
+      "usedAmount": 267
+    },
+    {
+      "id": 3568,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 912,
+      "usedAmount": 5
+    },
+    {
+      "id": 7610,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 964,
+      "usedAmount": 945
+    },
+    {
+      "id": 38802,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 554,
+      "usedAmount": 392
+    },
+    {
+      "id": 13204,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 226,
+      "usedAmount": 358
+    },
+    {
+      "id": 5795,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 644,
+      "usedAmount": 329
+    },
+    {
+      "id": 18544,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 706,
+      "usedAmount": 783
+    },
+    {
+      "id": 29508,
+      "user": 348972,
+      "month": "2021-12-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 659,
+      "usedAmount": 511
+    },
+    {
+      "id": 22854,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 617,
+      "usedAmount": 543
+    },
+    {
+      "id": 44066,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 580,
+      "usedAmount": 666
+    },
+    {
+      "id": 43692,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 911,
+      "usedAmount": 419
+    },
+    {
+      "id": 33665,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 898,
+      "usedAmount": 966
+    },
+    {
+      "id": 34004,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 602,
+      "usedAmount": 124
+    },
+    {
+      "id": 14224,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 529,
+      "usedAmount": 267
+    },
+    {
+      "id": 45592,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 811,
+      "usedAmount": 176
+    },
+    {
+      "id": 31293,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 793,
+      "usedAmount": 234
+    },
+    {
+      "id": 5341,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 726,
+      "usedAmount": 416
+    },
+    {
+      "id": 4912,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 989,
+      "usedAmount": 132
+    },
+    {
+      "id": 32616,
+      "user": 348972,
+      "month": "2022-01-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 324,
+      "usedAmount": 551
+    },
+    {
+      "id": 25491,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 555,
+      "usedAmount": 440
+    },
+    {
+      "id": 18290,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 207,
+      "usedAmount": 761
+    },
+    {
+      "id": 8587,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 952,
+      "usedAmount": 521
+    },
+    {
+      "id": 42448,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 587,
+      "usedAmount": 695
+    },
+    {
+      "id": 33940,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 249,
+      "usedAmount": 985
+    },
+    {
+      "id": 5165,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 800,
+      "usedAmount": 877
+    },
+    {
+      "id": 37405,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 697,
+      "usedAmount": 493
+    },
+    {
+      "id": 39179,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 358,
+      "usedAmount": 116
+    },
+    {
+      "id": 15662,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 794,
+      "usedAmount": 637
+    },
+    {
+      "id": 10600,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 731,
+      "usedAmount": 52
+    },
+    {
+      "id": 1954,
+      "user": 348972,
+      "month": "2022-02-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 519,
+      "usedAmount": 648
+    },
+    {
+      "id": 22074,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 530,
+      "usedAmount": 371
+    },
+    {
+      "id": 7516,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 323,
+      "usedAmount": 405
+    },
+    {
+      "id": 47422,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 289,
+      "usedAmount": 716
+    },
+    {
+      "id": 14123,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 447,
+      "usedAmount": 449
+    },
+    {
+      "id": 41197,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 865,
+      "usedAmount": 933
+    },
+    {
+      "id": 41227,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 714,
+      "usedAmount": 256
+    },
+    {
+      "id": 12950,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 559,
+      "usedAmount": 457
+    },
+    {
+      "id": 9287,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 949,
+      "usedAmount": 634
+    },
+    {
+      "id": 48252,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 701,
+      "usedAmount": 125
+    },
+    {
+      "id": 11002,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 419,
+      "usedAmount": 568
+    },
+    {
+      "id": 33251,
+      "user": 348972,
+      "month": "2022-03-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 993,
+      "usedAmount": 386
+    },
+    {
+      "id": 37116,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 782,
+      "usedAmount": 2
+    },
+    {
+      "id": 10240,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 473,
+      "usedAmount": 219
+    },
+    {
+      "id": 15574,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 561,
+      "usedAmount": 214
+    },
+    {
+      "id": 14991,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 735,
+      "usedAmount": 794
+    },
+    {
+      "id": 17924,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 291,
+      "usedAmount": 256
+    },
+    {
+      "id": 21665,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 873,
+      "usedAmount": 262
+    },
+    {
+      "id": 12099,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 663,
+      "usedAmount": 942
+    },
+    {
+      "id": 43541,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 576,
+      "usedAmount": 144
+    },
+    {
+      "id": 21201,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 990,
+      "usedAmount": 541
+    },
+    {
+      "id": 34645,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 201,
+      "usedAmount": 951
+    },
+    {
+      "id": 9748,
+      "user": 348972,
+      "month": "2022-04-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 375,
+      "usedAmount": 302
+    },
+    {
+      "id": 7150,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 415,
+      "usedAmount": 113
+    },
+    {
+      "id": 21869,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 861,
+      "usedAmount": 741
+    },
+    {
+      "id": 11961,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 775,
+      "usedAmount": 714
+    },
+    {
+      "id": 14124,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 241,
+      "usedAmount": 573
+    },
+    {
+      "id": 48365,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 563,
+      "usedAmount": 382
+    },
+    {
+      "id": 37167,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 716,
+      "usedAmount": 32
+    },
+    {
+      "id": 45395,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 503,
+      "usedAmount": 540
+    },
+    {
+      "id": 27612,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 282,
+      "usedAmount": 915
+    },
+    {
+      "id": 4811,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 784,
+      "usedAmount": 140
+    },
+    {
+      "id": 21226,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 573,
+      "usedAmount": 317
+    },
+    {
+      "id": 25967,
+      "user": 348972,
+      "month": "2022-05-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 316,
+      "usedAmount": 644
+    },
+    {
+      "id": 18791,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 574,
+      "usedAmount": 873
+    },
+    {
+      "id": 35245,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 802,
+      "usedAmount": 601
+    },
+    {
+      "id": 27954,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 749,
+      "usedAmount": 31
+    },
+    {
+      "id": 42722,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 284,
+      "usedAmount": 317
+    },
+    {
+      "id": 40221,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 682,
+      "usedAmount": 660
+    },
+    {
+      "id": 18858,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 774,
+      "usedAmount": 767
+    },
+    {
+      "id": 43278,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 751,
+      "usedAmount": 43
+    },
+    {
+      "id": 22365,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 459,
+      "usedAmount": 314
+    },
+    {
+      "id": 1629,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 762,
+      "usedAmount": 196
+    },
+    {
+      "id": 7079,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 845,
+      "usedAmount": 255
+    },
+    {
+      "id": 49804,
+      "user": 348972,
+      "month": "2022-06-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 980,
+      "usedAmount": 402
+    },
+    {
+      "id": 28143,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 428,
+      "usedAmount": 694
+    },
+    {
+      "id": 5373,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 785,
+      "usedAmount": 141
+    },
+    {
+      "id": 46416,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 903,
+      "usedAmount": 304
+    },
+    {
+      "id": 18500,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 814,
+      "usedAmount": 322
+    },
+    {
+      "id": 38567,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 699,
+      "usedAmount": 186
+    },
+    {
+      "id": 46331,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 257,
+      "usedAmount": 973
+    },
+    {
+      "id": 37109,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 852,
+      "usedAmount": 416
+    },
+    {
+      "id": 29918,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 742,
+      "usedAmount": 234
+    },
+    {
+      "id": 7421,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 745,
+      "usedAmount": 108
+    },
+    {
+      "id": 28268,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 612,
+      "usedAmount": 837
+    },
+    {
+      "id": 27178,
+      "user": 348972,
+      "month": "2022-07-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 984,
+      "usedAmount": 201
+    },
+    {
+      "id": 34588,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 634,
+      "usedAmount": 457
+    },
+    {
+      "id": 44614,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 674,
+      "usedAmount": 922
+    },
+    {
+      "id": 20157,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 948,
+      "usedAmount": 890
+    },
+    {
+      "id": 41918,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 998,
+      "usedAmount": 0
+    },
+    {
+      "id": 27384,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 732,
+      "usedAmount": 32
+    },
+    {
+      "id": 46917,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 224,
+      "usedAmount": 617
+    },
+    {
+      "id": 28959,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 620,
+      "usedAmount": 191
+    },
+    {
+      "id": 30687,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 443,
+      "usedAmount": 411
+    },
+    {
+      "id": 11749,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 818,
+      "usedAmount": 190
+    },
+    {
+      "id": 38278,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 483,
+      "usedAmount": 939
+    },
+    {
+      "id": 28768,
+      "user": 348972,
+      "month": "2022-08-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 943,
+      "usedAmount": 717
+    },
+    {
+      "id": 26112,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 972,
+      "usedAmount": 552
+    },
+    {
+      "id": 36838,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 377,
+      "usedAmount": 122
+    },
+    {
+      "id": 28077,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 349,
+      "usedAmount": 557
+    },
+    {
+      "id": 39184,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 860,
+      "usedAmount": 823
+    },
+    {
+      "id": 26015,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 218,
+      "usedAmount": 387
+    },
+    {
+      "id": 3504,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 553,
+      "usedAmount": 505
+    },
+    {
+      "id": 5036,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 930,
+      "usedAmount": 567
+    },
+    {
+      "id": 24562,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 522,
+      "usedAmount": 345
+    },
+    {
+      "id": 8886,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 559,
+      "usedAmount": 951
+    },
+    {
+      "id": 27732,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 517,
+      "usedAmount": 21
+    },
+    {
+      "id": 37301,
+      "user": 348972,
+      "month": "2022-09-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 721,
+      "usedAmount": 264
+    },
+    {
+      "id": 1977,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 687,
+      "usedAmount": 848
+    },
+    {
+      "id": 47704,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 960,
+      "usedAmount": 443
+    },
+    {
+      "id": 30229,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 529,
+      "usedAmount": 297
+    },
+    {
+      "id": 24200,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 896,
+      "usedAmount": 135
+    },
+    {
+      "id": 17666,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 708,
+      "usedAmount": 279
+    },
+    {
+      "id": 18202,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 827,
+      "usedAmount": 349
+    },
+    {
+      "id": 28846,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 465,
+      "usedAmount": 853
+    },
+    {
+      "id": 8303,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 264,
+      "usedAmount": 772
+    },
+    {
+      "id": 21278,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 748,
+      "usedAmount": 781
+    },
+    {
+      "id": 48051,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 785,
+      "usedAmount": 302
+    },
+    {
+      "id": 2931,
+      "user": 348972,
+      "month": "2022-10-12T22:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 696,
+      "usedAmount": 208
+    },
+    {
+      "id": 29634,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 498,
+      "usedAmount": 479
+    },
+    {
+      "id": 3005,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 513,
+      "usedAmount": 623
+    },
+    {
+      "id": 37909,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 990,
+      "usedAmount": 745
+    },
+    {
+      "id": 15964,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 691,
+      "usedAmount": 308
+    },
+    {
+      "id": 31851,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 991,
+      "usedAmount": 772
+    },
+    {
+      "id": 39222,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 236,
+      "usedAmount": 845
+    },
+    {
+      "id": 17396,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 809,
+      "usedAmount": 647
+    },
+    {
+      "id": 28137,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 396,
+      "usedAmount": 628
+    },
+    {
+      "id": 23867,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 690,
+      "usedAmount": 275
+    },
+    {
+      "id": 47169,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 695,
+      "usedAmount": 885
+    },
+    {
+      "id": 21668,
+      "user": 348972,
+      "month": "2022-11-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 215,
+      "usedAmount": 422
+    },
+    {
+      "id": 15165,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Rent",
+      "maxAmount": 720,
+      "usedAmount": 997
+    },
+    {
+      "id": 44014,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Groceries",
+      "maxAmount": 234,
+      "usedAmount": 952
+    },
+    {
+      "id": 38157,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Bills",
+      "maxAmount": 850,
+      "usedAmount": 239
+    },
+    {
+      "id": 24905,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Transport",
+      "maxAmount": 423,
+      "usedAmount": 854
+    },
+    {
+      "id": 19518,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Education",
+      "maxAmount": 611,
+      "usedAmount": 599
+    },
+    {
+      "id": 41853,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Health & Fitness",
+      "maxAmount": 945,
+      "usedAmount": 629
+    },
+    {
+      "id": 29601,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Personal care",
+      "maxAmount": 662,
+      "usedAmount": 996
+    },
+    {
+      "id": 40459,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Shopping",
+      "maxAmount": 597,
+      "usedAmount": 954
+    },
+    {
+      "id": 15536,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Entertainment",
+      "maxAmount": 848,
+      "usedAmount": 776
+    },
+    {
+      "id": 11327,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Travelling",
+      "maxAmount": 555,
+      "usedAmount": 981
+    },
+    {
+      "id": 43675,
+      "user": 348972,
+      "month": "2022-12-12T23:00:00.000Z",
+      "name": "Others",
+      "maxAmount": 262,
+      "usedAmount": 309
+    }
+  ],
+  "user": {
+    "id": 348972,
+    "firstName": "John",
+    "lastName": "Smidth",
+    "email": "johnsmidth@gmail.com",
+    "userBudget": 1000
+  }
+}

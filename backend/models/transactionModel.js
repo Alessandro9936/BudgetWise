@@ -7,8 +7,14 @@ const transactionSchema = new schema({
   amount: { type: Number },
   description: { type: String },
   date: { type: Date },
-  budget: { type: schema.Types.ObjectId, ref: "Budget" },
+  budget: {
+    type: schema.Types.ObjectId,
+    ref: "Budget",
+    autopopulate: { select: "name" },
+  },
   state: { type: String, enum: ["paid", "topay", "upcoming"] },
 });
+
+transactionSchema.plugin(require("mongoose-autopopulate"));
 
 module.exports = mongoose.model("Transaction", transactionSchema);

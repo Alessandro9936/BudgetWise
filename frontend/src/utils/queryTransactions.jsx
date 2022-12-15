@@ -1,19 +1,16 @@
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
-
-const transactionKeys = {
-  all: ["transactions"],
-  list: (filters) => ["transactions", { filters }],
-  detail: (id) => ["transactions", id],
-};
 
 export const useGetTransactions = () => {
   const axiosPrivate = useAxiosPrivate();
+  const [search] = useSearchParams();
 
   return useQuery(
-    transactionKeys.all,
-    () => axiosPrivate.get("/api/transactions"),
+    ["transactions", search.toString()],
+    () => axiosPrivate.get("/api/transactions", { params: search }),
     {
+      staleTime: 12000,
       select: (data) =>
         data.data.map((transaction) => ({
           ...transaction,
@@ -23,9 +20,16 @@ export const useGetTransactions = () => {
   );
 };
 
-export const useGetTransactionDetail = (id) => {
+/* export const useItems = () => {
   const axiosPrivate = useAxiosPrivate();
-  useQuery(transactionKeys.detail(id), () =>
-    axiosPrivate.get(`/api/transactions/${id}`)
+  const [search] = useSearchParams();
+
+  return useQuery(
+    ["transactions", search.toString()],
+    axiosPrivate
+      .get("/api/transactions", { params: search })
+      .then((res) => res.data),
+    { staleTime: 12000 }
   );
 };
+ */

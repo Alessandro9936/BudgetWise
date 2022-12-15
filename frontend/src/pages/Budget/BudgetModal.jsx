@@ -86,7 +86,6 @@ export default function BudgetModal() {
             onSubmit={formik.handleSubmit}
             className={classes["form-container"]}
           >
-            {console.log(formik.errors)}
             <div className={classes["form-header"]}>
               <h1 className={classes["form-title"]}>New budget</h1>
               <XCircle

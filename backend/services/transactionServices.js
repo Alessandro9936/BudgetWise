@@ -3,26 +3,39 @@ const Budget = require("../models/budgetModel");
 const { isSameYear, isSameMonth } = require("date-fns");
 
 const userTransactionsService = async (userID, query) => {
-  try {
-    const { date, sort, ...filters } = query;
+  //BUILD QUERY
+  // 1A) Filtering
+  const queryObj = { query, user: userID };
+  const excludedFields = ["year", "date", "state", "budget", "sort"];
+  excludedFields.forEach((el) => delete queryObj[el]);
 
-    let transactions = await Transaction.find({
-      user: userID,
-      ...filters,
-    }).sort(sort);
+  // 1B) Advanced Filtering
+  let queryString = JSON.stringify(queryObj);
+  queryString = queryString.replace(
+    /\b(gte|gt|lte|lt)\b/g,
+    (match) => `$${match}`
+  );
 
-    if (date) {
-      transactions = transactions.filter((transaction) =>
-        Number(date)
-          ? isSameYear(new Date(transaction.date), new Date(date))
-          : isSameMonth(new Date(transaction.date), new Date(date))
-      );
-    }
+  let transactions = await Transaction.find(JSON.parse(queryString));
 
-    return transactions;
-  } catch (error) {
-    throw new Error(error);
+  if (query.type === "expense" && query.state?.length > 0) {
+    const states = query.state.includes(",")
+      ? query.state?.split(",")
+      : [query.state];
+
+    transactions = await Transaction.find(JSON.parse(queryString), {
+      state: states,
+    });
   }
+
+  //let transactions;
+  /* if (date) {
+    transactions = transactions.filter((transaction) =>
+      Number(date)
+        ? isSameYear(new Date(transaction.date), new Date(date))
+        : isSameMonth(new Date(transaction.date), new Date(date))
+    );
+  } */
 };
 
 const newTransactionService = async (req) => {

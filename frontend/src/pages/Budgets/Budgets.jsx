@@ -8,11 +8,15 @@ import { useActiveDates } from "../hooks/useActiveDates";
 import { TimeSpanSelector } from "../../components/UI/TimeSpanSelector";
 import { DateBar } from "../../components/UI/DateBar";
 
-import { budgets } from "../../../data/data";
 import { isSameMonth, isSameYear } from "date-fns";
 import { Outlet } from "react-router-dom";
 
 export default function Budgets() {
+  const budgets = [
+    { name: "rent", maxAmount: 1000, usedAmount: 200, date: new Date() },
+    { name: "groceries", maxAmount: 1000, usedAmount: 200, date: new Date() },
+  ];
+
   const {
     updateActiveDate,
     updateActiveTimeSpan,

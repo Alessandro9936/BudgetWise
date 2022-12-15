@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { SignUp } from "./pages/SignUp/SignUp";
@@ -21,8 +22,6 @@ import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
 import BudgetModal from "./pages/Budget/BudgetModal";
-import { TransactionProvider } from "./context/transactionsContext";
-import { BudgetProvider } from "./context/budgetsContenxt";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -53,6 +52,10 @@ const router = createBrowserRouter([
         children: [
           {
             path: "transaction",
+            element: <TransactionModal />,
+          },
+          {
+            path: "transaction/:id",
             element: <TransactionModal />,
           },
         ],
@@ -86,13 +89,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserProvider>
-      <TransactionProvider>
-        <BudgetProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
-        </BudgetProvider>
-      </TransactionProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
     </UserProvider>
   </React.StrictMode>
 );

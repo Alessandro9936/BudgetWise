@@ -11,3 +11,16 @@ export default function UserProvider({ children }) {
     </UserContext.Provider>
   );
 }
+
+/*
+const useUser = () => {
+  const [user, setUser] = useContext(UserContext);
+
+  if (user === undefined) {
+    throw new Error("User is not provided");
+  }
+
+  return { user, setUser };
+};
+
+*/

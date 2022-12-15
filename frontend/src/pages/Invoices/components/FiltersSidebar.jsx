@@ -5,27 +5,36 @@ import Card from "../../../components/UI/Card";
 import { BarChart } from "react-feather";
 import { Button } from "../../../components/UI/Button";
 
-const InputField = ({ id, label, ...attributes }) => {
-  return (
-    <>
-      {attributes.type !== "text" && (
-        <li className={classes.field}>
-          <input className={classes["radio-btn"]} {...attributes} />
-          <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
-        </li>
-      )}
+const InputField = ({ id, label, filter, setFilters, ...attributes }) => {
+  const updateFiltersArray = (e) => {
+    if (filter !== "type") {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [filter]: prevFilters[filter].includes(e.target.value)
+          ? prevFilters[filter].filter((value) => value !== e.target.value)
+          : [...prevFilters[filter], e.target.value],
+      }));
+    } else {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [filter]: e.target.value,
+      }));
+    }
+  };
 
-      {attributes.type === "text" && (
-        <li className={classes.field}>
-          <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
-          <input className={classes["radio-btn"]} {...attributes} />
-        </li>
-      )}
-    </>
+  return (
+    <li className={classes.field}>
+      <input
+        className={classes["radio-btn"]}
+        {...attributes}
+        onChange={updateFiltersArray}
+      />
+      <label htmlFor={id}>{id[0].toUpperCase() + id.slice(1)}</label>
+    </li>
   );
 };
 
-const IconField = ({ icon, label }) => {
+const IconField = ({ icon, label, filter, setFilters }) => {
   return (
     <li className={classes.field}>
       {icon}
@@ -56,33 +65,47 @@ const budgets = [
   "Others",
 ];
 
-const transactionStatus = ["Paid", "Not paid", "Upcoming"];
+const transactionStatus = ["Paid", "To pay", "Upcoming"];
 const transactionTimeSpans = [
-  "This week",
-  "This month",
-  "Last 90 days",
+  "December 2022",
   new Date().getFullYear().toString(),
   (new Date().getFullYear() - 1).toString(),
   (new Date().getFullYear() - 2).toString(),
 ];
 
-export function FiltersSidebar() {
+export function FiltersSidebar({ setFilters }) {
   return (
     <section className={classes["sidebar-filters"]}>
       <h3>Filters</h3>
       <Card>
         <div className={classes.scroll}>
           <FilterBlock label="Transaction type">
-            <InputField type="radio" name="transaction-type" id="expense" />
-            <InputField type="radio" name="transaction-type" id="income" />
+            <InputField
+              setFilters={setFilters}
+              filter={"type"}
+              type="radio"
+              name="type"
+              id="expense"
+              value="expense"
+            />
+            <InputField
+              setFilters={setFilters}
+              filter={"type"}
+              type="radio"
+              name="type"
+              id="income"
+              value="income"
+            />
           </FilterBlock>
           <FilterBlock label="Date range">
             {transactionTimeSpans.map((timeSpan) => {
               return (
                 <InputField
+                  setFilters={setFilters}
                   key={timeSpan}
+                  filter={"date"}
                   type="checkbox"
-                  name={timeSpan.replaceAll(" ", "-").toLowerCase()}
+                  name={timeSpan.replaceAll(" ", " ").toLowerCase()}
                   value={timeSpan.toLocaleLowerCase()}
                   id={timeSpan}
                 />
@@ -91,10 +114,14 @@ export function FiltersSidebar() {
           </FilterBlock>
           <FilterBlock label="Amount">
             <IconField
+              setFilters={setFilters}
+              filter={"sorters"}
               icon={<BarChart style={{ rotate: "90deg" }} />}
               label="Lower to higher"
             />
             <IconField
+              setFilters={setFilters}
+              filter={"sorters"}
               icon={
                 <BarChart
                   style={{ rotate: "90deg", transform: "scaleX(-1)" }}
@@ -105,10 +132,14 @@ export function FiltersSidebar() {
           </FilterBlock>
           <FilterBlock label="Invoice date">
             <IconField
+              setFilters={setFilters}
+              filter={"sorters"}
               icon={<BarChart style={{ rotate: "90deg" }} />}
               label="Lower to higher"
             />
             <IconField
+              setFilters={setFilters}
+              filter={"sorters"}
               icon={
                 <BarChart
                   style={{ rotate: "90deg", transform: "scaleX(-1)" }}
@@ -121,10 +152,12 @@ export function FiltersSidebar() {
             {transactionStatus.map((status) => {
               return (
                 <InputField
+                  setFilters={setFilters}
+                  filter={"state"}
                   key={status}
                   type="checkbox"
-                  name={status.replaceAll(" ", "-").toLowerCase()}
-                  value={status}
+                  name={status.replaceAll(" ", "").toLowerCase()}
+                  value={status.replaceAll(" ", "").toLowerCase()}
                   id={status}
                 />
               );
@@ -134,10 +167,12 @@ export function FiltersSidebar() {
             {budgets.map((budget) => {
               return (
                 <InputField
+                  setFilters={setFilters}
+                  filter={"budget"}
                   key={budget}
                   type="checkbox"
-                  name={budget.replaceAll(" ", "-").toLowerCase()}
-                  value={budget}
+                  name={budget.replaceAll(" ", "").toLowerCase()}
+                  value={budget.replaceAll(" ", "").toLowerCase()}
                   id={budget}
                 />
               );
