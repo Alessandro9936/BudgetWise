@@ -3,39 +3,76 @@ const Budget = require("../models/budgetModel");
 const { isSameYear, isSameMonth } = require("date-fns");
 
 const userTransactionsService = async (userID, query) => {
-  //BUILD QUERY
-  // 1A) Filtering
-  const queryObj = { query, user: userID };
-  const excludedFields = ["year", "date", "state", "budget", "sort"];
-  excludedFields.forEach((el) => delete queryObj[el]);
+  // YEAR: 2022, 2021 --> Coming from dashboard, it means that if year is specified in params return transactions filtered by year
+  // ------
+  // TYPE: income / expense --> Type of expense
+  // DATE: November 2022 / 2022 --> Filter transaction that are inside date
+  // STATE: paid / notpaid
+  // BUDGET: rent, groceries, ...
+  // ------
+  // SORT: date / amount
 
-  // 1B) Advanced Filtering
-  let queryString = JSON.stringify(queryObj);
-  queryString = queryString.replace(
-    /\b(gte|gt|lte|lt)\b/g,
-    (match) => `$${match}`
-  );
+  const filtersInQuery = { ...query };
+  const excludeNotFilters = ["sort"];
+  excludeNotFilters.forEach((el) => delete filtersInQuery[el]);
 
-  let transactions = await Transaction.find(JSON.parse(queryString));
+  let newQuery = { user: userID };
 
-  if (query.type === "expense" && query.state?.length > 0) {
-    const states = query.state.includes(",")
-      ? query.state?.split(",")
-      : [query.state];
+  for ([key, value] of Object.entries(filtersInQuery)) {
+    if (value) {
+      if (value.includes(",")) {
+        newQuery = { ...newQuery, [key]: value.split(",") };
+      } else {
+        newQuery = { ...newQuery, [key]: value };
+      }
+    }
+  }
 
-    transactions = await Transaction.find(JSON.parse(queryString), {
-      state: states,
+  let transactions = await Transaction.find({ user: newQuery.user });
+
+  if (newQuery?.type === "income") {
+    transactions = await Transaction.find({
+      user: newQuery.user,
+      type: newQuery.type,
     });
   }
 
-  //let transactions;
-  /* if (date) {
+  if (newQuery?.type === "expense") {
+    transactions = await Transaction.find({
+      user: newQuery.user,
+      type: newQuery.type,
+    }).populate("budget", "name");
+
+    if (newQuery?.budget?.length > 0) {
+      transactions = transactions.filter((transaction) =>
+        newQuery.budget.includes(transaction.budget.name)
+      );
+    }
+
+    if (newQuery?.state?.length > 0) {
+      transactions = transactions.filter((transaction) =>
+        newQuery.state.includes(transaction.state)
+      );
+    }
+
+    if (newQuery?.state?.length > 0 && newQuery?.budget?.length > 0) {
+      transactions = transactions.filter(
+        (transaction) =>
+          newQuery.state.includes(transaction.state) &&
+          newQuery.budget.includes(transaction.budget.name)
+      );
+    }
+  }
+
+  if (newQuery.date) {
     transactions = transactions.filter((transaction) =>
-      Number(date)
-        ? isSameYear(new Date(transaction.date), new Date(date))
-        : isSameMonth(new Date(transaction.date), new Date(date))
+      Number(newQuery.date)
+        ? isSameYear(new Date(transaction.date), new Date(newQuery.date))
+        : isSameMonth(new Date(transaction.date), new Date(newQuery.date))
     );
-  } */
+  }
+
+  console.log(transactions);
 };
 
 const newTransactionService = async (req) => {
