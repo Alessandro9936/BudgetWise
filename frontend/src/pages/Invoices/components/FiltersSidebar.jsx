@@ -7,7 +7,7 @@ import { Button } from "../../../components/UI/Button";
 
 const InputField = ({ id, label, filter, setFilters, ...attributes }) => {
   const updateFiltersArray = (e) => {
-    if (filter !== "type") {
+    if (filter === "state" || filter === "budget") {
       setFilters((prevFilters) => ({
         ...prevFilters,
         [filter]: prevFilters[filter].includes(e.target.value)
@@ -34,9 +34,14 @@ const InputField = ({ id, label, filter, setFilters, ...attributes }) => {
   );
 };
 
-const IconField = ({ icon, label, filter, setFilters }) => {
+const IconField = ({ icon, value, label, filter, setFilters }) => {
+  const updateSortValue = () =>
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      sort: value,
+    }));
   return (
-    <li className={classes.field}>
+    <li className={classes.field} onClick={updateSortValue}>
       {icon}
       <span>{label}</span>
     </li>
@@ -103,9 +108,9 @@ export function FiltersSidebar({ setFilters }) {
                 <InputField
                   setFilters={setFilters}
                   key={timeSpan}
-                  filter={"date"}
-                  type="checkbox"
-                  name={timeSpan.replaceAll(" ", " ").toLowerCase()}
+                  filter="date"
+                  type="radio"
+                  name="date"
                   value={timeSpan.toLocaleLowerCase()}
                   id={timeSpan}
                 />
@@ -118,6 +123,7 @@ export function FiltersSidebar({ setFilters }) {
               filter={"sorters"}
               icon={<BarChart style={{ rotate: "90deg" }} />}
               label="Lower to higher"
+              value="-amount"
             />
             <IconField
               setFilters={setFilters}
@@ -128,6 +134,7 @@ export function FiltersSidebar({ setFilters }) {
                 />
               }
               label="Higher to lower"
+              value="amount"
             />
           </FilterBlock>
           <FilterBlock label="Invoice date">
@@ -136,6 +143,7 @@ export function FiltersSidebar({ setFilters }) {
               filter={"sorters"}
               icon={<BarChart style={{ rotate: "90deg" }} />}
               label="Lower to higher"
+              value="-date"
             />
             <IconField
               setFilters={setFilters}
@@ -146,6 +154,7 @@ export function FiltersSidebar({ setFilters }) {
                 />
               }
               label="Higher to lower"
+              value="date"
             />
           </FilterBlock>
           <FilterBlock label="Transaction state">

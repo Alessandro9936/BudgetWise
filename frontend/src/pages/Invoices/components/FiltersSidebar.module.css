@@ -39,7 +39,8 @@
   accent-color: var(--secondary);
 }
 
-.block .field:has(input:checked) {
+.block .field:has(input:checked),
+.active-sort {
   border-right: 2px solid var(--secondary);
 }
 

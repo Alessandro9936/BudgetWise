@@ -3,7 +3,6 @@ import { Transactions } from "./components/Transactions";
 import { HeaderStates } from "./components/HeaderStates";
 import { ContentGrid } from "../../components/UI/ContentGrid";
 import classes from "./Invoices.module.css";
-import { useGetTransactions } from "../../utils/queryTransactions";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
@@ -23,7 +22,7 @@ const custom = (filters) => {
 
       searchUrl = {
         ...searchUrl,
-        [key]: key === "type" || key === "sort" ? value : value.join(","),
+        [key]: key === "state" || key === "budget" ? value.join(",") : value,
       };
 
       setSearchParams(searchUrl);
@@ -32,13 +31,12 @@ const custom = (filters) => {
 };
 
 export default function Invoices() {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
+    sort: "",
     type: "",
-    date: [],
+    date: "",
     state: [],
     budget: [],
-    // sorters: [],
   });
 
   custom(filters);
