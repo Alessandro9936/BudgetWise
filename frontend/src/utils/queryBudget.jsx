@@ -1,19 +1,22 @@
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
-
-const budgetKeys = {
-  all: ["budgets"],
-  detail: (id) => ["budgets", id],
-};
 
 export const useGetBudgets = () => {
   const axiosPrivate = useAxiosPrivate();
+  const [search] = useSearchParams();
 
-  return useQuery(budgetKeys.all, () => axiosPrivate.get("/api/budgets"), {
-    select: (data) =>
-      data.data.map((transaction) => ({
-        ...transaction,
-        date: new Date(transaction.date),
-      })),
-  });
+  return useQuery(
+    ["budgets", search.toString()],
+    () => axiosPrivate.get("/api/budgets", { params: search }),
+    {
+      staleTime: 12000,
+      keepPreviousData: true,
+      select: (data) =>
+        data.data.map((transaction) => ({
+          ...transaction,
+          date: new Date(transaction.date),
+        })),
+    }
+  );
 };
