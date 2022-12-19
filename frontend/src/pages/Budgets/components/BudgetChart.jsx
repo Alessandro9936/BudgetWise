@@ -6,17 +6,17 @@ import classes from "./BudgetChart.module.css";
 import { Tooltip, Cell, Pie, PieChart } from "recharts";
 
 const colorsPerBudgetLabel = {
-  Rent: "#ff595e",
-  Groceries: "#ff924c",
-  Bills: "#ffca3a",
-  Education: "#c5ca30",
-  "Health & Fitness": "#8ac926",
-  "Personal care": "#238d00",
-  Shopping: "#36949d",
-  Entertainment: "#1982c4",
-  Travelling: "#4267ac",
-  Others: "#565aa0",
-  Transport: "#6a4c93",
+  rent: "#ff595e",
+  groceries: "#ff924c",
+  bills: "#ffca3a",
+  education: "#c5ca30",
+  "health&fitness": "#8ac926",
+  personalcare: "#238d00",
+  shopping: "#36949d",
+  entertainment: "#1982c4",
+  travelling: "#4267ac",
+  others: "#565aa0",
+  transport: "#6a4c93",
 };
 
 export function BudgetChart({ budgetsInActiveDate, activeDateFormatted }) {

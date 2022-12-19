@@ -1,6 +1,6 @@
 import { BudgetChart } from "./components/BudgetChart";
 import { BudgetPreviews } from "./components/BudgetPreviews";
-import { Bar } from "./components/Bar";
+import { Bar } from "../../components/UI/Bar";
 import { ContentGrid } from "../../components/UI/ContentGrid";
 import classes from "./Budgets.module.css";
 
@@ -9,14 +9,13 @@ import { TimeSpanSelector } from "../../components/UI/TimeSpanSelector";
 import { DateBar } from "../../components/UI/DateBar";
 
 import { isSameMonth, isSameYear } from "date-fns";
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
+import { useGetBudgets } from "../../utils/queryBudget";
+import { useEffect } from "react";
+import { useMemo } from "react";
 
 export default function Budgets() {
-  const budgets = [
-    { name: "rent", maxAmount: 1000, usedAmount: 200, date: new Date() },
-    { name: "groceries", maxAmount: 1000, usedAmount: 200, date: new Date() },
-  ];
-
+  const [_, setSearchParams] = useSearchParams();
   const {
     updateActiveDate,
     updateActiveTimeSpan,
@@ -25,29 +24,40 @@ export default function Budgets() {
     activeDateFormatted,
   } = useActiveDates();
 
-  const budgetsInActiveDate =
-    activeTimeSpan !== "Yearly"
-      ? budgets.filter((budget) => isSameMonth(budget.month, activeDate))
-      : budgets
-          .filter((budget) => isSameYear(budget.month, activeDate))
-          .reduce((acc, curBudget) => {
-            const budgetByName = acc.find((bud) => bud.name === curBudget.name);
-            if (!budgetByName) {
-              acc = [
-                ...acc,
-                {
-                  name: curBudget.name,
-                  usedAmount: curBudget.usedAmount,
-                  maxAmount: curBudget.maxAmount,
-                  id: curBudget.id,
-                },
-              ];
-            } else {
-              budgetByName.usedAmount += curBudget.usedAmount;
-              budgetByName.maxAmount += curBudget.maxAmount;
-            }
-            return acc;
-          }, []);
+  useEffect(() => {
+    setSearchParams({ date: activeDateFormatted });
+  }, [activeDate, activeTimeSpan]);
+
+  const query = useGetBudgets();
+
+  const pippo = query?.data ?? [];
+
+  const reducedBudgets = useMemo(() => {
+    if (activeTimeSpan === "Yearly" && pippo.length > 0) {
+      return pippo?.reduce((acc, curBudget) => {
+        const budgetByName = acc.find((bud) => bud.name === curBudget.name);
+        if (!budgetByName) {
+          acc = [
+            ...acc,
+            {
+              name: curBudget.name,
+              usedAmount: curBudget.usedAmount,
+              maxAmount: curBudget.maxAmount,
+              id: curBudget._id,
+            },
+          ];
+        } else {
+          budgetByName.usedAmount += curBudget.usedAmount;
+          budgetByName.maxAmount += curBudget.maxAmount;
+        }
+        return acc;
+      }, []);
+    } else {
+      return pippo;
+    }
+  }, [pippo]);
+
+  console.log(reducedBudgets);
 
   return (
     <ContentGrid gridAreas={classes["budget-areas"]}>
@@ -63,12 +73,12 @@ export default function Budgets() {
         />
       </Bar>
       <BudgetPreviews
-        budgetsInActiveDate={budgetsInActiveDate}
+        budgetsInActiveDate={reducedBudgets}
         activeTimeSpan={activeTimeSpan}
         activeDate={activeDate}
       />
       <BudgetChart
-        budgetsInActiveDate={budgetsInActiveDate}
+        budgetsInActiveDate={reducedBudgets}
         activeDateFormatted={activeDateFormatted}
       />
       <Outlet />
