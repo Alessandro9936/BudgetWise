@@ -3,15 +3,6 @@ const Budget = require("../models/budgetModel");
 const { isSameYear, isSameMonth } = require("date-fns");
 
 const userTransactionsService = async (userID, query) => {
-  // YEAR: 2022, 2021 --> Coming from dashboard, it means that if year is specified in params return transactions filtered by year
-  // ------
-  // TYPE: income / expense --> Type of expense
-  // DATE: November 2022 / 2022 --> Filter transaction that are inside date
-  // STATE: paid / notpaid
-  // BUDGET: rent, groceries, ...
-  // ------
-  // SORT: date / amount
-
   const filtersInQuery = { ...query };
   const excludeNotFilters = ["sort"];
   excludeNotFilters.forEach((el) => delete filtersInQuery[el]);
@@ -72,7 +63,20 @@ const userTransactionsService = async (userID, query) => {
     );
   }
 
-  console.log(transactions);
+  if (query.sort) {
+    return transactions.sort((a, b) => {
+      const valueA = query.sort.includes("amount") ? a.amount : a.date;
+      const valueB = query.sort.includes("amount") ? b.amount : b.date;
+
+      if (query.sort === "-amount" || query.sort === "-date") {
+        return valueA - valueB;
+      } else if (query.sort === "amount" || query.sort === "date") {
+        return valueB - valueA;
+      }
+    });
+  }
+
+  return transactions;
 };
 
 const newTransactionService = async (req) => {
@@ -138,4 +142,5 @@ module.exports = {
   updateTransactionService,
   getTransactionService,
   deleteTransactionService,
+  /* buildPDFService */
 };
