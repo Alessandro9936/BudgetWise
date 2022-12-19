@@ -17,7 +17,6 @@ import App from "./pages/App/App";
 import "./index.css";
 import Invoices from "./pages/Invoices/Invoices";
 import Budgets from "./pages/Budgets/Budgets";
-import Reports from "./pages/Reports/Reports";
 import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
@@ -74,10 +73,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "reports",
-        element: <Reports />,
-      },
+
       {
         path: "profile",
         element: <Profile />,

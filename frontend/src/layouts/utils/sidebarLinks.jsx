@@ -16,11 +16,7 @@ const sidebarLinks = [
     route: "/app/budgets",
     icon: <Database size={20} />,
   },
-  {
-    name: "Reports",
-    route: "/app/reports",
-    icon: <FileText size={20} />,
-  },
+
   {
     name: "Profile",
     route: "/app/profile",
