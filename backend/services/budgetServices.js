@@ -1,9 +1,17 @@
+const { isSameYear, isSameMonth } = require("date-fns");
 const Budget = require("../models/budgetModel");
 
-const userBudgetsService = async (userID) => {
+const userBudgetsService = async (userID, query) => {
   try {
-    const userBudgets = await Budget.getUserBudgets(userID);
-    return userBudgets;
+    const dateFilter = query.date;
+
+    const userBudgets = await Budget.find({ user: userID });
+
+    return userBudgets.filter((budget) =>
+      Number(dateFilter)
+        ? isSameYear(new Date(budget.date), new Date(dateFilter))
+        : isSameMonth(new Date(budget.date), new Date(dateFilter))
+    );
   } catch (error) {
     throw new Error(error);
   }

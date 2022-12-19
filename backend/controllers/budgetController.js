@@ -14,7 +14,7 @@ const {
 const userBudgets = async (req, res, next) => {
   try {
     const { id: userID } = req.user;
-    const budgets = await userBudgetsService(userID);
+    const budgets = await userBudgetsService(userID, req.query);
     res.status(200).json(budgets);
   } catch (error) {
     next(createHttpError(error));
