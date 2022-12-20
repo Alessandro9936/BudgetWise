@@ -10,7 +10,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
-import { SignUp } from "./pages/SignUp/SignUp";
+import SignUpForm from "./pages/SignUp/SignUp";
 import { Login } from "./pages/Login/Login";
 import UserProvider from "./context/userContext";
 import App from "./pages/App/App";
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <SignUp />,
+    element: <SignUpForm />,
   },
   {
     path: "/login",
