@@ -1,13 +1,12 @@
 import React from "react";
 import classes from "../styles/Button.module.css";
 
-export function Button({ children, ...buttonAttributes }) {
-  const isSubmitting = buttonAttributes.disabled
-    ? classes.isSubmitting + classes.button
-    : classes.button;
-
+export function Button({ children, disabled, ...buttonAttributes }) {
   return (
-    <button className={isSubmitting} {...buttonAttributes}>
+    <button
+      className={`${classes.button} ${disabled ? classes.disabled : ""}`}
+      {...buttonAttributes}
+    >
       {children}
     </button>
   );
