@@ -1,13 +1,10 @@
-import { UserForm } from "../../components/Utilities/UserForm";
-import { Formik } from "formik";
 import { logInSchema } from "./utils/loginSchema";
-import FormikControl from "../../components/Utilities/FormikControl";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
-import axios from "axios";
-import { useContext } from "react";
-import { UserContext } from "../../context/userContext";
-import { setAccessToken } from "../../utils/accessToken";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import Input from "../../components/UI/InputText";
+import { useUserFormActions } from "../../utils/userQueries";
+import UserActionForm from "../../components/Utilities/userActionsForm";
 
 const initialValues = {
   email: "",
@@ -15,62 +12,34 @@ const initialValues = {
 };
 
 export function Login() {
-  const mutation = useMutation((values) => {
-    return axios.post("/api/login", values);
+  const { handleSubmit, control, formState, setError } = useForm({
+    defaultValues: initialValues,
+    resolver: yupResolver(logInSchema),
+    mode: "onTouched",
   });
 
-  //const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const requestURL = "/api/login";
+  const { loginUser } = useUserFormActions(formState, setError, requestURL);
+
+  const onSubmit = (formData) => {
+    loginUser(formData);
+  };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={logInSchema}
-      onSubmit={(values, { setSubmitting, setFieldError }) => {
-        mutation.mutate(values, {
-          onSuccess: async (data) => {
-            if (data.status === 200 && data.data) {
-              const { accessToken } = data.data;
-              //setUser({ id, accessToken });
-              setAccessToken(accessToken);
-              setSubmitting(false);
-              navigate("/app/dashboard");
-            }
-          },
-          onError: (error) => {
-            const { param: field, msg: message } = error.response.data[0];
-            setFieldError(field, message);
-            setSubmitting(false);
-          },
-        });
-      }}
+    <UserActionForm
+      onSubmit={handleSubmit(onSubmit)}
+      formTitle="Login in to your account"
+      formState={formState}
+      redirectLabel="Don't have an account?"
+      redirectAction="Register"
     >
-      {(formik) => (
-        <UserForm
-          isSubmitting={formik.isSubmitting}
-          handleSubmit={formik.handleSubmit}
-          title="Login in to your account"
-          action="Login"
-          redirectLabel="Don't have an account?"
-          redirectAction="Register"
-        >
-          <FormikControl
-            control="input"
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="john@example.com"
-            disabled={formik.isSubmitting ? true : false}
-          />
-          <FormikControl
-            control="input"
-            label="Password"
-            name="password"
-            type="password"
-            disabled={formik.isSubmitting ? true : false}
-          />
-        </UserForm>
-      )}
-    </Formik>
+      <Input control={control} type="email" name="email" label="Email" />
+      <Input
+        control={control}
+        type="password"
+        name="password"
+        label="Password"
+      />
+    </UserActionForm>
   );
 }
