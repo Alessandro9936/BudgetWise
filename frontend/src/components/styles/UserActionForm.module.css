@@ -1,0 +1,14 @@
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  width: fit-content;
+
+  padding: var(--m16px);
+}
+
+.form-container > * {
+  margin-bottom: var(--m16px);
+}

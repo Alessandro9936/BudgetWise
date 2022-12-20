@@ -16,8 +16,14 @@
   border-radius: var(--border5);
 }
 
-.button:hover,
-.button:active {
+.disabled {
+  background-color: var(--gray-bg);
+  color: var(--gray-text);
+  outline: 1px solid var(--gray-text);
+}
+
+.button:not(.disabled):hover,
+.button:not(.disabled):active {
   background-color: var(--secondary);
   outline: none;
 }

@@ -1,7 +1,7 @@
 .form-success {
   display: flex;
-  grid-column: 1 / -1;
   gap: var(--m8px);
+  width: 100%;
 }
 
 .redirect-container {

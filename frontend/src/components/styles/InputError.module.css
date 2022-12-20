@@ -1,9 +1,0 @@
-.error-message {
-  margin-top: 0.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-
-  font-size: 0.8rem;
-  color: var(--red);
-}
