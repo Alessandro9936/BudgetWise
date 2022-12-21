@@ -5,6 +5,14 @@ import React from "react";
 import Card from "../../../components/UI/Card";
 import classes from "./BudgetPreviews.module.css";
 import { Link } from "react-router-dom";
+import {
+  endOfMonth,
+  isAfter,
+  isBefore,
+  isFuture,
+  isPast,
+  startOfMonth,
+} from "date-fns";
 
 const colorsPerBudgetLabel = {
   rent: "#ff595e",
@@ -91,9 +99,14 @@ export function BudgetPreviews({
         ))}
       </ul>
 
-      <Link to={"budget"}>
-        <Button>Create new budget</Button>
-      </Link>
+      {activeTimeSpan === "Monthly" &&
+      isFuture(new Date(endOfMonth(activeDate))) ? (
+        <Link to={"budget"}>
+          <Button>Create new budget</Button>
+        </Link>
+      ) : (
+        <Button disabled={true}>Create new budget</Button>
+      )}
     </section>
   );
 }

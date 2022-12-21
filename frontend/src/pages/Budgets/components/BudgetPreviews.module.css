@@ -64,6 +64,8 @@
 }
 
 .preview-section button {
+  margin-top: auto;
+  margin-left: auto;
   width: fit-content;
   padding-inline: var(--m32px);
 }

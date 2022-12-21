@@ -42,41 +42,51 @@ export function BudgetChart({ budgetsInActiveDate, activeDateFormatted }) {
     <section className={classes["chart-section"]}>
       <h3>Budgets distribution</h3>
       <Card>
-        <PieChart width={800} height={200}>
-          <Pie
-            data={budgetsInActiveDate}
-            innerRadius={60}
-            outerRadius={80}
-            paddingAngle={2}
-            dataKey="usedAmount"
-          >
-            {budgetsInActiveDate.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={colorsPerBudgetLabel[entry.name]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
+        {budgetsInActiveDate.length > 0 ? (
+          <>
+            <PieChart width={800} height={200}>
+              <Pie
+                data={budgetsInActiveDate}
+                innerRadius={60}
+                outerRadius={80}
+                paddingAngle={2}
+                dataKey="usedAmount"
+              >
+                {budgetsInActiveDate.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={colorsPerBudgetLabel[entry.name]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
 
-        <div className={classes["amount-used"]}>
-          <p className={classes["amount-used__percentage"]}>{percentage}%</p>
-          <p className={classes["amount-used__details"]}>
-            {percentageMessageDetails}
-          </p>
-        </div>
-        <div className={classes["budgets-legend"]}>
-          {budgetLabels.map((budgetLabel) => (
-            <div className={classes.budget} key={budgetLabel}>
-              <span
-                className={classes["budget-color"]}
-                style={{ backgroundColor: colorsPerBudgetLabel[budgetLabel] }}
-              ></span>
-              <span className={classes["budget-name"]}>{budgetLabel}</span>
+            <div className={classes["amount-used"]}>
+              <p className={classes["amount-used__percentage"]}>
+                {percentage}%
+              </p>
+              <p className={classes["amount-used__details"]}>
+                {percentageMessageDetails}
+              </p>
             </div>
-          ))}
-        </div>
+            <div className={classes["budgets-legend"]}>
+              {budgetLabels.map((budgetLabel) => (
+                <div className={classes.budget} key={budgetLabel}>
+                  <span
+                    className={classes["budget-color"]}
+                    style={{
+                      backgroundColor: colorsPerBudgetLabel[budgetLabel],
+                    }}
+                  ></span>
+                  <span className={classes["budget-name"]}>{budgetLabel}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          `No budgets created in ${activeDateFormatted}`
+        )}
       </Card>
     </section>
   );

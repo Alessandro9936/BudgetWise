@@ -1,6 +1,5 @@
 import { BudgetChart } from "./components/BudgetChart";
 import { BudgetPreviews } from "./components/BudgetPreviews";
-import { Bar } from "../../components/UI/Bar";
 import { ContentGrid } from "../../components/UI/ContentGrid";
 import classes from "./Budgets.module.css";
 
@@ -8,14 +7,12 @@ import { useActiveDates } from "../hooks/useActiveDates";
 import { TimeSpanSelector } from "../../components/UI/TimeSpanSelector";
 import { DateBar } from "../../components/UI/DateBar";
 
-import { isSameMonth, isSameYear } from "date-fns";
-import { Outlet, useSearchParams } from "react-router-dom";
-import { useGetBudgets } from "../../utils/queryBudget";
-import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { useGetBudgetsByDate } from "../../utils/queryBudget";
+
 import { useMemo } from "react";
 
 export default function Budgets() {
-  const [_, setSearchParams] = useSearchParams();
   const {
     updateActiveDate,
     updateActiveTimeSpan,
@@ -24,17 +21,13 @@ export default function Budgets() {
     activeDateFormatted,
   } = useActiveDates();
 
-  useEffect(() => {
-    setSearchParams({ date: activeDateFormatted });
-  }, [activeDate, activeTimeSpan]);
+  const query = useGetBudgetsByDate(activeDateFormatted);
 
-  const query = useGetBudgets();
-
-  const pippo = query?.data ?? [];
+  const budgets = query?.data ?? [];
 
   const reducedBudgets = useMemo(() => {
-    if (activeTimeSpan === "Yearly" && pippo.length > 0) {
-      return pippo?.reduce((acc, curBudget) => {
+    if (activeTimeSpan === "Yearly" && budgets.length > 0) {
+      return budgets?.reduce((acc, curBudget) => {
         const budgetByName = acc.find((bud) => bud.name === curBudget.name);
         if (!budgetByName) {
           acc = [
@@ -53,15 +46,13 @@ export default function Budgets() {
         return acc;
       }, []);
     } else {
-      return pippo;
+      return budgets;
     }
-  }, [pippo]);
-
-  console.log(reducedBudgets);
+  }, [budgets]);
 
   return (
     <ContentGrid gridAreas={classes["budget-areas"]}>
-      <Bar>
+      <section className={classes["datebar-section"]}>
         <TimeSpanSelector
           timeSpans={["Yearly", "Monthly"]}
           updateActiveTimeSpan={updateActiveTimeSpan}
@@ -71,7 +62,8 @@ export default function Budgets() {
           updateActiveDate={updateActiveDate}
           activeDate={activeDateFormatted}
         />
-      </Bar>
+      </section>
+      ;
       <BudgetPreviews
         budgetsInActiveDate={reducedBudgets}
         activeTimeSpan={activeTimeSpan}
