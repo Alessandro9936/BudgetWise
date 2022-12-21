@@ -1,169 +1,168 @@
-import { Form, Formik, useFormikContext } from "formik";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import * as yup from "yup";
+import { useController, useForm } from "react-hook-form";
 import Modal from "../../components/Utilities/Modal";
 
 import classes from "./BudgetModal.module.css";
-
-import * as yup from "yup";
+import { XCircle } from "react-feather";
+import CalendarInput from "../../components/UI/form-inputs/calendar-input";
 import { useState } from "react";
-import FormikControl from "../../components/Utilities/FormikControl";
-import { ChevronRight, XCircle } from "react-feather";
-import { Button } from "../../components/UI/Button";
-import { ButtonRedirect } from "../../components/UI/ButtonRedirect";
+import OneChoiceInput from "../../components/UI/form-inputs/customRadio-input";
+import { useMemo } from "react";
+import { useGetBudgetsByDate, useNewBudget } from "../../utils/queryBudget";
+import { Error } from "../../components/UI/Error";
+import { ErrorMessage } from "@hookform/error-message";
+import { ModalFormActions } from "../../components/Utilities/ModalFormActions";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useCloseModal } from "../../hooks/useCloseModal";
+
+const allBudgets = [
+  "rent",
+  "groceries",
+  "bills",
+  "education",
+  "health&fitness",
+  "personalcare",
+  "shopping",
+  "entertainment",
+  "travelling",
+  "others",
+  "transport",
+];
 
 const budgetSchema = yup.object().shape({
-  type: yup.string().required("Type is required"),
+  name: yup.string().required("Type is required"),
   date: yup.date().required("Date is required"),
   maxAmount: yup.string().required("Budget total is required"),
   usedAmount: yup.string().required("Budget used is required"),
 });
 
-const Field = ({ children, label, handleActiveDropdown, activeDropdown }) => {
-  const { errors, touched } = useFormikContext();
-  return (
-    <div
-      style={{
-        borderColor: errors[label] && touched[label] && "#ee7172",
-      }}
-      className={classes["form-radio"]}
-    >
-      <div
-        className={classes["field-header"]}
-        onClick={() => handleActiveDropdown(label)}
-      >
-        <p>{label[0].toUpperCase() + label.slice(1)}</p>
-        <ChevronRight
-          size={18}
-          style={{
-            transform:
-              activeDropdown === label ? "rotate(90deg)" : "rotate(0deg)",
-          }}
-        />
-      </div>
-
-      <div className={classes["field-options"]}>{children}</div>
-    </div>
-  );
+const initialValues = {
+  name: "",
+  date: new Date(),
+  maxAmount: 0,
+  usedAmount: 0,
 };
 
 export default function BudgetModal() {
   const navigate = useNavigate();
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  useCloseModal();
+  const { control, formState, handleSubmit, setValue, getValues, setError } =
+    useForm({
+      defaultValues: initialValues,
+      resolver: yupResolver(budgetSchema),
+    });
 
-  useEffect(() => {
-    function handleEscape(e) {
-      if (e.code === "Escape") navigate("..");
-    }
+  const { newBudget } = useNewBudget(formState, setError);
+  const [activeDate, setActiveDate] = useState(new Date());
 
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  const query = useGetBudgetsByDate(
+    activeDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" })
+  );
 
-  const initialValues = {
-    type: "",
-    date: new Date(),
-    maxAmount: 0,
-    usedAmount: 0,
+  const budgets = query.data ?? [];
+
+  const remainingBudgetsInMonth = useMemo(() => {
+    const remainingBudgets = [...allBudgets];
+
+    budgets.map((budget) => {
+      if (allBudgets.includes(budget?.name)) {
+        remainingBudgets.splice(remainingBudgets.indexOf(budget.name), 1);
+      }
+    });
+
+    return remainingBudgets;
+  }, [budgets]);
+
+  const onSubmit = (formData) => {
+    newBudget(formData);
   };
-
-  const handleActiveDropdown = (value) =>
-    value !== activeDropdown
-      ? setActiveDropdown(value)
-      : setActiveDropdown(null);
 
   return (
     <Modal>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={budgetSchema}
-        onSubmit={(values, { setSubmitting, setFieldErrors }) => {
-          console.log(values);
-        }}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={classes["form-wrapper"]}
       >
-        {(formik) => (
-          <Form
-            onSubmit={formik.handleSubmit}
-            className={classes["form-container"]}
-          >
-            <div className={classes["form-header"]}>
-              <h1 className={classes["form-title"]}>New budget</h1>
-              <XCircle
-                size={24}
-                strokeWidth={1.5}
-                cursor="pointer"
-                onClick={() => navigate("..")}
-              />
-            </div>
-            <div className={classes["form-grid"]}>
-              <Field
-                activeDropdown={activeDropdown}
-                label="type"
-                handleActiveDropdown={handleActiveDropdown}
-              >
-                {activeDropdown === "type" && (
-                  <FormikControl
-                    control="radio"
-                    label="Type"
-                    name="type"
-                    options={[
-                      { key: "Rent", value: "rent" },
-                      { key: "Groceries", value: "groceries" },
-                      { key: "Bills", value: "bills" },
-                      { key: "Transport", value: "transport" },
-                      { key: "Education", value: "education" },
-                      { key: "Health & Fitness", value: "health&fitness" },
-                      { key: "Personal care", value: "personalcare" },
-                      { key: "Shopping", value: "shopping" },
-                      { key: "Entertainment", value: "entertainment" },
-                      { key: "Travelling", value: "travelling" },
-                      { key: "Others", value: "others" },
-                    ]}
-                    disabled={formik.isSubmitting ? true : false}
-                  />
-                )}
-              </Field>
-
-              <div className={classes["form-date"]}>
-                <FormikControl
-                  control="date"
-                  name="date"
-                  calendarProps={{ minDetail: "year", maxDetail: "year" }}
-                  disabled={formik.isSubmitting ? true : false}
+        <div className={classes["form-header"]}>
+          <h1>New budget</h1>
+          <XCircle
+            size={24}
+            strokeWidth={1.5}
+            cursor="pointer"
+            onClick={() => navigate("..")}
+          />
+        </div>
+        <div className={classes["form-container"]}>
+          <div className={classes["form__field-date"]}>
+            <CalendarInput
+              control={control}
+              name="date"
+              calendarProps={{ minDetail: "year", maxDetail: "year" }}
+              setValue={setValue}
+              setActiveDate={setActiveDate}
+            />
+          </div>
+          <div className={classes["form__field-name"]}>
+            <p>Budget type</p>
+            <ul className={classes["form__field-name__values"]}>
+              {remainingBudgetsInMonth.map((budgetName) => (
+                <OneChoiceInput
+                  key={budgetName}
+                  value={budgetName}
+                  setValue={setValue}
+                  control={control}
+                  name="name"
+                  isActive={getValues("name") === budgetName}
                 />
-              </div>
-
-              <div className={classes["form-range"]}>
-                <FormikControl
-                  control="range"
-                  name="maxAmount"
-                  min="0"
-                  max="1000"
-                  step="10"
-                  label="Budget total amount"
-                  disabled={formik.isSubmitting ? true : false}
-                />
-              </div>
-              <div className={classes["form-range"]}>
-                <FormikControl
-                  control="range"
-                  name="usedAmount"
-                  min="0"
-                  max="1000"
-                  step="10"
-                  label="Budget used amount"
-                  disabled={formik.isSubmitting ? true : false}
-                />
-              </div>
-
-              <div className={classes["form-buttons"]}>
-                <Button type="submit">Submit</Button>
-                <ButtonRedirect redirectLink={".."}>Go back</ButtonRedirect>
-              </div>
-            </div>
-          </Form>
-        )}
-      </Formik>
+              ))}
+            </ul>
+            <ErrorMessage
+              errors={formState.errors}
+              name={"name"}
+              render={({ message }) => <Error message={message} />}
+            />
+          </div>
+          <div className={classes["form__field-maxAmount"]}>
+            <p>Maximum amount of budget</p>
+            <RangeInput control={control} type="range" name="maxAmount" />
+          </div>
+          <div className={classes["form__field-usedAmount"]}>
+            <p>Used amount of budget</p>
+            <RangeInput control={control} type="range" name="usedAmount" />
+          </div>
+          <div className={classes["form__handler-buttons"]}>
+            <ModalFormActions formState={formState} />
+          </div>
+        </div>
+      </form>
     </Modal>
+  );
+}
+
+function RangeInput({ type, ...props }) {
+  const {
+    fieldState,
+    field,
+    formState: { isSubmitting, errors },
+  } = useController(props);
+
+  return (
+    <div className={classes["range-container"]}>
+      <p>{field.value}</p>
+      <input
+        {...field}
+        type={type}
+        className={classes["range-input"]}
+        max={2000}
+        step={10}
+      />
+      <ErrorMessage
+        errors={errors}
+        name={field.name}
+        render={({ message }) => <Error message={message} />}
+      />
+    </div>
   );
 }

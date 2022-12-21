@@ -1,4 +1,4 @@
-.form-container {
+.form-wrapper {
   height: 100%;
 
   display: flex;
@@ -12,78 +12,54 @@
   justify-content: space-between;
 }
 
-.form-grid {
+.form-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--m16px);
 }
 
-.form-date {
-  grid-column: 1 / -1;
-}
-.form-radio {
-  padding: var(--m8px);
-  border-radius: var(--border5);
-  height: fit-content;
+.form-container > div:not(:last-of-type) {
+  margin-bottom: var(--m24px);
 }
 
-.form-grid > *:not(:last-child) {
-  border: 1px solid var(--gray-text);
-}
-
-.form-description,
-.form-date {
+.form__field-date {
   padding: var(--m8px);
   border-radius: var(--border5);
   height: 100%;
 }
 
-.form-description textarea {
-  width: 100%;
-  height: 100%;
-  resize: none;
-
-  font: inherit;
-  font-weight: 400;
-
-  border: none;
-  outline: none;
+.form__field-name__values {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  column-gap: var(--m24px);
+  row-gap: var(--m8px);
+  margin-top: var(--m8px);
 }
 
-.field-header {
-  cursor: pointer;
+.range-container {
+  margin-top: var(--m8px);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--m24px);
 }
 
-.field-options {
-  overflow: auto;
+.range-container p {
+  width: 35px;
+}
 
-  max-height: 100px;
-  height: fit-content;
+.range-container input {
+  cursor: pointer;
+  flex: 1;
+  accent-color: var(--secondary);
+}
+
+.form__handler-buttons {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-end;
   gap: var(--m8px);
 }
 
-.form-range {
-  border: none !important;
-  grid-column: 1 / -1;
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--m8px);
-}
-
-.form-buttons {
-  display: flex;
-  margin-left: auto;
-  gap: var(--m8px);
-}
-.form-buttons button {
+.form__handler-buttons button {
   width: fit-content;
-  padding-inline: var(--m32px);
+  padding-inline: var(--m16px);
 }
