@@ -22,9 +22,9 @@ const newBudgetService = async (req) => {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      maxAmount: req.body.maxAmount,
-      usedAmount: req.body.usedAmount,
-      date: req.body.month,
+      date: req.body.date,
+      maxAmount: Number(req.body.maxAmount),
+      usedAmount: Number(req.body.usedAmount),
     });
 
     await budget.save();
