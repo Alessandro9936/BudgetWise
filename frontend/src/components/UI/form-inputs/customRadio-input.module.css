@@ -1,0 +1,14 @@
+.value-option {
+  cursor: pointer;
+  border: 1px solid var(--primary);
+  border-radius: var(--border10);
+  padding: 2px 8px;
+  text-align: center;
+}
+
+.value-option:hover,
+.active {
+  border-color: var(--secondary);
+  background-color: var(--secondary);
+  color: white;
+}
