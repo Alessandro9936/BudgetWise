@@ -79,25 +79,10 @@ input[type="number"] {
 .form__field-state__values {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
   column-gap: var(--m24px);
   row-gap: var(--m8px);
   margin-top: var(--m8px);
-}
-
-.value-option {
-  cursor: pointer;
-  border: 1px solid var(--primary);
-  border-radius: var(--border10);
-  padding: 2px 8px;
-  text-align: center;
-}
-
-.value-option:hover,
-.active {
-  border-color: var(--secondary);
-  background-color: var(--secondary);
-  color: white;
 }
 
 .form__handler-buttons {

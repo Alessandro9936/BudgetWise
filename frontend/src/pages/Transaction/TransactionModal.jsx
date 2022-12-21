@@ -11,12 +11,13 @@ import { useCloseModal } from "../../hooks/useCloseModal";
 
 import { useController, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Calendar } from "react-calendar";
-import Input from "../../components/UI/InputText";
 import { ErrorMessage } from "@hookform/error-message";
 import { Error } from "../../components/UI/Error";
 import { useNewTransaction } from "../../utils/queryTransactions";
 import { useGetBudgets } from "../../utils/queryBudget";
+import CalendarInput from "../../components/UI/form-inputs/calendar-input";
+import OneChoiceInput from "../../components/UI/form-inputs/customRadio-input";
+import Input from "../../components/UI/form-inputs/InputText";
 
 export default function TransactionModal() {
   const [transactionType, setTransactionType] = useState(null);
@@ -202,19 +203,6 @@ function FormFieldHeader({ label, value, setActiveDropdown }) {
   );
 }
 
-function OneChoiceInput({ setValue, value, label, isActive, ...props }) {
-  const { field } = useController(props);
-
-  return (
-    <li
-      onClick={() => setValue(field.name, value, { shouldValidate: true })}
-      className={`${classes["value-option"]} ${isActive ? classes.active : ""}`}
-    >
-      {label ?? value}
-    </li>
-  );
-}
-
 function TypeInput({ activeType, onTypeChange, value }) {
   const isActive = activeType === value ? classes["active-type"] : "";
   return (
@@ -226,146 +214,3 @@ function TypeInput({ activeType, onTypeChange, value }) {
     </p>
   );
 }
-
-function CalendarInput({ calendarProps, setValue, setActiveDate, ...props }) {
-  const { field } = useController(props);
-
-  const onDateChange = (date) => {
-    setValue(field.name, date, { shouldValidate: true });
-    setActiveDate(date);
-  };
-
-  return <Calendar {...calendarProps} onChange={onDateChange} />;
-}
-
-/* const { mutate } = useMutation((values) =>
-  axiosPrivate.post("/api/transactions", values)
-);
-
-const navigate = useNavigate(); 
-
-useCloseModal();
-
-const [isSubmitted, setIsSubmitted] = useState(false);
-
-const queryClient = useQueryClient();
-
-const [activeDate, setActiveDate] = useState(new Date());
-
-const axiosPrivate = useAxiosPrivate();
-
-const [transactionType, setTransactionType] = useState(null);
-const [activeDropdown, setActiveDropdown] = useState(null);
-
-const { data } = useGetBudgets();
-
-const budgetsInActiveDate = useMemo(() => {
-  return data.reduce((acc, cur) => {
-    if (isSameMonth(cur.date, activeDate)) {
-      acc = [...acc, { key: cur.name, value: cur._id }];
-    }
-    return acc;
-  }, []);
-}, [activeDate.getMonth()]);
-
-const handleActiveDropdown = (value) =>
-  value !== activeDropdown
-    ? setActiveDropdown(value)
-    : setActiveDropdown(null);
-    */
-
-/* 
-
-<Formik
-              <Field
-                activeDropdown={activeDropdown}
-                label="type"
-                handleActiveDropdown={handleActiveDropdown}
-              >
-                {activeDropdown === "type" && (
-                  <FormikControl
-                    onClick={(e) => setTransactionType(e.target.value)}
-                    control="radio"
-                    label="Type"
-                    name="type"
-                    options={[
-                      { key: "Income", value: "income" },
-                      { key: "Expense", value: "expense" },
-                    ]}
-                    disabled={formik.isSubmitting}
-                  />
-                )}
-              </Field>
-              <Field
-                activeDropdown={activeDropdown}
-                label="amount"
-                handleActiveDropdown={handleActiveDropdown}
-              >
-                {activeDropdown === "amount" && (
-                  <FormikControl
-                    control="input"
-                    name="amount"
-                    type="number"
-                    disabled={formik.isSubmitting}
-                  />
-                )}
-              </Field>
-
-              {transactionType === "expense" && (
-                <>
-                  <Field
-                    activeDropdown={activeDropdown}
-                    label="budget"
-                    handleActiveDropdown={handleActiveDropdown}
-                  >
-                    {activeDropdown === "budget" && (
-                      <FormikControl
-                        control="radio"
-                        label="Budget"
-                        name="budget"
-                        options={budgetsInActiveDate}
-                        disabled={formik.isSubmitting}
-                      />
-                    )}
-                  </Field>
-                  <Field
-                    activeDropdown={activeDropdown}
-                    label="state"
-                    handleActiveDropdown={handleActiveDropdown}
-                  >
-                    {activeDropdown === "state" && (
-                      <FormikControl
-                        control="radio"
-                        label="State"
-                        name="state"
-                        options={[
-                          { key: "Paid", value: "paid" },
-                          { key: "To pay", value: "topay" },
-                        ]}
-                        disabled={formik.isSubmitting}
-                      />
-                    )}
-                  </Field>
-                </>
-              )}
-
-              <div className={classes["form-description"]}>
-                <FormikControl
-                  control="textarea"
-                  placeholder="Brief description..."
-                  name="description"
-                  id="description"
-                  maxLength="50"
-                  disabled={formik.isSubmitting}
-                />
-              </div>
-              {!isSubmitted && (
-                <FormikActionButtons isSubmitting={formik.isSubmitting} />
-              )}
-
-              {isSubmitted && <SuccessRedirect isSubmitted={isSubmitted} />}
-            </div>
-          </Form>
-        )}
-      </Formik>
-*/

@@ -2,9 +2,9 @@ import { logInSchema } from "./utils/loginSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Input from "../../components/UI/InputText";
 import { useUserFormActions } from "../../utils/userQueries";
 import UserActionForm from "../../components/Utilities/userActionsForm";
+import Input from "../../components/UI/form-inputs/InputText";
 
 const initialValues = {
   email: "",

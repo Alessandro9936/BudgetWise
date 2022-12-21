@@ -5,7 +5,7 @@ import Card from "../../../components/UI/Card";
 import { DeleteIcon } from "../../../components/UI/DeleteIcon";
 import { UpdateIcon } from "../../../components/UI/UpdateIcon";
 import { Search } from "react-feather";
-import { useGetTransactions } from "../../../utils/queryTransactions";
+import { useGetTransactionsFiltered } from "../../../utils/queryTransactions";
 
 const transactionMarkup = (transaction) => {
   const { type } = transaction;
@@ -42,7 +42,7 @@ const transactionMarkup = (transaction) => {
 };
 
 export function Transactions() {
-  const transactions = useGetTransactions();
+  const transactions = useGetTransactionsFiltered();
   const transactionMapped = transactions.data ?? [];
 
   const transSliced = transactionMapped.slice(0, 20);

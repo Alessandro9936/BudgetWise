@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useUserFormActions } from "../../utils/userQueries";
-import Input from "../../components/UI/InputText";
 import UserActionForm from "../../components/Utilities/userActionsForm";
+import Input from "../../components/UI/form-inputs/InputText";
 
 const initialValues = {
   firstName: "",

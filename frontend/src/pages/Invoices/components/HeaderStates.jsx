@@ -3,10 +3,10 @@ import classes from "./HeaderStates.module.css";
 
 import Card from "../../../components/UI/Card";
 import { FileText } from "react-feather";
-import { useGetTransactions } from "../../../utils/queryTransactions";
+import { useGetTransactionsFiltered } from "../../../utils/queryTransactions";
 
 export function HeaderStates() {
-  const transactions = useGetTransactions();
+  const transactions = useGetTransactionsFiltered();
   const transactionMapped = transactions.data ?? [];
 
   const statesNumber = transactionMapped
