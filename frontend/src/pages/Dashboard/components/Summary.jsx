@@ -1,9 +1,16 @@
 import React from "react";
 import Card from "../../../components/UI/Card";
+import { transactionByDate } from "../../../utils/queryTransactions";
 import classes from "./Summary.module.css";
 
-export function Summary({ transactionMapped }) {
-  const amounts = transactionMapped.reduce(
+export function Summary({ activeDate }) {
+  const year = activeDate.getFullYear();
+
+  const query = transactionByDate(activeDate);
+
+  const transactions = query.transactions;
+
+  const amounts = transactions.reduce(
     (acc, cur) => {
       cur.type === "income"
         ? (acc.income += cur.amount)
@@ -17,7 +24,10 @@ export function Summary({ transactionMapped }) {
 
   return (
     <section className={classes.summary}>
-      <h3>Overview</h3>
+      <div className={classes["summary-header"]}>
+        <h3>Overview</h3>
+        <span className={classes["summary-header__time"]}> ({year})</span>
+      </div>
       <Card>
         <p className={classes["summary-field__text"]}>Income</p>
         <p className={classes["summary-amount"]}>$ {amounts?.income}</p>

@@ -1,9 +1,21 @@
-.summary div {
+.summary div:not(:first-of-type) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   flex: 1;
+}
+
+.summary-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--m8px);
+}
+
+.summary-header__time {
+  font-size: 0.8rem;
+  color: var(--gray-text);
+  font-weight: 600;
 }
 
 .summary-field__text {

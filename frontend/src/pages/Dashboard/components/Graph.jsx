@@ -1,5 +1,5 @@
 import { TimeSpanSelector } from "./../../../components/UI/TimeSpanSelector";
-import React from "react";
+import React, { useEffect } from "react";
 import { RefreshCw } from "react-feather";
 
 import {
@@ -18,8 +18,9 @@ import classes from "./Graph.module.css";
 import { getDataYears, getDataMonths, getDataWeeks } from "../utils/graphData";
 import { useActiveDates } from "../../hooks/useActiveDates";
 import { DateBar } from "../../../components/UI/DateBar";
+import { transactionByDate } from "../../../utils/queryTransactions";
 
-export function Graph({ transactionMapped }) {
+export function Graph({ setGraphDate }) {
   const {
     updateActiveDate,
     updateActiveTimeSpan,
@@ -29,11 +30,20 @@ export function Graph({ transactionMapped }) {
     activeDateFormatted,
   } = useActiveDates();
 
+  const query = transactionByDate(activeDate);
+
+  const transactions = query.transactions;
+  const isFetching = query.isFetching;
+
   const graphData = {
-    Yearly: getDataYears(transactionMapped, activeDate),
-    Monthly: getDataMonths(transactionMapped, activeDate),
-    Weekly: getDataWeeks(transactionMapped, activeDate),
+    Yearly: getDataYears(transactions, activeDate),
+    Monthly: getDataMonths(transactions, activeDate),
+    Weekly: getDataWeeks(transactions, activeDate),
   }[activeTimeSpan];
+
+  useEffect(() => {
+    setGraphDate(activeDate);
+  }, [activeDate.getFullYear()]);
 
   return (
     <section>
@@ -58,55 +68,61 @@ export function Graph({ transactionMapped }) {
             activeDate={activeDateFormatted}
           />
         </div>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            width={1000}
-            height={400}
-            data={graphData}
-            margin={{
-              top: 50,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <defs>
-              <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ee7172" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#ee7172" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#95cba0" stopOpacity={0.6} />
-                <stop offset="95%" stopColor="#95cba0" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="1 1" horizontal={false} />
-            <XAxis dataKey="name" dy={5} />
-            <YAxis type="number" dx={-5} />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="income"
-              stackId="1"
-              strokeWidth={2.5}
-              stroke="#95cba0"
-              fillOpacity={0.25}
-              fill="url(#green)"
-              unit=" USD"
-            />
+        {transactions.length > 0 && (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              width={1000}
+              height={400}
+              data={graphData}
+              margin={{
+                top: 50,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <defs>
+                <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#ee7172" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#ee7172" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#95cba0" stopOpacity={0.6} />
+                  <stop offset="95%" stopColor="#95cba0" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="1 1" horizontal={false} />
+              <XAxis dataKey="name" dy={5} />
+              <YAxis type="number" dx={-5} />
+              <Tooltip />
+              {!isFetching && (
+                <>
+                  <Area
+                    type="monotone"
+                    dataKey="income"
+                    stackId="1"
+                    strokeWidth={2.5}
+                    stroke="#95cba0"
+                    fillOpacity={0.25}
+                    fill="url(#green)"
+                    unit=" USD"
+                  />
 
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stackId="0"
-              strokeWidth={2.5}
-              stroke="#ee7172"
-              fillOpacity={0.25}
-              fill="url(#red)"
-              unit=" USD"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+                  <Area
+                    type="monotone"
+                    dataKey="expenses"
+                    stackId="0"
+                    strokeWidth={2.5}
+                    stroke="#ee7172"
+                    fillOpacity={0.25}
+                    fill="url(#red)"
+                    unit=" USD"
+                  />
+                </>
+              )}
+            </AreaChart>
+          </ResponsiveContainer>
+        )}
       </Card>
     </section>
   );
