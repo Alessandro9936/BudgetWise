@@ -21,6 +21,7 @@ import Profile from "./pages/Profile/Profile";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
 import BudgetModal from "./pages/Budget/BudgetModal";
+import BudgetDetails from "./pages/BudgetDetails/BudgetDetails";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -68,8 +69,12 @@ const router = createBrowserRouter([
         element: <Budgets />,
         children: [
           {
-            path: "budget",
+            path: "new",
             element: <BudgetModal />,
+          },
+          {
+            path: ":id",
+            element: <BudgetDetails />,
           },
         ],
       },
