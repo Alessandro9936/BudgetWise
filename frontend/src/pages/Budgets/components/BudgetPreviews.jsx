@@ -71,8 +71,8 @@ export function BudgetPreviews({
               <div className={classes["budget-header"]}>
                 <p className={classes["budget-header__title"]}>{budget.name}</p>
                 <div className={classes["budget-header__handlers"]}>
-                  <UpdateIcon />
-                  <DeleteIcon />
+                  <UpdateIcon id={budget.id} />
+                  <DeleteIcon id={budget.id} />
                 </div>
               </div>
               <p className={classes["budget-date"]}>{formatBudgetDate}</p>
@@ -101,7 +101,7 @@ export function BudgetPreviews({
 
       {activeTimeSpan === "Monthly" &&
       isFuture(new Date(endOfMonth(activeDate))) ? (
-        <Link to={"budget"}>
+        <Link to={"new"}>
           <Button>Create new budget</Button>
         </Link>
       ) : (
