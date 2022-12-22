@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
 import { Error } from "../../components/UI/Error";
 import { useNewTransaction } from "../../utils/queryTransactions";
-import { useGetBudgets } from "../../utils/queryBudget";
+import { useGetBudgetsByDate } from "../../utils/queryBudget";
 import CalendarInput from "../../components/UI/form-inputs/calendar-input";
 import OneChoiceInput from "../../components/UI/form-inputs/customRadio-input";
 import Input from "../../components/UI/form-inputs/InputText";
@@ -30,7 +30,7 @@ export default function TransactionModal() {
       resolver: yupResolver(transactionSchema),
     });
 
-  const { data } = useGetBudgets(
+  const { data } = useGetBudgetsByDate(
     activeDate.toLocaleDateString("en-GB", { year: "numeric", month: "long" })
   );
 
