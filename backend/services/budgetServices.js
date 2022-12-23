@@ -38,6 +38,8 @@ const updateBudgetService = async (id, body) => {
   try {
     const oldBudget = await Budget.findById(id);
 
+    oldBudget.maxAmount = Number(body.maxAmount);
+
     const updatedBudget = oldBudget.save();
     return updatedBudget;
   } catch (error) {
