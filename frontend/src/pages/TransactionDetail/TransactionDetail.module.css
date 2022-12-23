@@ -1,0 +1,27 @@
+.transaction-detail__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m16px);
+}
+
+.transaction-detail__header,
+.transaction-detail__type,
+.transaction-detail__date,
+.transaction-detail__budget,
+.transaction-detail__state,
+.transaction-detail__amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transaction-detail__actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: var(--m8px);
+}
+
+.transaction-detail__actions button {
+  padding-inline: var(--m24px);
+}
