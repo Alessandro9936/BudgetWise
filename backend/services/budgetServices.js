@@ -38,12 +38,6 @@ const updateBudgetService = async (id, body) => {
   try {
     const oldBudget = await Budget.findById(id);
 
-    for ([key, value] of Object.entries(body)) {
-      if (oldBudget[key] !== body[key]) {
-        oldBudget[key] = value;
-      }
-    }
-
     const updatedBudget = oldBudget.save();
     return updatedBudget;
   } catch (error) {
@@ -62,7 +56,8 @@ const getBudgetService = async (id) => {
 
 const deleteBudgetService = async (id) => {
   try {
-    await Budget.findByIdAndRemove(id);
+    const budget = await Budget.findByIdAndRemove(id);
+    return budget;
   } catch (error) {
     throw new Error(error);
   }

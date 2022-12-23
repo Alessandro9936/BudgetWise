@@ -66,9 +66,9 @@ const getBudget = async (req, res, next) => {
 const deleteBudget = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await deleteBudgetService(id);
+    const budget = await deleteBudgetService(id);
 
-    res.status(204).end();
+    res.status(200).json(budget);
   } catch (error) {
     next(createHttpError(error));
   }
