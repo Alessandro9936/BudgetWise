@@ -13,6 +13,7 @@ import {
   isPast,
   startOfMonth,
 } from "date-fns";
+import { BudgetProgressBar } from "../../../components/UI/BudgetProgressBar";
 
 const colorsPerBudgetLabel = {
   rent: "#ff595e",
@@ -26,26 +27,6 @@ const colorsPerBudgetLabel = {
   travelling: "#4267ac",
   others: "#565aa0",
   transport: "#6a4c93",
-};
-
-const ProgressBar = ({ progress, budgetName }) => {
-  const roundProgressPercentage = Math.ceil(progress);
-
-  return (
-    <div className={classes["progress-bar_container"]}>
-      <div
-        style={{
-          backgroundColor: colorsPerBudgetLabel[budgetName],
-          width: `${roundProgressPercentage}%`,
-        }}
-        className={classes["progress-bar"]}
-      >
-        <span
-          className={classes["bar-text"]}
-        >{`${roundProgressPercentage}%`}</span>
-      </div>
-    </div>
-  );
 };
 
 export function BudgetPreviews({
@@ -66,47 +47,33 @@ export function BudgetPreviews({
       <h3>Budget previews</h3>
       <ul className={classes["previews-grid"]}>
         {budgetsInActiveDate.map((budget) => (
-          <li key={budget.id} className={classes.preview}>
+          <li key={budget._id} className={classes.preview}>
             <Card>
               <div className={classes["budget-header"]}>
                 <p className={classes["budget-header__title"]}>{budget.name}</p>
-                <div className={classes["budget-header__handlers"]}>
-                  <UpdateIcon id={budget.id} />
-                  <DeleteIcon id={budget.id} />
-                </div>
+                {activeTimeSpan === "Monthly" && (
+                  <div className={classes["budget-header__handlers"]}>
+                    <UpdateIcon
+                      redirectLink={budget._id}
+                      activeTimeSpan={activeTimeSpan}
+                    />
+                    <DeleteIcon id={budget._id} />
+                  </div>
+                )}
               </div>
               <p className={classes["budget-date"]}>{formatBudgetDate}</p>
-              <p className={classes["budget-amount"]}>
-                <span
-                  style={{
-                    fontWeight: 600,
-                    color:
-                      budget.maxAmount >= budget.usedAmount
-                        ? "#95cba0"
-                        : "#ee7172",
-                  }}
-                >
-                  {budget.maxAmount - budget.usedAmount} $
-                </span>{" "}
-                left from {budget.maxAmount} $
-              </p>
-              <ProgressBar
-                progress={(budget.usedAmount / budget.maxAmount) * 100}
-                budgetName={budget.name}
-              />
+              <BudgetProgressBar budget={budget} />
             </Card>
           </li>
         ))}
       </ul>
 
       {activeTimeSpan === "Monthly" &&
-      isFuture(new Date(endOfMonth(activeDate))) ? (
-        <Link to={"new"}>
-          <Button>Create new budget</Button>
-        </Link>
-      ) : (
-        <Button disabled={true}>Create new budget</Button>
-      )}
+        isFuture(new Date(endOfMonth(activeDate))) && (
+          <Link to={"new"}>
+            <Button>Create new budget</Button>
+          </Link>
+        )}
     </section>
   );
 }
