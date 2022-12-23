@@ -1,0 +1,27 @@
+.budget-amount {
+  font-size: 1rem;
+  margin-bottom: var(--m8px);
+}
+
+.progress-bar_container {
+  width: 100%;
+  background-color: whitesmoke;
+  border-radius: 50px;
+  margin-bottom: var(--m8px);
+}
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 100%;
+  border-radius: 50px;
+  margin-block: auto;
+  font-weight: 600;
+  max-width: 100%;
+}
+
+.bar-text {
+  margin-right: var(--m8px);
+  color: white;
+}
