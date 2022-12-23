@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
 
 export const useGetTransactionsFiltered = () => {
@@ -76,4 +76,76 @@ export const useNewTransaction = (formState, setError) => {
   };
 
   return { newTransaction };
+};
+
+export const useGetTransactionDetails = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const { id } = useParams();
+
+  if (!id) return;
+
+  return useQuery(
+    ["transactions", id],
+    () =>
+      axiosPrivate.get(`/api/transactions/${id}`).then((result) => result.data),
+    {
+      staleTime: Infinity,
+      select: (transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      }),
+    }
+  );
+};
+
+export const useDeleteTransaction = () => {
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteTransaction, isSuccess } = useMutation(
+    () =>
+      axiosPrivate
+        .delete(`/api/transactions/${id}`)
+        .then((response) => response.data),
+    {
+      onSuccess: (transaction) => {
+        const yearOfTransaction = new Date(transaction.date).getFullYear();
+
+        Promise.all([
+          queryClient.invalidateQueries(["transactions", transaction._id]),
+          queryClient.invalidateQueries(["transactions", yearOfTransaction]),
+        ]);
+      },
+    }
+  );
+
+  return { isSuccess, deleteTransaction };
+};
+
+export const useUpdateTransaction = () => {
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  const { mutate, isSuccess } = useMutation((values) =>
+    axiosPrivate
+      .put(`/api/transactions/${id}`, values)
+      .then((response) => response.data)
+  );
+
+  const updateTransaction = (formData) => {
+    mutate(formData, {
+      onSuccess: (transaction) => {
+        const yearOfTransaction = new Date(transaction.date).getFullYear();
+
+        Promise.all([
+          queryClient.invalidateQueries(["transactions", transaction._id]),
+          queryClient.invalidateQueries(["transactions", yearOfTransaction]),
+        ]);
+      },
+    });
+  };
+
+  return { isSuccess, updateTransaction };
 };

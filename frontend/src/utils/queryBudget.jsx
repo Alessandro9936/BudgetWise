@@ -1,27 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAxiosPrivate } from "../hooks/useAxiosPrivate";
-
-export const useGetBudgets = (defaultDate) => {
-  const axiosPrivate = useAxiosPrivate();
-  const [search] = useSearchParams();
-
-  const searchValue = search.get("date") || defaultDate;
-
-  return useQuery(
-    ["budgets", searchValue],
-    () => axiosPrivate.get("/api/budgets", { params: { date: searchValue } }),
-    {
-      staleTime: 120000,
-      keepPreviousData: true,
-      select: (data) =>
-        data.data.map((transaction) => ({
-          ...transaction,
-          date: new Date(transaction.date),
-        })),
-    }
-  );
-};
 
 export const useGetBudgetsByDate = (date) => {
   const axiosPrivate = useAxiosPrivate();
@@ -82,4 +61,88 @@ export const useNewBudget = (formState, setError) => {
     });
   };
   return { newBudget };
+};
+export const useUpdateBudget = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const { mutate } = useMutation((values) =>
+    axiosPrivate
+      .put(`/api/budgets/${id}`, values)
+      .then((response) => response.data)
+  );
+
+  const updateBudget = (defaultValues, maxAmount) => {
+    const formData = { ...defaultValues, maxAmount };
+    mutate(formData, {
+      onSuccess: (budget) => {
+        const yearOfBudget = new Date(budget.date).getFullYear();
+        const monthOfBudget = new Date(budget.date).toLocaleDateString(
+          "en-GB",
+          {
+            month: "long",
+            year: "numeric",
+          }
+        );
+
+        Promise.all([
+          queryClient.invalidateQueries(["budgets", budget._id]),
+          queryClient.invalidateQueries(["budgets", yearOfBudget]),
+          queryClient.invalidateQueries(["budgets", monthOfBudget]),
+        ]);
+      },
+    });
+  };
+
+  return { updateBudget };
+};
+
+export const useDeleteBudget = () => {
+  const { id } = useParams();
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteBudget, isSuccess } = useMutation(
+    () =>
+      axiosPrivate
+        .delete(`/api/budgets/${id}`)
+        .then((response) => response.data),
+    {
+      onSuccess: (budget) => {
+        const yearOfBudget = new Date(budget.date).getFullYear();
+        const monthOfBudget = new Date(budget.date).toLocaleDateString(
+          "en-GB",
+          {
+            month: "long",
+            year: "numeric",
+          }
+        );
+
+        Promise.all([
+          queryClient.invalidateQueries(["budgets", budget._id]),
+          queryClient.invalidateQueries(["budgets", yearOfBudget]),
+          queryClient.invalidateQueries(["budgets", monthOfBudget]),
+        ]);
+      },
+    }
+  );
+
+  return { isSuccess, deleteBudget };
+};
+
+export const useGetBudgetDetails = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const { id } = useParams();
+
+  if (!id) return;
+
+  return useQuery(
+    ["budgets", id],
+    () => axiosPrivate.get(`/api/budgets/${id}`),
+    {
+      staleTime: Infinity,
+      select: (data) => ({ ...data.data, date: new Date(data.data.date) }),
+    }
+  );
 };
