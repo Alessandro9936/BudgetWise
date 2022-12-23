@@ -63,3 +63,10 @@
   width: fit-content;
   padding-inline: var(--m16px);
 }
+
+.overlay-disable {
+  border: 1px solid var(--red);
+  border-radius: var(--border10);
+  pointer-events: none;
+  padding: var(--m8px);
+}

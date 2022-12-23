@@ -10,11 +10,16 @@ import CalendarInput from "../../components/UI/form-inputs/calendar-input";
 import { useState } from "react";
 import OneChoiceInput from "../../components/UI/form-inputs/customRadio-input";
 import { useMemo } from "react";
-import { useGetBudgetsByDate, useNewBudget } from "../../utils/queryBudget";
+import {
+  useGetBudgetDetails,
+  useGetBudgetsByDate,
+  useNewBudget,
+  useUpdateBudget,
+} from "../../utils/queryBudget";
 import { Error } from "../../components/UI/Error";
 import { ErrorMessage } from "@hookform/error-message";
 import { ModalFormActions } from "../../components/Utilities/ModalFormActions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCloseModal } from "../../hooks/useCloseModal";
 
 const allBudgets = [
@@ -38,16 +43,32 @@ const budgetSchema = yup.object().shape({
   usedAmount: yup.string().required("Budget used is required"),
 });
 
-const initialValues = {
-  name: "",
-  date: new Date(),
-  maxAmount: 0,
-  usedAmount: 0,
-};
-
 export default function BudgetModal() {
+  const { id } = useParams();
+  const isUpdate = !!id;
+
+  const dataBudgetDetails = useGetBudgetDetails();
+  const budgetDetails = dataBudgetDetails?.data;
+
+  let initialValues = {
+    name: "",
+    date: new Date(),
+    maxAmount: 0,
+    usedAmount: 0,
+  };
+
+  if (budgetDetails) {
+    initialValues = {
+      name: budgetDetails.name,
+      date: budgetDetails.date,
+      maxAmount: budgetDetails.maxAmount,
+      usedAmount: budgetDetails.usedAmount,
+    };
+  }
+
   const navigate = useNavigate();
   useCloseModal();
+
   const { control, formState, handleSubmit, setValue, getValues, setError } =
     useForm({
       defaultValues: initialValues,
@@ -55,13 +76,14 @@ export default function BudgetModal() {
     });
 
   const { newBudget } = useNewBudget(formState, setError);
+  const { updateBudget } = useUpdateBudget();
+
   const [activeDate, setActiveDate] = useState(new Date());
 
-  const query = useGetBudgetsByDate(
+  const dataBudgetsInActiveMonth = useGetBudgetsByDate(
     activeDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" })
   );
-
-  const budgets = query.data ?? [];
+  const budgets = dataBudgetsInActiveMonth.data ?? [];
 
   const remainingBudgetsInMonth = useMemo(() => {
     const remainingBudgets = [...allBudgets];
@@ -72,11 +94,15 @@ export default function BudgetModal() {
       }
     });
 
-    return remainingBudgets;
+    return !isUpdate
+      ? remainingBudgets
+      : [...remainingBudgets, budgetDetails.name];
   }, [budgets]);
 
   const onSubmit = (formData) => {
-    newBudget(formData);
+    isUpdate
+      ? updateBudget(formState.defaultValues, formData.maxAmount)
+      : newBudget(formData);
   };
 
   return (
@@ -99,12 +125,26 @@ export default function BudgetModal() {
             <CalendarInput
               control={control}
               name="date"
-              calendarProps={{ minDetail: "year", maxDetail: "year" }}
+              disabled={isUpdate}
+              calendarProps={{
+                minDetail: "year",
+                maxDetail: "year",
+                defaultValue: formState.defaultValues.date,
+              }}
               setValue={setValue}
               setActiveDate={setActiveDate}
             />
           </div>
-          <div className={classes["form__field-name"]}>
+          {isUpdate && (
+            <span>
+              <Error message="Can't update budget type" />
+            </span>
+          )}
+          <div
+            className={`${classes["form__field-name"]} ${
+              isUpdate ? classes["overlay-disable"] : ""
+            }`}
+          >
             <p>Budget type</p>
             <ul className={classes["form__field-name__values"]}>
               {remainingBudgetsInMonth.map((budgetName) => (
@@ -130,7 +170,12 @@ export default function BudgetModal() {
           </div>
           <div className={classes["form__field-usedAmount"]}>
             <p>Used amount of budget</p>
-            <RangeInput control={control} type="range" name="usedAmount" />
+            <RangeInput
+              disabled={isUpdate}
+              control={control}
+              type="range"
+              name="usedAmount"
+            />
           </div>
           <div className={classes["form__handler-buttons"]}>
             <ModalFormActions formState={formState} />
@@ -141,12 +186,14 @@ export default function BudgetModal() {
   );
 }
 
-function RangeInput({ type, ...props }) {
+function RangeInput({ type, disabled, ...props }) {
   const {
     fieldState,
     field,
-    formState: { isSubmitting, errors },
+    formState: { errors },
   } = useController(props);
+
+  //console.log(defaultValues);
 
   return (
     <div className={classes["range-container"]}>
@@ -157,6 +204,7 @@ function RangeInput({ type, ...props }) {
         className={classes["range-input"]}
         max={2000}
         step={10}
+        disabled={disabled}
       />
       <ErrorMessage
         errors={errors}
