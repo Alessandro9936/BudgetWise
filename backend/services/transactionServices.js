@@ -107,7 +107,7 @@ const updateTransactionService = async (id, body) => {
     const oldTransaction = await Transaction.findById(id);
 
     for ([key, value] of Object.entries(body)) {
-      if (oldTransaction[key] !== body[key]) {
+      if (value && oldTransaction[key] !== body[key]) {
         oldTransaction[key] = value;
       }
     }
