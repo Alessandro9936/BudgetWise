@@ -4,15 +4,22 @@ import { HeaderStates } from "./components/HeaderStates";
 import { ContentGrid } from "../../components/UI/ContentGrid";
 import classes from "./Invoices.module.css";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useMemo } from "react";
+import { Outlet, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
-const custom = (filters) => {
+export default function Invoices() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState({
+    sort: "date",
+    type: "",
+    date: "2022",
+    state: [],
+    budget: [],
+  });
 
-  let searchUrl = {};
+  useEffect(() => {
+    let searchUrl = {};
 
-  return useMemo(() => {
     for (const [key, value] of Object.entries(filters)) {
       if (value.length === 0 && searchParams.has(key)) {
         searchParams.delete(key);
@@ -28,27 +35,15 @@ const custom = (filters) => {
       setSearchParams(searchUrl);
     }
   }, [filters]);
-};
-
-export default function Invoices() {
-  const [filters, setFilters] = useState({
-    sort: "",
-    type: "",
-    date: "",
-    state: [],
-    budget: [],
-  });
-
-  custom(filters);
 
   return (
     <ContentGrid gridAreas={classes["invoice-areas__expense"]}>
       <>
-        {console.log(filters)}
         <HeaderStates />
         <Transactions />
         <FiltersSidebar setFilters={setFilters} />
       </>
+      <Outlet />
     </ContentGrid>
   );
 }

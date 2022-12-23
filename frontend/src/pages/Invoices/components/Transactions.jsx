@@ -2,10 +2,9 @@ import React from "react";
 import classes from "./Transactions.module.css";
 
 import Card from "../../../components/UI/Card";
-import { DeleteIcon } from "../../../components/UI/DeleteIcon";
-import { UpdateIcon } from "../../../components/UI/UpdateIcon";
-import { Search } from "react-feather";
 import { useGetTransactionsFiltered } from "../../../utils/queryTransactions";
+import { MoreVertical } from "react-feather";
+import { Link } from "react-router-dom";
 
 const transactionMarkup = (transaction) => {
   const { type } = transaction;
@@ -34,8 +33,14 @@ const transactionMarkup = (transaction) => {
         </span>
       </p>
       <div className={classes["transaction-handlers"]}>
-        <UpdateIcon />
-        <DeleteIcon />
+        <Link to={`transaction/${transaction._id}`}>
+          <MoreVertical
+            style={{
+              color: "var(--gray-text)",
+              cursor: "pointer",
+            }}
+          />
+        </Link>
       </div>
     </li>
   );
