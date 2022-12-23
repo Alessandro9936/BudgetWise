@@ -5,17 +5,38 @@ export default function OneChoiceInput({
   setValue,
   value,
   label,
+  disabled,
   isActive,
   ...props
 }) {
   const { field } = useController(props);
 
   return (
-    <li
-      onClick={() => setValue(field.name, value, { shouldValidate: true })}
-      className={`${classes["value-option"]} ${isActive ? classes.active : ""}`}
-    >
-      {label ?? value}
-    </li>
+    <>
+      {!disabled ? (
+        <li
+          onClick={() =>
+            setValue(field.name, value, {
+              shouldValidate: true,
+            })
+          }
+          className={`${classes["value-option"]} ${
+            isActive ? classes.active : ""
+          }`}
+        >
+          {label ?? value}
+        </li>
+      ) : (
+        <div className={classes["overlay-disable"]}>
+          <li
+            className={`${classes["value-option"]} ${
+              isActive ? classes.active : ""
+            }`}
+          >
+            {label ?? value}
+          </li>
+        </div>
+      )}
+    </>
   );
 }
