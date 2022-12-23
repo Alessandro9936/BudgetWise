@@ -34,9 +34,10 @@ export default function Budgets() {
             ...acc,
             {
               name: curBudget.name,
+              date: curBudget.date,
               usedAmount: curBudget.usedAmount,
               maxAmount: curBudget.maxAmount,
-              id: curBudget._id,
+              _id: curBudget._id,
             },
           ];
         } else {
@@ -63,7 +64,6 @@ export default function Budgets() {
           activeDate={activeDateFormatted}
         />
       </section>
-      ;
       <BudgetPreviews
         budgetsInActiveDate={reducedBudgets}
         activeTimeSpan={activeTimeSpan}
