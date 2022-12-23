@@ -22,6 +22,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import TransactionModal from "./pages/Transaction/TransactionModal";
 import BudgetModal from "./pages/Budget/BudgetModal";
 import BudgetDetails from "./pages/BudgetDetails/BudgetDetails";
+import ModalDelete from "./components/Utilities/ModalDelete";
+import TransactionDetail from "./pages/TransactionDetail/TransactionDetail";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -51,18 +53,40 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
-            path: "transaction",
+            path: "transaction/new",
             element: <TransactionModal />,
           },
           {
             path: "transaction/:id",
+            element: <TransactionDetail />,
+          },
+          {
+            path: "transaction/:id/update",
             element: <TransactionModal />,
+          },
+          {
+            path: "transaction/:id/delete",
+            element: <ModalDelete toDelete="transaction" />,
           },
         ],
       },
       {
         path: "invoices",
         element: <Invoices />,
+        children: [
+          {
+            path: "transaction/:id",
+            element: <TransactionDetail />,
+          },
+          {
+            path: "transaction/:id/update",
+            element: <TransactionModal />,
+          },
+          {
+            path: "transaction/:id/delete",
+            element: <ModalDelete toDelete="transaction" />,
+          },
+        ],
       },
       {
         path: "budgets",
@@ -75,6 +99,14 @@ const router = createBrowserRouter([
           {
             path: ":id",
             element: <BudgetDetails />,
+          },
+          {
+            path: ":id/update",
+            element: <BudgetModal />,
+          },
+          {
+            path: ":id/delete",
+            element: <ModalDelete toDelete="budget" />,
           },
         ],
       },
