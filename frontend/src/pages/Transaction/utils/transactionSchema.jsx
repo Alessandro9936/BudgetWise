@@ -19,12 +19,3 @@ export const transactionSchema = yup.object().shape({
       .required("Insert state to this transaction"),
   }),
 });
-
-export const initialValues = {
-  type: "",
-  amount: "",
-  budget: "",
-  state: "",
-  date: new Date(),
-  description: "",
-};

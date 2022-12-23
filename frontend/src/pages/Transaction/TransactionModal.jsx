@@ -1,34 +1,78 @@
+import { CloseModalIcon } from "./../../components/UI/CloseModalIcon";
 import { ModalFormActions } from "../../components/Utilities/ModalFormActions";
 import Modal from "../../components/Utilities/Modal";
 
 import classes from "./TransactionModal.module.css";
 
-import { useState } from "react";
-import { ChevronRight, XCircle } from "react-feather";
-import { useNavigate } from "react-router-dom";
-import { initialValues, transactionSchema } from "./utils/transactionSchema";
+import { useEffect, useState } from "react";
+import { ChevronRight } from "react-feather";
+import { transactionSchema } from "./utils/transactionSchema";
 import { useCloseModal } from "../../hooks/useCloseModal";
 
 import { useController, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
 import { Error } from "../../components/UI/Error";
-import { useNewTransaction } from "../../utils/queryTransactions";
+import {
+  useGetTransactionDetails,
+  useNewTransaction,
+  useUpdateTransaction,
+} from "../../utils/queryTransactions";
 import { useGetBudgetsByDate } from "../../utils/queryBudget";
 import CalendarInput from "../../components/UI/form-inputs/calendar-input";
 import OneChoiceInput from "../../components/UI/form-inputs/customRadio-input";
 import Input from "../../components/UI/form-inputs/InputText";
+import { useNavigate, useNavigation, useParams } from "react-router-dom";
 
 export default function TransactionModal() {
-  const [transactionType, setTransactionType] = useState(null);
-  const [activeDropdown, setActiveDropdown] = useState("Amount");
-  const [activeDate, setActiveDate] = useState(new Date());
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { formState, setError, control, handleSubmit, setValue, getValues } =
-    useForm({
-      defaultValues: initialValues,
-      resolver: yupResolver(transactionSchema),
-    });
+  const isUpdate = !!id;
+
+  const dataTransactionDetail = useGetTransactionDetails();
+  const trasactionDetails = dataTransactionDetail?.data;
+
+  let initialValues = {
+    type: "",
+    amount: "",
+    budget: "",
+    state: "",
+    date: new Date(),
+    description: "",
+  };
+
+  if (trasactionDetails) {
+    initialValues = {
+      type: trasactionDetails.type,
+      amount: trasactionDetails.amount,
+      budget: trasactionDetails?.budget?._id ?? "",
+      state: trasactionDetails?.state ?? "",
+      date: trasactionDetails.date,
+      description: trasactionDetails.description,
+    };
+  }
+
+  const {
+    formState,
+    setError,
+    control,
+    handleSubmit,
+    setValue,
+    getValues,
+    reset,
+  } = useForm({
+    defaultValues: initialValues,
+    resolver: yupResolver(transactionSchema),
+  });
+
+  const [transactionType, setTransactionType] = useState(
+    trasactionDetails?.type ?? null
+  );
+  const [activeDropdown, setActiveDropdown] = useState("Amount");
+  const [activeDate, setActiveDate] = useState(
+    trasactionDetails?.date ?? new Date()
+  );
 
   const { data } = useGetBudgetsByDate(
     activeDate.toLocaleDateString("en-GB", { year: "numeric", month: "long" })
@@ -43,14 +87,18 @@ export default function TransactionModal() {
     (budget) => budget.value === getValues("budget")
   );
 
-  const navigate = useNavigate();
-
   const { newTransaction } = useNewTransaction(formState, setError);
+  const { isSuccess, updateTransaction } = useUpdateTransaction();
 
   useCloseModal();
 
   const onSubmit = (formData) => {
-    newTransaction(formData);
+    if (isUpdate) {
+      updateTransaction(formData);
+      if (isSuccess) navigate(`/${id}`, { replace: true });
+    } else {
+      newTransaction(formData);
+    }
   };
 
   const onTransactionTypeChange = (type) => {
@@ -66,19 +114,17 @@ export default function TransactionModal() {
       >
         <div className={classes["form-header"]}>
           <h1>New transaction</h1>
-          <XCircle
-            size={24}
-            strokeWidth={1.5}
-            cursor="pointer"
-            onClick={() => navigate("..")}
-          />
+          <CloseModalIcon />
         </div>
         <div className={classes["form-container"]}>
           <div className={classes["form__field-date"]}>
             <CalendarInput
               control={control}
               name="date"
-              calendarProps={{ minDetail: "year" }}
+              calendarProps={{
+                minDetail: "year",
+                defaultValue: formState.defaultValues.date,
+              }}
               setValue={setValue}
               setActiveDate={setActiveDate}
             />
@@ -114,7 +160,7 @@ export default function TransactionModal() {
             <>
               <div className={classes["form__field-budget"]}>
                 <FormFieldHeader
-                  value={activeBudget?.key}
+                  value={trasactionDetails?.budget?.name || activeBudget?.key}
                   label="Budget"
                   setActiveDropdown={setActiveDropdown}
                 />
@@ -123,7 +169,7 @@ export default function TransactionModal() {
                     {budgetsInActiveDate.map((budget) => (
                       <OneChoiceInput
                         key={budget.value}
-                        value={budget.value}
+                        value={trasactionDetails?.budget?._id ?? budget.value}
                         label={budget.key}
                         setValue={setValue}
                         control={control}
