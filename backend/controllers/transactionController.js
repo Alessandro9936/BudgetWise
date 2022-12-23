@@ -54,7 +54,6 @@ const getTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
     const transaction = await getTransactionService(id);
-
     res.status(200).json(transaction);
   } catch (error) {
     next(createHttpError(error));
@@ -67,9 +66,9 @@ const getTransaction = async (req, res, next) => {
 const deleteTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await deleteTransactionService(id);
+    const transaction = await deleteTransactionService(id);
 
-    res.status(204).end();
+    res.status(200).json(transaction);
   } catch (error) {
     next(createHttpError(error));
   }

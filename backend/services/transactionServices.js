@@ -130,7 +130,7 @@ const getTransactionService = async (id) => {
 
 const deleteTransactionService = async (id) => {
   try {
-    await Transaction.findByIdAndRemove(id);
+    return await Transaction.findByIdAndRemove(id);
   } catch (error) {
     throw new Error(error);
   }
@@ -142,5 +142,4 @@ module.exports = {
   updateTransactionService,
   getTransactionService,
   deleteTransactionService,
-  /* buildPDFService */
 };
