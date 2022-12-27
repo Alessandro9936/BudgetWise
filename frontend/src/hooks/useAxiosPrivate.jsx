@@ -1,7 +1,6 @@
 import { axiosPrivate } from "../api/axios";
 import { useRefreshToken } from "./useRefreshToken";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../context/userContext";
+import { useEffect } from "react";
 import { getAccessToken } from "../utils/accessToken";
 
 /*
@@ -14,7 +13,6 @@ until the refresh token is active
 export const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const accessToken = getAccessToken();
-  //const { user } = useContext(UserContext);
 
   useEffect(() => {
     /*

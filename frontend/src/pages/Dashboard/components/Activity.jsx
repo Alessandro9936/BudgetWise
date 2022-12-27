@@ -55,7 +55,7 @@ export function Activity({ transactionMapped }) {
             </li>
           ))}
           <div className={classes["action-buttons"]}>
-            <Link to={"transaction"}>
+            <Link to={"transaction/new"}>
               <Button>New transaction</Button>
             </Link>
             <ButtonRedirect redirectLink="../invoices">

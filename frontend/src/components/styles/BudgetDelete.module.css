@@ -1,0 +1,40 @@
+.delete-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m16px);
+}
+
+.delete__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message {
+  font-size: 1rem;
+}
+
+.delete-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--m8px);
+  margin-left: auto;
+}
+
+.delete-actions button {
+  width: fit-content;
+  padding-inline: var(--m24px);
+}
+
+.delete-button {
+  display: inline-block;
+  text-align: center;
+  font: inherit;
+  color: white;
+  font-weight: bold;
+  padding-block: var(--m12px);
+  border: 1px solid var(--red);
+  border-radius: var(--border5);
+  background-color: var(--red);
+  border: 1px solid var(--red);
+}
