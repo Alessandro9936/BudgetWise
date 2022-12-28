@@ -3,7 +3,7 @@ import { UseFormSetError } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { SignUpFormType } from "../pages/user/signup/types/types";
-import { LoginFormType } from "../pages/user/login/login";
+import { LoginFormType } from "../pages/user/login/types/types";
 import { setAccessToken } from "./accessTokenHandler";
 
 const useSignUp = () => {
@@ -56,7 +56,7 @@ const useLogin = () => {
       onSuccess: (response) => {
         if (response.accessToken) {
           setAccessToken(response.accessToken);
-          navigate("/app/dashboard", { replace: true });
+          navigate("/dashboard", { replace: true });
         }
       },
       onError: (error) => {

@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import LoginForm from "./pages/user/login/login";
+import Layout from "./layouts/layout";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -31,12 +32,12 @@ const router = createBrowserRouter([
     element: <LoginForm />,
   },
   {
-    // element: <Layout />,
+    element: <Layout />,
     children: [
-      //  { index: true, element: <Navigate replace to="dashboard" /> },
       {
         path: "dashboard",
-        // element: <Dashboard />,
+        element: <div>Hello</div>,
+        //element: <Dashboard />,
         children: [
           {
             path: "transaction/new",
