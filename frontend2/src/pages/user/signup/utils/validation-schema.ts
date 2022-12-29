@@ -4,7 +4,8 @@ import validator from "validator";
 const SignUpSchema = z
   .object({
     firstName: z
-      .string({ required_error: "First name is required" })
+      .string()
+      .min(1, { message: "First name is required" })
       .refine((val) => validator.isAlpha(val), {
         message: "Only letters allowed",
       }),
@@ -15,15 +16,18 @@ const SignUpSchema = z
       })
       .optional(),
     email: z
-      .string({ required_error: "Email is required" })
+      .string()
+      .min(1, { message: "Email is required" })
       .email({ message: "Invalid email adress" }),
     userBudget: z
-      .string({ required_error: "Your initial budget is required" })
+      .string()
+      .min(1, { message: "Your initial budget is required" })
       .refine((val) => Number(val), {
         message: "This field can include only numbers",
       }),
     password: z
-      .string({ required_error: "Password is required" })
+      .string()
+      .min(1, { message: "Password is required" })
       .refine((val) => validator.isStrongPassword(val), {
         message: "Password doesn't meet criteria",
       }),
