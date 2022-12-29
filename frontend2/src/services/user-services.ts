@@ -6,10 +6,25 @@ import { SignUpFormType } from "../pages/user/signup/types/types";
 import { LoginFormType } from "../pages/user/login/types/types";
 import { setAccessToken } from "./accessTokenHandler";
 
+const signUpFn = async (formData: SignUpFormType) => {
+  const response = await axios.post<201>("/api/register", formData);
+  return response.status;
+};
+
+type loginResponse = {
+  id: string;
+  accessToken: string;
+};
+
+const loginFn = async (loginData: LoginFormType) => {
+  const response = await axios.post<loginResponse>("api/login", loginData);
+  return response.data;
+};
+
 const useSignUp = () => {
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation((values: SignUpFormType) =>
-    axios.post<201>("/api/register", values).then((response) => response.status)
+    signUpFn(values)
   );
 
   const signUp = (
@@ -24,7 +39,13 @@ const useSignUp = () => {
       },
       onError: (error) => {
         if (axios.isAxiosError(error)) {
-          const { param: field, msg: message } = error?.response?.data[0];
+          const {
+            param: field,
+            msg: message,
+          }: {
+            param: "email" | "password";
+            msg: string;
+          } = error?.response?.data[0];
           setError(field, { message: message }, { shouldFocus: true });
         } else {
           throw error;
@@ -36,16 +57,10 @@ const useSignUp = () => {
   return { signUp, isLoading };
 };
 
-type loginResponse = {
-  id: string;
-  accessToken: string;
-};
 const useLogin = () => {
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation((values: LoginFormType) =>
-    axios
-      .post<loginResponse>("/api/login", values)
-      .then((response) => response.data)
+    loginFn(values)
   );
 
   const login = (
@@ -61,7 +76,11 @@ const useLogin = () => {
       },
       onError: (error) => {
         if (axios.isAxiosError(error)) {
-          const { param: field, msg: message } = error?.response?.data[0];
+          const {
+            param: field,
+            msg: message,
+          }: { param: "email" | "password"; msg: string } =
+            error?.response?.data[0];
           setError(field, { message: message }, { shouldFocus: true });
         } else {
           throw error;
