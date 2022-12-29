@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SignUpSchema from "./utils/validation-schema";
 import { SignUpFormType } from "./types/types";
-import { FieldElement } from "react-hook-form";
 
 import InputText from "../../../components/Input/input-text";
 
@@ -18,14 +17,17 @@ const SignUpForm = () => {
     email: "",
     userBudget: "",
     password: "",
+    currency: "",
     confirmPassword: "",
   };
 
-  const { control, handleSubmit, setError } = useForm<SignUpFormType>({
-    defaultValues: initialValues,
-    resolver: zodResolver(SignUpSchema),
-    mode: "onTouched",
-  });
+  const { control, handleSubmit, setError, setValue } = useForm<SignUpFormType>(
+    {
+      defaultValues: initialValues,
+      resolver: zodResolver(SignUpSchema),
+      mode: "onTouched",
+    }
+  );
 
   const { signUp, isLoading } = useSignUp();
 
@@ -67,7 +69,7 @@ const SignUpForm = () => {
         control={control}
       />
       {/* Thrid row - Budget */}
-      <FieldBudget control={control} name="userBudget" />
+      <FieldBudget control={control} name="userBudget" setValue={setValue} />
       {/* Fourth row - Password */}
       <InputText
         type="password"

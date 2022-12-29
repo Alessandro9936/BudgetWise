@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "react-feather";
 
 import currencies from "../utils/currencies";
-import { useController, UseControllerProps } from "react-hook-form";
-import { SignUpFormType } from "../types/types";
+import {
+  FieldPath,
+  FieldValues,
+  useController,
+  UseControllerProps,
+  UseFormSetValue,
+} from "react-hook-form";
 
 import FieldError from "../../../../components/field-error";
+import { SignUpFormType } from "../types/types";
 
 type currencyType = {
   code: string;
@@ -57,7 +63,14 @@ const CurrencyPicker = ({
   );
 };
 
-const FieldBudget = ({ ...props }: UseControllerProps<SignUpFormType>) => {
+type fieldBudgetType = {
+  setValue: UseFormSetValue<SignUpFormType>;
+};
+
+const FieldBudget = ({
+  setValue,
+  ...props
+}: UseControllerProps<SignUpFormType> & fieldBudgetType) => {
   const {
     formState: { errors },
     fieldState,
@@ -69,9 +82,12 @@ const FieldBudget = ({ ...props }: UseControllerProps<SignUpFormType>) => {
     symbol: "$",
   });
 
+  useEffect(() => {
+    setValue("currency", activeCurrency.code);
+  }, [activeCurrency.code, activeCurrency.symbol]);
+
   const onActiveCurrencyChange = (currency: currencyType) => {
     setActiveCurrency(currency);
-    localStorage.setItem("currency", JSON.stringify(currency));
   };
 
   return (

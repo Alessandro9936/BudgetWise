@@ -25,6 +25,7 @@ const SignUpSchema = z
       .refine((val) => Number(val), {
         message: "This field can include only numbers",
       }),
+    currency: z.string(),
     password: z
       .string()
       .min(1, { message: "Password is required" })
