@@ -11,6 +11,7 @@ const userSchema = new schema({
   email: { type: String, required: true, unique: true },
   userBudget: { type: Number, required: true },
   password: { type: String, required: true },
+  currency: { type: String },
 });
 
 userSchema.pre("save", async function (next) {

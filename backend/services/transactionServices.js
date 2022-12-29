@@ -85,6 +85,7 @@ const newTransactionService = async (req) => {
       user: req.user._id,
       type: req.body.type,
       amount: req.body.amount,
+      currency: req.user.currency,
       date: req.body.date,
       description: req.body.description,
     });
