@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CreditCard, Database, Home, LogOut, Menu, User } from "react-feather";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
   const sidebarLinks = [
@@ -40,9 +40,9 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && (
-            <p className="font-semibold md:text-xl">
+            <Link to={"/dashboard"} className="font-semibold md:text-xl">
               Budget<span className="text-purple-500">Wise</span>
-            </p>
+            </Link>
           )}
         </div>
 
