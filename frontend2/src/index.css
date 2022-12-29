@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+body {
   @apply text-slate-900;
+  @apply text-sm;
 }
