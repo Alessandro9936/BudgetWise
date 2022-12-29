@@ -27,7 +27,7 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
     },
   ];
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
 
   return (
     <>
