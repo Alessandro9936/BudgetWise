@@ -1,12 +1,12 @@
 const Card = ({
-  gridDisposition,
+  classNames,
   children,
 }: {
-  gridDisposition: string;
+  classNames?: string;
   children?: React.ReactNode;
 }) => {
   return (
-    <section className={`rounded-xl bg-white shadow-md ${gridDisposition}`}>
+    <section className={`rounded-xl bg-white shadow-md ${classNames}`}>
       {children}
     </section>
   );
