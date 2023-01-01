@@ -8,7 +8,7 @@ const transactionKeys = {
   detail: (id: string) => ["transaction", id] as const,
 };
 
-interface ITransaction {
+export interface ITransaction {
   type: "income" | "expense";
   amount: number;
   date: Date;
@@ -32,15 +32,25 @@ const useGetTransactionsByDateFn = async (
   return response.data;
 };
 
-const useGetTransactionsByDate = (date: string | number) => {
+const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
   const axiosPrivate = useAxiosPrivate();
 
+  const formatDate =
+    timeSpan === "Yearly"
+      ? date.getFullYear()
+      : date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+
   return useQuery(
-    transactionKeys.listByDate(date),
-    () => useGetTransactionsByDateFn(axiosPrivate, date),
+    transactionKeys.listByDate(formatDate),
+    () => useGetTransactionsByDateFn(axiosPrivate, formatDate),
     {
       staleTime: Infinity,
       keepPreviousData: true,
+      select: (transactions) =>
+        transactions.map((transaction) => ({
+          ...transaction,
+          date: new Date(transaction.date),
+        })),
     }
   );
 };
