@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { CreditCard, Database, Home, LogOut, Menu, User } from "react-feather";
+import {
+  CreditCard,
+  Database,
+  Home,
+  LogOut,
+  Menu,
+  User,
+  X,
+} from "react-feather";
 import { Link, NavLink } from "react-router-dom";
 
 const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
@@ -27,18 +35,26 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
     },
   ];
 
-  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
+  const [isOpen, setIsOpen] = useState(isMobile ? true : false);
 
   return (
     <>
-      <aside className="z-10 flex max-w-max flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-700 md:pl-6">
+      <aside className="z-10 flex max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-700 md:pl-6">
         {/* Header */}
         <div className="flex h-7 items-center gap-x-4 pr-4 md:pr-6">
-          <Menu
-            size={isMobile ? 16 : 20}
-            cursor={"pointer"}
-            onClick={() => setIsOpen(!isOpen)}
-          />
+          {!isOpen ? (
+            <Menu
+              size={isMobile ? 16 : 20}
+              cursor={"pointer"}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : (
+            <X
+              size={isMobile ? 16 : 20}
+              cursor={"pointer"}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          )}
           {isOpen && (
             <Link to={"/dashboard"} className="text-xl font-semibold">
               Budget<span className="text-purple-500">Wise</span>
