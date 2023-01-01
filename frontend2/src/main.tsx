@@ -4,14 +4,12 @@ import "./index.css";
 
 import SignUpForm from "./pages/user/signup/sign-up";
 
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import LoginForm from "./pages/user/login/login";
 import Layout from "./layouts/layout";
+import Dashboard from "./pages/dashboard/dashboard";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -36,8 +34,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "dashboard",
-        element: <div>Hello</div>,
-        //element: <Dashboard />,
+        element: <Dashboard />,
         children: [
           {
             path: "transaction/new",
@@ -109,6 +106,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </React.StrictMode>
