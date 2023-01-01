@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import TimeSpanButton from "../../../components/Buttons/TimeSpanButton";
 import Card from "../../../components/card";
 import DateBar from "../../../components/date-bar";
@@ -12,7 +12,7 @@ const DateSelectorsContainer = ({
 }) => {
   return (
     <div className="flex h-fit text-xs font-semibold text-neutral-500">
-      <div className="flex cursor-pointer gap-1 rounded-full bg-white px-2 py-1 shadow md:px-3 md:py-1">
+      <div className="flex cursor-pointer items-center gap-1 rounded-full bg-white px-2 py-1 shadow md:px-3 md:py-1">
         <button>Sync dates</button>
         <span>o</span>
       </div>
@@ -31,9 +31,9 @@ const AmountContainer = ({
   currency: string;
 }) => {
   return (
-    <div className="flex-1  lg:flex-initial">
-      <p className=" mb-1 font-semibold ">{label}</p>
-      <Card classNames="px-4 py-5">
+    <div className="flex-1 lg:flex-initial">
+      <Card classNames="px-4 py-3">
+        <p className=" mb-2 font-semibold">{label}</p>
         <div className="flex items-center justify-between">
           {children}
           <span>{currency}</span>
@@ -49,9 +49,10 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
     updateActiveTimeSpan,
     activeDateFormatted,
     activeTimeSpan,
+    activeDate,
   } = useActiveDates();
 
-  const query = useGetTransactionsByDate(activeDateFormatted);
+  const query = useGetTransactionsByDate(activeDate, activeTimeSpan);
 
   const transactions = query.data ?? [];
   const currency = transactions[0]?.currency;
@@ -68,10 +69,8 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
 
   const totalBalance = amounts ? amounts.income - amounts.expenses : 0;
 
-  console.log(totalBalance);
-
   return (
-    <section className={`${gridDisposition} flex flex-col gap-y-6`}>
+    <section className={`${gridDisposition} flex flex-col gap-y-3`}>
       <DateSelectorsContainer>
         {["Yearly", "Monthly"].map((timeSpan) => (
           <TimeSpanButton
@@ -86,18 +85,20 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
         updateActiveDate={updateActiveDate}
         activeDateFormatted={activeDateFormatted}
       />
-      <div className="flex flex-1 flex-col md:gap-y-6 lg:justify-between lg:gap-y-0">
+      <div className="flex flex-1 flex-col md:gap-y-4">
         <AmountContainer label="Income" currency={currency}>
-          <p className="text-lg md:text-2xl">{amounts ? amounts.income : 0}</p>
-        </AmountContainer>
-        <AmountContainer label="Expenses" currency={currency}>
-          <p className="text-lg md:text-2xl">
-            {amounts ? amounts.expenses : 0}
+          <p className="text-lg font-semibold md:text-2xl ">
+            {amounts ? amounts.income : 0}
           </p>
         </AmountContainer>
         <AmountContainer label="Expenses" currency={currency}>
+          <p className="text-lg font-semibold md:text-2xl">
+            {amounts ? amounts.expenses : 0}
+          </p>
+        </AmountContainer>
+        <AmountContainer label="Total" currency={currency}>
           <p
-            className={`text-lg md:text-2xl ${
+            className={`text-lg font-semibold md:text-2xl ${
               totalBalance > 0 ? "text-green-500" : "text-red-500"
             }`}
           >
