@@ -8,6 +8,15 @@ module.exports = {
       fontFamily: {
         sans: ["Montserrat"],
       },
+      keyframes: {
+        fadeIn: {
+          "0%": { transform: "scale(0%)" },
+          "100%": { transform: "scale(100%)" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.2s",
+      },
     },
     screens: {
       sm: "360px",

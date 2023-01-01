@@ -6,7 +6,7 @@ const Card = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <section className={`rounded-xl bg-white shadow-md ${classNames}`}>
+    <section className={`rounded-xl bg-white shadow ${classNames}`}>
       {children}
     </section>
   );
