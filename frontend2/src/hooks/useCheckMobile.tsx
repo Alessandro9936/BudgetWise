@@ -5,7 +5,7 @@ const useCheckMobile = () => {
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth <= 425) {
+      if (window.innerWidth <= 608) {
         setIsMobile(true);
       } else {
         setIsMobile(false);
