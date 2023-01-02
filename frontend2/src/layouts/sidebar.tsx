@@ -39,7 +39,7 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <>
-      <aside className="z-10 flex max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-700 md:pl-6">
+      <aside className="relative z-20 flex max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-700 md:pl-6">
         {/* Header */}
         <div className="flex h-7 items-center gap-x-4 pr-4 md:pr-6">
           {!isOpen ? (
@@ -92,7 +92,7 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
         </div>
       </aside>
       {isMobile && isOpen && (
-        <div className="absolute top-0 bottom-0 left-0 right-0 -z-0 flex-1 bg-blue-600"></div>
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-10 flex-1 bg-blue-600"></div>
       )}
     </>
   );

@@ -70,7 +70,9 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
   const totalBalance = amounts ? amounts.income - amounts.expenses : 0;
 
   return (
-    <section className={`${gridDisposition} flex flex-col gap-y-3`}>
+    <section
+      className={`${gridDisposition} flex animate-appear flex-col gap-y-3`}
+    >
       <DateSelectorsContainer>
         {["Yearly", "Monthly"].map((timeSpan) => (
           <TimeSpanButton
@@ -85,7 +87,7 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
         updateActiveDate={updateActiveDate}
         activeDateFormatted={activeDateFormatted}
       />
-      <div className="flex flex-1 flex-col md:gap-y-4">
+      <div className="flex flex-col md:gap-y-4 lg:flex-1">
         <AmountContainer label="Income" currency={currency}>
           <p className="text-lg font-semibold md:text-2xl ">
             {amounts ? amounts.income : 0}

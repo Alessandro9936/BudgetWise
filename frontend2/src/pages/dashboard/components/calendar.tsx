@@ -77,7 +77,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
           transactions={transactionsPopup}
         />
       )}
-      <Card classNames="flex-1 p-2">
+      <Card classNames="flex-1 py-2 px-4 animate-appear">
         <CalendarDep
           onActiveStartDateChange={({ activeStartDate }) =>
             setCalendarDate(activeStartDate)
