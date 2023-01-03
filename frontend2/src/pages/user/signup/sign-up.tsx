@@ -9,6 +9,7 @@ import InputText from "../../../components/Input/input-text";
 import { useSignUp } from "../../../services/user-services";
 import { Link } from "react-router-dom";
 import FieldBudget from "./components/field-budget";
+import  RedirectLink  from "../../../components/Buttons/RedirectLink";
 
 const SignUpForm = () => {
   const initialValues: SignUpFormType = {
@@ -99,12 +100,7 @@ const SignUpForm = () => {
       <SubmitButton label="Register" isLoading={isLoading} />
       <p className="-mt-2 text-center text-sm md:text-left">
         Do you have an account?{" "}
-        <Link
-          to="/login"
-          className="underline transition-colors hover:text-purple-500"
-        >
-          Login
-        </Link>
+        <RedirectLink redirectRoute="/login" label="Login" />
       </p>
     </form>
   );

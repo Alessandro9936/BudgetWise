@@ -1,7 +1,7 @@
+import RedirectLink from "./../../../components/Buttons/RedirectLink";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import SubmitButton from "../../../components/Buttons/SubmitButton";
 import InputText from "../../../components/Input/input-text";
 import { useLogin } from "../../../services/user-services";
@@ -44,12 +44,7 @@ const LoginForm = () => {
       <SubmitButton label="Login" isLoading={isLoading} />
       <p className="-mt-2 text-center text-sm md:text-left">
         Don't have an account?{" "}
-        <Link
-          to="/register"
-          className="underline transition-colors hover:text-purple-500"
-        >
-          Register
-        </Link>
+        <RedirectLink redirectRoute="/register" label="Register" />
       </p>
     </form>
   );
