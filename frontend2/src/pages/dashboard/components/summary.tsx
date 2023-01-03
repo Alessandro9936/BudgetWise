@@ -1,4 +1,6 @@
+import CustomBarLoader from "./../../../components/bar-loader";
 import React from "react";
+
 import TimeSpanButton from "../../../components/Buttons/TimeSpanButton";
 import Card from "../../../components/card";
 import DateBar from "../../../components/date-bar";
@@ -31,15 +33,13 @@ const AmountContainer = ({
   currency: string;
 }) => {
   return (
-    <div className="flex-1 lg:flex-initial">
-      <Card classNames="px-4 py-3">
-        <p className=" mb-2 font-semibold">{label}</p>
-        <div className="flex items-center justify-between">
-          {children}
-          <span>{currency}</span>
-        </div>
-      </Card>
-    </div>
+    <Card classNames="px-4 py-3 flex-1 flex flex-col relative">
+      <p className=" mb-2 font-semibold">{label}</p>
+      <div className="my-auto flex h-fit items-center justify-between">
+        {children}
+        <span>{currency}</span>
+      </div>
+    </Card>
   );
 };
 
@@ -55,6 +55,7 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
   const query = useGetTransactionsByDate(activeDate, activeTimeSpan);
 
   const transactions = query.data ?? [];
+  const loading = query?.isLoading;
   const currency = transactions[0]?.currency;
 
   const amounts = transactions.reduce(
@@ -87,25 +88,37 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
         updateActiveDate={updateActiveDate}
         activeDateFormatted={activeDateFormatted}
       />
-      <div className="flex flex-col md:gap-y-4 lg:flex-1">
+      <div className="flex flex-1 flex-col md:gap-y-4">
         <AmountContainer label="Income" currency={currency}>
-          <p className="text-lg font-semibold md:text-2xl ">
-            {amounts ? amounts.income : 0}
-          </p>
+          {!loading ? (
+            <p className="text-lg font-semibold md:text-2xl ">
+              {amounts ? amounts.income : 0}
+            </p>
+          ) : (
+            <CustomBarLoader />
+          )}
         </AmountContainer>
         <AmountContainer label="Expenses" currency={currency}>
-          <p className="text-lg font-semibold md:text-2xl">
-            {amounts ? amounts.expenses : 0}
-          </p>
+          {!loading ? (
+            <p className="text-lg font-semibold md:text-2xl">
+              {amounts ? amounts.expenses : 0}
+            </p>
+          ) : (
+            <CustomBarLoader />
+          )}
         </AmountContainer>
         <AmountContainer label="Total" currency={currency}>
-          <p
-            className={`text-lg font-semibold md:text-2xl ${
-              totalBalance > 0 ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {totalBalance}
-          </p>
+          {!loading ? (
+            <p
+              className={`text-lg font-semibold md:text-2xl ${
+                totalBalance > 0 ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {totalBalance}
+            </p>
+          ) : (
+            <CustomBarLoader />
+          )}
         </AmountContainer>
       </div>
     </section>
