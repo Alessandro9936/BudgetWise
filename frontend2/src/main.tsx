@@ -10,6 +10,7 @@ import LoginForm from "./pages/user/login/login";
 import Layout from "./layouts/layout";
 import Dashboard from "./pages/dashboard/dashboard";
 import { ReactQueryDevtools } from "react-query/devtools";
+import Invoices from "./pages/invoices/invoices";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: "invoices",
-        // element: <Invoices />,
+        element: <Invoices />,
         children: [
           {
             path: "transaction/:id",
