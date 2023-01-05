@@ -1,10 +1,16 @@
 const Transaction = require("../models/transactionModel");
 const Budget = require("../models/budgetModel");
-const { isSameYear, isSameMonth } = require("date-fns");
+const {
+  endOfYear,
+  endOfMonth,
+  startOfMonth,
+  startOfYear,
+} = require("date-fns");
+const { default: mongoose } = require("mongoose");
 
 const userTransactionsService = async (userID, query) => {
   const filtersInQuery = { ...query };
-  const excludeNotFilters = ["sort"];
+  const excludeNotFilters = ["sort", "page"];
   excludeNotFilters.forEach((el) => delete filtersInQuery[el]);
 
   let newQuery = { user: userID };
@@ -19,63 +25,127 @@ const userTransactionsService = async (userID, query) => {
     }
   }
 
-  let transactions = await Transaction.find({ user: newQuery.user });
+  const pipeline = [
+    { $match: { user: mongoose.Types.ObjectId(newQuery.user) } },
+  ];
 
-  if (newQuery?.type === "income") {
-    transactions = await Transaction.find({
-      user: newQuery.user,
-      type: newQuery.type,
+  if (newQuery?.type) {
+    if (newQuery.type === "income") {
+      pipeline.push({ $match: { type: newQuery.type } });
+    }
+    if (newQuery.type === "expense") {
+      pipeline.push({
+        $match: {
+          type: newQuery.type,
+        },
+      });
+
+      pipeline.push(
+        {
+          $lookup: {
+            from: "budgets",
+            localField: "budget",
+            foreignField: "_id",
+            as: "budget",
+          },
+        },
+        { $unwind: "$budget" },
+        {
+          $project: {
+            _id: 1,
+            user: 1,
+            type: 1,
+            category: 1,
+            amount: 1,
+            state: 1,
+            budget: { name: 1, _id: 1 },
+            date: 1,
+          },
+        }
+      );
+    }
+  }
+
+  if (newQuery?.budget) {
+    pipeline.push({
+      $match: {
+        "budget.name": {
+          $in: Array.isArray(newQuery.budget)
+            ? newQuery.budget
+            : [newQuery.budget],
+        },
+      },
     });
   }
 
-  if (newQuery?.type === "expense") {
-    transactions = await Transaction.find({
-      user: newQuery.user,
-      type: newQuery.type,
-    }).populate("budget", "name");
-
-    if (newQuery?.budget?.length > 0) {
-      transactions = transactions.filter((transaction) =>
-        newQuery.budget.includes(transaction.budget.name)
-      );
-    }
-
-    if (newQuery?.state?.length > 0) {
-      transactions = transactions.filter((transaction) =>
-        newQuery.state.includes(transaction.state)
-      );
-    }
-
-    if (newQuery?.state?.length > 0 && newQuery?.budget?.length > 0) {
-      transactions = transactions.filter(
-        (transaction) =>
-          newQuery.state.includes(transaction.state) &&
-          newQuery.budget.includes(transaction.budget.name)
-      );
-    }
+  if (newQuery?.state) {
+    pipeline.push({
+      $match: {
+        state: {
+          $in: Array.isArray(newQuery.state)
+            ? newQuery.state
+            : [newQuery.state],
+        },
+      },
+    });
   }
 
-  if (newQuery.date) {
-    transactions = transactions.filter((transaction) =>
-      Number(newQuery.date)
-        ? isSameYear(new Date(transaction.date), new Date(newQuery.date))
-        : isSameMonth(new Date(transaction.date), new Date(newQuery.date))
+  if (newQuery?.date) {
+    const start = Number(newQuery.date)
+      ? startOfYear(new Date(newQuery.date))
+      : startOfMonth(new Date(newQuery.date));
+    const end = Number(newQuery.date)
+      ? endOfYear(new Date(newQuery.date))
+      : endOfMonth(new Date(newQuery.date));
+
+    pipeline.push({
+      $match: {
+        date: {
+          $gte: start,
+          $lt: end,
+        },
+      },
+    });
+  }
+
+  if (newQuery?.range) {
+    const start = Array.isArray(newQuery.range)
+      ? startOfMonth(new Date(newQuery.range[0]))
+      : startOfMonth(new Date(newQuery.range));
+
+    const end = Array.isArray(newQuery.range)
+      ? endOfMonth(new Date(newQuery.range[1]))
+      : endOfMonth(new Date(newQuery.range));
+
+    pipeline.push({
+      $match: {
+        date: {
+          $gte: start,
+          $lt: end,
+        },
+      },
+    });
+  }
+
+  if (query?.sort) {
+    const sortCriteria = query.sort.includes("amount")
+      ? { amount: query.sort.startsWith("-") ? -1 : 1 }
+      : { date: query.sort.startsWith("-") ? -1 : 1 };
+    pipeline.push({ $sort: sortCriteria });
+  }
+
+  if (query?.page) {
+    pipeline.push(
+      {
+        $skip: (query.page - 1) * 10,
+      },
+      {
+        $limit: 10,
+      }
     );
   }
 
-  if (query.sort) {
-    return transactions.sort((a, b) => {
-      const valueA = query.sort.includes("amount") ? a.amount : a.date;
-      const valueB = query.sort.includes("amount") ? b.amount : b.date;
-
-      if (query.sort === "-amount" || query.sort === "-date") {
-        return valueA - valueB;
-      } else if (query.sort === "amount" || query.sort === "date") {
-        return valueB - valueA;
-      }
-    });
-  }
-
+  const transactions = await Transaction.aggregate(pipeline).exec();
   return transactions;
 };
 
