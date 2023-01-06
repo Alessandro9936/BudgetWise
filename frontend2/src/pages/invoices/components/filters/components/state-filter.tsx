@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Clipboard } from "react-feather";
 import { useSearchParams } from "react-router-dom";
 import Card from "../../../../../components/card";
@@ -20,9 +21,12 @@ const options = [
 
 const StateFilter = ({ isOpen }: { isOpen: boolean }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [checkedValues, setCheckedValues] = useState(
+    searchParams.get("state")?.split(",") || []
+  );
 
   const onStateChange = (value: string) => {
-    let states = searchParams.get("state")?.split(",") ?? [];
+    let states = checkedValues;
 
     if (states.includes(value)) {
       states = states.filter((state) => state !== value);
@@ -32,6 +36,18 @@ const StateFilter = ({ isOpen }: { isOpen: boolean }) => {
 
     searchParams.set("state", states.join(","));
     setSearchParams(searchParams);
+    setCheckedValues(states);
+
+    if (states.length === 0) {
+      searchParams.delete("state");
+      setSearchParams(searchParams);
+    }
+  };
+
+  const onReset = () => {
+    searchParams.delete("state");
+    setSearchParams(searchParams);
+    setCheckedValues([]);
   };
 
   return (
@@ -44,23 +60,21 @@ const StateFilter = ({ isOpen }: { isOpen: boolean }) => {
       {isOpen && (
         <ul className="absolute top-12 flex h-fit w-max min-w-[167px] origin-top-left animate-fadeIn flex-col gap-2 rounded-lg bg-white p-4 shadow-lg">
           {options.map((option) => (
-            <li className="flex items-center gap-2">
+            <li key={option.value} className="flex items-center gap-2">
               <input
-                onClick={() => onStateChange(option.value)}
+                onChange={() => onStateChange(option.value)}
                 type="checkbox"
+                name="state"
                 value={option.value}
-                checked={searchParams
-                  .get("state")
-                  ?.split(",")
-                  .includes(option.value)}
+                checked={checkedValues.includes(option.value)}
                 className="h-4 w-4 cursor-pointer rounded accent-purple-500"
               />
               <label className="inline-flex items-center">{option.label}</label>
             </li>
           ))}
           <ClearFilterButton
-            disabled={!searchParams.get("state")}
-            filter="state"
+            disabled={checkedValues.length === 0}
+            reset={onReset}
           />
         </ul>
       )}

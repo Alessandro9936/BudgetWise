@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Calendar } from "react-calendar";
 import { Clock } from "react-feather";
 import { useSearchParams } from "react-router-dom";
@@ -6,6 +7,9 @@ import ClearFilterButton from "./clearFilter-button";
 
 const DateFilter = ({ isOpen }: { isOpen: boolean }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [checkedValues, setCheckedValues] = useState(
+    searchParams.get("range")?.split(",") || []
+  );
 
   const onRangeChange = (dates: Date[]) => {
     const formattedDates = dates.map((date) =>
@@ -21,17 +25,15 @@ const DateFilter = ({ isOpen }: { isOpen: boolean }) => {
       searchParams.set("range", formattedDates.join(","));
     }
 
+    setCheckedValues(formattedDates);
     setSearchParams(searchParams);
   };
 
-  const activeRange = searchParams.get("range")?.split(",");
-
-  let defaultRangeValue;
-  if (activeRange?.length === 1) {
-    defaultRangeValue = new Date(activeRange.toString());
-  } else if (activeRange && activeRange?.length > 1) {
-    defaultRangeValue = activeRange.map((date) => new Date(date));
-  }
+  const onReset = () => {
+    searchParams.delete("range");
+    setSearchParams(searchParams);
+    setCheckedValues([]);
+  };
 
   return (
     <>
@@ -48,9 +50,16 @@ const DateFilter = ({ isOpen }: { isOpen: boolean }) => {
             selectRange={true}
             allowPartialRange={true}
             onChange={onRangeChange}
-            defaultValue={defaultRangeValue}
+            defaultValue={
+              checkedValues.length > 0
+                ? checkedValues.map((date) => new Date(date))
+                : undefined
+            }
           />
-          <ClearFilterButton disabled={!defaultRangeValue} filter="range" />
+          <ClearFilterButton
+            disabled={checkedValues.length === 0}
+            reset={onReset}
+          />
         </div>
       )}
     </>

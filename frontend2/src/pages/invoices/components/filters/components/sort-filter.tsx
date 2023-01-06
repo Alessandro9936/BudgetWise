@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AlignLeft } from "react-feather";
 import { useSearchParams } from "react-router-dom";
 import Card from "../../../../../components/card";
@@ -26,23 +27,20 @@ const amountOptions = [
 
 const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [checkedValue, setCheckedValue] = useState(
+    searchParams.get("sort") || ""
+  );
 
   const onSortChange = (value: string) => {
-    let sort = searchParams.get("sort")?.split(",") ?? [];
-
-    const values = {
-      date: sort.find((field) => field.includes("date")) ?? "",
-      amount: sort.find((field) => field.includes("amount")) ?? "",
-    };
-
-    if (value.includes("date")) {
-      values.date = value;
-    } else if (value.includes("amount")) {
-      values.amount = value;
-    }
-
-    searchParams.set("sort", [values.date, values.amount].join(","));
+    searchParams.set("sort", value);
     setSearchParams(searchParams);
+    setCheckedValue(value);
+  };
+
+  const onReset = () => {
+    searchParams.delete("sort");
+    setSearchParams(searchParams);
+    setCheckedValue("");
   };
 
   return (
@@ -58,16 +56,16 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
             <p>Date</p>
             <div>
               {dateOptions.map((option) => (
-                <div className="mb-2 flex items-center gap-2">
+                <div
+                  key={option.value}
+                  className="mb-2 flex items-center gap-2"
+                >
                   <input
-                    onClick={() => onSortChange(option.value)}
+                    onChange={() => onSortChange(option.value)}
                     type="radio"
                     name="date"
                     value={option.value}
-                    checked={searchParams
-                      .get("sort")
-                      ?.split(",")
-                      .includes(option.value)}
+                    checked={option.value === checkedValue}
                     className="h-4 w-4 cursor-pointer border-gray-300 text-purple-500 accent-purple-500"
                   />
                   <label>{option.label}</label>
@@ -79,16 +77,16 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
             <p>Amount</p>
             <div>
               {amountOptions.map((option) => (
-                <div className="mb-2 flex items-center gap-2">
+                <div
+                  key={option.value}
+                  className="mb-2 flex items-center gap-2"
+                >
                   <input
-                    onClick={() => onSortChange(option.value)}
+                    onChange={() => onSortChange(option.value)}
                     type="radio"
                     name="amount"
                     value={option.value}
-                    checked={searchParams
-                      .get("sort")
-                      ?.split(",")
-                      .includes(option.value)}
+                    checked={option.value === checkedValue}
                     className="h-4 w-4 cursor-pointer border-gray-300 text-purple-500 accent-purple-500"
                   />
                   <label>{option.label}</label>
@@ -98,7 +96,7 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
           </div>
           <ClearFilterButton
             disabled={!searchParams.get("sort")}
-            filter="sort"
+            reset={onReset}
           />
         </div>
       )}
