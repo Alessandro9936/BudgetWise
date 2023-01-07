@@ -25,8 +25,61 @@ const userTransactionsService = async (userID, query) => {
     }
   }
 
+  /*
+  1. The $match stage filters the transactions to only include those that belong to the logged in user. It does this
+     by matching the user field of the transactions to the _id of the logged in user.
+
+  2. The $project stage specifies the fields to include in the output documents. It also includes a computed field
+     state that depends on the value of the type field. If the type field is equal to expense, the state field is set to the value of the state field in the input document. If the type field is equal to income or is not defined, the state field is set to the string "Received".
+
+  3. The $lookup stage performs a left outer join with the budgets collection and returns a new array field for each
+     document that contains the matching documents from the budgets collection. It does this by using the $match stage in the budgets collection to filter the budgets documents based on the value of the _id field. It then uses the $project stage to specify the fields to include in the output documents from the budgets collection.
+
+  4. The final $project stage includes the fields from the input documents and the budget field from the budgets
+     collection. It uses the $arrayElemAt operator to select the first element from the budget array.
+*/
+
   const pipeline = [
-    { $match: { user: mongoose.Types.ObjectId(newQuery.user) } },
+    {
+      $match: { user: mongoose.Types.ObjectId(newQuery.user) },
+    },
+    {
+      $project: {
+        _id: 1,
+        user: 1,
+        type: 1,
+        category: 1,
+        amount: 1,
+        state: {
+          $cond: [{ $eq: ["$type", "expense"] }, "$state", "Received"],
+        },
+        budget: { $ifNull: ["$budget", null] },
+        date: 1,
+      },
+    },
+    {
+      $lookup: {
+        from: "budgets",
+        let: { budgetId: "$budget" },
+        pipeline: [
+          { $match: { $expr: { $eq: ["$_id", "$$budgetId"] } } },
+          { $project: { name: 1 } },
+        ],
+        as: "budget",
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        user: 1,
+        type: 1,
+        category: 1,
+        amount: 1,
+        state: 1,
+        budget: { $arrayElemAt: ["$budget", 0] },
+        date: 1,
+      },
+    },
   ];
 
   if (newQuery?.type) {
@@ -39,30 +92,6 @@ const userTransactionsService = async (userID, query) => {
           type: newQuery.type,
         },
       });
-
-      pipeline.push(
-        {
-          $lookup: {
-            from: "budgets",
-            localField: "budget",
-            foreignField: "_id",
-            as: "budget",
-          },
-        },
-        { $unwind: "$budget" },
-        {
-          $project: {
-            _id: 1,
-            user: 1,
-            type: 1,
-            category: 1,
-            amount: 1,
-            state: 1,
-            budget: { name: 1, _id: 1 },
-            date: 1,
-          },
-        }
-      );
     }
   }
 
@@ -126,11 +155,11 @@ const userTransactionsService = async (userID, query) => {
       },
     });
   }
-
   if (query?.sort) {
     const sortCriteria = query.sort.includes("amount")
       ? { amount: query.sort.startsWith("-") ? -1 : 1 }
       : { date: query.sort.startsWith("-") ? -1 : 1 };
+
     pipeline.push({ $sort: sortCriteria });
   }
 
@@ -145,6 +174,7 @@ const userTransactionsService = async (userID, query) => {
     );
   }
 
+  console.log(pipeline);
   const transactions = await Transaction.aggregate(pipeline).exec();
   return transactions;
 };
