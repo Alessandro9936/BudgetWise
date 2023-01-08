@@ -52,13 +52,13 @@ const StateFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer flex items-center gap-x-6 font-semibold px-3 py-2">
+      <Card classNames="cursor-pointer justify-between md:justify-start flex items-center gap-x-6 font-semibold px-3 py-2">
         <p>Expense state</p>
         <Clipboard color="#0f172a" size={18} />
       </Card>
 
       {isOpen && (
-        <ul className="absolute top-12 flex h-fit w-max min-w-[167px] origin-top-left animate-fadeIn flex-col gap-2 rounded-lg bg-white p-4 shadow-lg">
+        <ul className="mid-sm:w-max absolute top-12 z-10 flex h-fit w-full min-w-[167px] origin-top-left animate-fadeIn flex-col gap-2 rounded-lg bg-white p-4 shadow-lg">
           {options.map((option) => (
             <li key={option.value} className="flex items-center gap-2">
               <input

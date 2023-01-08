@@ -6,22 +6,22 @@ import ClearFilterButton from "./clearFilter-button";
 
 const dateOptions = [
   {
-    label: "Oldest to newest",
-    value: "date",
-  },
-  {
     label: "Newest to oldest",
     value: "-date",
+  },
+  {
+    label: "Oldest to newest",
+    value: "date",
   },
 ];
 const amountOptions = [
   {
-    label: "Smallest to largest",
-    value: "amount",
-  },
-  {
     label: "Largest to smallest",
     value: "-amount",
+  },
+  {
+    label: "Smallest to largest",
+    value: "amount",
   },
 ];
 
@@ -45,13 +45,13 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer flex items-center gap-x-6 font-semibold px-3 py-2">
+      <Card classNames="cursor-pointer flex justify-between md:justify-start items-center gap-x-6 font-semibold px-3 py-2">
         <p>Sort</p>
         <AlignLeft color="#0f172a" size={18} />
       </Card>
 
       {isOpen && (
-        <div className="absolute top-12 h-fit w-max origin-top-left animate-fadeIn rounded-lg bg-white p-4  shadow-lg">
+        <div className="absolute top-12 z-10 h-fit w-full origin-top-left animate-fadeIn rounded-lg bg-white p-4 shadow-lg md:w-max">
           <div className="flex flex-col gap-2 border-b border-gray-300 pb-2">
             <p>Date</p>
             <div>

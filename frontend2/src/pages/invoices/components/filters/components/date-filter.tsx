@@ -37,13 +37,13 @@ const DateFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer flex items-center gap-x-6 font-semibold px-3 py-2">
+      <Card classNames="cursor-pointer justify-between md:justify-start flex items-center gap-x-6 font-semibold px-3 py-2">
         <p>Select dates</p>
         <Clock color="#0f172a" size={18} />
       </Card>
 
       {isOpen && (
-        <div className="absolute top-12 h-fit w-72 origin-top-left animate-fadeIn rounded-lg bg-white p-4 shadow-lg">
+        <div className="absolute top-12 z-10 h-fit w-full origin-top-left animate-fadeIn rounded-lg bg-white p-4 shadow-lg md:w-72">
           <Calendar
             minDetail="year"
             maxDetail="year"

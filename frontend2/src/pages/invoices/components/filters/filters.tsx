@@ -15,8 +15,8 @@ const Filters = () => {
   const transactionType = searchParams.get("type");
 
   return (
-    <div className="flex gap-6">
-      <div className="relative">
+    <div className="flex flex-wrap gap-6">
+      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1  md:w-max md:min-w-max md:flex-initial ">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
           onClick={() =>
@@ -25,7 +25,7 @@ const Filters = () => {
         />
         <DateFilter isOpen={activeDropdown === "date"} />
       </div>
-      <div className="relative">
+      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
           onClick={() =>
@@ -34,7 +34,7 @@ const Filters = () => {
         />
         <TypeFilter isOpen={activeDropdown === "type"} />
       </div>
-      <div className="relative">
+      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
           onClick={() =>
@@ -45,7 +45,7 @@ const Filters = () => {
       </div>
       {transactionType === "expense" && (
         <>
-          <div className="relative">
+          <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
             <div
               className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
               onClick={() =>
@@ -54,7 +54,7 @@ const Filters = () => {
             />
             <StateFilter isOpen={activeDropdown === "state"} />
           </div>
-          <div className="relative">
+          <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
             <div
               className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
               onClick={() =>
