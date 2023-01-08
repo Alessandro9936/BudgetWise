@@ -1,10 +1,12 @@
 import { AxiosInstance } from "axios";
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const transactionKeys = {
   listByDate: (date: string | number) => ["transactions", date] as const,
-  listByFilters: (filters: string) => ["transactions", { filters }] as const,
+  listByFilters: (filters: string, page: number) =>
+    ["transactions", page, { filters }] as const,
   detail: (id: string) => ["transaction", id] as const,
 };
 
@@ -21,13 +23,31 @@ export interface ITransaction {
   currency: string;
 }
 
-const useGetTransactionsByDateFn = async (
+const getTransactionByDateFn = async (
   instance: AxiosInstance,
   date: string | number
 ) => {
   const response = await instance.get<ITransaction[]>("/api/transactions", {
     params: { date: date },
   });
+
+  return response.data;
+};
+
+const getFilteredTransactionsFn = async (
+  instance: AxiosInstance,
+  parameters: string,
+  currentPage: number
+) => {
+  const response = await instance.get<ITransaction[]>(
+    `/api/transactions?${parameters}`,
+    {
+      params: {
+        page: currentPage,
+        limit: 10,
+      },
+    }
+  );
 
   return response.data;
 };
@@ -40,9 +60,9 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
       ? date.getFullYear()
       : date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
 
-  return useQuery(
+  return useQuery<ITransaction[]>(
     transactionKeys.listByDate(formatDate),
-    () => useGetTransactionsByDateFn(axiosPrivate, formatDate),
+    () => getTransactionByDateFn(axiosPrivate, formatDate),
     {
       staleTime: Infinity,
       keepPreviousData: true,
@@ -55,4 +75,25 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
   );
 };
 
-export { useGetTransactionsByDate };
+const useGetFilteredTransactions = (currentPage: number) => {
+  const axiosPrivate = useAxiosPrivate();
+  const [searchParams, _] = useSearchParams();
+
+  const searchString = searchParams.toString();
+
+  return useQuery<ITransaction[]>(
+    transactionKeys.listByFilters(searchString, currentPage),
+    () => getFilteredTransactionsFn(axiosPrivate, searchString, currentPage),
+    {
+      staleTime: Infinity,
+      keepPreviousData: true,
+      select: (transactions) =>
+        transactions.map((transaction) => ({
+          ...transaction,
+          date: new Date(transaction.date),
+        })),
+    }
+  );
+};
+
+export { useGetTransactionsByDate, useGetFilteredTransactions };
