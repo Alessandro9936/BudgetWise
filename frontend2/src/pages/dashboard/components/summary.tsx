@@ -13,8 +13,8 @@ const DateSelectorsContainer = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="flex h-fit text-xs font-semibold text-neutral-500">
-      <div className="flex cursor-pointer items-center gap-1 rounded-full bg-white px-2 py-1 shadow md:px-3 md:py-1">
+    <div className="flex h-fit">
+      <div className="flex cursor-pointer items-center gap-1 rounded-full bg-white px-2 py-1 text-xs font-semibold text-neutral-500 shadow md:px-3 md:py-1">
         <button>Sync dates</button>
         <span>o</span>
       </div>

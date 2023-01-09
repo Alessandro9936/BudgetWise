@@ -6,13 +6,13 @@ const ButtonRedirect = ({
   label,
 }: {
   redirect: string;
-  styles: string;
+  styles?: string;
   label: string;
 }) => {
   return (
     <Link
       to={redirect}
-      className={`rounded-lg py-3 text-center  font-semibold  transition disabled:pointer-events-none disabled:bg-slate-200 ${styles}`}
+      className={`rounded-lg py-3 text-center font-semibold transition disabled:pointer-events-none disabled:bg-slate-200 ${styles}`}
     >
       {label}
     </Link>

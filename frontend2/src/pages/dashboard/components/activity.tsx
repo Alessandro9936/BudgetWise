@@ -54,7 +54,7 @@ const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
                 label="New transaction"
               />
               <ButtonRedirect
-                redirect="somewhere"
+                redirect="../invoices"
                 styles="flex-1 bg-white text-purple-500 ring-1 ring-purple-500"
                 label="All transactions"
               />

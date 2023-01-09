@@ -50,7 +50,7 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
     <section className={`${gridDisposition} flex flex-col gap-y-3`}>
       <div className="flex items-center justify-between">
         <h3 className="text-base font-semibold">Summary</h3>
-        <div className="flex items-center gap-2 text-xs font-semibold text-neutral-500">
+        <div className="flex items-center gap-2 ">
           {["Yearly", "Monthly", "Weekly"].map((timeSpan) => (
             <TimeSpanButton
               key={timeSpan}
