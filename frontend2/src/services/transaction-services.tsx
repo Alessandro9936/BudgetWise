@@ -58,7 +58,10 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
   const formatDate =
     timeSpan === "Yearly"
       ? date.getFullYear()
-      : date.toLocaleDateString("en-US", { year: "numeric", month: "long" });
+      : date.toLocaleDateString(navigator.language, {
+          year: "numeric",
+          month: "long",
+        });
 
   return useQuery<ITransaction[]>(
     transactionKeys.listByDate(formatDate),
