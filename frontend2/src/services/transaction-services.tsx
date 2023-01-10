@@ -23,35 +23,6 @@ export interface ITransaction {
   currency: string;
 }
 
-const getTransactionByDateFn = async (
-  instance: AxiosInstance,
-  date: string | number
-) => {
-  const response = await instance.get<ITransaction[]>("/api/transactions", {
-    params: { date: date },
-  });
-
-  return response.data;
-};
-
-const getFilteredTransactionsFn = async (
-  instance: AxiosInstance,
-  parameters: string,
-  currentPage: number
-) => {
-  const response = await instance.get<ITransaction[]>(
-    `/api/transactions?${parameters}`,
-    {
-      params: {
-        page: currentPage,
-        limit: 10,
-      },
-    }
-  );
-
-  return response.data;
-};
-
 const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
   const axiosPrivate = useAxiosPrivate();
 
@@ -65,7 +36,12 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
 
   return useQuery<ITransaction[]>(
     transactionKeys.listByDate(formatDate),
-    () => getTransactionByDateFn(axiosPrivate, formatDate),
+    () =>
+      axiosPrivate
+        .get<ITransaction[]>("/api/transactions", {
+          params: { date: formatDate },
+        })
+        .then((res) => res.data),
     {
       staleTime: Infinity,
       keepPreviousData: true,
@@ -86,7 +62,15 @@ const useGetFilteredTransactions = (currentPage: number) => {
 
   return useQuery<ITransaction[]>(
     transactionKeys.listByFilters(searchString, currentPage),
-    () => getFilteredTransactionsFn(axiosPrivate, searchString, currentPage),
+    () =>
+      axiosPrivate
+        .get<ITransaction[]>(`/api/transactions?${searchString}`, {
+          params: {
+            page: currentPage,
+            limit: 10,
+          },
+        })
+        .then((res) => res.data),
     {
       staleTime: Infinity,
       keepPreviousData: true,
