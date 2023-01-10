@@ -83,13 +83,13 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
               </NavLink>
             </li>
           ))}
-        </ul>
-        <div className="mt-auto">
-          <div className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500">
-            <LogOut size={20} />
-            {isOpen && <p>Logout</p>}
+          <div className="md:mt-auto">
+            <div className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500">
+              <LogOut size={isMobile ? 16 : 20} />
+              {isOpen && <p>Logout</p>}
+            </div>
           </div>
-        </div>
+        </ul>
       </aside>
       {isMobile && isOpen && (
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 flex-1 bg-blue-600"></div>

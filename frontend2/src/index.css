@@ -9,3 +9,7 @@ body {
   @apply text-sm;
   @apply select-none;
 }
+
+.overlay-x {
+  overflow: overlay;
+}
