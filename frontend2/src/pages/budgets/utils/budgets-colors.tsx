@@ -1,4 +1,4 @@
-const budgetColors = [
+const budgets = [
   { name: "rent", label: "Rent", color: "#ff595e" },
   { name: "groceries", label: "Groceries", color: "#ff924c" },
   { name: "bills", label: "Bills", color: "#ffca3a" },
@@ -16,4 +16,4 @@ const budgetColors = [
   { name: "transport", label: "Transport", color: "#6a4c93" },
 ];
 
-export default budgetColors;
+export default budgets;

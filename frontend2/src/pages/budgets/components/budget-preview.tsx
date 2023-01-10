@@ -1,14 +1,13 @@
 import DeleteLink from "../../../components/Buttons/DeleteLink";
 import UpdateLink from "../../../components/Buttons/UpdateLink";
 import Card from "../../../components/card";
-import {
-  IBudget,
-  useGetBudgetsByDate,
-} from "../../../services/budget-services";
+import { useGetBudgetsByDate } from "../../../services/budget-services";
+
+import { IBudgetResponse } from "../../../services/budget-services";
 
 import budgetColors from "../utils/budgets-colors";
 
-const ProgressBar = ({ budget }: { budget: IBudget }) => {
+const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
   const percentage = Math.ceil((budget.usedAmount / budget.maxAmount) * 100);
   const { color } = budgetColors.find(
     (_budget) => _budget.name === budget.name

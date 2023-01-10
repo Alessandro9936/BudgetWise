@@ -18,7 +18,7 @@ const BudgetsChart = ({
   const budgets = query?.data ?? [];
 
   const budgetColor = (name: string): string | undefined => {
-    const curBudget = budgetColors.find((bud) => bud.name === name);
+    const curBudget = budgetColors.find((budget) => budget.name === name);
     if (curBudget) {
       return curBudget.color;
     }
