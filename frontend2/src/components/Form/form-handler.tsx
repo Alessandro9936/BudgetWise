@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitButton from "../Buttons/SubmitButton";
-import ButtonRedirect from "../Buttons/ButtoinRedirect";
+import ButtonRedirect from "../Buttons/ButtonRedirect";
 
 const FormHandler = ({
   isLoading,
