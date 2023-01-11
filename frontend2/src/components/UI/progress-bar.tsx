@@ -1,6 +1,6 @@
-import { IBudgetResponse } from "../services/budget-services";
+import { IBudgetResponse } from "../../services/budget-services";
 
-import budgetColors from "../pages/budgets/utils/budgets-colors";
+import budgetColors from "../../pages/budgets/utils/all-budgets";
 
 const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
   const percentage = Math.ceil((budget.usedAmount / budget.maxAmount) * 100);

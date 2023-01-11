@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import { IBudgetForm } from "../../pages/budget/types/types";
 import "../../styles/calendar.css";
-import FieldError from "../field-error";
+import FieldError from "../Error/field-error";
 
 interface ICalendarInput {
   minDetail: Detail;

@@ -5,7 +5,7 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import FieldError from "../field-error";
+import FieldError from "../Error/field-error";
 
 type inputTextType = {
   label?: string;
@@ -40,7 +40,7 @@ function InputText<
         type={type}
         placeholder={placeholder}
         {...field}
-        className={`flex-1 rounded-lg border border-transparent border-gray-300 bg-white py-2 px-4 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 ${
+        className={`flex-1 rounded-lg border border-gray-300 bg-white py-2 px-4 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 ${
           fieldState.error?.message ? "border-red-500" : ""
         } `}
       />

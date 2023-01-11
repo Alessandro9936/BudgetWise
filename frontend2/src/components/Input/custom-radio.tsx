@@ -15,7 +15,6 @@ interface ICustomRadio {
   color: string;
   isActive: boolean;
   disabled: boolean;
-  setActiveBudget: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function CustomRadio<
@@ -27,7 +26,6 @@ function CustomRadio<
   label,
   color,
   isActive,
-  setActiveBudget,
   disabled,
   name,
   control,
@@ -69,7 +67,6 @@ function CustomRadio<
                 value,
                 { shouldValidate: true }
               );
-              setActiveBudget(value);
             }}
           >
             {label ?? value}
