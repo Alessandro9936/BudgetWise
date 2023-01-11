@@ -30,7 +30,7 @@ const useGetBudgetsByDate = (date: Date, timeSpan: string) => {
           month: "long",
         });
 
-  return useQuery<IBudgetResponse[]>(
+  return useQuery(
     budgetKeys.listByDate(formatDate),
     () =>
       axiosPrivate
