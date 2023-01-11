@@ -7,9 +7,9 @@ import { SignUpFormType } from "./types/types";
 import InputText from "../../../components/Input/input-text";
 
 import { useSignUp } from "../../../services/user-services";
-import { Link } from "react-router-dom";
+
 import FieldBudget from "./components/field-budget";
-import  RedirectLink  from "../../../components/Buttons/RedirectLink";
+import RedirectLink from "../../../components/Buttons/RedirectLink";
 
 const SignUpForm = () => {
   const initialValues: SignUpFormType = {

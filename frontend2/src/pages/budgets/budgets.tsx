@@ -37,11 +37,7 @@ const Budgets = () => {
         />
       </div>
 
-      <BudgetPreviews
-        activeDate={activeDate}
-        timeSpan={activeTimeSpan}
-        activeDateFormatted={activeDateFormatted}
-      />
+      <BudgetPreviews activeDate={activeDate} timeSpan={activeTimeSpan} />
       <Outlet />
     </section>
   );

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { MoreHorizontal } from "react-feather";
 import CustomBarLoader from "../../../components/bar-loader";
-import ButtonRedirect from "../../../components/Buttons/ButtoinRedirect";
+import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 
 import Card from "../../../components/card";
 import {
