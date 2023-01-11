@@ -1,11 +1,11 @@
-import { AxiosInstance } from "axios";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { IBudgetResponse } from "./budget-services";
 
 const transactionKeys = {
   listByDate: (date: string | number) => ["transactions", date] as const,
-  listByFilters: (filters: string, page: number) =>
+  listByFilters: (filters: string, page?: number) =>
     ["transactions", page, { filters }] as const,
   detail: (id: string) => ["transaction", id] as const,
 };
@@ -34,7 +34,7 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
           month: "long",
         });
 
-  return useQuery<ITransaction[]>(
+  return useQuery(
     transactionKeys.listByDate(formatDate),
     () =>
       axiosPrivate
@@ -54,13 +54,40 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
   );
 };
 
+const useGetTransactionsBudgetPreview = (budget?: IBudgetResponse) => {
+  const axiosPrivate = useAxiosPrivate();
+
+  const searchString = budget
+    ? `type=expense&date=${budget.date.getFullYear()}&budget=${budget.name}`
+    : "";
+
+  return useQuery(
+    transactionKeys.listByFilters(searchString),
+    () =>
+      axiosPrivate
+        .get<ITransaction[]>(`/api/transactions?${searchString}`)
+        .then((res) => res.data),
+    {
+      enabled: budget && Object.keys(budget).length > 0,
+      staleTime: Infinity,
+      select: (transactions) =>
+        transactions
+          .filter((transaction) => transaction.budget?._id === budget?._id)
+          .map((transaction) => ({
+            ...transaction,
+            date: new Date(transaction.date),
+          })),
+    }
+  );
+};
+
 const useGetFilteredTransactions = (currentPage: number) => {
   const axiosPrivate = useAxiosPrivate();
   const [searchParams, _] = useSearchParams();
 
   const searchString = searchParams.toString();
 
-  return useQuery<ITransaction[]>(
+  return useQuery(
     transactionKeys.listByFilters(searchString, currentPage),
     () =>
       axiosPrivate
@@ -83,4 +110,8 @@ const useGetFilteredTransactions = (currentPage: number) => {
   );
 };
 
-export { useGetTransactionsByDate, useGetFilteredTransactions };
+export {
+  useGetTransactionsByDate,
+  useGetFilteredTransactions,
+  useGetTransactionsBudgetPreview,
+};
