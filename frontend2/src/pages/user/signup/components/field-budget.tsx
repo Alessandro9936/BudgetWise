@@ -103,7 +103,7 @@ const FieldBudget = ({
           type="text"
           placeholder="0.00"
           {...field}
-          className={`w-full rounded-lg border border-transparent border-gray-300 bg-white py-2 pr-4 pl-7 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900  ${
+          className={`w-full rounded-lg border border-gray-300 bg-white py-2 pr-4 pl-7 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900  ${
             fieldState.error?.message ? "border-red-500" : ""
           }`}
         />
