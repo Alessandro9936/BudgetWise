@@ -14,7 +14,7 @@ import {
   useGetBudgetsByDate,
   useUpdateBudget,
 } from "../../services/budget-services";
-import budgets from "../budgets/utils/budgets-colors";
+import budgets from "../budgets/utils/all-budgets";
 import { IBudgetForm } from "./types/types";
 import BudgetSchema from "./utils/validation-schema";
 import FieldError from "../../components/field-error";
@@ -31,9 +31,6 @@ const BudgetForm = () => {
 
   // This custom hook allow to close modal by clicking esc on keyboard
   useCloseModal();
-
-  const [activeDate, setActiveDate] = useState(new Date());
-  const [activeBudget, setActiveBudget] = useState<string | null>(null);
 
   // Depending on the form functionality, update or create a budget, set the initial values
   let initialValues: IBudgetForm = {
@@ -52,7 +49,9 @@ const BudgetForm = () => {
     };
   }
 
-  const { setError, handleSubmit, formState, control, setValue, reset } =
+  const [activeDate, setActiveDate] = useState(new Date());
+
+  const { setError, handleSubmit, formState, control, setValue, getValues } =
     useForm<IBudgetForm>({
       defaultValues: initialValues,
       resolver: zodResolver(BudgetSchema),
@@ -85,7 +84,12 @@ const BudgetForm = () => {
       }
     });
 
-    return remainingBudgets;
+    return !isUpdate
+      ? remainingBudgets
+      : [
+          ...remainingBudgets,
+          budgets.find((_budget) => _budget.name === budgetDetail!.name),
+        ];
   }, [budgetsInActiveMonth]);
 
   const onSubmit = (formData: IBudgetForm) => {
@@ -123,16 +127,15 @@ const BudgetForm = () => {
           <ul className="mt-4 flex flex-wrap gap-3">
             {remainingBudgetsInActiveMonth.map((budget) => (
               <CustomRadio
-                key={budget.name}
+                key={budget!.name}
                 setValue={setValue}
-                value={budget.name}
-                label={budget.label}
-                color={budget.color}
-                setActiveBudget={setActiveBudget}
+                value={budget!.name}
+                label={budget!.label}
+                color={budget!.color}
                 name="name"
                 disabled={isUpdate}
                 control={control}
-                isActive={activeBudget === budget.name}
+                isActive={getValues("name") === budget!.name}
               />
             ))}
           </ul>
