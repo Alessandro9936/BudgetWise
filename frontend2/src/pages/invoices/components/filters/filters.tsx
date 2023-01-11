@@ -15,7 +15,7 @@ const Filters = () => {
   const transactionType = searchParams.get("type");
 
   return (
-    <div className="flex flex-wrap gap-6">
+    <div className="flex flex-wrap gap-7">
       <div className="relative w-full midsm:min-w-[230px] midsm:flex-1  md:w-max md:min-w-max md:flex-initial ">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
