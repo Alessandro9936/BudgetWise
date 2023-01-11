@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar } from "react-calendar";
 import { Clock } from "react-feather";
 import { useSearchParams } from "react-router-dom";
-import Card from "../../../../../components/card";
+import Card from "../../../../../components/Utilities/card";
 import ClearFilterButton from "./clearFilter-button";
 
 const DateFilter = ({ isOpen }: { isOpen: boolean }) => {

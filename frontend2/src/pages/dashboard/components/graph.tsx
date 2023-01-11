@@ -1,7 +1,7 @@
 import { RefreshCw } from "react-feather";
 import TimeSpanButton from "../../../components/Buttons/TimeSpanButton";
-import Card from "../../../components/card";
-import DateBar from "../../../components/date-bar";
+import Card from "../../../components/Utilities/card";
+import DateBar from "../../../components/UI/date-bar";
 import useActiveDates from "../../../hooks/useActiveDates";
 import { useGetTransactionsByDate } from "../../../services/transaction-services";
 import {
@@ -20,7 +20,7 @@ import {
 } from "recharts";
 
 import useCheckMobile from "../../../hooks/useCheckMobile";
-import CustomBarLoader from "../../../components/bar-loader";
+import CustomBarLoader from "../../../components/UI/bar-loader";
 
 const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
   const {

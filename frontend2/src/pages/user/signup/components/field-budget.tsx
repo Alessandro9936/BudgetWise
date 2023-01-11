@@ -10,7 +10,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 
-import FieldError from "../../../../components/field-error";
+import FieldError from "../../../../components/Error/field-error";
 import { SignUpFormType } from "../types/types";
 
 type currencyType = {

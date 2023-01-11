@@ -1,4 +1,4 @@
-import Card from "../../../components/card";
+import Card from "../../../components/Utilities/card";
 
 import { Calendar as CalendarDep } from "react-calendar";
 import "../../../styles/calendar.css";

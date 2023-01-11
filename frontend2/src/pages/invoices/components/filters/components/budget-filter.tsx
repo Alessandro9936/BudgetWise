@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Database } from "react-feather";
 import { useSearchParams } from "react-router-dom";
-import Card from "../../../../../components/card";
+import Card from "../../../../../components/Utilities/card";
 import allBudgets from "../../../../budgets/utils/all-budgets";
 import ClearFilterButton from "./clearFilter-button";
 

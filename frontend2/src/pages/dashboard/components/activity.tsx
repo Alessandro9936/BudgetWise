@@ -1,30 +1,10 @@
 import { useMemo } from "react";
-import { MoreHorizontal } from "react-feather";
-import CustomBarLoader from "../../../components/bar-loader";
+import CustomBarLoader from "../../../components/UI/bar-loader";
 import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 
-import Card from "../../../components/card";
-import {
-  ITransaction,
-  useGetTransactionsByDate,
-} from "../../../services/transaction-services";
-
-const ActivityCard = ({ transaction }: { transaction: ITransaction }) => {
-  return (
-    <div className="relative flex animate-appear flex-col gap-1 rounded-lg p-4 shadow-[0_0_8px_rgba(0,0,0,0.1)]">
-      <p className="font-semibold">{transaction.description}</p>
-      <p>{transaction.date.toDateString()}</p>
-      <p
-        className={`${
-          transaction.type === "income" ? "text-green-500" : "text-red-500"
-        } font-semibold`}
-      >
-        {transaction.amount} {transaction.currency}
-      </p>
-      <MoreHorizontal className="absolute right-3 top-1 cursor-pointer" />
-    </div>
-  );
-};
+import Card from "../../../components/Utilities/card";
+import TransactionCard from "../../../components/UI/TransactionCard";
+import { useGetTransactionsByDate } from "../../../services/transaction-services";
 
 const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
   const query = useGetTransactionsByDate(new Date(), "Monthly");
@@ -44,7 +24,10 @@ const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
           <>
             <div className="grid flex-1 auto-rows-min gap-6 overflow-y-auto px-4 pt-4 pb-1 md:grid-cols-autoFill">
               {sortTransactions.map((transaction) => (
-                <ActivityCard transaction={transaction} key={transaction._id} />
+                <TransactionCard
+                  transaction={transaction}
+                  key={transaction._id}
+                />
               ))}
             </div>
             <div className="grid gap-x-6 gap-y-4 px-4 pb-4 md:grid-cols-autoFill">

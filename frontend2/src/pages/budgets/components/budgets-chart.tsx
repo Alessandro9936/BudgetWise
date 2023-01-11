@@ -1,9 +1,9 @@
 import { endOfMonth, isFuture } from "date-fns";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
-import Card from "../../../components/card";
+import Card from "../../../components/Utilities/card";
 import { useGetBudgetsByDate } from "../../../services/budget-services";
-import budgetColors from "../utils/budgets-colors";
+import budgetColors from "../utils/all-budgets";
 
 const BudgetsChart = ({
   activeDateFormatted,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlignLeft } from "react-feather";
 import { useSearchParams } from "react-router-dom";
-import Card from "../../../../../components/card";
+import Card from "../../../../../components/Utilities/card";
 import ClearFilterButton from "./clearFilter-button";
 
 const dateOptions = [

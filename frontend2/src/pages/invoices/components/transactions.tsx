@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { useSearchParams } from "react-router-dom";
 import RedirectLink from "../../../components/Buttons/RedirectLink";
-import Card from "../../../components/card";
+import Card from "../../../components/Utilities/card";
 import {
   ITransaction,
   useGetFilteredTransactions,

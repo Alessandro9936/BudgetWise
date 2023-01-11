@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import TimeSpanButton from "../../components/Buttons/TimeSpanButton";
-import DateBar from "../../components/date-bar";
+import DateBar from "../../components/UI/date-bar";
 import useActiveDates from "../../hooks/useActiveDates";
 import BudgetPreviews from "./components/budget-preview";
 import BudgetsChart from "./components/budgets-chart";

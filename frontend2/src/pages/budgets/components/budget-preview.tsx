@@ -1,9 +1,9 @@
 import DeleteIcon from "../../../components/Icons/DeleteIcon";
 import UpdateIcon from "../../../components/Icons/UpdateIcon";
-import Card from "../../../components/card";
+import Card from "../../../components/Utilities/card";
 import { useGetBudgetsByDate } from "../../../services/budget-services";
 
-import ProgressBar from "../../../components/progress-bar";
+import ProgressBar from "../../../components/UI/progress-bar";
 
 const BudgetPreviews = ({
   activeDate,
