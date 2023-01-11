@@ -8,7 +8,11 @@ import {
 function RangeInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ name, control }: UseControllerProps<TFieldValues, TName>) {
+>({
+  name,
+  control,
+  disable,
+}: UseControllerProps<TFieldValues, TName> & { disable?: boolean }) {
   const {
     field,
     formState: { isSubmitSuccessful },
@@ -22,7 +26,7 @@ function RangeInput<
         {...field}
         max={1000}
         step={10}
-        disabled={isSubmitSuccessful}
+        disabled={isSubmitSuccessful || disable}
         className="flex-1 cursor-pointer accent-purple-500"
       />
     </div>

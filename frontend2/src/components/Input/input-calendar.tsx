@@ -6,13 +6,15 @@ import {
   UseControllerProps,
   UseFormSetValue,
 } from "react-hook-form";
-import { IBudgetForm } from "../../pages/budget-modal/types/types";
+import { IBudgetForm } from "../../pages/budget/types/types";
 import "../../styles/calendar.css";
+import FieldError from "../field-error";
 
 interface ICalendarInput {
   minDetail: Detail;
   maxDetail: Detail;
   minDate: Date;
+  disabled: boolean;
   defaultValue?: Date;
   setValue: UseFormSetValue<IBudgetForm>;
   setActiveDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -25,6 +27,7 @@ function CalendarInput<
   name,
   control,
   setValue,
+  disabled,
   setActiveDate,
   ...calendarProps
 }: UseControllerProps<TFieldValues, TName> & ICalendarInput) {
@@ -42,14 +45,15 @@ function CalendarInput<
 
   return (
     <>
-      {!isSubmitSuccessful ? (
-        <Calendar {...calendarProps} onChange={onDateChange} />
-      ) : (
+      {isSubmitSuccessful || disabled ? (
         <>
+          {disabled && <FieldError message="Can't update date" />}
           <div className="pointer-events-none mt-1 select-none rounded-lg">
             <Calendar {...calendarProps} />
           </div>
         </>
+      ) : (
+        <Calendar {...calendarProps} onChange={onDateChange} />
       )}
     </>
   );

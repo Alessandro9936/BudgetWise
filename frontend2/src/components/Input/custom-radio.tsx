@@ -6,7 +6,7 @@ import {
   UseControllerProps,
   UseFormSetValue,
 } from "react-hook-form";
-import { IBudgetForm } from "../../pages/budget-modal/types/types";
+import { IBudgetForm } from "../../pages/budget/types/types";
 
 interface ICustomRadio {
   setValue: UseFormSetValue<IBudgetForm>;
@@ -14,6 +14,7 @@ interface ICustomRadio {
   label: string;
   color: string;
   isActive: boolean;
+  disabled: boolean;
   setActiveBudget: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
@@ -27,6 +28,7 @@ function CustomRadio<
   color,
   isActive,
   setActiveBudget,
+  disabled,
   name,
   control,
 }: UseControllerProps<TFieldValues, TName> & ICustomRadio) {
@@ -38,28 +40,7 @@ function CustomRadio<
 
   return (
     <>
-      {!isSubmitSuccessful ? (
-        <li
-          className={`w-max cursor-pointer rounded-lg border py-[2px] px-2 text-center transition-all`}
-          onMouseOver={() => setIsHover(true)}
-          onMouseOut={() => setIsHover(false)}
-          style={{
-            borderColor: color,
-            color: isActive || isHover ? "#fff" : color,
-            backgroundColor: isActive || isHover ? color : "transparent",
-          }}
-          onClick={() => {
-            setValue(
-              field.name as "name" | "date" | "maxAmount" | "usedAmount",
-              value,
-              { shouldValidate: true }
-            );
-            setActiveBudget(value);
-          }}
-        >
-          {label ?? value}
-        </li>
-      ) : (
+      {isSubmitSuccessful || disabled ? (
         <div className="pointer-events-none select-none">
           <li
             className={`w-max cursor-pointer rounded-lg border border-gray-300 py-[2px] px-2 text-center transition-all`}
@@ -71,6 +52,29 @@ function CustomRadio<
             {label ?? value}
           </li>
         </div>
+      ) : (
+        <>
+          <li
+            className={`w-max cursor-pointer rounded-lg border py-[2px] px-2 text-center transition-all`}
+            onMouseOver={() => setIsHover(true)}
+            onMouseOut={() => setIsHover(false)}
+            style={{
+              borderColor: color,
+              color: isActive || isHover ? "#fff" : color,
+              backgroundColor: isActive || isHover ? color : "transparent",
+            }}
+            onClick={() => {
+              setValue(
+                field.name as "name" | "date" | "maxAmount" | "usedAmount",
+                value,
+                { shouldValidate: true }
+              );
+              setActiveBudget(value);
+            }}
+          >
+            {label ?? value}
+          </li>
+        </>
       )}
     </>
   );
