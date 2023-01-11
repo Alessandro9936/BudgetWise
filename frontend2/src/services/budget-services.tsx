@@ -1,11 +1,13 @@
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { UseFormSetError } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { IBudgetForm } from "../pages/budget-modal/types/types";
+import { IBudgetForm } from "../pages/budget/types/types";
 
 const budgetKeys = {
   listByDate: (date: number | string) => ["budgets", date] as const,
+  detail: (id: string) => ["budgets", id] as const,
 };
 
 export interface IBudgetResponse {
@@ -118,4 +120,63 @@ const useCreateNewBudget = (setError: UseFormSetError<IBudgetForm>) => {
   return { createNewBudget, isLoading };
 };
 
-export { useGetBudgetsByDate, useCreateNewBudget };
+const useGetBudgetDetails = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const { id } = useParams();
+
+  if (!id) return;
+
+  return useQuery(
+    budgetKeys.detail(id),
+    () =>
+      axiosPrivate
+        .get<IBudgetResponse>(`/api/budgets/${id}`)
+        .then((res) => res.data),
+    {
+      staleTime: Infinity,
+      select: (budget) => ({ ...budget, date: new Date(budget.date) }),
+    }
+  );
+};
+
+const useUpdateBudget = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const { mutate, isLoading } = useMutation((formData: IBudgetForm) =>
+    axiosPrivate
+      .put<IBudgetResponse>(`/api/budgets/${id}`, formData)
+      .then((res) => res.data)
+  );
+
+  const updateBudget = (formData: IBudgetForm) => {
+    return mutate(formData, {
+      onSuccess: (budget) => {
+        const budgetYear = new Date(budget.date).getFullYear();
+        const budgetMonth = new Date(budget.date).toLocaleDateString(
+          navigator.language,
+          {
+            month: "long",
+            year: "numeric",
+          }
+        );
+
+        Promise.all([
+          queryClient.invalidateQueries(["budgets", budget._id]),
+          queryClient.invalidateQueries(["budgets", budgetYear]),
+          queryClient.invalidateQueries(["budgets", budgetMonth]),
+        ]);
+      },
+    });
+  };
+
+  return { updateBudget, isLoading };
+};
+
+export {
+  useGetBudgetsByDate,
+  useCreateNewBudget,
+  useGetBudgetDetails,
+  useUpdateBudget,
+};
