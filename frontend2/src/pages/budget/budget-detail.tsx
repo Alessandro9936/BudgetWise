@@ -1,20 +1,26 @@
 import { endOfMonth, isFuture } from "date-fns";
 import ButtonRedirect from "../../components/Buttons/ButtonRedirect";
 import CloseIcon from "../../components/Icons/CloseIcon";
-import Modal from "../../components/modal";
-import ProgressBar from "../../components/progress-bar";
+import Modal from "../../components/Utilities/modal";
+import ProgressBar from "../../components/UI/progress-bar";
+import TransactionCard from "../../components/UI/TransactionCard";
 import { useCloseModal } from "../../hooks/useCloseWindow";
 import { useGetBudgetDetails } from "../../services/budget-services";
+import { useGetTransactionsBudgetPreview } from "../../services/transaction-services";
 
 const BudgetDetails = () => {
   useCloseModal();
+
   const queryBudgetDetail = useGetBudgetDetails();
   const budgetDetails = queryBudgetDetail?.data;
-  const isLoading = queryBudgetDetail?.isLoading;
+
+  const queryTransactionsInBudget =
+    useGetTransactionsBudgetPreview(budgetDetails);
+  const transactionsInBudget = queryTransactionsInBudget?.data;
 
   return (
     <>
-      {!isLoading && budgetDetails && (
+      {transactionsInBudget && budgetDetails && (
         <Modal>
           <section className="flex flex-col gap-6 p-6">
             <div className="flex items-center justify-between">
@@ -34,6 +40,13 @@ const BudgetDetails = () => {
                 })}
               </p>
             </div>
+            {transactionsInBudget.length > 0 && (
+              <div className="flex max-h-[300px] flex-col gap-y-2 overflow-scroll p-1">
+                {transactionsInBudget.map((transaction) => (
+                  <TransactionCard transaction={transaction} disabled={true} />
+                ))}
+              </div>
+            )}
             <div>
               <ProgressBar budget={budgetDetails} />
             </div>

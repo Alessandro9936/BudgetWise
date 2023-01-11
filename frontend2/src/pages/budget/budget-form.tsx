@@ -1,4 +1,4 @@
-import Separator from "../../components/separator";
+import Separator from "../../components/UI/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import CustomRadio from "../../components/Input/custom-radio";
 import CalendarInput from "../../components/Input/input-calendar";
 import RangeInput from "../../components/Input/input-range";
-import Modal from "../../components/modal";
+import Modal from "../../components/Utilities/modal";
 import { useCloseModal } from "../../hooks/useCloseWindow";
 import {
   useCreateNewBudget,
@@ -17,7 +17,7 @@ import {
 import budgets from "../budgets/utils/all-budgets";
 import { IBudgetForm } from "./types/types";
 import BudgetSchema from "./utils/validation-schema";
-import FieldError from "../../components/field-error";
+import FieldError from "../../components/Error/field-error";
 import FormHandler from "../../components/Form/form-handler";
 import CloseIcon from "../../components/Icons/CloseIcon";
 
