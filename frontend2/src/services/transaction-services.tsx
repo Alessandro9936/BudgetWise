@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { IBudgetResponse } from "./budget-services";
 
@@ -20,7 +20,6 @@ export interface ITransaction {
   __v: number;
   state?: "paid" | "topay" | "upcoming";
   budget?: { name: string; _id: string };
-  currency: string;
 }
 
 const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
@@ -110,8 +109,31 @@ const useGetFilteredTransactions = (currentPage: number) => {
   );
 };
 
+const useGetTransactionDetail = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const { id } = useParams();
+
+  if (!id) return;
+
+  return useQuery(
+    transactionKeys.detail(id),
+    () =>
+      axiosPrivate
+        .get<ITransaction>(`/api/transactions/${id}`)
+        .then((res) => res.data),
+    {
+      staleTime: Infinity,
+      select: (transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      }),
+    }
+  );
+};
+
 export {
   useGetTransactionsByDate,
   useGetFilteredTransactions,
   useGetTransactionsBudgetPreview,
+  useGetTransactionDetail,
 };
