@@ -8,6 +8,7 @@ import {
 } from "../../../services/transaction-services";
 import { useState } from "react";
 import { isSameDay } from "date-fns";
+import { getCurrency } from "../../../context/user-context";
 
 interface ITransactionPopup {
   coords: { top: string | undefined; left: string | undefined } | undefined;
@@ -15,6 +16,7 @@ interface ITransactionPopup {
 }
 
 const TransactionPopup = ({ coords, transactions }: ITransactionPopup) => {
+  const currency = getCurrency();
   return (
     <ul
       className={`pointer-events-none absolute z-10 flex w-40 origin-top-right animate-fadeIn flex-col gap-2 rounded-xl bg-purple-500 p-2 font-semibold text-white`}
@@ -27,7 +29,10 @@ const TransactionPopup = ({ coords, transactions }: ITransactionPopup) => {
             Type: <span className="font-normal">{transaction.type}</span>
           </p>
           <p>
-            Amount: <span className="font-normal">{transaction.amount}</span>
+            Amount:{" "}
+            <span className="font-normal">
+              {transaction.amount} {currency}
+            </span>
           </p>
           {transaction?.type === "expense" && (
             <p>

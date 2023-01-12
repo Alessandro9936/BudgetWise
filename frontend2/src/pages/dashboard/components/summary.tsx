@@ -6,6 +6,7 @@ import Card from "../../../components/Utilities/card";
 import DateBar from "../../../components/UI/date-bar";
 import useActiveDates from "../../../hooks/useActiveDates";
 import { useGetTransactionsByDate } from "../../../services/transaction-services";
+import { getCurrency } from "../../../context/user-context";
 
 const DateSelectorsContainer = ({
   children,
@@ -26,12 +27,11 @@ const DateSelectorsContainer = ({
 const AmountContainer = ({
   children,
   label,
-  currency,
 }: {
   children: React.ReactNode;
   label: string;
-  currency: string;
 }) => {
+  const currency = getCurrency();
   return (
     <Card classNames="px-4 py-3 flex-1 flex flex-col relative">
       <p className=" mb-2 font-semibold">{label}</p>
@@ -55,8 +55,6 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
   const query = useGetTransactionsByDate(activeDate, activeTimeSpan);
 
   const transactions = query.data ?? [];
-  const loading = query?.isLoading;
-  const currency = transactions[0]?.currency;
 
   const amounts = transactions.reduce(
     (acc, cur) => {
@@ -89,36 +87,24 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
         activeDateFormatted={activeDateFormatted}
       />
       <div className="flex flex-1 flex-col md:gap-y-4">
-        <AmountContainer label="Income" currency={currency}>
-          {!loading ? (
-            <p className="text-lg font-semibold md:text-2xl ">
-              {amounts ? amounts.income : 0}
-            </p>
-          ) : (
-            <CustomBarLoader />
-          )}
+        <AmountContainer label="Income">
+          <p className="text-lg font-semibold md:text-2xl ">
+            {amounts ? amounts.income : 0}
+          </p>
         </AmountContainer>
-        <AmountContainer label="Expenses" currency={currency}>
-          {!loading ? (
-            <p className="text-lg font-semibold md:text-2xl">
-              {amounts ? amounts.expenses : 0}
-            </p>
-          ) : (
-            <CustomBarLoader />
-          )}
+        <AmountContainer label="Expenses">
+          <p className="text-lg font-semibold md:text-2xl">
+            {amounts ? amounts.expenses : 0}
+          </p>
         </AmountContainer>
-        <AmountContainer label="Total" currency={currency}>
-          {!loading ? (
-            <p
-              className={`text-lg font-semibold md:text-2xl ${
-                totalBalance > 0 ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {totalBalance}
-            </p>
-          ) : (
-            <CustomBarLoader />
-          )}
+        <AmountContainer label="Total">
+          <p
+            className={`text-lg font-semibold md:text-2xl ${
+              totalBalance > 0 ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {totalBalance}
+          </p>
         </AmountContainer>
       </div>
     </section>
