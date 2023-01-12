@@ -1,4 +1,5 @@
 import { MoreHorizontal } from "react-feather";
+import { getCurrency } from "../../context/user-context";
 import { ITransaction } from "../../services/transaction-services";
 
 const TransactionCard = ({
@@ -8,6 +9,7 @@ const TransactionCard = ({
   transaction: ITransaction;
   disabled?: boolean;
 }) => {
+  const currency = getCurrency();
   return (
     <div className="relative flex animate-appear flex-col gap-1 rounded-lg p-4 shadow-[0_0_8px_rgba(0,0,0,0.1)]">
       <p className="font-semibold">{transaction.description}</p>
@@ -17,7 +19,7 @@ const TransactionCard = ({
           transaction.type === "income" ? "text-green-500" : "text-red-500"
         } font-semibold`}
       >
-        {transaction.amount} {transaction.currency}
+        {transaction.amount} {currency}
       </p>
       {!disabled && (
         <MoreHorizontal className="absolute right-3 top-1 cursor-pointer" />

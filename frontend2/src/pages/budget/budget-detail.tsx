@@ -41,9 +41,13 @@ const BudgetDetails = () => {
               </p>
             </div>
             {transactionsInBudget.length > 0 && (
-              <div className="flex max-h-[300px] flex-col gap-y-2 overflow-scroll p-1">
+              <div className="flex max-h-[300px] flex-col gap-y-2 overflow-y-auto p-1">
                 {transactionsInBudget.map((transaction) => (
-                  <TransactionCard transaction={transaction} disabled={true} />
+                  <TransactionCard
+                    key={transaction._id}
+                    transaction={transaction}
+                    disabled={true}
+                  />
                 ))}
               </div>
             )}
