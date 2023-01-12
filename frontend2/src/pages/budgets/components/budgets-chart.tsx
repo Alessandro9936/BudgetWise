@@ -2,6 +2,7 @@ import { endOfMonth, isFuture } from "date-fns";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 import Card from "../../../components/Utilities/card";
+import { getCurrency } from "../../../context/user-context";
 import { useGetBudgetsByDate } from "../../../services/budget-services";
 import budgetColors from "../utils/all-budgets";
 
@@ -16,6 +17,7 @@ const BudgetsChart = ({
 }) => {
   const query = useGetBudgetsByDate(activeDate, timeSpan);
   const budgets = query?.data ?? [];
+  const currency = getCurrency();
 
   const budgetColor = (name: string): string | undefined => {
     const curBudget = budgetColors.find((budget) => budget.name === name);
@@ -37,8 +39,8 @@ const BudgetsChart = ({
   const percentage = Math.ceil(
     (totalAmounts.usedAmount / totalAmounts.maxAmount) * 100
   );
-  const percentageMessageDetails = `In ${activeDateFormatted} you spent ${totalAmounts.usedAmount} (
-    ${percentage}%) of your total budget (${totalAmounts.maxAmount})`;
+  const percentageMessageDetails = `In ${activeDateFormatted} you spent ${totalAmounts.usedAmount} ${currency} (
+    ${percentage}%) of your total budget (${totalAmounts.maxAmount} ${currency})`;
 
   return (
     <div className="flex flex-1 flex-col">

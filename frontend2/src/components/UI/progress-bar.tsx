@@ -1,8 +1,10 @@
 import { IBudgetResponse } from "../../services/budget-services";
 
 import budgetColors from "../../pages/budgets/utils/all-budgets";
+import { getCurrency } from "../../context/user-context";
 
 const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
+  const currency = getCurrency();
   const percentage = Math.ceil((budget.usedAmount / budget.maxAmount) * 100);
   const { color } = budgetColors.find(
     (_budget) => _budget.name === budget.name
@@ -18,9 +20,9 @@ const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
               : "text-red-500"
           }`}
         >
-          {budget.maxAmount - budget.usedAmount} $
+          {budget.maxAmount - budget.usedAmount} {currency}
         </span>{" "}
-        left from {budget.maxAmount}
+        left from {budget.maxAmount} {currency}
       </p>
       <div className="w-full rounded-full bg-gray-200 dark:bg-gray-700">
         <div style={{ width: `${percentage}%`, maxWidth: "100%" }}>

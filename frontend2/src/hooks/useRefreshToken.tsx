@@ -1,16 +1,14 @@
 import axios from "axios";
-import { setAccessToken } from "../services/accessTokenHandler";
+import { IUser } from "../context/user-context";
 
 const useRefreshToken = () => {
   const refresh = async () => {
-    const response = await axios.post("/api/refresh", {
+    const response = await axios.post<IUser>("/api/refresh", {
       withCredentials: true,
     });
 
-    const { data: accessToken }: { data: string } = response;
-
-    setAccessToken(accessToken);
-    return accessToken;
+    const loggedUser = response.data;
+    return loggedUser;
   };
 
   return refresh;

@@ -4,7 +4,8 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { SignUpFormType } from "../pages/user/signup/types/types";
 import { LoginFormType } from "../pages/user/login/types/types";
-import { setAccessToken } from "./accessTokenHandler";
+import { useContext } from "react";
+import { UserContext } from "../context/user-context";
 
 const signUpFn = async (formData: SignUpFormType) => {
   const response = await axios.post<201>("/api/register", formData);
@@ -12,8 +13,10 @@ const signUpFn = async (formData: SignUpFormType) => {
 };
 
 type loginResponse = {
-  id: string;
+  name: string;
+  email: string;
   accessToken: string;
+  currency: string;
 };
 
 const loginFn = async (loginData: LoginFormType) => {
@@ -59,6 +62,8 @@ const useSignUp = () => {
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+
   const { mutate, isLoading } = useMutation((values: LoginFormType) =>
     loginFn(values)
   );
@@ -69,10 +74,8 @@ const useLogin = () => {
   ) => {
     return mutate(formData, {
       onSuccess: (response) => {
-        if (response.accessToken) {
-          setAccessToken(response.accessToken);
-          navigate("/dashboard", { replace: true });
-        }
+        setUser(response);
+        navigate("/dashboard", { replace: true });
       },
       onError: (error) => {
         if (axios.isAxiosError(error)) {

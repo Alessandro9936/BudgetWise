@@ -3,19 +3,21 @@ import { ChevronLeft, ChevronRight } from "react-feather";
 import { useSearchParams } from "react-router-dom";
 import RedirectLink from "../../../components/Buttons/RedirectLink";
 import Card from "../../../components/Utilities/card";
+import { getCurrency } from "../../../context/user-context";
 import {
   ITransaction,
   useGetFilteredTransactions,
 } from "../../../services/transaction-services";
 
 const TransactionPreview = ({ transaction }: { transaction: ITransaction }) => {
+  const currency = getCurrency();
   return (
     <li className="flex flex-1 items-center border-b border-gray-200">
       <p className="flex-1 grow-[2]">{transaction.description}</p>
       <p className="flex-1">{transaction.type}</p>
       <p className="flex-1">{transaction.date.toLocaleDateString()}</p>
       <p className="flex-1">
-        {transaction.amount} {transaction.currency}
+        {transaction.amount} {currency}
       </p>
       <p className="flex-1">{transaction.budget?.name || ""}</p>
       <div className="flex-1">

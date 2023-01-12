@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { useEffect } from "react";
-import { getAccessToken } from "../services/accessTokenHandler";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../context/user-context";
 import useRefreshToken from "./useRefreshToken";
 
 const axiosPrivate = axios.create({
@@ -9,8 +9,9 @@ const axiosPrivate = axios.create({
 });
 
 const useAxiosPrivate = () => {
+  const { user, setUser } = useContext(UserContext);
   const refresh = useRefreshToken();
-  const accessToken = getAccessToken();
+  const accessToken = user?.accessToken;
 
   useEffect(() => {
     /*
@@ -42,8 +43,11 @@ const useAxiosPrivate = () => {
           /* isSent variable allow to retry to get an accessToken only once, if the
           first call returns an error it means that also the refrsh token has expired */
           isSent = true;
-          const newAccessToken = await refresh();
-          prevRequest.headers!["Authorization"] = `Bearer ${newAccessToken}`;
+          const loggedUser = await refresh();
+          setUser(loggedUser);
+          prevRequest.headers![
+            "Authorization"
+          ] = `Bearer ${loggedUser.accessToken}`;
           return axiosPrivate(prevRequest);
         }
         return Promise.reject(error);
