@@ -11,7 +11,7 @@ const TransactionCard = ({
 }) => {
   const currency = getCurrency();
   return (
-    <div className="relative flex animate-appear flex-col gap-1 rounded-lg p-4 shadow-[0_0_8px_rgba(0,0,0,0.1)]">
+    <div className="relative flex flex-col gap-1 rounded-lg p-4 shadow-[0_0_8px_rgba(0,0,0,0.1)]">
       <p className="font-semibold">{transaction.description}</p>
       <p>{transaction.date.toDateString()}</p>
       <p

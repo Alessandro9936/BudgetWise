@@ -3,8 +3,6 @@ import { ChevronDown } from "react-feather";
 
 import currencies from "../utils/currencies";
 import {
-  FieldPath,
-  FieldValues,
   useController,
   UseControllerProps,
   UseFormSetValue,
@@ -30,7 +28,7 @@ const CurrencyPicker = ({
   return (
     <>
       <div
-        className="absolute inset-y-0 right-0 flex cursor-pointer items-center rounded-r-lg border-l-[1px] px-2"
+        className="absolute inset-y-0 right-0 z-10 flex cursor-pointer items-center rounded-r-lg border border-gray-300 bg-white px-2"
         onClick={() => setIsModalOpen(!isModalOpen)}
       >
         <span className="mr-2 text-sm text-gray-500">
@@ -100,7 +98,7 @@ const FieldBudget = ({
           <span className="text-sm text-gray-500">{activeCurrency.symbol}</span>
         </div>
         <input
-          type="text"
+          type="number"
           placeholder="0.00"
           {...field}
           className={`w-full rounded-lg border border-gray-300 bg-white py-2 pr-4 pl-7 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900  ${
