@@ -1,51 +1,84 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SubmitButton from "../Buttons/SubmitButton";
 import ButtonRedirect from "../Buttons/ButtonRedirect";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const FormHandler = ({
   isLoading,
   submitLabel,
   isSubmitSuccessful,
+  isSubmitError,
 }: {
   isLoading: boolean;
   isSubmitSuccessful: boolean;
+  isSubmitError: boolean;
   submitLabel: string;
 }) => {
   const navigate = useNavigate();
-  const [secondsRedirect, setSecondsRedirect] = useState(5);
+  const [secondsToRedirect, setSecondsToRedirect] = useState(5);
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
+    if (isSubmitSuccessful || isSubmitError) {
       const interval = setInterval(() => {
-        setSecondsRedirect((prev) => prev - 1);
+        setSecondsToRedirect((prev) => prev - 1);
       }, 1000);
-
       return () => clearInterval(interval);
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, isSubmitError]);
 
   useEffect(() => {
-    if (secondsRedirect === 0 && isSubmitSuccessful) {
+    if (secondsToRedirect === 0 && (isSubmitSuccessful || isSubmitError)) {
       navigate("..");
     }
-  }, [secondsRedirect]);
+  }, [secondsToRedirect]);
 
-  return !isSubmitSuccessful ? (
-    <div className="ml-auto flex w-fit justify-end gap-x-2">
-      <SubmitButton label={submitLabel} styles="px-6" isLoading={isLoading} />
+  return (
+    <>
+      {!isSubmitSuccessful && !isSubmitError && (
+        <div className="ml-auto flex w-fit justify-end gap-x-2">
+          <SubmitButton
+            label={submitLabel}
+            styles="px-6"
+            isLoading={isLoading}
+          />
 
-      <ButtonRedirect
-        redirect={".."}
-        styles="mt-2 px-6 bg-white text-purple-500 ring-1 ring-purple-500"
-        label="Go back"
-      />
-    </div>
-  ) : (
-    <div className="mt-4 text-center">
-      <p className="font-semibold">Budget successfully created</p>
-      <p>You will be redirected in {secondsRedirect} seconds</p>
-    </div>
+          <ButtonRedirect
+            redirect={".."}
+            styles="px-6 bg-white text-purple-500 ring-1 ring-purple-500"
+            label="Go back"
+          />
+        </div>
+      )}
+      {isSubmitSuccessful && !isLoading && (
+        <div className="flex w-full items-center justify-end gap-x-2">
+          <div className="flex flex-1 flex-col rounded-lg bg-green-500 py-[3px]  text-center text-white">
+            <p className="font-semibold">
+              {submitLabel.includes("budget") ? "Budget" : "Transaction"}{" "}
+              successfully created
+            </p>
+            <p>You'll be redirected in {secondsToRedirect} seconds</p>
+          </div>
+          <ButtonRedirect
+            redirect={".."}
+            styles="px-6 bg-white text-purple-500 ring-1 ring-purple-500"
+            label="Go back"
+          />
+        </div>
+      )}
+      {isSubmitError && !isLoading && (
+        <div className="flex w-full items-center justify-end gap-x-2">
+          <div className="flex flex-1 flex-col rounded-lg bg-red-500 py-[3px] text-center text-white">
+            <p className="font-semibold">Something went wrong</p>
+            <p>You'll be redirected in {secondsToRedirect} seconds</p>
+          </div>
+          <ButtonRedirect
+            redirect={".."}
+            styles=" px-6 bg-white text-purple-500 ring-1 ring-purple-500"
+            label="Go back"
+          />
+        </div>
+      )}
+    </>
   );
 };
 

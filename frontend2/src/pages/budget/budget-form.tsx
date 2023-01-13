@@ -14,7 +14,7 @@ import {
   useGetBudgetsByDate,
   useUpdateBudget,
 } from "../../services/budget-services";
-import budgets from "../budgets/utils/all-budgets";
+import budgets from "../../constants/all-budgets";
 import { IBudgetForm } from "./types/types";
 import BudgetSchema from "./utils/validation-schema";
 import FieldError from "../../components/Error/field-error";
@@ -58,13 +58,20 @@ const BudgetForm = () => {
     });
 
   // Get mutation to create a new budget
-  const { createNewBudget, isLoading: createLoading } =
-    useCreateNewBudget(setError);
+  const {
+    createNewBudget,
+    isLoading: createBudgetLoading,
+    isError: createBudgetError,
+    isSuccess: createBudgetSuccess,
+  } = useCreateNewBudget(setError);
 
-  //Get mutation to update budget
-  const { updateBudget, isLoading: updateLoading } = useUpdateBudget();
-
-  const isLoading = createLoading ?? updateLoading;
+  // Get mutation to update budget
+  const {
+    updateBudget,
+    isLoading: updateBudgetLoading,
+    isError: updateBudgetError,
+    isSuccess: updateBudgetSuccess,
+  } = useUpdateBudget();
 
   // Get already created budgets in active month
   const budgetsQuery = useGetBudgetsByDate(activeDate, "Monthly");
@@ -117,7 +124,7 @@ const BudgetForm = () => {
               disabled={isUpdate}
               minDate={new Date()}
               setActiveDate={setActiveDate}
-              defaultValue={formState?.defaultValues?.date}
+              defaultValue={getValues("date") ?? formState?.defaultValues?.date}
             />
           </div>
         </div>
@@ -130,8 +137,7 @@ const BudgetForm = () => {
                 key={budget!.name}
                 setValue={setValue}
                 value={budget!.name}
-                label={budget!.label}
-                color={budget!.color}
+                view={budget!}
                 name="name"
                 disabled={isUpdate}
                 control={control}
@@ -158,9 +164,12 @@ const BudgetForm = () => {
           <FieldError message={formState.errors.maxAmount.message!} />
         )}
         <FormHandler
-          isLoading={isLoading}
+          isLoading={isUpdate ? updateBudgetLoading : createBudgetLoading}
           submitLabel={isUpdate ? "Update budget" : "Create budget"}
-          isSubmitSuccessful={formState.isSubmitSuccessful}
+          isSubmitSuccessful={
+            isUpdate ? updateBudgetSuccess : createBudgetSuccess
+          }
+          isSubmitError={isUpdate ? updateBudgetError : createBudgetError}
         />
       </form>
     </Modal>
