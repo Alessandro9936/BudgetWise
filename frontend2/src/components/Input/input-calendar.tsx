@@ -6,17 +6,16 @@ import {
   UseControllerProps,
   UseFormSetValue,
 } from "react-hook-form";
-import { IBudgetForm } from "../../pages/budget/types/types";
 import "../../styles/calendar.css";
 import FieldError from "../Error/field-error";
 
-interface ICalendarInput {
+interface ICalendarInput<TFieldValues extends FieldValues> {
   minDetail: Detail;
-  maxDetail: Detail;
+  maxDetail?: Detail;
   minDate: Date;
   disabled: boolean;
   defaultValue?: Date;
-  setValue: UseFormSetValue<IBudgetForm>;
+  setValue: UseFormSetValue<TFieldValues>;
   setActiveDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
@@ -30,14 +29,14 @@ function CalendarInput<
   disabled,
   setActiveDate,
   ...calendarProps
-}: UseControllerProps<TFieldValues, TName> & ICalendarInput) {
+}: UseControllerProps<TFieldValues, TName> & ICalendarInput<TFieldValues>) {
   const {
     field,
     formState: { isSubmitSuccessful },
   } = useController({ name, control });
 
   const onDateChange = (date: Date) => {
-    setValue(field.name as "name" | "date" | "maxAmount" | "usedAmount", date, {
+    setValue(field.name as any, date as any, {
       shouldValidate: true,
     });
     setActiveDate(date);

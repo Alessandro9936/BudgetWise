@@ -4,15 +4,12 @@ import {
   FieldValues,
   useController,
   UseControllerProps,
-  UseFormSetValue,
 } from "react-hook-form";
-import { IBudgetForm } from "../../pages/budget/types/types";
 
 interface ICustomRadio {
-  setValue: UseFormSetValue<IBudgetForm>;
+  setValue: any;
   value: string;
-  label: string;
-  color: string;
+  view: { name: string; color: string; label: string };
   isActive: boolean;
   disabled: boolean;
 }
@@ -23,8 +20,7 @@ function CustomRadio<
 >({
   setValue,
   value,
-  label,
-  color,
+  view,
   isActive,
   disabled,
   name,
@@ -47,7 +43,7 @@ function CustomRadio<
               backgroundColor: isActive ? "#d1d5db" : "transparent",
             }}
           >
-            {label ?? value}
+            {view.label ?? value}
           </li>
         </div>
       ) : (
@@ -57,19 +53,15 @@ function CustomRadio<
             onMouseOver={() => setIsHover(true)}
             onMouseOut={() => setIsHover(false)}
             style={{
-              borderColor: color,
-              color: isActive || isHover ? "#fff" : color,
-              backgroundColor: isActive || isHover ? color : "transparent",
+              borderColor: view.color,
+              color: isActive || isHover ? "#fff" : view.color,
+              backgroundColor: isActive || isHover ? view.color : "transparent",
             }}
             onClick={() => {
-              setValue(
-                field.name as "name" | "date" | "maxAmount" | "usedAmount",
-                value,
-                { shouldValidate: true }
-              );
+              setValue(field.name, value, { shouldValidate: true });
             }}
           >
-            {label ?? value}
+            {view.label ?? value}
           </li>
         </>
       )}
