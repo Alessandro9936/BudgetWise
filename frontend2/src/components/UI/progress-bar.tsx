@@ -1,6 +1,6 @@
 import { IBudgetResponse } from "../../services/budget-services";
 
-import budgetColors from "../../pages/budgets/utils/all-budgets";
+import budgetColors from "../../constants/all-budgets";
 import { getCurrency } from "../../context/user-context";
 
 const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {

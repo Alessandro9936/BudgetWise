@@ -4,7 +4,7 @@ import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 import Card from "../../../components/Utilities/card";
 import { getCurrency } from "../../../context/user-context";
 import { useGetBudgetsByDate } from "../../../services/budget-services";
-import budgetColors from "../utils/all-budgets";
+import budgetColors from "../../../constants/all-budgets";
 
 const BudgetsChart = ({
   activeDateFormatted,

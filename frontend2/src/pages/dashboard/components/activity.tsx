@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import CustomBarLoader from "../../../components/UI/bar-loader";
 import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 
 import Card from "../../../components/Utilities/card";
@@ -9,7 +8,6 @@ import { useGetTransactionsByDate } from "../../../services/transaction-services
 const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
   const query = useGetTransactionsByDate(new Date(), "Monthly");
   const transactions = query?.data ?? [];
-  
   const sortTransactions = useMemo(
     () => transactions.sort((a, b) => b.date.getTime() - a.date.getTime()),
     [transactions]
@@ -26,7 +24,7 @@ const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
         </div>
         <div className="grid gap-x-6 gap-y-4 px-4 pb-4 md:grid-cols-autoFill">
           <ButtonRedirect
-            redirect="somewhere"
+            redirect="transaction/new"
             styles="flex-1 bg-slate-900 text-white hover:bg-purple-500"
             label="New transaction"
           />
