@@ -9,7 +9,7 @@ import {
   subWeeks,
   subYears,
 } from "date-fns";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const monthNames = [
   "January",
@@ -40,9 +40,9 @@ const formatDateString = (
   const formatString = {
     Yearly: year,
     Monthly: `${month} ${year}`,
-    Weekly: `${week.start.toLocaleDateString("en-GB", {
+    Weekly: `${week.start.toLocaleDateString(navigator.language, {
       dateStyle: "long",
-    })} - ${week.end.toLocaleDateString("en-GB", {
+    })} - ${week.end.toLocaleDateString(navigator.language, {
       dateStyle: "long",
     })} `,
   };
@@ -53,7 +53,7 @@ const formatDateString = (
 const useActiveDates = () => {
   const [activeTimeSpan, setActiveTimeSpan] = useState<
     "Yearly" | "Monthly" | "Weekly"
-  >("Yearly");
+  >("Monthly");
 
   const [activeDate, setActiveDate] = useState(new Date());
 
