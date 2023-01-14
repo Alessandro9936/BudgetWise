@@ -1,12 +1,13 @@
 import { MoreHorizontal } from "react-feather";
+import { Link } from "react-router-dom";
 import { getCurrency } from "../../context/user-context";
-import { ITransaction } from "../../services/transaction-services";
+import { ITransactionResponse } from "../../services/transaction-services";
 
 const TransactionCard = ({
   transaction,
   disabled,
 }: {
-  transaction: ITransaction;
+  transaction: ITransactionResponse;
   disabled?: boolean;
 }) => {
   const currency = getCurrency();
@@ -22,7 +23,9 @@ const TransactionCard = ({
         {transaction.amount} {currency}
       </p>
       {!disabled && (
-        <MoreHorizontal className="absolute right-3 top-1 cursor-pointer" />
+        <Link to={`transaction/${transaction._id}`}>
+          <MoreHorizontal className="absolute right-3 top-1 cursor-pointer" />
+        </Link>
       )}
     </div>
   );
