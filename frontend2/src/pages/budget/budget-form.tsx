@@ -156,10 +156,16 @@ const BudgetForm = () => {
           <p className="font-semibold">Maximum amount</p>
           <RangeInput name="maxAmount" control={control} />
         </div>
-        <div>
-          <p className="font-semibold">Used amount</p>
-          <RangeInput disable={isUpdate} name="usedAmount" control={control} />
-        </div>
+        {isUpdate && (
+          <div>
+            <p className="font-semibold">Used amount</p>
+            <RangeInput
+              disable={isUpdate}
+              name="usedAmount"
+              control={control}
+            />
+          </div>
+        )}
         {formState.errors.maxAmount && (
           <FieldError message={formState.errors.maxAmount.message!} />
         )}

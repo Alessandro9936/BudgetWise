@@ -7,6 +7,7 @@ import TransactionCard from "../../components/UI/TransactionCard";
 import { useCloseModal } from "../../hooks/useCloseWindow";
 import { useGetBudgetDetails } from "../../services/budget-services";
 import { useGetTransactionsBudgetPreview } from "../../services/transaction-services";
+import budgets from "../../constants/all-budgets";
 
 const BudgetDetails = () => {
   useCloseModal();
@@ -17,6 +18,10 @@ const BudgetDetails = () => {
   const queryTransactionsInBudget =
     useGetTransactionsBudgetPreview(budgetDetails);
   const transactionsInBudget = queryTransactionsInBudget?.data;
+
+  const budgetColor = budgets.find(
+    (_budget) => _budget.name === budgetDetails?.name
+  )?.color;
 
   return (
     <>
@@ -29,7 +34,12 @@ const BudgetDetails = () => {
             </div>
             <div className="flex items-center justify-between">
               <p className="font-semibold">Budget type</p>
-              <p>{budgetDetails.name}</p>
+              <p
+                className="rounded-lg border-2 px-2 py-[2px] font-semibold"
+                style={{ borderColor: budgetColor, color: budgetColor }}
+              >
+                {budgetDetails.name}
+              </p>
             </div>
             <div className="flex items-center justify-between">
               <p className="font-semibold">Budget month</p>
