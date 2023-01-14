@@ -11,7 +11,7 @@ interface ICustomRadio {
   value: string;
   view: { name: string; color: string; label: string };
   isActive: boolean;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 function CustomRadio<

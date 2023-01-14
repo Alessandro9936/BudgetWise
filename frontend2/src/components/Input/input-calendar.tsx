@@ -12,7 +12,7 @@ import FieldError from "../Error/field-error";
 interface ICalendarInput<TFieldValues extends FieldValues> {
   minDetail: Detail;
   maxDetail?: Detail;
-  minDate: Date;
+  minDate?: Date;
   disabled: boolean;
   defaultValue?: Date;
   setValue: UseFormSetValue<TFieldValues>;
