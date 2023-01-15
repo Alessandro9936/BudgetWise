@@ -1,11 +1,12 @@
 import {
+  getWeek,
   getWeekOfMonth,
   getWeeksInMonth,
   isSameMonth,
   isSameWeek,
   isSameYear,
 } from "date-fns";
-import { ITransaction } from "../../../services/transaction-services";
+import { ITransactionResponse } from "../../../services/transaction-services";
 
 const dayNames = [
   "Monday",
@@ -32,7 +33,12 @@ const monthNames = [
   "December",
 ];
 
-const incomeExpenseCalc = (transactions: ITransaction[], timeSpan: string) => {
+import _ from "lodash";
+
+const incomeExpenseCalc = (
+  transactions: ITransactionResponse[],
+  timeSpan: string
+) => {
   return transactions.reduce(
     (acc, transaction) => {
       {
@@ -50,62 +56,65 @@ const incomeExpenseCalc = (transactions: ITransaction[], timeSpan: string) => {
   );
 };
 
-const getGraphYearData = (transactions: ITransaction[], activeDate: Date) => {
-  const transactionsInActiveYear = transactions.filter((transaction) =>
-    isSameYear(transaction.date, activeDate)
+const getGraphYearData = (
+  transactions: ITransactionResponse[],
+  activeDate: Date
+) => {
+  const activeYear = activeDate.getFullYear();
+  const groupedTransactions = _.groupBy(transactions, (transaction) =>
+    transaction.date.getFullYear() === activeYear
+      ? transaction.date.getMonth()
+      : null
   );
 
-  const incomeExpensePerMonth = monthNames.map((month) => {
-    const transactionsPerMonth = transactionsInActiveYear.filter(
-      (transaction) =>
-        transaction.date.toLocaleDateString("en-US", { month: "long" }) ===
-        month
-    );
-
-    return incomeExpenseCalc(transactionsPerMonth, month.slice(0, 3));
+  return Object.keys(groupedTransactions).map((month, index) => {
+    const monthTransactions = groupedTransactions[month];
+    return incomeExpenseCalc(monthTransactions, monthNames[index].slice(0, 3));
   });
-
-  return incomeExpensePerMonth;
 };
 
-const getGraphMonthData = (transactions: ITransaction[], activeDate: Date) => {
-  const transactionsInActiveMonth = transactions.filter((transaction) =>
-    isSameMonth(transaction.date, activeDate)
-  );
+const getGraphMonthData = (
+  transactions: ITransactionResponse[],
+  activeDate: Date
+) => {
+  const groupedTransactions = _.groupBy(transactions, (transaction) => {
+    if (isSameMonth(transaction.date, activeDate)) {
+      return getWeekOfMonth(transaction.date, { weekStartsOn: 1 });
+    }
+    return null;
+  });
 
   let numOfWeeksInMonth: string[] = [];
   for (let i = 0; i < getWeeksInMonth(activeDate); i++) {
     numOfWeeksInMonth = [...numOfWeeksInMonth, `Week ${i + 1}`];
   }
 
-  const incomeExpensePerWeek = numOfWeeksInMonth.map((week, i) => {
-    const transactionsPerWeek = transactionsInActiveMonth.filter(
-      (transaction) =>
-        getWeekOfMonth(transaction.date, { weekStartsOn: 1 }) === i + 1
-    );
-
-    return incomeExpenseCalc(transactionsPerWeek, week);
+  return numOfWeeksInMonth.map((week, i) => {
+    const weekTransactions = groupedTransactions[i + 1];
+    if (weekTransactions) return incomeExpenseCalc(weekTransactions, week);
+    else return incomeExpenseCalc([], week);
   });
-
-  return incomeExpensePerWeek;
 };
 
-const getGraphWeekData = (transactions: ITransaction[], activeDate: Date) => {
-  const transactionsInActiveWeek = transactions.filter((transaction) =>
-    isSameWeek(transaction.date, activeDate)
-  );
-
-  const incomeExpensePerDay = dayNames.map((day, i) => {
-    const transactionsPerDay = transactionsInActiveWeek.filter(
-      (transaction) =>
-        transaction.date.toLocaleDateString("en-US", { weekday: "long" }) ===
-        day
-    );
-
-    return incomeExpenseCalc(transactionsPerDay, day.slice(0, 3));
+const getGraphWeekData = (
+  transactions: ITransactionResponse[],
+  activeDate: Date
+) => {
+  const groupedTransactions = _.groupBy(transactions, (transaction) => {
+    if (isSameWeek(transaction.date, activeDate)) {
+      return transaction.date.getDay();
+    }
+    return null;
   });
 
-  return incomeExpensePerDay;
+  return dayNames.map((day, i) => {
+    const dayTransactions = groupedTransactions[i];
+    if (dayTransactions) {
+      return incomeExpenseCalc(dayTransactions, day.slice(0, 3));
+    } else {
+      return incomeExpenseCalc([], day.slice(0, 3));
+    }
+  });
 };
 
 export { getGraphYearData, getGraphMonthData, getGraphWeekData };

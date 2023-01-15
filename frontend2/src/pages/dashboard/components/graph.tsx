@@ -35,23 +35,33 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
 
   const { isMobile } = useCheckMobile();
 
-  const query = useGetTransactionsByDate(activeDate, "Yearly");
+  const query = useGetTransactionsByDate(activeDate, activeTimeSpan);
+
   const transactions = useMemo(() => query?.data ?? [], [query]);
   const isFetching = query?.isFetching ?? [];
   const currency = getCurrency();
 
+  let graphData: {
+    name: string;
+    income: number;
+    expenses: number;
+  }[];
 
-  const graphData = useMemo(() => {
-    const data = {
-      Yearly: getGraphYearData(transactions, activeDate),
-      Monthly: getGraphMonthData(transactions, activeDate),
-      Weekly: getGraphWeekData(transactions, activeDate),
-    }[activeTimeSpan];
+  switch (activeTimeSpan) {
+    case "Yearly": {
+      graphData = getGraphYearData(transactions, activeDate);
+      break;
+    }
+    case "Monthly": {
+      graphData = getGraphMonthData(transactions, activeDate);
+      break;
+    }
+    case "Weekly": {
+      graphData = getGraphWeekData(transactions, activeDate);
+      break;
+    }
+  }
 
-    return data;
-  }, [transactions]);
-
-  console.log(graphData);
   return (
     <section className={`${gridDisposition} flex flex-col gap-y-3`}>
       <div className="flex items-center justify-between">
