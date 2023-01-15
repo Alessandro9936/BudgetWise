@@ -2,20 +2,31 @@ import SubmitButton from "../Buttons/SubmitButton";
 import ButtonRedirect from "../Buttons/ButtonRedirect";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const FormHandler = ({
   isLoading,
   submitLabel,
   isSubmitSuccessful,
   isSubmitError,
+  error,
 }: {
   isLoading: boolean;
   isSubmitSuccessful: boolean;
   isSubmitError: boolean;
   submitLabel: string;
+  error: unknown;
 }) => {
   const navigate = useNavigate();
   const [secondsToRedirect, setSecondsToRedirect] = useState(5);
+
+  let errorMessage;
+  if (axios.isAxiosError(error) && isSubmitError) {
+    errorMessage =
+      error.response?.status === 500
+        ? "Internal Server Error - Please try again later"
+        : "";
+  }
 
   useEffect(() => {
     if (isSubmitSuccessful || isSubmitError) {
@@ -27,7 +38,7 @@ const FormHandler = ({
   }, [isSubmitSuccessful, isSubmitError]);
 
   useEffect(() => {
-    if (secondsToRedirect === 0 && (isSubmitSuccessful || isSubmitError)) {
+    if (secondsToRedirect === 0 && isSubmitSuccessful) {
       navigate("..");
     }
   }, [secondsToRedirect]);
@@ -69,7 +80,7 @@ const FormHandler = ({
         <div className="flex w-full items-center justify-end gap-x-2">
           <div className="flex flex-1 flex-col rounded-lg bg-red-500 py-[3px] text-center text-white">
             <p className="font-semibold">Something went wrong</p>
-            <p>You'll be redirected in {secondsToRedirect} seconds</p>
+            <p>{errorMessage}</p>
           </div>
           <ButtonRedirect
             redirect={".."}
