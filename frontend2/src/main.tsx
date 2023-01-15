@@ -11,10 +11,15 @@ import Layout from "./layouts/layout";
 import Dashboard from "./pages/dashboard/dashboard";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Invoices from "./pages/invoices/invoices";
+import Budgets from "./pages/budgets/budgets";
+import BudgetForm from "./pages/budget/budget-form";
+import BudgetDetails from "./pages/budget/budget-detail";
+import UserContextProvider from "./context/user-context";
+import TransactionForm from "./pages/transaction/transaction-form";
+import TransactionDetail from "./pages/transaction/transaction-detail";
+import DeleteModal from "./components/Utilities/delete-modal";
 
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
-});
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -39,19 +44,19 @@ const router = createBrowserRouter([
         children: [
           {
             path: "transaction/new",
-            // element: <TransactionModal />,
+            element: <TransactionForm />,
           },
           {
             path: "transaction/:id",
-            // element: <TransactionDetail />,
+            element: <TransactionDetail />,
           },
           {
             path: "transaction/:id/update",
-            //  element: <TransactionModal />,
+            element: <TransactionForm />,
           },
           {
             path: "transaction/:id/delete",
-            // element: <ModalDelete toDelete="transaction" />,
+            element: <DeleteModal toDelete="transaction" />,
           },
         ],
       },
@@ -61,37 +66,37 @@ const router = createBrowserRouter([
         children: [
           {
             path: "transaction/:id",
-            //element: <TransactionDetail />,
+            element: <TransactionDetail />,
           },
           {
             path: "transaction/:id/update",
-            //  element: <TransactionModal />,
+            element: <TransactionForm />,
           },
           {
             path: "transaction/:id/delete",
-            // element: <ModalDelete toDelete="transaction" />,
+            element: <DeleteModal toDelete="transaction" />,
           },
         ],
       },
       {
         path: "budgets",
-        // element: <Budgets />,
+        element: <Budgets />,
         children: [
           {
             path: "new",
-            //  element: <BudgetModal />,
+            element: <BudgetForm />,
           },
           {
             path: ":id",
-            // element: <BudgetDetails />,
+            element: <BudgetDetails />,
           },
           {
             path: ":id/update",
-            // element: <BudgetModal />,
+            element: <BudgetForm />,
           },
           {
             path: ":id/delete",
-            // element: <ModalDelete toDelete="budget" />,
+            element: <DeleteModal toDelete="budget" />,
           },
         ],
       },
@@ -106,9 +111,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <UserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </UserContextProvider>
   </React.StrictMode>
 );
