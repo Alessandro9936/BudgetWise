@@ -5,11 +5,15 @@ import RedirectLink from "../../../components/Buttons/RedirectLink";
 import Card from "../../../components/Utilities/card";
 import { getCurrency } from "../../../context/user-context";
 import {
-  ITransaction,
+  ITransactionResponse,
   useGetFilteredTransactions,
 } from "../../../services/transaction-services";
 
-const TransactionPreview = ({ transaction }: { transaction: ITransaction }) => {
+const TransactionPreview = ({
+  transaction,
+}: {
+  transaction: ITransactionResponse;
+}) => {
   const currency = getCurrency();
   return (
     <li className="flex flex-1 items-center border-b border-gray-200">
@@ -37,7 +41,10 @@ const TransactionPreview = ({ transaction }: { transaction: ITransaction }) => {
         </p>
       </div>
       <p className="flex-1">
-        <RedirectLink redirectRoute="somewhere" label="Edit" />
+        <RedirectLink
+          redirectRoute={`transaction/${transaction._id}`}
+          label="Edit"
+        />
       </p>
     </li>
   );

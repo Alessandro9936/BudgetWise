@@ -3,7 +3,7 @@ import Card from "../../../components/Utilities/card";
 import { Calendar as CalendarDep } from "react-calendar";
 import "../../../styles/calendar.css";
 import {
-  ITransaction,
+  ITransactionResponse,
   useGetTransactionsByDate,
 } from "../../../services/transaction-services";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { getCurrency } from "../../../context/user-context";
 
 interface ITransactionPopup {
   coords: { top: string | undefined; left: string | undefined } | undefined;
-  transactions: ITransaction[];
+  transactions: ITransactionResponse[];
 }
 
 const TransactionPopup = ({ coords, transactions }: ITransactionPopup) => {
@@ -54,9 +54,9 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
     top: string | undefined;
     left: string | undefined;
   }>();
-  const [transactionsPopup, setTransactionsPopup] = useState<ITransaction[]>(
-    []
-  );
+  const [transactionsPopup, setTransactionsPopup] = useState<
+    ITransactionResponse[]
+  >([]);
 
   const query = useGetTransactionsByDate(calendarDate, "Monthly");
 
@@ -64,7 +64,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
 
   const onPreviewHover = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    transactionsOnDate: ITransaction[]
+    transactionsOnDate: ITransactionResponse[]
   ) => {
     setPopupCoords({
       top: e.clientY + 10 + "px",
@@ -94,7 +94,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
                 isSameDay(date, transaction.date) && view === "month"
             );
 
-            return transactionsOnDate.length > 1
+            return transactionsOnDate.length > 0
               ? transactionsOnDate.map((transaction) => {
                   return (
                     <span
