@@ -1,4 +1,6 @@
+import { useParams } from "react-router-dom";
 import { z } from "zod";
+import { useGetTransactionDetail } from "../../../services/transaction-services";
 
 const TransactionSchema = z
   .object({
@@ -29,4 +31,18 @@ const TransactionSchema = z
     }
   });
 
-export default TransactionSchema;
+const formInitialValues = () => {
+  const queryTransactionDetail = useGetTransactionDetail();
+  const transactionDetail = queryTransactionDetail?.data;
+
+  return {
+    type: transactionDetail?.type ?? "income",
+    amount: transactionDetail?.amount ?? 0,
+    budget: transactionDetail?.budget?._id,
+    state: transactionDetail?.state,
+    date: transactionDetail?.date ?? new Date(),
+    description: transactionDetail?.description ?? "",
+  };
+};
+
+export { TransactionSchema, formInitialValues };

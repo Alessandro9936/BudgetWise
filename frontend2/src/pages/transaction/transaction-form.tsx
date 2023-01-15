@@ -1,243 +1,29 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
 import { ChevronDown, ChevronRight } from "react-feather";
-import { Control, useController, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import CloseIcon from "../../components/Icons/CloseIcon";
 import CustomRadio from "../../components/Input/custom-radio";
 import CalendarInput from "../../components/Input/input-calendar";
 import Modal from "../../components/Utilities/modal";
-import { getCurrency } from "../../context/user-context";
 import { useCloseModal } from "../../hooks/useCloseWindow";
 import { useGetBudgetsByDate } from "../../services/budget-services";
 import {
   useCreateNewTransaction,
-  useGetTransactionDetail,
+  useUpdateTransaction,
 } from "../../services/transaction-services";
 import { ITransactionForm } from "./types/types";
-import TransactionSchema from "./utils/validation-schema";
+import {
+  formInitialValues,
+  TransactionSchema,
+} from "./utils/validation-schema";
 import budgets from "../../constants/all-budgets";
 import states from "../../constants/all-states";
 import FormHandler from "../../components/Form/form-handler";
 import FieldError from "../../components/Error/field-error";
-const TransactionForm = () => {
-  const { id } = useParams();
-
-  const isUpdate = !!id;
-  const queryTransactionDetail = useGetTransactionDetail();
-  const transactionDetail = queryTransactionDetail?.data;
-
-  useCloseModal();
-
-  let initialValues: ITransactionForm = {
-    type: "income",
-    amount: 0,
-    date: new Date(),
-    description: "",
-  };
-
-  if (transactionDetail) {
-    initialValues = {
-      type: transactionDetail.type,
-      amount: transactionDetail.amount,
-      budget: transactionDetail.budget?._id,
-      state: transactionDetail.state,
-      date: transactionDetail.date,
-      description: transactionDetail?.description ?? "",
-    };
-  }
-
-  const [activeDate, setActiveDate] = useState(new Date());
-
-  const queryBudgetsOnActiveDate = useGetBudgetsByDate(activeDate, "Monthly");
-
-  const budgetsOnActiveDate = queryBudgetsOnActiveDate.data ?? [];
-
-  // Transaction type handler
-  const [transactionType, setTranctionType] = useState<"income" | "expense">(
-    transactionDetail?.type ?? "income"
-  );
-  const [activeDropdown, setActiveDropdown] = useState<
-    "Amount" | "Budget" | "State" | null
-  >("Amount");
-
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    formState,
-    setError,
-    getValues,
-    register,
-  } = useForm<ITransactionForm>({
-    defaultValues: initialValues,
-    resolver: zodResolver(TransactionSchema),
-  });
-
-  const { createNewTransaction, isLoading, isError, isSuccess } =
-    useCreateNewTransaction(setError);
-
-  const onTransactionTypeChange = useCallback((value: "income" | "expense") => {
-    setTranctionType(value);
-    setValue("type", value, { shouldValidate: true });
-  }, []);
-
-  const activeBudget = budgetsOnActiveDate?.find(
-    (budget) => budget._id === getValues("budget")
-  );
-
-  const onSubmit = (formData: ITransactionForm) =>
-    createNewTransaction(formData);
-
-  return (
-    <Modal>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-y-4 p-6"
-      >
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">New transaction</h1>
-          <CloseIcon />
-        </div>
-        <div className="flex-1">
-          <div className="h-full rounded-md">
-            <CalendarInput
-              name="date"
-              control={control}
-              setValue={setValue}
-              minDetail="year"
-              disabled={isUpdate}
-              minDate={new Date()}
-              setActiveDate={setActiveDate}
-              defaultValue={getValues("date") ?? formState?.defaultValues?.date}
-            />
-          </div>
-          {formState.errors.date && (
-            <FieldError message={formState.errors.date.message!} />
-          )}
-        </div>
-        <div className="mb-4 flex items-center justify-between">
-          <TransactionType
-            activeType={transactionType}
-            setActiveType={onTransactionTypeChange}
-            value={"income"}
-          />
-          <TransactionType
-            activeType={transactionType}
-            setActiveType={onTransactionTypeChange}
-            value={"expense"}
-          />
-          {formState.errors.type && (
-            <FieldError message={formState.errors.type.message!} />
-          )}
-        </div>
-        <FieldHeader
-          fieldValue={getValues("amount")}
-          label="Amount"
-          setActive={setActiveDropdown}
-          activeDropdown={activeDropdown}
-        />
-        {activeDropdown === "Amount" && (
-          <AmountField control={control} name="amount" disabled={isLoading} />
-        )}
-        {transactionType === "expense" && (
-          <>
-            <FieldHeader
-              fieldValue={activeBudget?.name}
-              label="Budget"
-              setActive={setActiveDropdown}
-              activeDropdown={activeDropdown}
-            />
-            {activeDropdown === "Budget" && (
-              <ul className="flex flex-wrap gap-3 font-semibold">
-                {budgetsOnActiveDate.map((budget) => (
-                  <CustomRadio
-                    key={budget._id}
-                    setValue={setValue}
-                    value={budget._id}
-                    view={
-                      budgets.find((_budget) => _budget.name === budget.name)!
-                    }
-                    name="budget"
-                    disabled={isUpdate}
-                    control={control}
-                    isActive={getValues("budget") === budget._id}
-                  />
-                ))}
-              </ul>
-            )}
-            {formState.errors.budget && (
-              <FieldError message={formState.errors.budget.message!} />
-            )}
-            <FieldHeader
-              fieldValue={getValues("state")}
-              label="State"
-              setActive={setActiveDropdown}
-              activeDropdown={activeDropdown}
-            />
-            {activeDropdown === "State" && (
-              <ul className="flex flex-wrap gap-3 font-semibold">
-                {states.map((state) => (
-                  <CustomRadio
-                    key={state.name}
-                    setValue={setValue}
-                    value={state.name}
-                    view={state}
-                    name="state"
-                    disabled={isUpdate}
-                    control={control}
-                    isActive={getValues("state") === state.name}
-                  />
-                ))}
-              </ul>
-            )}
-            {formState.errors.state && (
-              <FieldError message={formState.errors.state.message!} />
-            )}
-          </>
-        )}
-        <div>
-          <p className="mb-4 font-semibold">Description</p>
-          <textarea
-            rows={2}
-            disabled={isLoading}
-            {...register("description")}
-            className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-        <FormHandler
-          isLoading={isLoading}
-          submitLabel={isUpdate ? "Update transaction" : "Create transaction"}
-          isSubmitSuccessful={isSuccess}
-          isSubmitError={isError}
-        />
-      </form>
-    </Modal>
-  );
-};
-
-interface ITransactionType {
-  activeType: "income" | "expense";
-  setActiveType: (value: "income" | "expense") => void;
-  value: "income" | "expense";
-}
-const TransactionType = ({
-  activeType,
-  setActiveType,
-  value,
-}: ITransactionType) => {
-  const isActive = activeType === value;
-  return (
-    <p
-      className={`cursor-pointer rounded-lg px-2 py-1 text-lg ${
-        isActive ? "bg-purple-500 font-semibold text-white transition-all" : ""
-      }`}
-      onClick={() => setActiveType(value)}
-    >
-      {value[0].toUpperCase() + value.slice(1)}
-    </p>
-  );
-};
+import AmountField from "./components/amount-field";
+import TransactionType from "./components/type-field";
 
 interface IFieldHeader {
   fieldValue?: any;
@@ -274,48 +60,221 @@ const FieldHeader = ({
   );
 };
 
-const AmountField = ({
-  control,
-  name,
-  disabled,
-}: {
-  control: Control<ITransactionForm>;
-  name: "amount";
-  disabled: boolean;
-}) => {
-  const { field, formState } = useController({ name, control });
+const TransactionForm = () => {
+  useCloseModal();
+  const [activeDropdown, setActiveDropdown] = useState<
+    "Amount" | "Budget" | "State" | null
+  >("Amount");
 
-  const currency = getCurrency();
-  const currencySymbol =
-    currency === "EUR"
-      ? "€"
-      : currency === "USD"
-      ? "$"
-      : currency === "GBP"
-      ? "£"
-      : "";
+  const { id } = useParams();
+  const isUpdate = !!id;
+  const initialValues = formInitialValues();
+
+  /*
+  The selected month inside the calendar must be stored in state for the reasons:
+  1. It is required to create a new transaction
+  2. When transaction type is equal to 'expense', we need to get from the database 
+     all the budgets that have been created in the selected month in order to serve
+     them as an option. 
+  */
+  const [activeDate, setActiveDate] = useState(new Date());
+  const queryBudgetsOnActiveDate = useGetBudgetsByDate(activeDate, "Monthly");
+  const budgetsOnActiveDate = queryBudgetsOnActiveDate.data ?? [];
+
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState,
+    setError,
+    getValues,
+    register,
+  } = useForm<ITransactionForm>({
+    defaultValues: initialValues,
+    resolver: zodResolver(TransactionSchema),
+  });
+
+  // Mutation to create a new transaction
+  const {
+    createNewTransaction,
+    isLoading: createTransactionLoading,
+    isError: createTransactionIsError,
+    isSuccess: createTransactionSuccess,
+    error: createTransactionError,
+  } = useCreateNewTransaction();
+
+  // Mutation to update a transaction
+  const {
+    updateTransaction,
+    isLoading: updateTransactionLoading,
+    isError: updateTransactionIsError,
+    isSuccess: updateTransactionSuccess,
+    error: updateTransactionError,
+  } = useUpdateTransaction();
+
+  const activeBudget = budgetsOnActiveDate?.find(
+    (budget) => budget._id === getValues("budget")
+  );
+
+  const onSubmit = (formData: ITransactionForm) =>
+    isUpdate ? updateTransaction(formData) : createNewTransaction(formData);
 
   return (
-    <>
-      <div className="rounder-lg relative shadow-sm">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <span className="text-sm text-neutral-400">{currencySymbol}</span>
+    <Modal>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-y-4 p-6"
+      >
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold">New transaction</h1>
+          <CloseIcon />
         </div>
-        <input
-          disabled={disabled}
-          type="number"
-          placeholder="0.00"
-          {...field}
-          className="w-full rounded-lg border border-gray-300 bg-white py-2 pr-4 pl-7 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900"
+
+        {/* Calendar */}
+        <div>
+          <div className="h-full rounded-md">
+            <CalendarInput
+              name="date"
+              control={control}
+              setValue={setValue}
+              minDetail="year"
+              disabled={isUpdate}
+              setActiveDate={setActiveDate}
+              defaultValue={getValues("date") ?? formState?.defaultValues?.date}
+            />
+          </div>
+          {formState.errors.date && (
+            <FieldError message={formState.errors.date.message!} />
+          )}
+        </div>
+
+        {/* Transaction type */}
+        <div
+          className={`mb-4 flex items-center justify-between ${
+            isUpdate ? "pointer-events-none" : ""
+          }`}
+        >
+          <TransactionType
+            activeType={getValues("type")}
+            setValue={setValue}
+            value={"income"}
+            disabled={isUpdate && getValues("type") === "income"}
+          />
+          <TransactionType
+            activeType={getValues("type")}
+            setValue={setValue}
+            value={"expense"}
+            disabled={isUpdate && getValues("type") === "expense"}
+          />
+          {formState.errors.type && (
+            <FieldError message={formState.errors.type.message!} />
+          )}
+        </div>
+
+        {/* Transaction amount */}
+        <FieldHeader
+          fieldValue={getValues("amount")}
+          label="Amount"
+          setActive={setActiveDropdown}
+          activeDropdown={activeDropdown}
         />
-        <div className="absolute inset-y-0 right-0 z-10 flex cursor-pointer items-center rounded-r-lg  border border-gray-300 bg-white px-2">
-          <span className="mr-2 text-sm text-gray-500">{currency}</span>
+        {activeDropdown === "Amount" && (
+          <AmountField control={control} name="amount" disabled={isUpdate} />
+        )}
+
+        {getValues("type") === "expense" && (
+          <>
+            {/* Transaction budget */}
+            <FieldHeader
+              fieldValue={activeBudget?.name}
+              label="Budget"
+              setActive={setActiveDropdown}
+              activeDropdown={activeDropdown}
+            />
+            {activeDropdown === "Budget" && (
+              <ul className="flex flex-wrap gap-3 font-semibold">
+                {budgetsOnActiveDate.map((budget) => (
+                  <CustomRadio
+                    key={budget._id}
+                    setValue={setValue}
+                    value={budget._id}
+                    view={
+                      budgets.find((_budget) => _budget.name === budget.name)!
+                    }
+                    name="budget"
+                    disabled={isUpdate}
+                    control={control}
+                    isActive={getValues("budget") === budget._id}
+                  />
+                ))}
+              </ul>
+            )}
+            {formState.errors.budget && (
+              <FieldError message={formState.errors.budget.message!} />
+            )}
+
+            {/* Transaction state */}
+            <FieldHeader
+              fieldValue={getValues("state")}
+              label="State"
+              setActive={setActiveDropdown}
+              activeDropdown={activeDropdown}
+            />
+            {activeDropdown === "State" && (
+              <ul className="flex flex-wrap gap-3 font-semibold">
+                {states.map((state) => (
+                  <CustomRadio
+                    key={state.name}
+                    setValue={setValue}
+                    value={state.name}
+                    view={state}
+                    name="state"
+                    control={control}
+                    isActive={getValues("state") === state.name}
+                    disabled={
+                      isUpdate
+                        ? updateTransactionLoading
+                        : createTransactionLoading
+                    }
+                  />
+                ))}
+              </ul>
+            )}
+            {formState.errors.state && (
+              <FieldError message={formState.errors.state.message!} />
+            )}
+          </>
+        )}
+
+        {/* Transaction description */}
+        <div>
+          <p className="mb-4 font-semibold">Description</p>
+          <textarea
+            rows={2}
+            disabled={
+              isUpdate ? updateTransactionLoading : createTransactionLoading
+            }
+            {...register("description")}
+            className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
-      </div>
-      {formState.errors.amount && (
-        <FieldError message={formState.errors.amount.message!} />
-      )}
-    </>
+
+        {/* Form handler */}
+        <FormHandler
+          isLoading={
+            isUpdate ? updateTransactionLoading : createTransactionLoading
+          }
+          submitLabel={isUpdate ? "Update transaction" : "Create transaction"}
+          isSubmitSuccessful={
+            isUpdate ? updateTransactionSuccess : createTransactionSuccess
+          }
+          isSubmitError={
+            isUpdate ? updateTransactionIsError : createTransactionIsError
+          }
+          error={isUpdate ? updateTransactionError : createTransactionError}
+        />
+      </form>
+    </Modal>
   );
 };
 
