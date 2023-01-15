@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { UseFormSetError } from "react-hook-form";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { IBudgetForm } from "../pages/budget/types/types";
 
@@ -77,49 +80,6 @@ const useGetBudgetsByDate = (date: Date, timeSpan: string) => {
   );
 };
 
-const useCreateNewBudget = (setError: UseFormSetError<IBudgetForm>) => {
-  const axiosPrivate = useAxiosPrivate();
-  const queryClient = useQueryClient();
-
-  const { mutate, isLoading } = useMutation((formData: IBudgetForm) =>
-    axiosPrivate.post<IBudgetResponse>("/api/budgets", formData)
-  );
-
-  const createNewBudget = (formData: IBudgetForm) => {
-    return mutate(formData, {
-      onSuccess: (data) => {
-        if (data.status === 201) {
-          const budgetMonth = new Date(data.data?.date).toLocaleDateString(
-            navigator.language,
-            { month: "long", year: "numeric" }
-          );
-          const budgetYear = new Date(data.data?.date).getFullYear();
-          Promise.all([
-            queryClient.invalidateQueries(budgetKeys.listByDate(budgetMonth)),
-            queryClient.invalidateQueries(budgetKeys.listByDate(budgetYear)),
-          ]);
-        }
-      },
-      onError: (error) => {
-        if (axios.isAxiosError(error)) {
-          const {
-            param: field,
-            msg: message,
-          }: {
-            param: "name" | "date" | "maxAmount" | "usedAmount";
-            msg: string;
-          } = error?.response?.data[0];
-          setError(field, { message: message }, { shouldFocus: true });
-        } else {
-          throw error;
-        }
-      },
-    });
-  };
-
-  return { createNewBudget, isLoading };
-};
-
 const useGetBudgetDetails = () => {
   const axiosPrivate = useAxiosPrivate();
   const { id } = useParams();
@@ -133,10 +93,48 @@ const useGetBudgetDetails = () => {
         .get<IBudgetResponse>(`/api/budgets/${id}`)
         .then((res) => res.data),
     {
+      enabled: !!id,
       staleTime: Infinity,
       select: (budget) => ({ ...budget, date: new Date(budget.date) }),
     }
   );
+};
+
+const invalidateQueries = (
+  budget: IBudgetResponse,
+  queryClient: QueryClient
+) => {
+  const budgetYear = new Date(budget?.date).getFullYear();
+  const budgetMonth = new Date(budget?.date).toLocaleDateString(
+    navigator.language,
+    { month: "long", year: "numeric" }
+  );
+
+  Promise.all([
+    queryClient.invalidateQueries(budgetKeys.listByDate(budgetMonth)),
+    queryClient.invalidateQueries(budgetKeys.listByDate(budgetYear)),
+    queryClient.invalidateQueries(budgetKeys.detail(budget._id)),
+  ]);
+};
+
+const useCreateNewBudget = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+    (formData: IBudgetForm) =>
+      axiosPrivate
+        .post<IBudgetResponse>("/api/budgets", formData)
+        .then((res) => res.data)
+  );
+
+  const createNewBudget = (formData: IBudgetForm) => {
+    return mutate(formData, {
+      onSuccess: (budget) => invalidateQueries(budget, queryClient),
+    });
+  };
+
+  return { createNewBudget, isLoading, isError, error, isSuccess };
 };
 
 const useUpdateBudget = () => {
@@ -144,34 +142,38 @@ const useUpdateBudget = () => {
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  const { mutate, isLoading } = useMutation((formData: IBudgetForm) =>
-    axiosPrivate
-      .put<IBudgetResponse>(`/api/budgets/${id}`, formData)
-      .then((res) => res.data)
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+    (formData: IBudgetForm) =>
+      axiosPrivate
+        .put<IBudgetResponse>(`/api/budgets/${id}`, formData)
+        .then((res) => res.data)
   );
 
   const updateBudget = (formData: IBudgetForm) => {
     return mutate(formData, {
-      onSuccess: (budget) => {
-        const budgetYear = new Date(budget.date).getFullYear();
-        const budgetMonth = new Date(budget.date).toLocaleDateString(
-          navigator.language,
-          {
-            month: "long",
-            year: "numeric",
-          }
-        );
-
-        Promise.all([
-          queryClient.invalidateQueries(["budgets", budget._id]),
-          queryClient.invalidateQueries(["budgets", budgetYear]),
-          queryClient.invalidateQueries(["budgets", budgetMonth]),
-        ]);
-      },
+      onSuccess: (budget) => invalidateQueries(budget, queryClient),
     });
   };
 
-  return { updateBudget, isLoading };
+  return { updateBudget, isLoading, isError, error, isSuccess };
+};
+
+const useDeleteBudget = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+  const { id } = useParams();
+
+  const { mutate: deleteBudget } = useMutation(
+    () => axiosPrivate.delete(`/api/budgets/${id}`).then((res) => res.data),
+    {
+      onSuccess: (budget) => {
+        invalidateQueries(budget, queryClient);
+        queryClient.invalidateQueries(["transactions"]);
+      },
+    }
+  );
+
+  return { deleteBudget };
 };
 
 export {
@@ -179,4 +181,5 @@ export {
   useCreateNewBudget,
   useGetBudgetDetails,
   useUpdateBudget,
+  useDeleteBudget,
 };
