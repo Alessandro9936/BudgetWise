@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Bell,
   CreditCard,
   Database,
   Home,
@@ -10,7 +11,13 @@ import {
 } from "react-feather";
 import { Link, NavLink } from "react-router-dom";
 
-const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
+interface ISidebar {
+  isMobile: boolean;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
   const sidebarLinks = [
     {
       name: "Dashboard",
@@ -29,17 +36,15 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
     },
 
     {
-      name: "Profile",
+      name: "Notifications",
       route: "/profile",
-      icon: <User size={isMobile ? 16 : 20} />,
+      icon: <Bell size={isMobile ? 16 : 20} />,
     },
   ];
 
-  const [isOpen, setIsOpen] = useState(isMobile ? true : false);
-
   return (
     <>
-      <aside className="relative z-20 flex max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-700 md:pl-6">
+      <aside className="relative z-20 flex h-screen max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md  dark:bg-gray-700 md:pl-6">
         {/* Header */}
         <div className="flex h-7 items-center gap-x-4 pr-4 md:pr-6">
           {!isOpen ? (
@@ -91,9 +96,6 @@ const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
           </div>
         </ul>
       </aside>
-      {isMobile && isOpen && (
-        <div className="absolute top-0 bottom-0 left-0 right-0 z-10 flex-1 bg-blue-600"></div>
-      )}
     </>
   );
 };
