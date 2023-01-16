@@ -9,7 +9,10 @@ const {
 const { default: mongoose } = require("mongoose");
 
 const userTransactionsService = async (userID, query) => {
+  // Build the filters object from the query
   const filtersInQuery = { ...query };
+
+  // Remove non-filtering query parameters
   const excludeNotFilters = ["sort", "page"];
   excludeNotFilters.forEach((el) => delete filtersInQuery[el]);
 
@@ -50,8 +53,10 @@ const userTransactionsService = async (userID, query) => {
         type: 1,
         category: 1,
         amount: 1,
+        description: 1,
         state: {
-          $cond: [{ $eq: ["$type", "expense"] }, "$state", "Received"],
+          // $cond: { if: <boolean-expression>, then: <true-case>, else: <false-case> }
+          $cond: [{ $eq: ["$type", "expense"] }, "$state", ""],
         },
         budget: { $ifNull: ["$budget", null] },
         date: 1,
@@ -76,6 +81,7 @@ const userTransactionsService = async (userID, query) => {
         category: 1,
         amount: 1,
         state: 1,
+        description: 1,
         budget: { $arrayElemAt: ["$budget", 0] },
         date: 1,
       },
@@ -83,16 +89,7 @@ const userTransactionsService = async (userID, query) => {
   ];
 
   if (newQuery?.type) {
-    if (newQuery.type === "income") {
-      pipeline.push({ $match: { type: newQuery.type } });
-    }
-    if (newQuery.type === "expense") {
-      pipeline.push({
-        $match: {
-          type: newQuery.type,
-        },
-      });
-    }
+    pipeline.push({ $match: { type: newQuery.type } });
   }
 
   if (newQuery?.budget) {
@@ -174,7 +171,6 @@ const userTransactionsService = async (userID, query) => {
     );
   }
 
-  console.log(pipeline);
   const transactions = await Transaction.aggregate(pipeline).exec();
   return transactions;
 };
@@ -185,7 +181,6 @@ const newTransactionService = async (req) => {
       user: req.user._id,
       type: req.body.type,
       amount: req.body.amount,
-      currency: req.user.currency,
       date: req.body.date,
       description: req.body.description,
     });
@@ -231,7 +226,14 @@ const getTransactionService = async (id) => {
 
 const deleteTransactionService = async (id) => {
   try {
-    return await Transaction.findByIdAndRemove(id);
+    const transaction = await Transaction.findById(id);
+
+    if (transaction.type === "expense") {
+      Budget.deleteExpenseToBudget(transaction.budget._id, transaction.amount);
+    }
+
+    await transaction.delete();
+    return transaction;
   } catch (error) {
     throw new Error(error);
   }
