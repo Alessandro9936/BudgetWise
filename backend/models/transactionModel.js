@@ -18,4 +18,10 @@ const transactionSchema = new schema({
 
 transactionSchema.plugin(require("mongoose-autopopulate"));
 
+transactionSchema.statics.deleteTransactionsInBudget = async function (
+  budgetID
+) {
+  await this.deleteMany({ budget: budgetID });
+};
+
 module.exports = mongoose.model("Transaction", transactionSchema);
