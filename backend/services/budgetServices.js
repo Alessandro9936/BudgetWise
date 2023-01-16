@@ -1,5 +1,6 @@
 const { isSameYear, isSameMonth } = require("date-fns");
 const Budget = require("../models/budgetModel");
+const Transaction = require("../models/transactionModel");
 
 const userBudgetsService = async (userID, query) => {
   try {
@@ -58,6 +59,7 @@ const getBudgetService = async (id) => {
 
 const deleteBudgetService = async (id) => {
   try {
+    Transaction.deleteTransactionsInBudget(id);
     const budget = await Budget.findByIdAndRemove(id);
     return budget;
   } catch (error) {
