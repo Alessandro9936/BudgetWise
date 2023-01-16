@@ -19,9 +19,12 @@ const loginUserService = async (email) => {
     const refreshToken = await user.generateRefreshToken();
 
     return {
-      id: user.id,
+      firstName: user.firstName,
+      lastName: user?.lastName,
       refreshToken,
       accessToken,
+      currency: user.currency,
+      email: user.email,
     };
   } catch (error) {
     throw new Error(error);
@@ -30,18 +33,21 @@ const loginUserService = async (email) => {
 
 const refreshTokenService = async (refreshToken) => {
   try {
-    const newAccessToken = jwt.verify(
+    const token = jwt.verify(
       refreshToken,
       REFRESH_TOKEN_SECRET,
       async (err, decoded) => {
         if (err) return;
         else {
-          const user = await User.findById(decoded.id);
-          return await user.generateAuthToken();
+          const user = await User.findById(decoded.id).select(
+            "firstName lastName email currency"
+          );
+          const accessToken = await user.generateAuthToken();
+          return { user, accessToken };
         }
       }
     );
-    return newAccessToken;
+    return token;
   } catch (error) {
     throw new Error(error);
   }
@@ -49,7 +55,9 @@ const refreshTokenService = async (refreshToken) => {
 
 const getUserService = async (id) => {
   try {
-    const user = await User.findById(id).select("-password");
+    const user = await User.findById(id).select(
+      "firstName lastName email createdAt"
+    );
     return user;
   } catch (error) {
     throw new Error(error);
