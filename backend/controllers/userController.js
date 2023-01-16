@@ -26,7 +26,7 @@ const registerUser = async (req, res, next) => {
 // @access Public
 const loginUser = async (req, res, next) => {
   try {
-    const { refreshToken, accessToken, id } = await loginUserService(
+    const { refreshToken, accessToken, ...user } = await loginUserService(
       req.body.email
     );
 
@@ -37,7 +37,7 @@ const loginUser = async (req, res, next) => {
       sameSite: "strict",
     });
 
-    res.status(200).json({ id, accessToken });
+    res.status(200).json({ ...user, accessToken });
   } catch (error) {
     next(createHttpError(error));
   }
@@ -64,9 +64,17 @@ const refreshToken = async (req, res, next) => {
     if (req.cookies?.jwt) {
       const refToken = req.cookies.jwt;
 
-      const newAccessToken = await refreshTokenService(refToken);
+      const { user, accessToken } = await refreshTokenService(refToken);
 
-      res.status(200).json(newAccessToken);
+      const formatUser = {
+        firstName: user.firstName,
+        lastName: user?.lastName,
+        email: user.email,
+        currency: user.currency,
+        accessToken: accessToken,
+      };
+
+      res.status(200).json(formatUser);
     } else {
       next(createHttpError(403, "Forbidden"));
     }
@@ -80,9 +88,14 @@ const refreshToken = async (req, res, next) => {
 // @access Private
 const updateUser = async (req, res, next) => {
   try {
-    await updateUserService(req.body, req.user.id);
+    const updatedUser = await updateUserService(req.body, req.user.id);
 
-    res.status(204).end();
+    res.status(201).json({
+      firstName: updatedUser.firstName,
+      lastName: updatedUser?.lastName,
+      email: updatedUser.email,
+      currency: updatedUser.currency,
+    });
   } catch (error) {
     next(createHttpError(error));
   }
