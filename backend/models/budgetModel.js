@@ -18,5 +18,10 @@ budgetSchema.statics.addExpenseToBudget = async function (budgetID, amount) {
   budget.usedAmount += amount;
   await budget.save();
 };
+budgetSchema.statics.deleteExpenseToBudget = async function (budgetID, amount) {
+  const budget = await this.findById(budgetID);
+  budget.usedAmount -= amount;
+  await budget.save();
+};
 
 module.exports = mongoose.model("Budget", budgetSchema);
