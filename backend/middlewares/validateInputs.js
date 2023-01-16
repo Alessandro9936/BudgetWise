@@ -20,6 +20,7 @@ const registationInputs = [
     .withMessage("Only letters allowed")
     .escape(),
   body("lastName")
+    .if(body("lastName").exists({ checkFalsy: true }))
     .notEmpty()
     .withMessage("Last name is required")
     .isAlpha()
@@ -40,6 +41,7 @@ const registationInputs = [
       }
     }),
   body("password")
+    .if(body("password").exists())
     .trim()
     .notEmpty()
     .withMessage("Password is required")
@@ -52,7 +54,18 @@ const registationInputs = [
     })
     .withMessage(
       "Password must be greater than 6 and contain at least one uppercase letter, one number and one symbol"
-    ),
+    )
+    .custom(async (_, { req }) => {
+      if (req.body.oldPassword) {
+        const user = await User.findOne({ email: req.body.email });
+        const isValid = await user.isValidPassword(req.body.oldPassword);
+        console.log(isValid);
+        if (!isValid) {
+          return Promise.reject("This is not your current password");
+        }
+      }
+      return Promise.resolve();
+    }),
   (req, res, next) => {
     validateResults(req, res, next);
   },
