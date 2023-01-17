@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 
 export interface IUser {
-  name: string;
+  firstName: string;
+  lastName?: string;
   email: string;
   currency: string;
-  accessToken: string;
+  accessToken?: string;
+  createdAt?: Date;
 }
 
 interface IUserContext {
