@@ -22,7 +22,7 @@ const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
     <Modal>
       <section className="flex flex-col gap-4 p-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Delete</h1>
+          <h1 className="text-2xl font-semibold">Delete {toDelete}</h1>
           <CloseIcon />
         </div>
         <p>Are you sure you want to delete this {toDelete}?</p>
