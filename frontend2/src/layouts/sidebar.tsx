@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Bell,
+  ChevronDown,
+  ChevronRight,
   CreditCard,
   Database,
   Home,
@@ -10,6 +12,9 @@ import {
   X,
 } from "react-feather";
 import { Link, NavLink } from "react-router-dom";
+import ButtonRedirect from "../components/Buttons/ButtonRedirect";
+import Separator from "../components/UI/separator";
+import { UserContext } from "../context/user-context";
 
 interface ISidebar {
   isMobile: boolean;
@@ -41,6 +46,9 @@ const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
       icon: <Bell size={isMobile ? 16 : 20} />,
     },
   ];
+
+  const { user } = useContext(UserContext);
+  const [isButtonUpdateShown, setIsButtonUpdateShown] = useState(false);
 
   return (
     <>
@@ -88,11 +96,42 @@ const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
               </NavLink>
             </li>
           ))}
-          <div className="md:mt-auto">
+          <div className="mr-4 flex flex-col gap-y-2 md:mt-auto">
             <div className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500">
               <LogOut size={isMobile ? 16 : 20} />
               {isOpen && <p>Logout</p>}
             </div>
+            {isOpen && (
+              <>
+                <Separator />
+                <div
+                  className="flex items-center justify-between gap-4"
+                  onClick={() => setIsButtonUpdateShown(!isButtonUpdateShown)}
+                >
+                  <div>
+                    <p>
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                    <p className="text-sm text-neutral-500">{user?.email}</p>
+                  </div>
+                  {isButtonUpdateShown ? (
+                    <ChevronDown size={isMobile ? 16 : 20} cursor={"pointer"} />
+                  ) : (
+                    <ChevronRight
+                      size={isMobile ? 16 : 20}
+                      cursor={"pointer"}
+                    />
+                  )}
+                </div>
+                {isButtonUpdateShown && (
+                  <ButtonRedirect
+                    redirect="profile"
+                    label="Your profile"
+                    styles="flex-1 bg-slate-900 text-white hover:bg-purple-500"
+                  />
+                )}
+              </>
+            )}
           </div>
         </ul>
       </aside>
