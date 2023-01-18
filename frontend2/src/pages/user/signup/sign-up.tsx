@@ -10,6 +10,7 @@ import { useSignUp } from "../../../services/user-services";
 
 import FieldBudget from "./components/field-budget";
 import RedirectLink from "../../../components/Buttons/RedirectLink";
+import PasswordRequirements from "../../../components/Form/password-requirements";
 
 const SignUpForm = () => {
   const initialValues: SignUpFormType = {
@@ -87,16 +88,7 @@ const SignUpForm = () => {
         isRequired={true}
         control={control}
       />
-      <ul className="mx-4 flex list-disc justify-between gap-2 text-sm">
-        <div>
-          <li className="mb-2">A minimum of 8 characters</li>
-          <li>At least one lowercase letter</li>
-        </div>
-        <div>
-          <li className="mb-2">At least one number</li>
-          <li>At least one upper letter</li>
-        </div>
-      </ul>
+      <PasswordRequirements />
       <SubmitButton label="Register" isLoading={isLoading} />
       <p className="-mt-2 text-center text-sm md:text-left">
         Do you have an account?{" "}

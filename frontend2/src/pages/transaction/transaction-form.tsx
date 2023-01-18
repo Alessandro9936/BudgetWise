@@ -98,18 +98,14 @@ const TransactionForm = () => {
   const {
     createNewTransaction,
     isLoading: createTransactionLoading,
-    isError: createTransactionIsError,
     isSuccess: createTransactionSuccess,
-    error: createTransactionError,
   } = useCreateNewTransaction();
 
   // Mutation to update a transaction
   const {
     updateTransaction,
     isLoading: updateTransactionLoading,
-    isError: updateTransactionIsError,
     isSuccess: updateTransactionSuccess,
-    error: updateTransactionError,
   } = useUpdateTransaction();
 
   const activeBudget = budgetsOnActiveDate?.find(
@@ -268,11 +264,9 @@ const TransactionForm = () => {
           isSubmitSuccessful={
             isUpdate ? updateTransactionSuccess : createTransactionSuccess
           }
-          isSubmitError={
-            isUpdate ? updateTransactionIsError : createTransactionIsError
-          }
-          error={isUpdate ? updateTransactionError : createTransactionError}
-        />
+        >
+          <p className="font-semibold">Transaction successfully created</p>
+        </FormHandler>
       </form>
     </Modal>
   );

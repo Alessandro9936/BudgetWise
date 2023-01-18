@@ -61,18 +61,14 @@ const BudgetForm = () => {
   const {
     createNewBudget,
     isLoading: createBudgetLoading,
-    isError: createBudgetIsError,
     isSuccess: createBudgetSuccess,
-    error: createBudgetError,
   } = useCreateNewBudget();
 
   // Get mutation to update budget
   const {
     updateBudget,
     isLoading: updateBudgetLoading,
-    isError: updateBudgetIsError,
     isSuccess: updateBudgetSuccess,
-    error: updateBudgetError,
   } = useUpdateBudget();
 
   // Get already created budgets in active month
@@ -177,9 +173,9 @@ const BudgetForm = () => {
           isSubmitSuccessful={
             isUpdate ? updateBudgetSuccess : createBudgetSuccess
           }
-          isSubmitError={isUpdate ? updateBudgetIsError : createBudgetIsError}
-          error={isUpdate ? updateBudgetError : createBudgetError}
-        />
+        >
+          <p className="font-semibold">Budget successfully created</p>
+        </FormHandler>
       </form>
     </Modal>
   );

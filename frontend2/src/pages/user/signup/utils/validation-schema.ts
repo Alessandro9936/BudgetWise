@@ -9,12 +9,7 @@ const SignUpSchema = z
       .refine((val) => validator.isAlpha(val), {
         message: "Only letters allowed",
       }),
-    lastName: z
-      .string()
-      .refine((val) => validator.isAlpha(val), {
-        message: "Only letters allowed",
-      })
-      .optional(),
+    lastName: z.string().optional(),
     email: z
       .string()
       .min(1, { message: "Email is required" })
