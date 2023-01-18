@@ -121,7 +121,7 @@ const useCreateNewBudget = () => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+  const { mutate, isLoading, isSuccess } = useMutation(
     (formData: IBudgetForm) =>
       axiosPrivate
         .post<IBudgetResponse>("/api/budgets", formData)
@@ -134,7 +134,7 @@ const useCreateNewBudget = () => {
     });
   };
 
-  return { createNewBudget, isLoading, isError, error, isSuccess };
+  return { createNewBudget, isLoading, isSuccess };
 };
 
 const useUpdateBudget = () => {
@@ -142,7 +142,7 @@ const useUpdateBudget = () => {
   const queryClient = useQueryClient();
   const { id } = useParams();
 
-  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+  const { mutate, isLoading, isSuccess } = useMutation(
     (formData: IBudgetForm) =>
       axiosPrivate
         .put<IBudgetResponse>(`/api/budgets/${id}`, formData)
@@ -155,7 +155,7 @@ const useUpdateBudget = () => {
     });
   };
 
-  return { updateBudget, isLoading, isError, error, isSuccess };
+  return { updateBudget, isLoading, isSuccess };
 };
 
 const useDeleteBudget = () => {

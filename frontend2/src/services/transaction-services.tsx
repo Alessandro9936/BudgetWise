@@ -169,7 +169,7 @@ const useCreateNewTransaction = () => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+  const { mutate, isLoading, isSuccess } = useMutation(
     (formData: ITransactionForm) =>
       axiosPrivate
         .post<ITransactionResponse>("/api/transactions", formData)
@@ -182,7 +182,7 @@ const useCreateNewTransaction = () => {
     });
   };
 
-  return { createNewTransaction, isLoading, isError, error, isSuccess };
+  return { createNewTransaction, isLoading, isSuccess };
 };
 
 const useUpdateTransaction = () => {
@@ -190,7 +190,7 @@ const useUpdateTransaction = () => {
   const { id } = useParams();
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isError, error, isSuccess } = useMutation(
+  const { mutate, isLoading, isSuccess } = useMutation(
     (formData: ITransactionForm) =>
       axiosPrivate
         .put<ITransactionResponse>(`/api/transactions/${id}`, formData)
@@ -203,7 +203,7 @@ const useUpdateTransaction = () => {
     });
   };
 
-  return { updateTransaction, isLoading, isError, isSuccess, error };
+  return { updateTransaction, isLoading, isSuccess };
 };
 
 const useDeleteTransaction = () => {
