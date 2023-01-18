@@ -2,50 +2,43 @@ import SubmitButton from "../Buttons/SubmitButton";
 import ButtonRedirect from "../Buttons/ButtonRedirect";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
+interface IFormHandler {
+  isLoading: boolean;
+  isSubmitSuccessful: boolean;
+  submitLabel: string;
+  redirect?: string;
+  children: React.ReactNode;
+}
 
 const FormHandler = ({
   isLoading,
   submitLabel,
   isSubmitSuccessful,
-  isSubmitError,
-  error,
-}: {
-  isLoading: boolean;
-  isSubmitSuccessful: boolean;
-  isSubmitError: boolean;
-  submitLabel: string;
-  error: unknown;
-}) => {
+  redirect,
+  children,
+}: IFormHandler) => {
   const navigate = useNavigate();
   const [secondsToRedirect, setSecondsToRedirect] = useState(5);
 
-  let errorMessage;
-  if (axios.isAxiosError(error) && isSubmitError) {
-    errorMessage =
-      error.response?.status === 500
-        ? "Internal Server Error - Please try again later"
-        : "";
-  }
-
   useEffect(() => {
-    if (isSubmitSuccessful || isSubmitError) {
+    if (isSubmitSuccessful) {
       const interval = setInterval(() => {
         setSecondsToRedirect((prev) => prev - 1);
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [isSubmitSuccessful, isSubmitError]);
+  }, [isSubmitSuccessful]);
 
   useEffect(() => {
     if (secondsToRedirect === 0 && isSubmitSuccessful) {
-      navigate("..");
+      navigate(redirect ?? "..");
     }
   }, [secondsToRedirect]);
 
   return (
     <>
-      {!isSubmitSuccessful && !isSubmitError && (
+      {!isSubmitSuccessful && (
         <div className="ml-auto flex w-fit justify-end gap-x-2">
           <SubmitButton
             label={submitLabel}
@@ -54,7 +47,7 @@ const FormHandler = ({
           />
 
           <ButtonRedirect
-            redirect={".."}
+            redirect={redirect ?? ".."}
             styles="px-6 bg-white text-purple-500 ring-1 ring-purple-500"
             label="Go back"
           />
@@ -63,28 +56,12 @@ const FormHandler = ({
       {isSubmitSuccessful && !isLoading && (
         <div className="flex w-full items-center justify-end gap-x-2">
           <div className="flex flex-1 flex-col rounded-lg bg-green-500 py-[3px]  text-center text-white">
-            <p className="font-semibold">
-              {submitLabel.includes("budget") ? "Budget" : "Transaction"}{" "}
-              successfully created
-            </p>
+            {children}
             <p>You'll be redirected in {secondsToRedirect} seconds</p>
           </div>
           <ButtonRedirect
-            redirect={".."}
+            redirect={redirect ?? ".."}
             styles="px-6 bg-white text-purple-500 ring-1 ring-purple-500"
-            label="Go back"
-          />
-        </div>
-      )}
-      {isSubmitError && !isLoading && (
-        <div className="flex w-full items-center justify-end gap-x-2">
-          <div className="flex flex-1 flex-col rounded-lg bg-red-500 py-[3px] text-center text-white">
-            <p className="font-semibold">Something went wrong</p>
-            <p>{errorMessage}</p>
-          </div>
-          <ButtonRedirect
-            redirect={".."}
-            styles=" px-6 bg-white text-purple-500 ring-1 ring-purple-500"
             label="Go back"
           />
         </div>
