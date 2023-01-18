@@ -15,6 +15,7 @@ import { Link, NavLink } from "react-router-dom";
 import ButtonRedirect from "../components/Buttons/ButtonRedirect";
 import Separator from "../components/UI/separator";
 import { UserContext } from "../context/user-context";
+import { useLogoutUser } from "../services/user-services";
 
 interface ISidebar {
   isMobile: boolean;
@@ -49,6 +50,7 @@ const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
 
   const { user } = useContext(UserContext);
   const [isButtonUpdateShown, setIsButtonUpdateShown] = useState(false);
+  const { logoutUser } = useLogoutUser();
 
   return (
     <>
@@ -97,7 +99,10 @@ const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
             </li>
           ))}
           <div className="mr-4 flex flex-col gap-y-2 md:mt-auto">
-            <div className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500">
+            <div
+              className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500"
+              onClick={() => logoutUser()}
+            >
               <LogOut size={isMobile ? 16 : 20} />
               {isOpen && <p>Logout</p>}
             </div>
