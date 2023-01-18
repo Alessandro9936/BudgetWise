@@ -8,7 +8,7 @@ const CloseIcon = () => {
       size={24}
       strokeWidth={1.5}
       cursor="pointer"
-      onClick={() => navigate(-1)}
+      onClick={() => navigate("..")}
     />
   );
 };
