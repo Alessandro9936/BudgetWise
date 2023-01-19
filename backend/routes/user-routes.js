@@ -14,6 +14,7 @@ const { protect } = require("../middlewares/authMiddleware");
 const {
   registationInputs,
   loginInputs,
+  deleteInputs,
 } = require("../middlewares/validateInputs");
 
 router.post("/api/register", registationInputs, registerUser);
@@ -22,7 +23,7 @@ router.post("/api/refresh", refreshToken);
 
 router.get("/api/user", protect, getUser);
 router.put("/api/user", protect, registationInputs, updateUser);
-router.delete("/api/user", protect, deleteUser);
+router.delete("/api/user", protect, deleteInputs, deleteUser);
 router.post("/api/user/logout", protect, logoutUser);
 
 module.exports = router;
