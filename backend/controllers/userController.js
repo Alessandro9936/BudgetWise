@@ -108,7 +108,10 @@ const deleteUser = async (req, res, next) => {
   try {
     await deleteUserService(req.user.id);
 
-    res.status(204).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "strict" })
+      .status(204)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
@@ -119,8 +122,10 @@ const deleteUser = async (req, res, next) => {
 // @access Private
 const logoutUser = async (req, res, next) => {
   try {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "none" });
-    res.status(204).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "strict" })
+      .status(204)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
