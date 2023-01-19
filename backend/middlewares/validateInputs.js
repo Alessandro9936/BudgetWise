@@ -101,4 +101,22 @@ const loginInputs = [
   },
 ];
 
-module.exports = { registationInputs, loginInputs };
+const deleteInputs = [
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required")
+    .custom(async (value, { req }) => {
+      const user = await User.findOne({ email: req.user.email });
+      const isValid = await user.isValidPassword(value);
+      if (!isValid) {
+        return Promise.reject("This is not your current password");
+      }
+      return Promise.resolve();
+    }),
+  (req, res, next) => {
+    validateResults(req, res, next);
+  },
+];
+
+module.exports = { registationInputs, loginInputs, deleteInputs };
