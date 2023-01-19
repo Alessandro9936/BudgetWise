@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const Transaction = require("../models/transactionModel");
+const Budget = require("../models/budgetModel");
 const { REFRESH_TOKEN_SECRET } = process.env;
 
 const registerUserService = async (body) => {
@@ -89,6 +91,8 @@ const updateUserService = async (body, id) => {
 const deleteUserService = async (id) => {
   try {
     const deletedUser = await User.findByIdAndDelete(id);
+    await Transaction.deleteMany({ user: deletedUser._id });
+    await Budget.deleteMany({ user: deletedUser._id });
     return deletedUser;
   } catch (error) {
     throw new Error(error);
