@@ -1,19 +1,14 @@
 import { PulseLoader } from "react-spinners";
 
-type SubmitButtonType = {
+interface ISubmitButton {
   isLoading: boolean;
   label: string;
-  styles?: string;
-};
+}
 
-const SubmitButton = ({ isLoading, label, styles }: SubmitButtonType) => {
+const SubmitButton = ({ isLoading, label }: ISubmitButton) => {
   return (
-    <button
-      disabled={isLoading}
-      type="submit"
-      className={`text flex-1 rounded-lg bg-slate-900 py-3 font-semibold text-white transition hover:bg-purple-500 disabled:pointer-events-none disabled:bg-slate-200 ${styles}`}
-    >
-      {!isLoading ? label : <PulseLoader size={8} color="#0f172a" />}
+    <button disabled={isLoading} type="submit" className="button-primary">
+      {!isLoading ? label : <PulseLoader size={8} color="#4f46e5" />}
     </button>
   );
 };

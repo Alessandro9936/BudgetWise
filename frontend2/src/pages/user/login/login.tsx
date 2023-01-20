@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../../components/Buttons/SubmitButton";
 import InputText from "../../../components/Input/input-text";
-import { useLogin } from "../../../services/user-services";
+import { useLogin } from "../../../services/user/user-services";
 import { LoginFormType } from "./types/types";
 import LoginSchema from "./utils/validation-schema";
 
@@ -44,7 +44,7 @@ const LoginForm = () => {
       <SubmitButton label="Login" isLoading={isLoading} />
       <p className="-mt-2 text-center text-sm md:text-left">
         Don't have an account?{" "}
-        <RedirectLink redirectRoute="/register" label="Register" />
+        <RedirectLink redirectTo="/register" label="Register" />
       </p>
     </form>
   );

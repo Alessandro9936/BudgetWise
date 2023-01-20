@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
 
-const RedirectLink = ({
-  redirectRoute,
-  label,
-}: {
-  redirectRoute: string;
+interface IRedirectlink {
+  redirectTo: string;
   label: string;
-}) => {
+}
+const RedirectLink = ({ redirectTo, label }: IRedirectlink) => {
   return (
-    <Link
-      to={redirectRoute}
-      className="transition-colors hover:text-purple-500"
-    >
+    <Link to={redirectTo} className="transition-colors hover:text-indigo-500">
       {label}
     </Link>
   );
