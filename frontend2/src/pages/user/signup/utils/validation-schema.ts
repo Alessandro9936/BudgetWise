@@ -1,6 +1,16 @@
 import { z } from "zod";
 import validator from "validator";
 
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  userBudget: "",
+  password: "",
+  currency: "USD",
+  confirmPassword: "",
+};
+
 const SignUpSchema = z
   .object({
     firstName: z
@@ -39,4 +49,4 @@ const SignUpSchema = z
     }
   });
 
-export default SignUpSchema;
+export { SignUpSchema, initialValues };
