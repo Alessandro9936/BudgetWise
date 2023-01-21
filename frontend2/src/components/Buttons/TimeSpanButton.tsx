@@ -12,8 +12,10 @@ const TimeSpanButton = ({
   return (
     <button
       onClick={() => updateActiveTimeSpan(timeSpan)}
-      className={`rounded-full px-2 py-1 text-xs font-semibold text-neutral-500 shadow transition md:px-3 md:py-1 ${
-        activeTimeSpan === timeSpan ? "bg-white" : "hover:bg-white"
+      className={`rounded-full px-2 py-1 text-xs font-semibold shadow hover:bg-indigo-500  hover:text-white hover:transition dark:text-stone-300 dark:hover:bg-indigo-600 dark:hover:text-white md:px-3 md:py-1 ${
+        activeTimeSpan === timeSpan
+          ? "bg-indigo-500 text-white dark:bg-indigo-600 dark:text-white"
+          : " dark:bg-slate-800"
       }`}
     >
       {timeSpan}
