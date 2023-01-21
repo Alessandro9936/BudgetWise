@@ -1,3 +1,5 @@
+import { ChevronLeft, ChevronRight } from "react-feather";
+
 interface IDateBar {
   updateActiveDate: (action: "sub" | "add") => void;
   activeDateFormatted: string | number;
@@ -5,19 +7,19 @@ interface IDateBar {
 
 const DateBar = ({ updateActiveDate, activeDateFormatted }: IDateBar) => {
   return (
-    <div className="flex items-center justify-between rounded-full bg-white font-semibold shadow">
+    <div className=" flex items-center justify-between rounded-full bg-white py-1 px-[6px] text-sm font-semibold shadow dark:bg-slate-800">
       <span
-        className="cursor-pointer rounded-l-xl bg-slate-900 px-2 py-1 text-white transition hover:bg-purple-500"
+        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500"
         onClick={() => updateActiveDate("sub")}
       >
-        &lt;
+        <ChevronLeft size={16} strokeWidth={2.5} className="stroke-white" />
       </span>
       <p>{activeDateFormatted}</p>
       <span
-        className="cursor-pointer rounded-r-xl bg-slate-900 px-2 py-1 text-white transition hover:bg-purple-500"
+        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500"
         onClick={() => updateActiveDate("add")}
       >
-        &gt;
+        <ChevronRight size={16} strokeWidth={2.5} className="stroke-white" />
       </span>
     </div>
   );
