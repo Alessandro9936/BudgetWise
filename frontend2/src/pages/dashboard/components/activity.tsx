@@ -6,18 +6,18 @@ import TransactionCard from "../../../components/UI/TransactionCard";
 import { useGetTransactionsByDate } from "../../../services/transaction-services";
 
 const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
-  const query = useGetTransactionsByDate(new Date(), "Monthly");
-  const transactions = query?.data ?? [];
+  const querytransactions = useGetTransactionsByDate(new Date(), "Monthly");
+  const transactions = querytransactions?.data ?? [];
   const sortTransactions = useMemo(
     () => transactions.sort((a, b) => b.date.getTime() - a.date.getTime()),
     [transactions]
   );
 
   return (
-    <section className={`${gridDisposition} flex flex-col gap-y-3`}>
-      <h3 className="text-base font-semibold">Recent activity</h3>
-      <Card classNames="flex-1 p-2 flex flex-col gap-6 lg:overflow-hidden relative">
-        <div className="grid flex-1 auto-rows-min gap-6 overflow-y-auto px-4 pt-4 pb-1 md:grid-cols-autoFill">
+    <section className={`${gridDisposition} flex flex-col gap-y-4`}>
+      <h3>Recent activity</h3>
+      <Card classNames="flex-1 flex flex-col gap-4 lg:overflow-hidden relative dark:bg-slate-800">
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto px-4 pt-4 pb-1 md:grid-cols-autoFill">
           {sortTransactions.map((transaction) => (
             <TransactionCard transaction={transaction} key={transaction._id} />
           ))}
@@ -25,12 +25,12 @@ const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
         <div className="grid gap-x-6 gap-y-4 px-4 pb-4 md:grid-cols-autoFill">
           <ButtonRedirect
             redirect="transaction/new"
-            styles="flex-1 bg-slate-900 text-white hover:bg-purple-500"
+            styles="flex-1 button-primary"
             label="New transaction"
           />
           <ButtonRedirect
             redirect="../invoices"
-            styles="flex-1 bg-white text-purple-500 ring-1 ring-purple-500"
+            styles="flex-1 button-secondary"
             label="All transactions"
           />
         </div>
