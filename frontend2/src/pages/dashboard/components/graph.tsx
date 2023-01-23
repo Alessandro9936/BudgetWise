@@ -1,4 +1,3 @@
-import { RefreshCw } from "react-feather";
 import TimeSpanButton from "../../../components/Buttons/TimeSpanButton";
 import Card from "../../../components/Utilities/card";
 import DateBar from "../../../components/UI/date-bar";
@@ -21,7 +20,7 @@ import {
 
 import useCheckMobile from "../../../hooks/useCheckMobile";
 import { getCurrency } from "../../../context/user-context";
-import { useMemo } from "react";
+import { BiSync } from "react-icons/bi";
 
 const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
   const {
@@ -35,10 +34,13 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
 
   const { isMobile } = useCheckMobile();
 
-  const query = useGetTransactionsByDate(activeDate, activeTimeSpan);
+  const queryTransactions = useGetTransactionsByDate(
+    activeDate,
+    activeTimeSpan
+  );
 
-  const transactions = useMemo(() => query?.data ?? [], [query]);
-  const isFetching = query?.isFetching ?? [];
+  const transactions = queryTransactions?.data ?? [];
+  const isFetching = queryTransactions?.isFetching ?? [];
   const currency = getCurrency();
 
   let graphData: {
@@ -65,7 +67,7 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
   return (
     <section className={`${gridDisposition} flex flex-col gap-y-3`}>
       <div className="flex items-center justify-between">
-        <h3 className="text-base font-semibold">Summary</h3>
+        <h3>Overview</h3>
         <div className="flex items-center gap-2 ">
           {["Yearly", "Monthly", "Weekly"].map((timeSpan) => (
             <TimeSpanButton
@@ -77,14 +79,9 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
           ))}
         </div>
       </div>
-      <Card classNames="flex-1 p-4 lg:overflow-hidden relative">
+      <Card classNames="flex-1 p-4 lg:overflow-hidden relative dark:bg-slate-800">
         <div className="flex items-center justify-center gap-1">
-          <RefreshCw
-            size={18}
-            color={"#929292"}
-            cursor={"pointer"}
-            onClick={refreshDate}
-          />
+          <BiSync size={26} cursor={"pointer"} onClick={refreshDate} />
           <div className="ml-2 w-full md:w-3/4 lg:w-3/5">
             <DateBar
               updateActiveDate={updateActiveDate}
@@ -106,24 +103,65 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
           >
             <defs>
               <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                <stop offset="5%" stopColor="#f87171" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#f87171" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#84cc16" stopOpacity={0.6} />
-                <stop offset="95%" stopColor="#84cc16" stopOpacity={0} />
+                <stop offset="5%" stopColor="#4ade80" stopOpacity={0.6} />
+                <stop offset="95%" stopColor="#4ade80" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="1 1" />
             {!isMobile ? (
               <>
-                <XAxis dataKey="name" dy={5} />
-                <YAxis type="number" dx={-5} />
+                <XAxis
+                  dataKey="name"
+                  dy={5}
+                  tick={{
+                    fill: "#a3a3a3",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                  }}
+                  tickLine={{ stroke: "#a3a3a3", strokeWidth: 1 }}
+                />
+                <YAxis
+                  type="number"
+                  dx={-5}
+                  tick={{
+                    fill: "#a3a3a3",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                  }}
+                  tickLine={{ stroke: "#a3a3a3", strokeWidth: 1 }}
+                  tickFormatter={(value) => (value === 0 ? "" : value)}
+                  tickCount={6}
+                />
               </>
             ) : (
               <>
-                <YAxis dataKey="name" type="category" dy={-5} />
-                <XAxis type="number" dx={5} />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  dy={-5}
+                  tick={{
+                    fill: "#a3a3a3",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                  }}
+                  tickLine={{ stroke: "#a3a3a3", strokeWidth: 1 }}
+                />
+                <XAxis
+                  type="number"
+                  dx={5}
+                  tick={{
+                    fill: "#a3a3a3",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                  }}
+                  tickLine={{ stroke: "#a3a3a3", strokeWidth: 1 }}
+                  tickFormatter={(value) => (value === 0 ? "" : value)}
+                  tickCount={6}
+                />
               </>
             )}
             <Tooltip />
@@ -134,7 +172,7 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
                   dataKey="income"
                   stackId="1"
                   strokeWidth={2.5}
-                  stroke="#84cc16"
+                  stroke="#4ade80"
                   fillOpacity={0.25}
                   fill="url(#green)"
                   unit={` ${currency}`}
@@ -145,7 +183,7 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
                   dataKey="expenses"
                   stackId="0"
                   strokeWidth={2.5}
-                  stroke="#ef4444"
+                  stroke="#f87171"
                   fillOpacity={0.25}
                   fill="url(#red)"
                   unit={` ${currency}`}
