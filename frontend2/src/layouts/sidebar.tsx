@@ -1,21 +1,39 @@
-import { useContext, useState } from "react";
 import {
-  Bell,
-  ChevronDown,
-  ChevronRight,
-  CreditCard,
-  Database,
-  Home,
-  LogOut,
-  Menu,
-  User,
-  X,
-} from "react-feather";
-import { Link, NavLink } from "react-router-dom";
-import ButtonRedirect from "../components/Buttons/ButtonRedirect";
-import Separator from "../components/UI/separator";
-import { UserContext } from "../context/user-context";
-import { useLogoutUser } from "../services/user-services";
+  BiExit,
+  BiHomeAlt,
+  BiMenu,
+  BiPieChartAlt2,
+  BiTransfer,
+  BiUser,
+  BiX,
+} from "react-icons/bi";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+import { NavLink } from "react-router-dom";
+import Logo from "../components/UI/logo";
+import ThemeToggle from "../components/Utilities/ThemeToggle";
+import { useLogoutUser } from "../services/user/user-services";
+
+const sidebarVariants = {
+  closed: { width: "fit-content", transition: { type: "tween" } },
+  open: {
+    width: 250,
+    transition: {
+      type: "tween",
+      duration: 0.25,
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemsVariants = {
+  closed: { opacity: 0, width: 0, y: "-25%" },
+  open: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 interface ISidebar {
   isMobile: boolean;
@@ -28,119 +46,99 @@ const Sidebar = ({ isMobile, isOpen, setIsOpen }: ISidebar) => {
     {
       name: "Dashboard",
       route: "/dashboard",
-      icon: <Home size={isMobile ? 16 : 20} />,
+      icon: <BiHomeAlt size={isMobile ? 20 : 24} />,
     },
     {
       name: "Invoices",
       route: "/invoices",
-      icon: <CreditCard size={isMobile ? 16 : 20} />,
+      icon: <BiTransfer size={isMobile ? 20 : 24} />,
     },
     {
       name: "Budgets",
       route: "/budgets",
-      icon: <Database size={isMobile ? 16 : 20} />,
+      icon: <BiPieChartAlt2 size={isMobile ? 20 : 24} />,
     },
 
     {
-      name: "Notifications",
+      name: "Profile",
       route: "/profile",
-      icon: <Bell size={isMobile ? 16 : 20} />,
+      icon: <BiUser size={isMobile ? 20 : 24} />,
     },
   ];
 
-  const { user } = useContext(UserContext);
-  const [isButtonUpdateShown, setIsButtonUpdateShown] = useState(false);
   const { logoutUser } = useLogoutUser();
 
   return (
-    <>
-      <aside className="relative z-20 flex h-screen max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md  dark:bg-gray-700 md:pl-6">
+    <AnimatePresence>
+      <aside className="sticky top-0 z-20 flex h-screen max-w-fit flex-1 flex-col gap-y-10 bg-white py-6 pl-4 shadow-md dark:bg-gray-800">
         {/* Header */}
-        <div className="flex h-7 items-center gap-x-4 pr-4 md:pr-6">
+        <div className="flex h-7 items-center gap-x-4 pl-2 pr-4 md:pr-6">
           {!isOpen ? (
-            <Menu
-              size={isMobile ? 16 : 20}
+            <BiMenu
+              size={isMobile ? 20 : 24}
               cursor={"pointer"}
               onClick={() => setIsOpen(!isOpen)}
             />
           ) : (
-            <X
-              size={isMobile ? 16 : 20}
+            <BiX
+              size={isMobile ? 20 : 24}
               cursor={"pointer"}
               onClick={() => setIsOpen(!isOpen)}
             />
           )}
+
           {isOpen && (
-            <Link to={"/dashboard"} className="text-xl font-semibold">
-              Budget<span className="text-purple-500">Wise</span>
-            </Link>
+            <motion.span
+              variants={itemsVariants}
+              initial="closed"
+              animate={isOpen ? "open" : "closed"}
+            >
+              <Logo redirect="/dashboard" />
+            </motion.span>
           )}
         </div>
 
         {/* Links */}
-        <ul className="flex flex-1 flex-col gap-y-8">
+        <motion.ul
+          variants={sidebarVariants}
+          initial="closed"
+          animate={isOpen ? "open" : "closed"}
+          className="flex flex-1 flex-col gap-y-8"
+        >
           {sidebarLinks.map((link) => (
             <li key={link.name}>
               <NavLink
                 to={link.route}
                 className={({ isActive }) =>
                   isActive
-                    ? `flex h-8 items-center gap-x-4  ${
-                        isOpen
-                          ? "border-r-2 border-purple-500 bg-gradient-to-l from-purple-200"
-                          : ""
-                      }  font-semibold text-purple-500`
-                    : "flex h-8 items-center gap-x-4  hover:stroke-purple-500 hover:text-purple-500"
+                    ? "mr-4 flex items-center gap-x-4 rounded-lg bg-indigo-500 p-2 font-semibold text-white transition dark:bg-indigo-600"
+                    : "mr-4 flex items-center gap-x-4 rounded-lg p-2 hover:text-indigo-500 hover:transition"
                 }
               >
                 {link.icon}
-                {isOpen && <p>{link.name}</p>}
+                {isOpen && (
+                  <motion.p variants={itemsVariants}>{link.name}</motion.p>
+                )}
               </NavLink>
             </li>
           ))}
-          <div className="mr-4 flex flex-col gap-y-2 md:mt-auto">
-            <div
-              className="flex h-8 cursor-pointer items-center gap-x-4 hover:stroke-purple-500 hover:text-purple-500"
+
+          <div className="flex flex-col gap-y-4 md:mt-auto">
+            <li
+              className="mr-4 flex cursor-pointer items-end gap-x-4 pl-2 hover:stroke-indigo-500 hover:text-indigo-500 hover:transition"
               onClick={() => logoutUser()}
             >
-              <LogOut size={isMobile ? 16 : 20} />
-              {isOpen && <p>Logout</p>}
-            </div>
-            {isOpen && (
-              <>
-                <Separator />
-                <div
-                  className="flex items-center justify-between gap-4"
-                  onClick={() => setIsButtonUpdateShown(!isButtonUpdateShown)}
-                >
-                  <div>
-                    <p>
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                    <p className="text-sm text-neutral-500">{user?.email}</p>
-                  </div>
-                  {isButtonUpdateShown ? (
-                    <ChevronDown size={isMobile ? 16 : 20} cursor={"pointer"} />
-                  ) : (
-                    <ChevronRight
-                      size={isMobile ? 16 : 20}
-                      cursor={"pointer"}
-                    />
-                  )}
-                </div>
-                {isButtonUpdateShown && (
-                  <ButtonRedirect
-                    redirect="profile"
-                    label="Your profile"
-                    styles="flex-1 bg-slate-900 text-white hover:bg-purple-500"
-                  />
-                )}
-              </>
-            )}
+              <BiExit size={isMobile ? 20 : 24} className="rotate-180" />
+              {isOpen && (
+                <motion.p variants={itemsVariants} exit="closed">
+                  Logout
+                </motion.p>
+              )}
+            </li>
           </div>
-        </ul>
+        </motion.ul>
       </aside>
-    </>
+    </AnimatePresence>
   );
 };
 export default Sidebar;
