@@ -21,6 +21,8 @@ import {
 import useCheckMobile from "../../../hooks/useCheckMobile";
 import { getCurrency } from "../../../context/user-context";
 import { BiSync } from "react-icons/bi";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
   const {
@@ -40,7 +42,7 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
   );
 
   const transactions = queryTransactions?.data ?? [];
-  const isFetching = queryTransactions?.isFetching ?? [];
+  const isFetching = queryTransactions?.isFetching;
   const currency = getCurrency();
 
   let graphData: {
@@ -64,8 +66,15 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
     }
   }
 
+  const [hasRendered, setHasRendered] = useState(false);
+
   return (
-    <section className={`${gridDisposition} flex flex-col gap-y-3`}>
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.5 }}
+      className={`${gridDisposition} flex flex-col gap-y-3 `}
+    >
       <div className="flex items-center justify-between">
         <h3>Overview</h3>
         <div className="flex items-center gap-2 ">
@@ -89,7 +98,6 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
             />
           </div>
         </div>
-
         <ResponsiveContainer width="100%" height="93%">
           <AreaChart
             data={graphData}
@@ -176,6 +184,8 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
                   fillOpacity={0.25}
                   fill="url(#green)"
                   unit={` ${currency}`}
+                  animationBegin={!hasRendered ? 1250 : 0}
+                  onAnimationEnd={() => setHasRendered(true)}
                 />
 
                 <Area
@@ -187,13 +197,14 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
                   fillOpacity={0.25}
                   fill="url(#red)"
                   unit={` ${currency}`}
+                  animationBegin={!hasRendered ? 1250 : 0}
                 />
               </>
             )}
           </AreaChart>
         </ResponsiveContainer>
       </Card>
-    </section>
+    </motion.section>
   );
 };
 export default Graph;
