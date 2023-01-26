@@ -1,10 +1,10 @@
-import { Edit } from "react-feather";
+import { BiEditAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const UpdateIcon = ({ redirectLink }: { redirectLink: string }) => {
+const UpdateIcon = ({ id }: { id: string }) => {
   return (
-    <Link to={redirectLink} style={{ display: "inline-block", height: "18px" }}>
-      <Edit size={18} color={"#737373"} cursor={"pointer"} />
+    <Link to={id}>
+      <BiEditAlt size={20} color={"#a3a3a3"} cursor={"pointer"} />
     </Link>
   );
 };

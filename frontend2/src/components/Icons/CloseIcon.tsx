@@ -1,12 +1,12 @@
-import { XCircle } from "react-feather";
+import { BiX, BiXCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const CloseIcon = () => {
   const navigate = useNavigate();
   return (
-    <XCircle
+    <BiXCircle
       size={24}
-      strokeWidth={1.5}
+      color={"#6366f1"}
       cursor="pointer"
       onClick={() => navigate("..")}
     />
