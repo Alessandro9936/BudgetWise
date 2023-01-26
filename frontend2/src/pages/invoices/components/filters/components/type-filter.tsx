@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { CreditCard } from "react-feather";
 import { useSearchParams } from "react-router-dom";
 import Card from "../../../../../components/Utilities/card";
 import ClearFilterButton from "./clearFilter-button";
+
+import { motion } from "framer-motion";
+import { BiCreditCardFront } from "react-icons/bi";
 
 const options = [
   {
@@ -41,13 +43,21 @@ const TypeFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer flex justify-between md:justify-start items-center gap-x-6 font-semibold px-3 py-2">
+      <Card
+        classNames={`dark:bg-slate-800 cursor-pointer flex justify-between md:justify-start items-center gap-x-6 font-semibold px-3 py-2 ${
+          checkedValue ? "ring ring-inset ring-indigo-500 text-indigo-500" : ""
+        }`}
+      >
         <p>Transaction type</p>
-        <CreditCard color="#0f172a" size={18} />
+        <BiCreditCardFront size={24} />
       </Card>
 
       {isOpen && (
-        <ul className="absolute top-12 z-10 flex h-fit w-full origin-top-left animate-fadeIn flex-col gap-2 rounded-lg bg-white p-4 shadow-lg">
+        <motion.ul
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1, transition: { duration: 0.25 } }}
+          className="absolute top-12 z-10 flex h-fit w-full origin-top-left flex-col gap-2 rounded-lg bg-white p-4 shadow-lg dark:bg-slate-800"
+        >
           {options.map((option) => (
             <li key={option.value} className="flex items-center gap-2">
               <input
@@ -56,7 +66,7 @@ const TypeFilter = ({ isOpen }: { isOpen: boolean }) => {
                 name="type"
                 value={option.value}
                 checked={option.value === checkedValue}
-                className="h-4 w-4 cursor-pointer border-gray-300 text-purple-500 accent-purple-500"
+                className="h-4 w-4 cursor-pointer border-gray-300 bg-transparent accent-indigo-500 dark:accent-indigo-600"
               />
               <label>{option.label}</label>
             </li>
@@ -65,7 +75,7 @@ const TypeFilter = ({ isOpen }: { isOpen: boolean }) => {
             disabled={!searchParams.get("type")}
             reset={onReset}
           />
-        </ul>
+        </motion.ul>
       )}
     </>
   );

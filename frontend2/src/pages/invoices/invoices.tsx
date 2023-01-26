@@ -4,7 +4,7 @@ import Transactions from "./components/transactions";
 
 const Invoices = () => {
   return (
-    <section className="flex w-full flex-1 flex-col gap-6 overflow-x-hidden bg-gray-100 p-6">
+    <section className="flex w-full flex-1 flex-col gap-6 bg-gray-100 p-6 overflow-x-hidden dark:bg-slate-900">
       <Filters />
       <Transactions />
       <Outlet />

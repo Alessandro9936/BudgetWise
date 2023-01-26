@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "react-feather";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useSearchParams } from "react-router-dom";
 import RedirectLink from "../../../components/Buttons/RedirectLink";
 import Card from "../../../components/Utilities/card";
@@ -9,24 +9,35 @@ import {
   useGetFilteredTransactions,
 } from "../../../services/transaction-services";
 
+import { motion } from "framer-motion";
+import budgets from "../../../constants/all-budgets";
+
 const TransactionPreview = ({
   transaction,
 }: {
   transaction: ITransactionResponse;
 }) => {
   const currency = getCurrency();
+  const budgetView = budgets.find(
+    (_budget) => _budget.name === transaction.budget?.name
+  );
+
   return (
-    <li className="flex flex-1 items-center border-b border-gray-200">
+    <motion.li
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex flex-1 items-center border-b border-neutral-200 last-of-type:border-none  dark:border-slate-600"
+    >
       <p className="flex-1 grow-[2]">{transaction.description}</p>
       <p className="flex-1">{transaction.type}</p>
       <p className="flex-1">{transaction.date.toLocaleDateString()}</p>
       <p className="flex-1">
         {transaction.amount} {currency}
       </p>
-      <p className="flex-1">{transaction.budget?.name || ""}</p>
+      <p className="flex-1">{budgetView?.label}</p>
       <div className="flex-1">
         <p
-          className={`w-fit rounded-full py-[2px] px-2 font-semibold
+          className={`w-fit rounded-full py-1 px-3 text-sm font-semibold
           ${
             transaction.state === "paid"
               ? "bg-green-200 text-green-900"
@@ -42,11 +53,11 @@ const TransactionPreview = ({
       </div>
       <p className="flex-1">
         <RedirectLink
-          redirectRoute={`transaction/${transaction._id}`}
+          redirectTo={`transaction/${transaction._id}`}
           label="Edit"
         />
       </p>
-    </li>
+    </motion.li>
   );
 };
 
@@ -64,33 +75,24 @@ const PaginationBar = ({
   hasPrevious,
 }: IPaginationBar) => {
   return (
-    <div className="mx-auto  flex w-fit items-center">
-      {hasPrevious && (
-        <button
-          onClick={() => setCurrentPage((prev) => (prev >= 1 ? prev - 1 : 1))}
-          type="button"
-          className="w-full rounded-l-xl border bg-white p-3 text-gray-600 hover:bg-gray-100"
-        >
-          <ChevronLeft size={12} strokeWidth={3} />
-        </button>
-      )}
-
+    <div className="mx-auto flex w-20 items-center">
       <button
-        type="button"
-        className="mx-2 w-full border bg-white px-4 py-2 font-semibold text-purple-500"
+        disabled={!hasPrevious}
+        className="disabled:pointer-events-none disabled:opacity-0"
+        onClick={() => setCurrentPage((prev) => (prev >= 1 ? prev - 1 : 1))}
       >
-        {currentPage}
+        <BiChevronLeft size={22} className="text-indigo-500" />
       </button>
 
-      {hasNext && (
-        <button
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-          type="button"
-          className="w-full rounded-r-xl border bg-white p-3  text-gray-600 hover:bg-gray-100"
-        >
-          <ChevronRight size={12} strokeWidth={3} />
-        </button>
-      )}
+      <p className="w-full px-4 font-semibold text-indigo-500">{currentPage}</p>
+
+      <button
+        disabled={!hasNext}
+        className="disabled:pointer-events-none disabled:opacity-0"
+        onClick={() => setCurrentPage((prev) => prev + 1)}
+      >
+        <BiChevronRight size={22} className="text-indigo-500" />
+      </button>
     </div>
   );
 };
@@ -100,6 +102,7 @@ const Transactions = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const query = useGetFilteredTransactions(currentPage);
+  const isLoading = query.isLoading;
 
   const transactions = query?.data ?? [];
 
@@ -109,8 +112,8 @@ const Transactions = () => {
 
   return (
     <>
-      <Card classNames="flex-1 p-6 pb-0 flex flex-col overlay-x">
-        <div className="flex min-w-[876px] items-center border-b border-gray-200 pb-4">
+      <Card classNames="dark:bg-slate-800 flex-1 p-6 pb-0 flex flex-col overlay-x">
+        <div className="flex min-w-[876px] items-center border-b border-neutral-200 pb-4 dark:border-slate-600">
           <p className="flex-1 grow-[2] font-semibold uppercase">Description</p>
           <p className="flex-1 font-semibold uppercase">Type</p>
           <p className="flex-1 font-semibold uppercase">Date</p>
@@ -120,7 +123,9 @@ const Transactions = () => {
           <p className="flex-1 font-semibold uppercase"></p>
         </div>
         <ul className="flex min-w-[876px] flex-1 flex-col overflow-x-scroll lg:overflow-x-hidden">
-          {transactions.length >= 1 ? (
+          {isLoading ? (
+            <h3 className="mt-4">Loading...</h3>
+          ) : transactions.length >= 1 ? (
             transactions.map((transaction) => (
               <TransactionPreview
                 key={transaction._id}

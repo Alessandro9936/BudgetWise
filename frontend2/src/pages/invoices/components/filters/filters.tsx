@@ -14,32 +14,30 @@ const Filters = () => {
 
   const transactionType = searchParams.get("type");
 
+  const handleActiveDropdown = (dropdown: typeof activeDropdown) => {
+    setActiveDropdown((prev) => (prev === dropdown ? null : dropdown));
+  };
+
   return (
-    <div className="flex flex-wrap gap-7">
+    <div className="flex flex-wrap gap-4">
       <div className="relative w-full midsm:min-w-[230px] midsm:flex-1  md:w-max md:min-w-max md:flex-initial ">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() =>
-            setActiveDropdown((prev) => (prev === "date" ? null : "date"))
-          }
+          onClick={() => handleActiveDropdown("date")}
         />
         <DateFilter isOpen={activeDropdown === "date"} />
       </div>
       <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() =>
-            setActiveDropdown((prev) => (prev === "type" ? null : "type"))
-          }
+          onClick={() => handleActiveDropdown("type")}
         />
         <TypeFilter isOpen={activeDropdown === "type"} />
       </div>
       <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
         <div
           className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() =>
-            setActiveDropdown((prev) => (prev === "sort" ? null : "sort"))
-          }
+          onClick={() => handleActiveDropdown("sort")}
         />
         <SortFilter isOpen={activeDropdown === "sort"} />
       </div>
@@ -48,20 +46,14 @@ const Filters = () => {
           <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
             <div
               className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-              onClick={() =>
-                setActiveDropdown((prev) => (prev === "state" ? null : "state"))
-              }
+              onClick={() => handleActiveDropdown("state")}
             />
             <StateFilter isOpen={activeDropdown === "state"} />
           </div>
           <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
             <div
               className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-              onClick={() =>
-                setActiveDropdown((prev) =>
-                  prev === "budget" ? null : "budget"
-                )
-              }
+              onClick={() => handleActiveDropdown("budget")}
             />
             <BudgetFilter isOpen={activeDropdown === "budget"} />
           </div>

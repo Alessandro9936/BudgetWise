@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { AlignLeft } from "react-feather";
+import { BiSortAlt2 } from "react-icons/bi";
 import { useSearchParams } from "react-router-dom";
 import Card from "../../../../../components/Utilities/card";
 import ClearFilterButton from "./clearFilter-button";
+
+import { motion } from "framer-motion";
 
 const dateOptions = [
   {
@@ -45,15 +47,23 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer flex justify-between md:justify-start items-center gap-x-6 font-semibold px-3 py-2">
+      <Card
+        classNames={`dark:bg-slate-800 cursor-pointer flex justify-between md:justify-start items-center gap-x-6 font-semibold px-3 py-2 ${
+          checkedValue ? "ring ring-inset ring-indigo-500 text-indigo-500" : ""
+        }`}
+      >
         <p>Sort</p>
-        <AlignLeft color="#0f172a" size={18} />
+        <BiSortAlt2 size={24} />
       </Card>
 
       {isOpen && (
-        <div className="absolute top-12 z-10 h-fit w-full origin-top-left animate-fadeIn rounded-lg bg-white p-4 shadow-lg md:w-max">
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1, transition: { duration: 0.25 } }}
+          className="absolute top-12 z-10 h-fit w-full origin-top-left rounded-lg bg-white p-4 shadow-lg dark:bg-slate-800 md:w-max"
+        >
           <div className="flex flex-col gap-2 border-b border-gray-300 pb-2">
-            <p>Date</p>
+            <p className="font-semibold">Date</p>
             <div>
               {dateOptions.map((option) => (
                 <div
@@ -66,7 +76,7 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
                     name="date"
                     value={option.value}
                     checked={option.value === checkedValue}
-                    className="h-4 w-4 cursor-pointer border-gray-300 text-purple-500 accent-purple-500"
+                    className="0 h-4 w-4 cursor-pointer border-gray-300  accent-indigo-500 dark:accent-indigo-600"
                   />
                   <label>{option.label}</label>
                 </div>
@@ -74,7 +84,7 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
             </div>
           </div>
           <div className="flex flex-col gap-2 pt-2">
-            <p>Amount</p>
+            <p className="font-semibold">Amount</p>
             <div>
               {amountOptions.map((option) => (
                 <div
@@ -87,18 +97,19 @@ const SortFilter = ({ isOpen }: { isOpen: boolean }) => {
                     name="amount"
                     value={option.value}
                     checked={option.value === checkedValue}
-                    className="h-4 w-4 cursor-pointer border-gray-300 text-purple-500 accent-purple-500"
+                    className="h-4 w-4 cursor-pointer border-gray-300  accent-indigo-500 dark:accent-indigo-600"
                   />
                   <label>{option.label}</label>
                 </div>
               ))}
             </div>
           </div>
+
           <ClearFilterButton
             disabled={!searchParams.get("sort")}
             reset={onReset}
           />
-        </div>
+        </motion.div>
       )}
     </>
   );

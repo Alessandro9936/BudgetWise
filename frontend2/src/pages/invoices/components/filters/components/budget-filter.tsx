@@ -5,6 +5,9 @@ import Card from "../../../../../components/Utilities/card";
 import allBudgets from "../../../../../constants/all-budgets";
 import ClearFilterButton from "./clearFilter-button";
 
+import { motion } from "framer-motion";
+import { BiPieChartAlt2 } from "react-icons/bi";
+
 const BudgetFilter = ({ isOpen }: { isOpen: boolean }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkedValues, setCheckedValues] = useState(
@@ -38,13 +41,23 @@ const BudgetFilter = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     <>
-      <Card classNames="cursor-pointer justify-between md:justify-start flex items-center gap-x-6 font-semibold px-4 py-2">
+      <Card
+        classNames={`dark:bg-slate-800 cursor-pointer justify-between md:justify-start flex items-center gap-x-6 font-semibold px-4 py-2 ${
+          checkedValues.length > 0
+            ? "ring ring-inset ring-indigo-500 text-indigo-500"
+            : ""
+        }`}
+      >
         <p>Expense budget</p>
-        <Database color="#0f172a" size={18} />
+        <BiPieChartAlt2 size={24} />
       </Card>
 
       {isOpen && (
-        <ul className="absolute top-12 z-10 grid w-full origin-top-left animate-fadeIn grid-cols-autoFillBudgetOptions gap-2 rounded-lg bg-white p-4 shadow-lg md:w-[360px] lg:right-0 lg:origin-top-right">
+        <motion.ul
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1, transition: { duration: 0.25 } }}
+          className="absolute top-12 z-10 grid w-full origin-top-left grid-cols-autoFillBudgetOptions gap-2 rounded-lg bg-white p-4 shadow-lg dark:bg-slate-800 md:w-[360px]"
+        >
           {allBudgets.map((budget) => (
             <li key={budget.name} className="flex items-center gap-2">
               <input
@@ -53,7 +66,7 @@ const BudgetFilter = ({ isOpen }: { isOpen: boolean }) => {
                 name="state"
                 value={budget.name}
                 checked={checkedValues.includes(budget.name)}
-                className="h-4 w-4 cursor-pointer rounded accent-purple-500"
+                className="h-4 w-4 cursor-pointer rounded  accent-indigo-500 dark:accent-indigo-600"
               />
               <label className="inline-flex items-center">{budget.label}</label>
             </li>
@@ -64,7 +77,7 @@ const BudgetFilter = ({ isOpen }: { isOpen: boolean }) => {
               reset={onReset}
             />
           </div>
-        </ul>
+        </motion.ul>
       )}
     </>
   );

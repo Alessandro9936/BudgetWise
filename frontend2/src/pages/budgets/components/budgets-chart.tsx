@@ -4,27 +4,33 @@ import ButtonRedirect from "../../../components/Buttons/ButtonRedirect";
 import Card from "../../../components/Utilities/card";
 import { getCurrency } from "../../../context/user-context";
 import { useGetBudgetsByDate } from "../../../services/budget-services";
-import budgetColors from "../../../constants/all-budgets";
+import allBudgets from "../../../constants/all-budgets";
+
+import { motion } from "framer-motion";
+
+const childVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween", delay: 0.3 } },
+};
+
+interface IBudgetsChart {
+  activeDate: Date;
+  timeSpan: string;
+  activeDateFormatted: string | number;
+}
 
 const BudgetsChart = ({
   activeDateFormatted,
   activeDate,
   timeSpan,
-}: {
-  activeDate: Date;
-  timeSpan: string;
-  activeDateFormatted: string | number;
-}) => {
+}: IBudgetsChart) => {
   const query = useGetBudgetsByDate(activeDate, timeSpan);
   const budgets = query?.data ?? [];
   const currency = getCurrency();
 
-  const budgetColor = (name: string): string | undefined => {
-    const curBudget = budgetColors.find((budget) => budget.name === name);
-    if (curBudget) {
-      return curBudget.color;
-    }
-  };
+  const getBudgetView = (name: string) =>
+    allBudgets.find((budget) => budget.name === name);
+
   const budgetLabels = budgets.map((budget) => budget.name);
 
   const totalAmounts = budgets.reduce(
@@ -39,13 +45,16 @@ const BudgetsChart = ({
   const percentage = Math.ceil(
     (totalAmounts.usedAmount / totalAmounts.maxAmount) * 100
   );
-  const percentageMessageDetails = `In ${activeDateFormatted} you spent ${totalAmounts.usedAmount} ${currency} (
-    ${percentage}%) of your total budget (${totalAmounts.maxAmount} ${currency})`;
 
   return (
-    <div className="flex flex-1 flex-col">
-      <h3 className="mb-3 text-base font-semibold">Budgets distribution</h3>
-      <Card classNames="flex-1 w-full flex flex-col items-center px-6 min-h-[200px]">
+    <motion.div
+      variants={childVariants}
+      initial="initial"
+      animate="ending"
+      className="flex flex-1 flex-col"
+    >
+      <h3 className="mb-4 text-base font-semibold">Budgets distribution</h3>
+      <Card classNames="dark:bg-slate-800 flex-1 w-full flex flex-col items-center px-6 min-h-[200px]">
         {budgets.length > 0 ? (
           <>
             <ResponsiveContainer width={"99%"} height={250}>
@@ -60,7 +69,7 @@ const BudgetsChart = ({
                   {budgets.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
-                      fill={budgetColor(entry.name)}
+                      fill={getBudgetView(entry.name)?.color}
                     />
                   ))}
                 </Pie>
@@ -69,11 +78,15 @@ const BudgetsChart = ({
             </ResponsiveContainer>
             <div className=" text-center">
               <p className="text-2xl font-bold">{percentage}%</p>
-              <p className="text-lg">{percentageMessageDetails}</p>
+              <p className="text-lg">
+                In {activeDateFormatted} you spent {totalAmounts.usedAmount}{" "}
+                {currency} ({percentage}%) of your total budget (
+                {totalAmounts.maxAmount} {currency})
+              </p>
             </div>
             <div className="my-10 grid grid-cols-2 gap-y-5 gap-x-8">
               {budgetLabels.map((label) => {
-                const color = budgetColor(
+                const budget = getBudgetView(
                   label.toLocaleLowerCase().replaceAll(" ", "")
                 );
 
@@ -81,9 +94,9 @@ const BudgetsChart = ({
                   <div key={label} className="flex items-center gap-4">
                     <span
                       className="rounded-full p-2"
-                      style={{ backgroundColor: color }}
-                    ></span>
-                    <span className="font-semibold">{label}</span>
+                      style={{ backgroundColor: budget?.color }}
+                    />
+                    <span className="font-semibold">{budget?.label}</span>
                   </div>
                 );
               })}
@@ -95,13 +108,13 @@ const BudgetsChart = ({
         {timeSpan === "Monthly" &&
           isFuture(new Date(endOfMonth(activeDate))) && (
             <ButtonRedirect
-              styles="w-full mx-6 mt-auto mb-6 bg-slate-900 text-white hover:bg-purple-500"
+              styles="button-primary mt-auto mb-6 w-full"
               redirect="new"
               label="Create new budget"
             />
           )}
       </Card>
-    </div>
+    </motion.div>
   );
 };
 
