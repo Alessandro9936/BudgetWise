@@ -1,5 +1,4 @@
 import ButtonRedirect from "../../components/Buttons/ButtonRedirect";
-import CloseIcon from "../../components/Icons/CloseIcon";
 import Modal from "../../components/Utilities/modal";
 import { getCurrency } from "../../context/user-context";
 import { useCloseModal } from "../../hooks/useCloseWindow";
@@ -8,6 +7,26 @@ import {
   useGetTransactionDetail,
 } from "../../services/transaction-services";
 
+import { motion } from "framer-motion";
+import CloseIcon from "../../components/Icons/CloseIcon";
+
+const parentVariants = {
+  initial: { opacity: 0 },
+  ending: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      duration: 0.25,
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const childrenVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
+};
+
 const TransactionDetail = () => {
   useCloseModal();
 
@@ -15,37 +34,59 @@ const TransactionDetail = () => {
   const transactionDetail =
     queryTransactionDetail?.data as ITransactionResponse;
   const isLoading = queryTransactionDetail?.isLoading;
-
   const currency = getCurrency();
 
   return (
     <>
       {!isLoading && (
         <Modal>
-          <section className="flex flex-col gap-6 p-6">
-            <div className="flex items-center justify-between">
+          <motion.section
+            variants={parentVariants}
+            initial="initial"
+            animate="ending"
+            className="flex flex-col gap-6 p-6"
+          >
+            <motion.div
+              variants={childrenVariants}
+              className="flex items-center justify-between"
+            >
               <h1 className="text-2xl font-semibold">Transaction details</h1>
               <CloseIcon />
-            </div>
-            <div className="flex items-center justify-between">
+            </motion.div>
+            <motion.div
+              variants={childrenVariants}
+              className="flex items-center justify-between"
+            >
               <p className="font-semibold">Type</p>
-              <p>{transactionDetail.type}</p>
-            </div>
-            <div className="flex items-center justify-between">
+              <p>
+                {transactionDetail.type[0].toUpperCase() +
+                  transactionDetail.type.slice(1)}
+              </p>
+            </motion.div>
+            <motion.div
+              variants={childrenVariants}
+              className="flex items-center justify-between"
+            >
               <p className="font-semibold">Date</p>
               <p>
                 {transactionDetail.date.toLocaleDateString(navigator.language, {
                   dateStyle: "long",
                 })}
               </p>
-            </div>
+            </motion.div>
             {transactionDetail.type == "expense" && (
               <>
-                <div className="flex items-center justify-between">
+                <motion.div
+                  variants={childrenVariants}
+                  className="flex items-center justify-between"
+                >
                   <p className="font-semibold">Budget</p>
                   <p>{transactionDetail?.budget?.name}</p>
-                </div>
-                <div className="flex items-center justify-between">
+                </motion.div>
+                <motion.div
+                  variants={childrenVariants}
+                  className="flex items-center justify-between"
+                >
                   <p className="font-semibold">State</p>
                   <p
                     className={`rounded-md py-[2px] px-2 font-semibold ${
@@ -60,38 +101,41 @@ const TransactionDetail = () => {
                   >
                     {transactionDetail?.state}
                   </p>
-                </div>
+                </motion.div>
               </>
             )}
-            <div className="flex items-center justify-between">
+            <motion.div
+              variants={childrenVariants}
+              className="flex items-center justify-between"
+            >
               <p className="font-semibold">Amount</p>
               <p>
                 {transactionDetail.amount} {currency}
               </p>
-            </div>
-            <div>
-              <p className="mb-2 font-semibold">Description</p>
+            </motion.div>
+            <motion.div variants={childrenVariants}>
+              <p className="mb-4 font-semibold">Description</p>
               <textarea
-                className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-sm shadow-sm"
+                className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-sm shadow-sm dark:bg-slate-800"
                 disabled
                 defaultValue={transactionDetail.description}
               />
-            </div>
+            </motion.div>
             <div className="ml-auto flex w-fit justify-end gap-x-2">
               {transactionDetail.type === "expense" && (
                 <ButtonRedirect
                   redirect="update"
-                  styles="px-6 bg-slate-900 text-white hover:bg-purple-500"
+                  styles="button-primary px-6"
                   label="Update transaction state"
                 />
               )}
               <ButtonRedirect
                 redirect="delete"
-                styles="px-6 bg-white text-red-500 ring-1 ring-red-500 hover:bg-red-500 hover:text-white"
+                styles="button-delete px-6"
                 label="Delete transaction"
               />
             </div>
-          </section>
+          </motion.section>
         </Modal>
       )}
     </>
