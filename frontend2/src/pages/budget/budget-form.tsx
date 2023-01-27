@@ -1,4 +1,3 @@
-import Separator from "../../components/UI/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,8 +17,29 @@ import budgets from "../../constants/all-budgets";
 import { IBudgetForm } from "./types/types";
 import BudgetSchema from "./utils/validation-schema";
 import FieldError from "../../components/Error/field-error";
-import FormHandler from "../../components/Form/form-handler";
+
+import { motion } from "framer-motion";
+import SubmitButton from "../../components/Buttons/SubmitButton";
+import ButtonRedirect from "../../components/Buttons/ButtonRedirect";
+import FormResponse from "../../components/Form/form-response";
 import CloseIcon from "../../components/Icons/CloseIcon";
+
+const parentVariants = {
+  initial: { opacity: 0 },
+  ending: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      duration: 0.25,
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const childrenVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
+};
 
 // This modal has both the capability to create or update a new budget
 const BudgetForm = () => {
@@ -51,7 +71,7 @@ const BudgetForm = () => {
 
   const [activeDate, setActiveDate] = useState(new Date());
 
-  const { setError, handleSubmit, formState, control, setValue, getValues } =
+  const { handleSubmit, formState, control, setValue, getValues } =
     useForm<IBudgetForm>({
       defaultValues: initialValues,
       resolver: zodResolver(BudgetSchema),
@@ -93,7 +113,7 @@ const BudgetForm = () => {
       ? remainingBudgets
       : [
           ...remainingBudgets,
-          budgets.find((_budget) => _budget.name === budgetDetail!.name),
+          budgets.find((_budget) => _budget.name === budgetDetail?.name),
         ];
   }, [budgetsInActiveMonth]);
 
@@ -101,36 +121,50 @@ const BudgetForm = () => {
     isUpdate ? updateBudget(formData) : createNewBudget(formData);
   };
 
+  const isSubmitSuccessful = isUpdate
+    ? updateBudgetSuccess
+    : createBudgetSuccess;
+  const isLoadingSubmission = isUpdate
+    ? updateBudgetLoading
+    : createBudgetLoading;
+
   return (
     <Modal>
-      <form
+      <motion.form
+        variants={parentVariants}
+        initial="initial"
+        animate="ending"
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 p-6"
       >
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">New budget</h1>
+        <motion.div
+          variants={childrenVariants}
+          className="flex items-center justify-between"
+        >
+          <h1 className="text-2xl font-semibold">
+            {!isUpdate ? "New budget" : "Update budget"}
+          </h1>
           <CloseIcon />
-        </div>
-        <div className="flex-1">
-          <div className="h-full rounded-md">
-            <CalendarInput
-              name="date"
-              control={control}
-              setValue={setValue}
-              minDetail="year"
-              maxDetail="year"
-              disabled={isUpdate}
-              minDate={new Date()}
-              setActiveDate={setActiveDate}
-              defaultValue={getValues("date") ?? formState?.defaultValues?.date}
-            />
-          </div>
-        </div>
-        <Separator />
-        <div className="font-semibold">
+        </motion.div>
+
+        <motion.div variants={childrenVariants} className="h-full rounded-md">
+          <CalendarInput
+            name="date"
+            control={control}
+            setValue={setValue}
+            minDetail="year"
+            maxDetail="year"
+            disabled={isUpdate}
+            minDate={new Date()}
+            setActiveDate={setActiveDate}
+            defaultValue={getValues("date") ?? formState?.defaultValues?.date}
+          />
+        </motion.div>
+
+        <motion.div variants={childrenVariants} className="font-semibold">
           <p>Budget type</p>
           <ul className="mt-4 flex flex-wrap gap-3">
-            {remainingBudgetsInActiveMonth.map((budget) => (
+            {remainingBudgetsInActiveMonth?.map((budget) => (
               <CustomRadio
                 key={budget!.name}
                 setValue={setValue}
@@ -143,40 +177,57 @@ const BudgetForm = () => {
               />
             ))}
           </ul>
-        </div>
-        {isUpdate && <FieldError message="Can't update budget type" />}
+        </motion.div>
         {formState.errors.name && (
           <FieldError message={formState.errors.name.message!} />
         )}
-        <Separator />
 
-        <div>
+        <motion.div variants={childrenVariants}>
           <p className="font-semibold">Maximum amount</p>
           <RangeInput name="maxAmount" control={control} />
-        </div>
+        </motion.div>
         {isUpdate && (
-          <div>
+          <motion.div variants={childrenVariants}>
             <p className="font-semibold">Used amount</p>
             <RangeInput
               disable={isUpdate}
               name="usedAmount"
               control={control}
             />
-          </div>
+          </motion.div>
         )}
         {formState.errors.maxAmount && (
           <FieldError message={formState.errors.maxAmount.message!} />
         )}
-        <FormHandler
-          isLoading={isUpdate ? updateBudgetLoading : createBudgetLoading}
-          submitLabel={isUpdate ? "Update budget" : "Create budget"}
-          isSubmitSuccessful={
-            isUpdate ? updateBudgetSuccess : createBudgetSuccess
-          }
-        >
-          <p className="font-semibold">Budget successfully created</p>
-        </FormHandler>
-      </form>
+
+        {!isSubmitSuccessful && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+            className="ml-auto flex w-fit justify-end gap-x-2"
+          >
+            <SubmitButton
+              label={isUpdate ? "Update budget" : "Create budget"}
+              isLoading={isLoadingSubmission}
+            />
+            <ButtonRedirect
+              redirect=".."
+              styles="px-6 button-secondary"
+              label="Go back"
+            />
+          </motion.div>
+        )}
+        {isSubmitSuccessful && !isLoadingSubmission && (
+          <FormResponse>
+            <p className="font-semibold dark:text-slate-800">
+              {!isUpdate
+                ? "Budget successfully created"
+                : "Budget successfully updated"}
+            </p>
+          </FormResponse>
+        )}
+      </motion.form>
     </Modal>
   );
 };
