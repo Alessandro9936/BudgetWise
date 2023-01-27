@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
 import { ChevronDown, ChevronRight } from "react-feather";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CloseIcon from "../../components/Icons/CloseIcon";
 import CustomRadio from "../../components/Input/custom-radio";
 import CalendarInput from "../../components/Input/input-calendar";
@@ -20,10 +20,32 @@ import {
 } from "./utils/validation-schema";
 import budgets from "../../constants/all-budgets";
 import states from "../../constants/all-states";
-import FormHandler from "../../components/Form/form-handler";
 import FieldError from "../../components/Error/field-error";
 import AmountField from "./components/amount-field";
 import TransactionType from "./components/type-field";
+
+import { motion } from "framer-motion";
+import SubmitButton from "../../components/Buttons/SubmitButton";
+import ButtonRedirect from "../../components/Buttons/ButtonRedirect";
+import useMeasure from "react-use-measure";
+import FormResponse from "../../components/Form/form-response";
+
+const parentVariants = {
+  initial: { opacity: 0 },
+  ending: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      duration: 0.25,
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const childrenVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
+};
 
 interface IFieldHeader {
   fieldValue?: any;
@@ -43,7 +65,8 @@ const FieldHeader = ({
   const isActive = activeDropdown === label;
 
   return (
-    <div
+    <motion.div
+      variants={childrenVariants}
       className="flex cursor-pointer items-center justify-between"
       onClick={() => setActive((prev) => (prev === label ? null : label))}
     >
@@ -56,12 +79,13 @@ const FieldHeader = ({
           <ChevronRight size={18} color={"#a3a3a3"} />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const TransactionForm = () => {
   useCloseModal();
+  const navigate = useNavigate;
   const [activeDropdown, setActiveDropdown] = useState<
     "Amount" | "Budget" | "State" | null
   >("Amount");
@@ -81,18 +105,11 @@ const TransactionForm = () => {
   const queryBudgetsOnActiveDate = useGetBudgetsByDate(activeDate, "Monthly");
   const budgetsOnActiveDate = queryBudgetsOnActiveDate.data ?? [];
 
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    formState,
-    setError,
-    getValues,
-    register,
-  } = useForm<ITransactionForm>({
-    defaultValues: initialValues,
-    resolver: zodResolver(TransactionSchema),
-  });
+  const { handleSubmit, control, setValue, formState, getValues, register } =
+    useForm<ITransactionForm>({
+      defaultValues: initialValues,
+      resolver: zodResolver(TransactionSchema),
+    });
 
   // Mutation to create a new transaction
   const {
@@ -115,20 +132,32 @@ const TransactionForm = () => {
   const onSubmit = (formData: ITransactionForm) =>
     isUpdate ? updateTransaction(formData) : createNewTransaction(formData);
 
+  const isSubmitSuccessful = isUpdate
+    ? updateTransactionSuccess
+    : createTransactionSuccess;
+  const isLoadingSubmission = isUpdate
+    ? updateTransactionLoading
+    : createTransactionLoading;
+
   return (
     <Modal>
-      <form
+      <motion.form
+        variants={parentVariants}
+        initial="initial"
+        animate="ending"
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-y-4 p-6"
+        className="flex flex-col gap-4 p-6"
       >
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">New transaction</h1>
+          <h1 className="text-2xl font-semibold">
+            {isUpdate ? "Update transaction" : "New transaction"}
+          </h1>
           <CloseIcon />
         </div>
 
-        {/* Calendar */}
-        <div>
-          <div className="h-full rounded-md">
+        <>
+          <motion.div variants={childrenVariants} className="h-full rounded-md">
+            {/* Calendar */}
             <CalendarInput
               name="date"
               control={control}
@@ -138,136 +167,162 @@ const TransactionForm = () => {
               setActiveDate={setActiveDate}
               defaultValue={getValues("date") ?? formState?.defaultValues?.date}
             />
-          </div>
+          </motion.div>
           {formState.errors.date && (
             <FieldError message={formState.errors.date.message!} />
           )}
-        </div>
 
-        {/* Transaction type */}
-        <div
-          className={`mb-4 flex items-center justify-between ${
-            isUpdate ? "pointer-events-none" : ""
-          }`}
-        >
-          <TransactionType
-            activeType={getValues("type")}
-            setValue={setValue}
-            value={"income"}
-            disabled={isUpdate && getValues("type") === "income"}
+          {/* Transaction type */}
+          <motion.div
+            variants={childrenVariants}
+            className={`mb-4 flex items-center justify-between ${
+              isUpdate || isSubmitSuccessful ? "pointer-events-none" : ""
+            }`}
+          >
+            <TransactionType
+              activeType={getValues("type")}
+              setValue={setValue}
+              value={"income"}
+              disabled={isUpdate && getValues("type") === "income"}
+            />
+            <TransactionType
+              activeType={getValues("type")}
+              setValue={setValue}
+              value={"expense"}
+              disabled={isUpdate && getValues("type") === "expense"}
+            />
+            {formState.errors.type && (
+              <FieldError message={formState.errors.type.message!} />
+            )}
+          </motion.div>
+
+          {/* Transaction amount */}
+          <FieldHeader
+            fieldValue={getValues("amount")}
+            label="Amount"
+            setActive={setActiveDropdown}
+            activeDropdown={activeDropdown}
           />
-          <TransactionType
-            activeType={getValues("type")}
-            setValue={setValue}
-            value={"expense"}
-            disabled={isUpdate && getValues("type") === "expense"}
-          />
-          {formState.errors.type && (
-            <FieldError message={formState.errors.type.message!} />
+          {activeDropdown === "Amount" && (
+            <AmountField
+              control={control}
+              name="amount"
+              disabled={isUpdate || isSubmitSuccessful}
+            />
           )}
-        </div>
 
-        {/* Transaction amount */}
-        <FieldHeader
-          fieldValue={getValues("amount")}
-          label="Amount"
-          setActive={setActiveDropdown}
-          activeDropdown={activeDropdown}
-        />
-        {activeDropdown === "Amount" && (
-          <AmountField control={control} name="amount" disabled={isUpdate} />
-        )}
+          {getValues("type") === "expense" && (
+            <>
+              {/* Transaction budget */}
+              <FieldHeader
+                fieldValue={activeBudget?.name}
+                label="Budget"
+                setActive={setActiveDropdown}
+                activeDropdown={activeDropdown}
+              />
+              {activeDropdown === "Budget" && (
+                <motion.ul
+                  variants={childrenVariants}
+                  className="flex flex-wrap gap-3"
+                >
+                  {budgetsOnActiveDate.map((budget) => (
+                    <CustomRadio
+                      key={budget._id}
+                      setValue={setValue}
+                      value={budget._id}
+                      view={
+                        budgets.find((_budget) => _budget.name === budget.name)!
+                      }
+                      name="budget"
+                      disabled={isUpdate}
+                      control={control}
+                      isActive={getValues("budget") === budget._id}
+                    />
+                  ))}
+                </motion.ul>
+              )}
+              {formState.errors.budget && (
+                <FieldError message={formState.errors.budget.message!} />
+              )}
 
-        {getValues("type") === "expense" && (
-          <>
-            {/* Transaction budget */}
-            <FieldHeader
-              fieldValue={activeBudget?.name}
-              label="Budget"
-              setActive={setActiveDropdown}
-              activeDropdown={activeDropdown}
+              {/* Transaction state */}
+              <FieldHeader
+                fieldValue={getValues("state")}
+                label="State"
+                setActive={setActiveDropdown}
+                activeDropdown={activeDropdown}
+              />
+              {activeDropdown === "State" && (
+                <motion.ul
+                  variants={childrenVariants}
+                  className="flex flex-wrap gap-3 font-semibold"
+                >
+                  {states.map((state) => (
+                    <CustomRadio
+                      key={state.name}
+                      setValue={setValue}
+                      value={state.name}
+                      view={state}
+                      name="state"
+                      control={control}
+                      isActive={getValues("state") === state.name}
+                      disabled={
+                        isUpdate
+                          ? updateTransactionLoading
+                          : createTransactionLoading
+                      }
+                    />
+                  ))}
+                </motion.ul>
+              )}
+              {formState.errors.state && (
+                <FieldError message={formState.errors.state.message!} />
+              )}
+            </>
+          )}
+
+          {/* Transaction description */}
+
+          <motion.div variants={childrenVariants}>
+            <p className="mb-4 font-semibold">Description</p>
+            <textarea
+              rows={2}
+              disabled={isSubmitSuccessful}
+              {...register("description")}
+              className="input-form w-full resize-none"
             />
-            {activeDropdown === "Budget" && (
-              <ul className="flex flex-wrap gap-3 font-semibold">
-                {budgetsOnActiveDate.map((budget) => (
-                  <CustomRadio
-                    key={budget._id}
-                    setValue={setValue}
-                    value={budget._id}
-                    view={
-                      budgets.find((_budget) => _budget.name === budget.name)!
-                    }
-                    name="budget"
-                    disabled={isUpdate}
-                    control={control}
-                    isActive={getValues("budget") === budget._id}
-                  />
-                ))}
-              </ul>
-            )}
-            {formState.errors.budget && (
-              <FieldError message={formState.errors.budget.message!} />
-            )}
+          </motion.div>
 
-            {/* Transaction state */}
-            <FieldHeader
-              fieldValue={getValues("state")}
-              label="State"
-              setActive={setActiveDropdown}
-              activeDropdown={activeDropdown}
-            />
-            {activeDropdown === "State" && (
-              <ul className="flex flex-wrap gap-3 font-semibold">
-                {states.map((state) => (
-                  <CustomRadio
-                    key={state.name}
-                    setValue={setValue}
-                    value={state.name}
-                    view={state}
-                    name="state"
-                    control={control}
-                    isActive={getValues("state") === state.name}
-                    disabled={
-                      isUpdate
-                        ? updateTransactionLoading
-                        : createTransactionLoading
-                    }
-                  />
-                ))}
-              </ul>
-            )}
-            {formState.errors.state && (
-              <FieldError message={formState.errors.state.message!} />
-            )}
-          </>
-        )}
-
-        {/* Transaction description */}
-        <div>
-          <p className="mb-4 font-semibold">Description</p>
-          <textarea
-            rows={2}
-            disabled={
-              isUpdate ? updateTransactionLoading : createTransactionLoading
-            }
-            {...register("description")}
-            className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-base shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        {/* Form handler */}
-        <FormHandler
-          isLoading={
-            isUpdate ? updateTransactionLoading : createTransactionLoading
-          }
-          submitLabel={isUpdate ? "Update transaction" : "Create transaction"}
-          isSubmitSuccessful={
-            isUpdate ? updateTransactionSuccess : createTransactionSuccess
-          }
-        >
-          <p className="font-semibold">Transaction successfully created</p>
-        </FormHandler>
-      </form>
+          {/* Form handler */}
+          {!isSubmitSuccessful && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.5 }}
+              className="ml-auto flex w-fit justify-end gap-x-2"
+            >
+              <SubmitButton
+                label={isUpdate ? "Update transaction" : "Create transaction"}
+                isLoading={isLoadingSubmission}
+              />
+              <ButtonRedirect
+                redirect=".."
+                styles="px-6 button-secondary"
+                label="Go back"
+              />
+            </motion.div>
+          )}
+          {isSubmitSuccessful && !isLoadingSubmission && (
+            <FormResponse>
+              <p className="font-semibold dark:text-slate-800">
+                {!isUpdate
+                  ? "Transaction successfully created"
+                  : "Transaction successfully updated"}
+              </p>
+            </FormResponse>
+          )}
+        </>
+      </motion.form>
     </Modal>
   );
 };
