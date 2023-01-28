@@ -57,9 +57,8 @@ const registationInputs = [
     )
     .custom(async (_, { req }) => {
       if (req.body.oldPassword) {
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: req.user.email });
         const isValid = await user.isValidPassword(req.body.oldPassword);
-        console.log(isValid);
         if (!isValid) {
           return Promise.reject("This is not your current password");
         }
