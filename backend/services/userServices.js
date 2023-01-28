@@ -2,11 +2,20 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Transaction = require("../models/transactionModel");
 const Budget = require("../models/budgetModel");
+const hashPassword = require("../utils/hashPassword");
 const { REFRESH_TOKEN_SECRET } = process.env;
 
 const registerUserService = async (body) => {
   try {
-    const newUser = await User.create(body);
+    const newUser = await User.create({
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      userBudget: body.userBudget,
+      password: await hashPassword(body.password),
+      currency: body.currency,
+    });
+
     return newUser;
   } catch (error) {
     throw new Error(error);
@@ -71,16 +80,16 @@ const updateUserService = async (body, id) => {
     let user = await User.findById(id);
     const properties = Object.keys(body);
 
+    if (properties.includes("password")) {
+      user.password = await hashPassword(body.password);
+    }
+
     properties.forEach((property) => {
-      if (user[property] !== body[property]) {
+      if (user[property] !== body[property] && property !== "password") {
         user[property] = body[property];
       }
     });
 
-    /*
-  Use save approach instead of findByIdAndUpdate because doing this way 
-  when the user is saved the password is automatically hashed with pre hook on save(look user model methods)
-  */
     await user.save();
     return user;
   } catch (error) {

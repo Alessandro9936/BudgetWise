@@ -88,14 +88,12 @@ const refreshToken = async (req, res, next) => {
 // @access Private
 const updateUser = async (req, res, next) => {
   try {
-    const updatedUser = await updateUserService(req.body, req.user.id);
+    await updateUserService(req.body, req.user.id);
 
-    res.status(201).json({
-      firstName: updatedUser.firstName,
-      lastName: updatedUser?.lastName,
-      email: updatedUser.email,
-      currency: updatedUser.currency,
-    });
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "strict" })
+      .status(201)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
