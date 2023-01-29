@@ -19,35 +19,34 @@ interface ITransactionPopup {
 const TransactionPopup = ({ coords, transactions }: ITransactionPopup) => {
   const currency = getCurrency();
   return (
-    <AnimatePresence>
-      <motion.ul
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1, transition: { duration: 0.2 } }}
-        className={`pointer-events-none absolute z-10 flex w-44 origin-top-right flex-col gap-y-3 rounded-xl bg-indigo-500 p-2 px-3 font-semibold text-white`}
-        style={{ top: coords?.top, left: coords?.left }}
-      >
-        {transactions.map((transaction) => (
-          <li key={transaction._id}>
-            <p>{transaction.description}</p>
+    <motion.ul
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1, transition: { duration: 0.2 } }}
+      exit={{ scale: 0, opacity: 0, transition: { duration: 0.2 } }}
+      className={`pointer-events-none absolute z-10 flex w-44 origin-top-right flex-col gap-y-3 rounded-xl bg-indigo-500 p-2 px-3 font-semibold text-white`}
+      style={{ top: coords?.top, left: coords?.left }}
+    >
+      {transactions.map((transaction) => (
+        <li key={transaction._id}>
+          <p>{transaction.description}</p>
+          <p className="text-sm">
+            Type: <span className="font-normal">{transaction.type}</span>
+          </p>
+          <p className="text-sm">
+            Amount:{" "}
+            <span className="font-normal">
+              {transaction.amount} {currency}
+            </span>
+          </p>
+          {transaction?.type === "expense" && (
             <p className="text-sm">
-              Type: <span className="font-normal">{transaction.type}</span>
+              Budget:{" "}
+              <span className="font-normal">{transaction.budget?.name}</span>
             </p>
-            <p className="text-sm">
-              Amount:{" "}
-              <span className="font-normal">
-                {transaction.amount} {currency}
-              </span>
-            </p>
-            {transaction?.type === "expense" && (
-              <p className="text-sm">
-                Budget:{" "}
-                <span className="font-normal">{transaction.budget?.name}</span>
-              </p>
-            )}
-          </li>
-        ))}
-      </motion.ul>
-    </AnimatePresence>
+          )}
+        </li>
+      ))}
+    </motion.ul>
   );
 };
 
@@ -86,13 +85,14 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
       className={`${gridDisposition} flex flex-col gap-y-4`}
     >
       <h3 className="font-semibold">Calendar</h3>
-      {isPopupVisible && (
-        <TransactionPopup
-          coords={popupCoords!}
-          transactions={transactionsPopup}
-        />
-      )}
-
+      <AnimatePresence>
+        {isPopupVisible && (
+          <TransactionPopup
+            coords={popupCoords!}
+            transactions={transactionsPopup}
+          />
+        )}
+      </AnimatePresence>
       <Card classNames="dark:bg-slate-800 flex-1 py-2 px-4">
         <CalendarDep
           onActiveStartDateChange={({ activeStartDate }) =>
