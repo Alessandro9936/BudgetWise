@@ -9,7 +9,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import LoginForm from "./pages/user/login/login";
 import Layout from "./layouts/layout";
 import Dashboard from "./pages/dashboard/dashboard";
-import { ReactQueryDevtools } from "react-query/devtools";
 import Invoices from "./pages/invoices/invoices";
 import Budgets from "./pages/budgets/budgets";
 import BudgetForm from "./pages/budget/budget-form";
@@ -20,16 +19,17 @@ import TransactionDetail from "./pages/transaction/transaction-detail";
 import DeleteModal from "./components/Utilities/delete-modal";
 import UserForm from "./pages/user/update/user-form";
 import DeleteUserModal from "./pages/user/delete/user-delete";
-import Profile from "./pages/user/profile/profile";
 import ErrorPage from "./pages/error/error-page";
 import Home from "./pages/home/home";
+import { ParamsProvider } from "./context/params-content";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       useErrorBoundary: (error: any) =>
         error.response.status === 403 || error.response.status >= 500,
-      retry: (_, error: any) => error.response.status !== 403,
+      retry: (_, error: any) =>
+        error.response.status !== 403 && error.response.status > 500,
     },
     mutations: {
       useErrorBoundary: (error: any) =>
@@ -138,10 +138,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <UserContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} position={"bottom-right"} />
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <ParamsProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ParamsProvider>
     </UserContextProvider>
   </React.StrictMode>
 );
