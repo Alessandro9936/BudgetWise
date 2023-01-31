@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import ThemeToggle from "../components/Utilities/ThemeToggle";
 import links from "./utils/sidebar-links";
 
 interface ISidebarMobile {
@@ -16,7 +17,7 @@ const SidebarMobile = ({ isMobile }: ISidebarMobile) => {
 
   return (
     <motion.ul
-      className="fixed bottom-0 right-4 left-4 z-50 mb-4 flex items-center justify-between rounded-full bg-indigo-500 p-2 dark:bg-indigo-600"
+      className="fixed bottom-0 right-4 left-4 z-10 mb-4 flex items-center justify-between rounded-xl bg-indigo-500 p-2 dark:bg-indigo-600"
       onMouseLeave={() => setHoveredRoute(null)}
       initial={false}
     >
@@ -50,17 +51,21 @@ const SidebarMobile = ({ isMobile }: ISidebarMobile) => {
           {link.route === selectedRoute ? (
             <motion.div
               layoutId="selected"
-              className="absolute top-0 bottom-0 left-0 right-0 -z-10 rounded-full bg-white"
+              className="absolute top-0 bottom-0 left-0 right-0 -z-10 rounded-xl bg-white"
             />
           ) : null}
           {link.route === hoveredRoute ? (
             <motion.div
               layoutId="hovered"
-              className="absolute top-0 bottom-0 left-0 right-0 -z-20 rounded-full bg-indigo-100 dark:bg-indigo-200"
+              className="absolute top-0 bottom-0 left-0 right-0 -z-20 rounded-xl bg-indigo-100 dark:bg-indigo-200"
             />
           ) : null}
         </motion.li>
       ))}
+
+      <div className="p-2 text-white">
+        <ThemeToggle isOpen={false} />
+      </div>
     </motion.ul>
   );
 };
