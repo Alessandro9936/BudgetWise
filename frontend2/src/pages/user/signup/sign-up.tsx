@@ -11,8 +11,12 @@ import { useSignUp } from "../../../services/user/user-services";
 import FieldBudget from "./components/field-budget";
 import RedirectLink from "../../../components/Buttons/RedirectLink";
 import PasswordRequirements from "../../../components/Form/password-requirements";
-import { Eye } from "react-feather";
-import { useState } from "react";
+
+import { ReactNode, useState } from "react";
+
+import Header from "../../../layouts/header";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import ShowPasswordWrapper from "../../../components/Utilities/showPasswordWrapper";
 
 const SignUpForm = () => {
   const { control, handleSubmit, setError, setValue, getValues } =
@@ -23,19 +27,20 @@ const SignUpForm = () => {
     });
 
   const { signUp, isLoading } = useSignUp();
-
   const onSubmit = (formData: SignUpFormType) => signUp(formData, setError);
 
-  const [showPreview1, setShowPreview1] = useState(false);
-  const [showPreview2, setShowPreview2] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <>
+      <Header />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="absolute top-2/4 left-2/4 flex w-screen -translate-x-2/4 -translate-y-2/4 flex-col gap-y-6 p-4 px-8 md:w-fit md:px-0"
       >
-        <h1 className="mb-4">Create a new account</h1>
+        <h1 className="mb-2">Create a new account</h1>
+
         {/* First row - Firstname and lastname */}
         <div className="flex flex-col items-baseline gap-y-4 gap-x-4 md:flex-row md:gap-y-0">
           <InputText
@@ -71,47 +76,33 @@ const SignUpForm = () => {
           getValues={getValues}
         />
         {/* Fourth row - Password */}
-        <div className="relative -z-10">
+        <ShowPasswordWrapper
+          isShowingPassword={showPassword}
+          setShowPassword={setShowPassword}
+        >
           <InputText
-            type={showPreview1 ? "text" : "password"}
+            type={showPassword ? "text" : "password"}
             name="password"
             label="Password"
             isRequired={true}
             control={control}
           />
-
-          <Eye
-            onMouseDown={() => setShowPreview1(true)}
-            onMouseUp={() => setShowPreview1(false)}
-            onMouseLeave={() => setShowPreview1(false)}
-            className="absolute top-1 right-0 cursor-pointer stroke-neutral-500 dark:stroke-neutral-400"
-            size={19}
-            strokeWidth={1.5}
-          />
-        </div>
+        </ShowPasswordWrapper>
 
         {/* Fifth row - Confirm assword */}
-        <div className="relative -z-10">
+        <ShowPasswordWrapper
+          isShowingPassword={showConfirmPassword}
+          setShowPassword={setShowConfirmPassword}
+        >
           <InputText
-            type={showPreview2 ? "text" : "password"}
+            type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"
             label="Confirm password"
             isRequired={true}
             control={control}
           />
-
-          <Eye
-            onMouseDown={() => setShowPreview2(true)}
-            onMouseUp={() => setShowPreview2(false)}
-            onMouseLeave={() => setShowPreview2(false)}
-            className="absolute top-1 right-0 cursor-pointer stroke-neutral-500 dark:stroke-neutral-400"
-            size={19}
-            strokeWidth={1.5}
-          />
-        </div>
-
+        </ShowPasswordWrapper>
         <PasswordRequirements />
-
         <SubmitButton label="Create account" isLoading={isLoading} />
         <p className="-mt-2 text-sm ">
           Do you have an account?{" "}

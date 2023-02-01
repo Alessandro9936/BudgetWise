@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronDown } from "react-feather";
+import { useCallback, useRef, useState } from "react";
 
 import {
   useController,
@@ -12,9 +11,14 @@ import FieldError from "../../../../components/Error/field-error";
 import { SignUpFormType } from "../types/types";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
+import { motion } from "framer-motion";
+import { BiChevronRight } from "react-icons/bi";
+
 interface ICurrencyPicker {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: UseFormSetValue<SignUpFormType>;
   activeCurrency: string;
-  setCurrencyValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface IFieldBudget {
@@ -23,10 +27,11 @@ interface IFieldBudget {
 }
 
 const CurrencyPicker = ({
+  isModalOpen,
+  setIsModalOpen,
+  setValue,
   activeCurrency,
-  setCurrencyValue,
 }: ICurrencyPicker) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useOnClickOutside({
@@ -37,31 +42,35 @@ const CurrencyPicker = ({
   return (
     <div ref={ref}>
       <div
-        className="focus absolute inset-y-0 right-0 z-10 flex cursor-pointer items-center rounded-r-lg  border border-neutral-300 bg-white px-2 focus:outline-none dark:border-slate-700 dark:bg-slate-800"
+        className="absolute inset-y-0 right-0 z-10 flex cursor-pointer items-center rounded-r-lg border border-neutral-300 bg-white px-2 focus:outline-none dark:border-slate-700 dark:border-l-slate-600  dark:bg-slate-700"
         onClick={() => setIsModalOpen(!isModalOpen)}
       >
-        <span className="mr-2 text-sm text-neutral-500 dark:text-neutral-400">
+        <span className="mr-1 text-sm text-neutral-500 dark:text-neutral-400">
           {activeCurrency}
         </span>
-        <ChevronDown
-          size={18}
-          strokeWidth={1.5}
-          className="stroke-neutral-500 dark:stroke-neutral-400"
-        />
+        <motion.span
+          animate={{ rotate: isModalOpen ? 90 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <BiChevronRight
+            size={20}
+            className="cursor-pointer text-neutral-500 dark:text-neutral-400"
+          />
+        </motion.span>
       </div>
       {isModalOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-800">
+        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-700">
           <div className="py-2">
             {["USD", "GBP", "EUR"].map((currency) => (
               <span
                 key={currency}
-                className="block cursor-pointer px-4 py-2 text-neutral-500 hover:bg-neutral-100 hover:text-slate-800 dark:text-neutral-300 dark:hover:bg-slate-700 dark:hover:text-white"
+                className="block cursor-pointer px-4 py-2 text-neutral-500 hover:bg-neutral-100 hover:text-slate-800 dark:text-neutral-300 dark:hover:bg-slate-600 dark:hover:text-white"
                 onClick={() => {
-                  setCurrencyValue(currency);
+                  setValue("currency", currency);
                   setIsModalOpen(false);
                 }}
               >
-                <span>{currency}</span>
+                {currency}
               </span>
             ))}
           </div>
@@ -78,19 +87,13 @@ const FieldBudget = ({
 }: IFieldBudget & UseControllerProps<SignUpFormType>) => {
   const { fieldState, field } = useController(props);
 
-  const [activeCurrency, setActiveCurrency] = useState(getValues("currency"));
-
-  useEffect(() => {
-    setValue("currency", activeCurrency);
-  }, [activeCurrency]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currencySymbol = {
     USD: "$",
     EUR: "€",
     GBP: "£",
-  }[activeCurrency];
-
-  useEffect(() => setValue("currency", activeCurrency), [activeCurrency]);
+  }[getValues("currency")];
 
   return (
     <div className="flex flex-col gap-2">
@@ -114,8 +117,10 @@ const FieldBudget = ({
           }`}
         />
         <CurrencyPicker
-          activeCurrency={activeCurrency}
-          setCurrencyValue={setActiveCurrency}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          setValue={setValue}
+          activeCurrency={getValues("currency")}
         />
       </div>
       {fieldState.error?.message && (
