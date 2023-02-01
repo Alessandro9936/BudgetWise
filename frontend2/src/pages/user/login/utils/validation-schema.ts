@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const initialValues = { email: "", password: "" };
+
 const LoginSchema = z.object({
   email: z
     .string()
@@ -8,4 +10,4 @@ const LoginSchema = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-export default LoginSchema;
+export { LoginSchema, initialValues };
