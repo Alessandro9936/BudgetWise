@@ -7,13 +7,13 @@ import {
 
 import FieldError from "../Error/field-error";
 
-type inputTextType = {
+interface IinputText {
   label?: string;
   type: string;
   placeholder?: string;
   isRequired?: boolean;
   disabled?: boolean;
-};
+}
 
 function InputText<
   TFieldValues extends FieldValues = FieldValues,
@@ -24,30 +24,26 @@ function InputText<
   isRequired,
   placeholder,
   disabled,
-  name,
-  control,
-}: UseControllerProps<TFieldValues, TName> & inputTextType) {
-  const {
-    formState: { errors },
-    fieldState,
-    field,
-  } = useController({ name, control });
+  ...props
+}: UseControllerProps<TFieldValues, TName> & IinputText) {
+  const { fieldState, field } = useController(props);
+
   return (
     <div className="flex w-full flex-col gap-2">
       <label htmlFor={field.name} className="font-medium">
-        {label} {isRequired && <span className="text-red-500">*</span>}
+        {label} {isRequired && <span className="text-red-400">*</span>}
       </label>
       <input
         type={type}
         placeholder={placeholder}
         disabled={disabled}
         {...field}
-        className={`flex-1 rounded-lg border border-gray-300 bg-white py-2 px-4 text-sm shadow-sm placeholder:text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 disabled:text-gray-400 ${
-          fieldState.error?.message ? "border-red-500" : ""
+        className={`input-form ${
+          fieldState.error?.message ? "border-red-400 dark:border-red-400" : ""
         } `}
       />
-      {errors[field.name] && (
-        <FieldError message={errors[field.name]?.message as string} />
+      {fieldState.error?.message && (
+        <FieldError message={fieldState.error?.message} />
       )}
     </div>
   );
