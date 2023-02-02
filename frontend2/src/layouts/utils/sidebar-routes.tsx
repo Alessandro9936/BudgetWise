@@ -1,12 +1,7 @@
 import { BiHomeAlt, BiPieChartAlt2, BiTransfer, BiUser } from "react-icons/bi";
+import { IRoute } from "../types";
 
-interface ILinkResponse {
-  name: "Dashboard" | "Invoices" | "Budgets" | "Profile";
-  route: string;
-  icon: JSX.Element;
-}
-
-const links = (isMobile: boolean): ILinkResponse[] => {
+const routes = (isMobile: boolean): IRoute[] => {
   return [
     {
       name: "Dashboard",
@@ -32,4 +27,4 @@ const links = (isMobile: boolean): ILinkResponse[] => {
   ];
 };
 
-export default links;
+export default routes;
