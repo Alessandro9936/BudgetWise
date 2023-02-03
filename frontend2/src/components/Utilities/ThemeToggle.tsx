@@ -17,27 +17,30 @@ interface IThemeToggle {
 }
 
 const ThemeToggle = ({ isOpen }: IThemeToggle) => {
-  const [theme, setTheme] = useState<"dark" | "light">("light");
   const { isMobile } = useCheckMobile();
 
-  useEffect(() => {
+  const getInitialTheme = () => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) return storedTheme as "dark" | "light";
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
+      return "dark";
     } else {
-      setTheme("light");
+      return "light";
     }
-  }, []);
+  };
+  const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme());
 
-  useEffect(
-    () =>
-      theme === "dark"
-        ? document.documentElement.classList.add("dark")
-        : document.documentElement.classList.remove("dark"),
-    [theme]
-  );
+  useEffect(() => {
+    theme === "dark"
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+  }, [theme]);
 
-  const handleThemeSwitch = () =>
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  const handleThemeSwitch = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
   return isOpen ? (
     <div
