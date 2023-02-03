@@ -71,7 +71,6 @@ const getGraphYearData = (
       ? transaction.date.getMonth()
       : null
   );
-  console.log("ao");
 
   return monthNames.map((month, i) => {
     const monthTransactions = groupedTransactions[i];
@@ -92,7 +91,6 @@ const getGraphMonthData = (
       : null
   );
 
-  console.log("ao pippo");
   // While extracting by month and day takes always the same values, weeks inside a month are not always the same. This loop allow to format the week number that will be sent with the sum of incomes and expenses in tht week
   let weeksInMonth: string[] = [];
   for (let i = 0; i < getWeeksInMonth(activeDate); i++) {
@@ -118,7 +116,6 @@ const getGraphWeekData = (
       ? transaction.date.getUTCDay()
       : null
   );
-  console.log("ao piero");
 
   return dayNames.map((day, i) => {
     const dayTransactions = groupedTransactions[i];

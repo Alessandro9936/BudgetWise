@@ -7,8 +7,8 @@ import Graph from "./components/graph";
 import Summary from "./components/summary";
 
 const Dashboard = () => {
-  const firstQuery = useGetTransactionsByDate(new Date(), "Monthly");
-  const isLoading = firstQuery.isLoading;
+  const { isLoading } = useGetTransactionsByDate(new Date(), "Monthly");
+
   return (
     <>
       <section className="grid flex-1 gap-6 bg-neutral-100 p-6 dark:bg-slate-900 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1.25fr]  lg:grid-rows-[auto_1fr]">

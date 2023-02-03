@@ -2,7 +2,9 @@ import TimeSpanButton from "../../../components/Buttons/TimeSpanButton";
 import Card from "../../../components/Utilities/card";
 import DateBar from "../../../components/UI/date-bar";
 import useActiveDates from "../../../hooks/useActiveDates";
-import { useGetTransactionsByDate } from "../../../services/transaction-services";
+import {
+  useGetTransactionsByDate,
+} from "../../../services/transaction-services";
 import {
   getGraphMonthData,
   getGraphWeekData,
@@ -22,9 +24,15 @@ import useCheckMobile from "../../../hooks/useCheckMobile";
 import { getCurrency } from "../../../context/user-context";
 import { BiSync } from "react-icons/bi";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { graphVariants } from "../utils/variants";
+import { useMemo, useState } from "react";
 
 const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
+  // Use state to delay start animation on first render since graph card will appear after 1.5 seconds
+  const [hasRendered, setHasRendered] = useState(false);
+  // Check if viewport is mobile to trigger orientation of graph
+  const { isMobile } = useCheckMobile();
+
   const {
     updateActiveDate,
     updateActiveTimeSpan,
@@ -34,46 +42,28 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
     refreshDate,
   } = useActiveDates();
 
-  const { isMobile } = useCheckMobile();
+  const currency = getCurrency();
 
   const queryTransactions = useGetTransactionsByDate(
     activeDate,
     activeTimeSpan
   );
-
   const transactions = queryTransactions?.data ?? [];
+
   const isFetching = queryTransactions?.isFetching;
-  const currency = getCurrency();
 
-  let graphData: {
-    name: string;
-    income: number;
-    expenses: number;
-  }[];
-
-  switch (activeTimeSpan) {
-    case "Yearly": {
-      graphData = getGraphYearData(transactions, activeDate);
-      break;
-    }
-    case "Monthly": {
-      graphData = getGraphMonthData(transactions, activeDate);
-      break;
-    }
-    case "Weekly": {
-      graphData = getGraphWeekData(transactions, activeDate);
-      break;
-    }
-  }
-
-  const [hasRendered, setHasRendered] = useState(false);
+  const graphData = {
+    Yearly: () => getGraphYearData(transactions, activeDate),
+    Monthly: () => getGraphMonthData(transactions, activeDate),
+    Weekly: () => getGraphWeekData(transactions, activeDate),
+  }[activeTimeSpan];
 
   return (
     <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.5 }}
-      className={`${gridDisposition} flex flex-col gap-y-3 `}
+      variants={graphVariants}
+      initial="initial"
+      animate="ending"
+      className={`${gridDisposition} flex flex-col gap-y-4 `}
     >
       <div className="flex items-center justify-between">
         <h3>Overview</h3>
@@ -95,12 +85,16 @@ const Graph = ({ gridDisposition }: { gridDisposition: string }) => {
             <DateBar
               updateActiveDate={updateActiveDate}
               activeDateFormatted={activeDateFormatted}
+              activeDate={activeDate}
+              activeTimeSpan={activeTimeSpan}
+              toPrefetch="transactions"
             />
           </div>
         </div>
-        <ResponsiveContainer width="100%" height="93%">
+
+        <ResponsiveContainer width="99%" height="93%">
           <AreaChart
-            data={graphData}
+            data={graphData()}
             margin={{
               top: 30,
               right: 30,
