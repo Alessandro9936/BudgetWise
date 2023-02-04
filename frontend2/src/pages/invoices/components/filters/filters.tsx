@@ -1,62 +1,71 @@
-import BudgetFilter from "./components/budget-filter";
-import StateFilter from "./components/state-filter";
-import SortFilter from "./components/sort-filter";
-import TypeFilter from "./components/type-filter";
-import DateFilter from "./components/date-filter";
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import BudgetFilter from "./budget-filter";
+import StateFilter from "./state-filter";
+import SortFilter from "./sort-filter";
+import TypeFilter from "./type-filter";
+import DateFilter from "./date-filter";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { ParamsContext } from "../../../../context/params-content";
 
 const Filters = () => {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeDropdown, setActiveDropdown] = useState<
     null | "date" | "type" | "sort" | "state" | "budget"
   >(null);
 
-  const transactionType = searchParams.get("type");
+  /**
+   * Every time /invoices route is rendered run this useEffect to automatically set in the query all the parameters that are active in the ParamsContext.
+   * ! TO  FIX - If click two times on route the parameters are deleted, run effect doesn't run since the pathname doesn't change
+   */
 
-  const handleActiveDropdown = (dropdown: typeof activeDropdown) => {
-    setActiveDropdown((prev) => (prev === dropdown ? null : dropdown));
-  };
+  const { pathname } = useLocation();
+  const { params } = useContext(ParamsContext);
+  useEffect(() => {
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        if (Array.isArray(value)) {
+          if (value.length > 0) {
+            searchParams.set(key, value.join(","));
+            setSearchParams(searchParams);
+          }
+        } else if (value) {
+          searchParams.set(key, value);
+          setSearchParams(searchParams);
+        }
+      }
+    }
+  }, [pathname]);
+
+  const transactionType = searchParams.get("type");
 
   return (
     <div className="flex flex-wrap gap-4">
-      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1  md:w-max md:min-w-max md:flex-initial ">
-        <div
-          className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() => handleActiveDropdown("date")}
-        />
-        <DateFilter isOpen={activeDropdown === "date"} />
-      </div>
-      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
-        <div
-          className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() => handleActiveDropdown("type")}
-        />
-        <TypeFilter isOpen={activeDropdown === "type"} />
-      </div>
-      <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
-        <div
-          className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-          onClick={() => handleActiveDropdown("sort")}
-        />
-        <SortFilter isOpen={activeDropdown === "sort"} />
-      </div>
+      <DateFilter
+        isOpen={activeDropdown === "date"}
+        setActiveDropdown={setActiveDropdown}
+      />
+
+      <TypeFilter
+        isOpen={activeDropdown === "type"}
+        setActiveDropdown={setActiveDropdown}
+      />
+
+      <SortFilter
+        isOpen={activeDropdown === "sort"}
+        setActiveDropdown={setActiveDropdown}
+      />
+
       {transactionType === "expense" && (
         <>
-          <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
-            <div
-              className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-              onClick={() => handleActiveDropdown("state")}
-            />
-            <StateFilter isOpen={activeDropdown === "state"} />
-          </div>
-          <div className="relative w-full midsm:min-w-[230px] midsm:flex-1 md:w-max md:min-w-max md:flex-initial">
-            <div
-              className="absolute top-0 bottom-0 left-0 right-0 cursor-pointer"
-              onClick={() => handleActiveDropdown("budget")}
-            />
-            <BudgetFilter isOpen={activeDropdown === "budget"} />
-          </div>
+          <StateFilter
+            isOpen={activeDropdown === "state"}
+            setActiveDropdown={setActiveDropdown}
+          />
+
+          <BudgetFilter
+            isOpen={activeDropdown === "budget"}
+            setActiveDropdown={setActiveDropdown}
+          />
         </>
       )}
     </div>

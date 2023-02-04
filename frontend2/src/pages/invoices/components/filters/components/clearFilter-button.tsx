@@ -8,7 +8,7 @@ const ClearFilterButton = ({
   return (
     <button
       disabled={disabled}
-      className="button-primary w-full"
+      className="button-primary mt-4 w-full"
       onClick={reset}
     >
       Clear
