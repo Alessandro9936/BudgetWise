@@ -1,86 +1,65 @@
 import Card from "../../../components/Utilities/card";
-import { useGetBudgetsByDate } from "../../../services/budget-services";
+import {
+  useGetBudgetsByDate,
+  usePrefetchBudgetDetail,
+} from "../../../services/budget-services";
 
 import ProgressBar from "../../../components/UI/progress-bar";
-import allBudgets from "../../../constants/all-budgets";
+import { getBudgetUI } from "../../../utils/getBudgetUI";
 
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { BiEditAlt, BiTrashAlt } from "react-icons/bi";
+import { formatMonth } from "../../../services/format/date";
 
-const parentVariants = {
-  initial: { opacity: 0 },
-  ending: {
-    opacity: 1,
-    transition: {
-      type: "tween",
-      duration: 0.25,
-      when: "beforeChildren",
-      staggerChildren: 0.15,
-      delay: 0.6,
-    },
-  },
-};
-
-const childVariants = {
-  initial: { opacity: 0 },
-  ending: {
-    opacity: 1,
-  },
-};
+import UpdateIcon from "../../../components/Icons/UpdateIcon";
+import DeleteIcon from "../../../components/Icons/DeleteIcon";
+import {
+  budgetPreviewChildrenVariants,
+  budgetPreviewParentVariants,
+} from "../utils/variants";
 
 interface IBudgetPreviews {
   activeDate: Date;
   timeSpan: string;
 }
+
 const BudgetPreviews = ({ activeDate, timeSpan }: IBudgetPreviews) => {
   const query = useGetBudgetsByDate(activeDate, timeSpan);
   const budgets = query?.data ?? [];
+  const { prefetchBudgetDetails } = usePrefetchBudgetDetail();
 
   const formatBudgetDate = (budgetDate: Date) => {
     return timeSpan === "Yearly"
       ? budgetDate.getFullYear()
-      : `${budgetDate.toLocaleDateString(navigator.language, {
-          month: "long",
-          year: "numeric",
-        })} `;
+      : formatMonth(budgetDate);
   };
 
   return (
     <motion.div
-      variants={parentVariants}
+      variants={budgetPreviewParentVariants}
       initial="initial"
       animate="ending"
       className="relative flex-1 overflow-auto"
     >
-      <h3 className="mb-4 text-base font-semibold">Budget Previews</h3>
-      <ul className="grid grid-cols-autoFillBudgets gap-8 overflow-y-auto">
+      <h3 className="mb-4">Budget Previews</h3>
+      <ul className="mb-16 grid grid-cols-autoFillBudgets gap-8 overflow-y-auto midsm:mb-0">
         {budgets.map((budget) => {
-          const budgetView = allBudgets.find(
-            (_budget) => _budget.name === budget.name
-          );
+          const budgetUI = getBudgetUI(budget.name);
 
           return (
-            <motion.li variants={childVariants} key={budget._id}>
+            <motion.li
+              variants={budgetPreviewChildrenVariants}
+              key={budget._id}
+            >
               <Card classNames="dark:bg-slate-800 py-4 px-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-base font-semibold">{budgetView?.label}</p>
+                  <p className="text-base font-semibold">{budgetUI?.label}</p>
                   {timeSpan === "Monthly" && (
-                    <div className="flex items-center gap-2">
-                      <Link to={`${budget._id}`}>
-                        <BiEditAlt
-                          size={20}
-                          color={"#a3a3a3"}
-                          cursor={"pointer"}
-                        />
-                      </Link>
-                      <Link to={`${budget._id}/delete`}>
-                        <BiTrashAlt
-                          size={20}
-                          color={"#a3a3a3"}
-                          cursor={"pointer"}
-                        />
-                      </Link>
+                    <div
+                      className="flex items-center gap-2"
+                      onMouseOver={() => prefetchBudgetDetails(budget._id)}
+                    >
+                      <UpdateIcon id={budget._id} />
+                      <DeleteIcon id={budget._id} />
                     </div>
                   )}
                 </div>

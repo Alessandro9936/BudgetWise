@@ -6,23 +6,7 @@ import { useGetBudgetsByDate } from "../../services/budget-services";
 import BudgetPreviews from "./components/budget-preview";
 import BudgetsChart from "./components/budgets-chart";
 import { motion } from "framer-motion";
-
-const parentVariants = {
-  initial: { opacity: 0 },
-  ending: {
-    opacity: 1,
-    transition: {
-      type: "tween",
-      duration: 0.25,
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const childVariants = {
-  initial: { opacity: 0, y: 20 },
-  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
-};
+import { childVariants, parentVariants } from "./utils/variants";
 
 const Budgets = () => {
   const {
@@ -33,21 +17,22 @@ const Budgets = () => {
     activeDateFormatted,
   } = useActiveDates();
 
-  const query = useGetBudgetsByDate(new Date(), "Monthly");
-  const isLoading = query.isLoading;
+  const { isLoading } = useGetBudgetsByDate(new Date(), "Monthly");
 
   return (
-    <section className="flex w-full flex-1 flex-col gap-6 bg-gray-100 p-6 dark:bg-slate-900 md:h-screen md:flex-row">
+    <section className="flex w-full flex-1 flex-col gap-6 bg-neutral-100 p-6 dark:bg-slate-900 md:h-screen md:flex-row">
       {!isLoading ? (
         <>
           <motion.div
             variants={parentVariants}
             initial="initial"
             animate="ending"
+            transition={{ type: "tween" }}
             className="flex min-w-[320px] basis-3/12 flex-col gap-y-4 "
           >
             <motion.div
               variants={childVariants}
+              transition={{ type: "tween" }}
               className="mx-auto flex gap-x-6"
             >
               {["Yearly", "Monthly"].map((timeSpan) => (
@@ -59,12 +44,15 @@ const Budgets = () => {
                 />
               ))}
             </motion.div>
-            <motion.div variants={parentVariants}>
-              <DateBar
-                updateActiveDate={updateActiveDate}
-                activeDateFormatted={activeDateFormatted}
-              />
-            </motion.div>
+
+            <DateBar
+              updateActiveDate={updateActiveDate}
+              activeDate={activeDate}
+              activeTimeSpan={activeTimeSpan}
+              activeDateFormatted={activeDateFormatted}
+              toPrefetch="budgets"
+            />
+
             <BudgetsChart
               activeDate={activeDate}
               timeSpan={activeTimeSpan}
