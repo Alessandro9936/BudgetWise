@@ -5,6 +5,7 @@ import { addMonths, addYears, subMonths, subYears } from "date-fns";
 import { childVariants } from "../../pages/dashboard/utils/variants";
 import { usePrefetchTransactionsByDate } from "../../services/transaction-services";
 import { formatMonth } from "../../services/format/date";
+import { usePrefetchBudgetsByDate } from "../../services/budget-services";
 
 interface IDateBar {
   updateActiveDate: (action: "sub" | "add") => void;
@@ -19,17 +20,20 @@ const DateBar = ({
   activeDate,
   activeDateFormatted,
   activeTimeSpan,
+  toPrefetch,
 }: IDateBar) => {
   const { prefetchTransactions } = usePrefetchTransactionsByDate();
+  const { prefetchBudgets } = usePrefetchBudgetsByDate();
+
   const prefetchOnHover = (dateToPrefetch: Date) => {
-    const format =
+    const formatDate =
       activeTimeSpan === "Yearly"
         ? dateToPrefetch.getFullYear()
         : formatMonth(dateToPrefetch);
 
-    prefetchTransactions(format);
-
-    // toPrefetch === 'transactions' ? prefetchTransactions(format) : prefetchBudgets(format)
+    toPrefetch === "transactions"
+      ? prefetchTransactions(formatDate)
+      : prefetchBudgets(formatDate);
   };
 
   return (
