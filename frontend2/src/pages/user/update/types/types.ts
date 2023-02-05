@@ -1,10 +1,5 @@
 import { z } from "zod";
-import {
-  UserUpdateSchemaNoPasswords,
-  UserUpdateSchemaPasswords,
-} from "../utils/validation-schema";
+import { noPasswordSchema, passwordSchema } from "../utils/validation-schema";
 
-export type IUpdateUserFormNoPassword = z.infer<
-  typeof UserUpdateSchemaNoPasswords
->;
-export type IUpdateUserFormPassword = z.infer<typeof UserUpdateSchemaPasswords>;
+export type userFormNoPassword = z.infer<typeof noPasswordSchema>;
+export type userFormPassword = z.infer<typeof passwordSchema>;
