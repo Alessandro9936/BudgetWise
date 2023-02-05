@@ -2,21 +2,25 @@ import { MoreHorizontal } from "react-feather";
 import { BiMoney } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { getCurrency } from "../../context/user-context";
-import { ITransactionResponse } from "../../services/transaction-services";
+import {
+  ITransactionResponse,
+  usePrefetchTransactionDetails,
+} from "../../services/transaction-services";
 
 import { motion } from "framer-motion";
 import { childVariants } from "../../pages/dashboard/utils/variants";
 import { getBudgetUI } from "../../utils/getBudgetUI";
 import { formatDate } from "../../services/format/date";
 
-const TransactionCard = ({
-  transaction,
-  disabled,
-}: {
+interface ITransactionCard {
   transaction: ITransactionResponse;
   disabled?: boolean;
-}) => {
+}
+
+const TransactionCard = ({ transaction, disabled }: ITransactionCard) => {
   const currency = getCurrency();
+  const { prefetchTransactionDetails } = usePrefetchTransactionDetails();
+
   return (
     <motion.div
       variants={childVariants}
@@ -34,7 +38,10 @@ const TransactionCard = ({
           <p className="font-semibold">{transaction.description}</p>
           {!disabled && (
             <Link to={`transaction/${transaction._id}`}>
-              <MoreHorizontal className="cursor-pointer" />
+              <MoreHorizontal
+                className="cursor-pointer"
+                onMouseEnter={() => prefetchTransactionDetails(transaction._id)}
+              />
             </Link>
           )}
         </div>
