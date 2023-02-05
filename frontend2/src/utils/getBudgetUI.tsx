@@ -12,7 +12,7 @@ import {
   BiWallet,
 } from "react-icons/bi";
 
-const budgets = [
+export const budgets = [
   {
     name: "rent",
     label: "Rent",
