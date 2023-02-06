@@ -5,28 +5,22 @@ import Modal from "../../components/Utilities/modal";
 import ProgressBar from "../../components/UI/progress-bar";
 import TransactionCard from "../../components/UI/TransactionCard";
 import { useCloseModal } from "../../hooks/useCloseWindow";
-import { useGetBudgetDetails } from "../../services/budget-services";
-import { useGetTransactionsBudgetPreview } from "../../services/transaction-services";
-import budgets from "../../constants/all-budgets";
+import {
+  IBudgetResponse,
+  useGetBudgetDetails,
+} from "../../services/budget-services";
+import { useGetTransactionsInBudget } from "../../services/transaction-services";
+import { getBudgetUI } from "../../utils/getBudgetUI";
 
-import { motion } from "framer-motion";
-
-const parentVariants = {
-  initial: { opacity: 0 },
-  ending: {
-    opacity: 1,
-    transition: {
-      when: "beforeChildren",
-      duration: 0.25,
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const childrenVariants = {
-  initial: { opacity: 0, y: 20 },
-  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
-};
+import { AnimatePresence, motion } from "framer-motion";
+import ToggleMenu from "../../components/Icons/ToggleMenu";
+import { useState } from "react";
+import {
+  cardVariants,
+  childrenVariants,
+  parentVariants,
+} from "./utils/variants";
+import { formatDate } from "../../services/format/date";
 
 const BudgetDetails = () => {
   useCloseModal();
@@ -34,85 +28,108 @@ const BudgetDetails = () => {
   const queryBudgetDetail = useGetBudgetDetails();
   const budgetDetails = queryBudgetDetail?.data;
 
-  const queryTransactionsInBudget =
-    useGetTransactionsBudgetPreview(budgetDetails);
-  const transactionsInBudget = queryTransactionsInBudget?.data;
+  return (
+    budgetDetails && (
+      <Modal>
+        <motion.section
+          variants={parentVariants}
+          initial="initial"
+          animate="ending"
+          className="flex flex-col gap-6 p-6"
+        >
+          <motion.div
+            variants={childrenVariants}
+            className="flex items-center justify-between"
+          >
+            <h1 className="text-2xl font-semibold">Budget details</h1>
+            <CloseIcon />
+          </motion.div>
+          <BudgetType budget={budgetDetails} />
+          <motion.div
+            variants={childrenVariants}
+            className="flex items-center justify-between"
+          >
+            <p className="font-semibold">Budget month</p>
+            <p>{formatDate(budgetDetails.date)}</p>
+          </motion.div>
+          <TransactionsInBudget budget={budgetDetails} />
+          <ProgressBar budget={budgetDetails} />
 
-  const budgetView = budgets.find(
-    (_budget) => _budget.name === budgetDetails?.name
+          {/* Allow to update budget only if it's not in the past */}
+          {isFuture(new Date(endOfMonth(budgetDetails.date))) && (
+            <ButtonRedirect
+              redirect="update"
+              label="Update maximum amount of budget"
+              styles="button-primary"
+            />
+          )}
+        </motion.section>
+      </Modal>
+    )
   );
+};
+
+const BudgetType = ({ budget }: { budget: IBudgetResponse }) => {
+  const BudgetUI = getBudgetUI(budget.name);
 
   return (
-    <>
-      {transactionsInBudget && budgetDetails && (
-        <Modal>
-          <motion.section
+    <motion.div
+      variants={childrenVariants}
+      className="flex items-center justify-between"
+    >
+      <p className="font-semibold">Budget type</p>
+      <p
+        className="rounded-lg border-2 px-2 py-[2px] font-semibold"
+        style={{
+          borderColor: BudgetUI?.color,
+          color: BudgetUI?.color,
+        }}
+      >
+        {BudgetUI?.label}
+      </p>
+    </motion.div>
+  );
+};
+
+const TransactionsInBudget = ({ budget }: { budget: IBudgetResponse }) => {
+  const [showTransactions, setShowTransactions] = useState(false);
+
+  // This query has the job to retrieve all the expenses that are inside previewed budget
+  const queryTransactionsInBudget = useGetTransactionsInBudget(budget);
+  const transactionsInBudget = queryTransactionsInBudget?.data ?? [];
+
+  return (
+    <motion.div variants={childrenVariants}>
+      <div
+        className="flex cursor-pointer items-center"
+        onClick={() => setShowTransactions(!showTransactions)}
+      >
+        <p>Show recent transactions</p>
+        <ToggleMenu trigger={showTransactions} />
+      </div>
+
+      <AnimatePresence>
+        {transactionsInBudget.length > 0 && showTransactions && (
+          <motion.div
             variants={parentVariants}
             initial="initial"
             animate="ending"
-            className="flex flex-col gap-6 p-6"
+            exit="exit"
           >
-            <motion.div
-              variants={childrenVariants}
-              className="flex items-center justify-between"
-            >
-              <h1 className="text-2xl font-semibold">Budget details</h1>
-              <CloseIcon />
-            </motion.div>
-            <motion.div
-              variants={childrenVariants}
-              className="flex items-center justify-between"
-            >
-              <p className="font-semibold">Budget type</p>
-              <p
-                className="rounded-lg border-2 px-2 py-[2px] font-semibold"
-                style={{
-                  borderColor: budgetView?.color,
-                  color: budgetView?.color,
-                }}
-              >
-                {budgetView?.label}
-              </p>
-            </motion.div>
-            <motion.div
-              variants={childrenVariants}
-              className="flex items-center justify-between"
-            >
-              <p className="font-semibold">Budget month</p>
-              <p>
-                {budgetDetails.date.toLocaleDateString(navigator.language, {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
-            </motion.div>
-            {transactionsInBudget.length > 0 && (
-              <div className="flex max-h-[300px] flex-col gap-y-2 overflow-y-auto p-1">
-                {transactionsInBudget.map((transaction) => (
-                  <motion.div variants={childrenVariants}>
-                    <TransactionCard
-                      key={transaction._id}
-                      transaction={transaction}
-                      disabled={true}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            )}
-            <motion.div variants={childrenVariants}>
-              <ProgressBar budget={budgetDetails} />
-            </motion.div>
-            {isFuture(new Date(endOfMonth(budgetDetails.date))) && (
-              <ButtonRedirect
-                redirect="update"
-                label="Update maximum amount of budget"
-                styles="button-primary"
-              />
-            )}
-          </motion.section>
-        </Modal>
-      )}
-    </>
+            {transactionsInBudget.map((transaction) => (
+              <motion.div key={transaction._id} variants={cardVariants}>
+                <TransactionCard
+                  key={transaction._id}
+                  transaction={transaction}
+                  disabled={true}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
+
 export default BudgetDetails;
