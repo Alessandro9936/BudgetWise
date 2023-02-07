@@ -8,11 +8,39 @@ const userBudgetsService = async (userID, query) => {
 
     const userBudgets = await Budget.find({ user: userID });
 
-    return userBudgets.filter((budget) =>
+    // First condition get budgets of each month in year
+    // Second condition get budgets of single month
+    const filterBudgetsByDate = userBudgets.filter((budget) =>
       Number(dateFilter)
         ? isSameYear(new Date(budget.date), new Date(dateFilter))
         : isSameMonth(new Date(budget.date), new Date(dateFilter))
     );
+
+    // When budgets are filtered by year, all the budgets in each month are returned.
+    // This allow to reduce budgets with same name in a single object.
+    return Number(dateFilter)
+      ? filterBudgetsByDate.reduce((previousValue, budget) => {
+          const budgetByName = previousValue.find(
+            (_budget) => _budget.name === budget.name
+          );
+          if (!budgetByName) {
+            previousValue = [
+              ...previousValue,
+              {
+                name: budget.name,
+                date: budget.date,
+                usedAmount: budget.usedAmount,
+                maxAmount: budget.maxAmount,
+                _id: budget._id,
+              },
+            ];
+          } else {
+            budgetByName.usedAmount += budget.usedAmount;
+            budgetByName.maxAmount += budget.maxAmount;
+          }
+          return previousValue;
+        }, [])
+      : filterBudgetsByDate;
   } catch (error) {
     throw new Error(error);
   }
