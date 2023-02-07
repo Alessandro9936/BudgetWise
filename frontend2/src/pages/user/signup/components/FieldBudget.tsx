@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 import {
   useController,
@@ -7,12 +7,11 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 
-import FieldError from "../../../../components/Error/field-error";
+import FieldError from "../../../../components/error/FieldError";
 import { SignUpFormType } from "../types/types";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
-import { motion } from "framer-motion";
-import { BiChevronRight } from "react-icons/bi";
+import ToggleIcon from "../../../../components/icons/ToggleIcon";
 
 interface ICurrencyPicker {
   isModalOpen: boolean;
@@ -32,12 +31,9 @@ const CurrencyPicker = ({
   setValue,
   activeCurrency,
 }: ICurrencyPicker) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside({
-    ref,
-    handler: useCallback(() => setIsModalOpen(false), []),
-  });
+  const ref = useOnClickOutside<HTMLDivElement>(
+    useCallback(() => setIsModalOpen(false), [])
+  );
 
   return (
     <div ref={ref}>
@@ -48,15 +44,7 @@ const CurrencyPicker = ({
         <span className="mr-1 text-sm text-neutral-500 dark:text-neutral-400">
           {activeCurrency}
         </span>
-        <motion.span
-          animate={{ rotate: isModalOpen ? 90 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <BiChevronRight
-            size={20}
-            className="cursor-pointer text-neutral-500 dark:text-neutral-400"
-          />
-        </motion.span>
+        <ToggleIcon trigger={isModalOpen} />
       </div>
       {isModalOpen && (
         <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-700">

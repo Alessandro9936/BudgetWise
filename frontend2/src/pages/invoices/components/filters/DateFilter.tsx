@@ -1,6 +1,6 @@
 import { Calendar } from "react-calendar";
 import { useSearchParams } from "react-router-dom";
-import ClearFilterButton from "./components/clearFilter-button";
+import ClearFilterButton from "./components/ClearFilter";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { BiCalendar } from "react-icons/bi";
@@ -10,6 +10,8 @@ import { IFilter } from "./types/types";
 import { filterCardVariants } from "./utils/variants";
 import { formatMonth } from "../../../../services/format/date";
 import useContextParams from "./hooks/useContextParams";
+import useOutsideClick from "../../../../hooks/useOnClickOutside";
+import { useCallback } from "react";
 
 const DateFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,6 +36,10 @@ const DateFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
     setSearchParams(searchParams);
   };
 
+  const ref = useOutsideClick<HTMLDivElement>(
+    useCallback(() => setActiveDropdown(null), [])
+  );
+
   return (
     <FilterWrapper>
       <FilterCard
@@ -48,6 +54,7 @@ const DateFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={ref}
             variants={filterCardVariants}
             initial="initial"
             animate="ending"

@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
-import { budgets as allBudgets } from "../../../../utils/getBudgetUI";
-import ClearFilterButton from "./components/clearFilter-button";
+import { budgets } from "../../../../utils/getBudgetUI";
+import ClearFilterButton from "./components/ClearFilter";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { BiPieChartAlt2 } from "react-icons/bi";
@@ -9,6 +9,8 @@ import FilterWrapper from "./components/FilterWrapper";
 import FilterCard from "./components/FilterCard";
 import { filterCardVariants } from "./utils/variants";
 import useContextParams from "./hooks/useContextParams";
+import useOutsideClick from "../../../../hooks/useOnClickOutside";
+import { useCallback } from "react";
 
 const BudgetFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,6 +39,10 @@ const BudgetFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
     setSearchParams(searchParams);
   };
 
+  const ref = useOutsideClick<HTMLUListElement>(
+    useCallback(() => setActiveDropdown(null), [])
+  );
+
   return (
     <FilterWrapper>
       <FilterCard
@@ -50,13 +56,14 @@ const BudgetFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
       <AnimatePresence>
         {isOpen && (
           <motion.ul
+            ref={ref}
             variants={filterCardVariants}
             initial="initial"
             animate="ending"
             exit="exit"
             className="absolute top-12 z-10 grid w-full origin-top-left grid-cols-autoFillBudgetOptions gap-2 rounded-lg bg-white p-4 shadow-lg dark:bg-slate-800 md:w-[360px]"
           >
-            {allBudgets.map((budget) => (
+            {budgets.map((budget) => (
               <li key={budget.name} className="flex items-center gap-2">
                 <input
                   onChange={() => onStateChange(budget.name)}

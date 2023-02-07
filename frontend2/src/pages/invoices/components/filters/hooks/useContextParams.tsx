@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ParamsContext } from "../../../../../context/params-content";
+import { ParamsContext } from "../../../../../context/ParamsContenxt";
 
 interface IUseContextParams {
   paramName: "type" | "range" | "sort" | "state" | "budget";

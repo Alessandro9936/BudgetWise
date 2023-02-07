@@ -1,22 +1,21 @@
-import SubmitButton from "../../../components/Buttons/SubmitButton";
+import SubmitButton from "../../../components/buttons/SubmitButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema, initialValues } from "./utils/validation-schema";
 import { SignUpFormType } from "./types/types";
 
-import InputText from "../../../components/Input/input-text";
+import InputText from "../../../components/input/InputText";
 
 import { useSignUp } from "../../../services/user/user-services";
 
-import FieldBudget from "./components/field-budget";
-import RedirectLink from "../../../components/Buttons/RedirectLink";
-import PasswordRequirements from "../../../components/Form/password-requirements";
+import FieldBudget from "./components/FieldBudget";
+import RedirectLink from "../../../components/links/RedirectLink";
+import PasswordRequirements from "../../../components/form/PasswordRequirements";
 
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
-import Header from "../../../layouts/header";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import ShowPasswordWrapper from "../../../components/Utilities/showPasswordWrapper";
+import Header from "../../../layouts/Header";
+import ShowPasswordWrapper from "../../../components/wrapper/PasswordPreview";
 
 const SignUpForm = () => {
   const { control, handleSubmit, setError, setValue, getValues } =

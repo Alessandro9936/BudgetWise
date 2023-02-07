@@ -1,15 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import ClearFilterButton from "./components/clearFilter-button";
+import ClearFilterButton from "./components/ClearFilter";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { BiCreditCardFront } from "react-icons/bi";
-import { ParamsContext } from "../../../../context/params-content";
+import { ParamsContext } from "../../../../context/ParamsContenxt";
 import { IFilter } from "./types/types";
 import FilterWrapper from "./components/FilterWrapper";
 import FilterCard from "./components/FilterCard";
 import { filterCardVariants } from "./utils/variants";
 import useContextParams from "./hooks/useContextParams";
+import useOutsideClick from "../../../../hooks/useOnClickOutside";
 
 const options = [
   {
@@ -46,6 +47,10 @@ const TypeFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
     setSearchParams(searchParams);
   };
 
+  const ref = useOutsideClick<HTMLUListElement>(
+    useCallback(() => setActiveDropdown(null), [])
+  );
+
   return (
     <FilterWrapper>
       <FilterCard
@@ -60,6 +65,7 @@ const TypeFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
       <AnimatePresence>
         {isOpen && (
           <motion.ul
+            ref={ref}
             variants={filterCardVariants}
             initial="initial"
             animate="ending"

@@ -1,6 +1,6 @@
 import { BiSortAlt2 } from "react-icons/bi";
 import { useSearchParams } from "react-router-dom";
-import ClearFilterButton from "./components/clearFilter-button";
+import ClearFilterButton from "./components/ClearFilter";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { IFilter } from "./types/types";
@@ -8,6 +8,8 @@ import FilterWrapper from "./components/FilterWrapper";
 import FilterCard from "./components/FilterCard";
 import { filterCardVariants } from "./utils/variants";
 import useContextParams from "./hooks/useContextParams";
+import useOutsideClick from "../../../../hooks/useOnClickOutside";
+import { useCallback } from "react";
 
 const dateOptions = [
   {
@@ -46,6 +48,10 @@ const SortFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
     setSearchParams(searchParams);
   };
 
+  const ref = useOutsideClick<HTMLDivElement>(
+    useCallback(() => setActiveDropdown(null), [])
+  );
+
   return (
     <FilterWrapper>
       <FilterCard
@@ -59,6 +65,7 @@ const SortFilter = ({ isOpen, setActiveDropdown }: IFilter) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={ref}
             variants={filterCardVariants}
             initial="initial"
             animate="ending"

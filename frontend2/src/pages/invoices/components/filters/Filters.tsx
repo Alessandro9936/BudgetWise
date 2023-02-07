@@ -1,11 +1,11 @@
-import BudgetFilter from "./budget-filter";
-import StateFilter from "./state-filter";
-import SortFilter from "./sort-filter";
-import TypeFilter from "./type-filter";
-import DateFilter from "./date-filter";
+import BudgetFilter from "./BudgetFilter";
+import StateFilter from "./StateFilter";
+import SortFilter from "./SortFilter";
+import TypeFilter from "./TypeFilter";
+import DateFilter from "./DateFilter";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
-import { ParamsContext } from "../../../../context/params-content";
+import { ParamsContext } from "../../../../context/ParamsContenxt";
 
 const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,7 +14,7 @@ const Filters = () => {
   >(null);
 
   /**
-   * Every time /invoices route is rendered run this useEffect to automatically set in the query all the parameters that are active in the ParamsContext.
+   * Every time /invoices route is rendered run this useEffect to automatically set in the url all the filter parameters that are active in the ParamsContext.
    * ! TO  FIX - If click two times on route the parameters are deleted, run effect doesn't run since the pathname doesn't change
    */
 

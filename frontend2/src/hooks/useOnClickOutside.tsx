@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-interface IOnClickoutside<T> {
-  ref: React.RefObject<T>;
-  handler: () => void;
-}
+const useOutsideClick = <T extends Element>(callback: () => void) => {
+  const ref = useRef<T>(null);
 
-const useOnClickOutside = <T extends Element>({
-  ref,
-  handler,
-}: IOnClickoutside<T>) => {
   useEffect(() => {
-    const listener = (event: MouseEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
-        return;
+    const handleClick = (event: MouseEvent) => {
+      // Execute callback function only when anything outside of ref is clicked, not when the ref itself gets clicked
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback();
       }
-      handler();
     };
-    document.addEventListener("mousedown", listener);
-    return () => document.removeEventListener("mousedown", listener);
-  }, [ref, handler]);
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [ref]);
+
+  return ref;
 };
 
-export default useOnClickOutside;
+export default useOutsideClick;
