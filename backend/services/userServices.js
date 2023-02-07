@@ -48,13 +48,17 @@ const refreshTokenService = async (refreshToken) => {
       refreshToken,
       REFRESH_TOKEN_SECRET,
       async (err, decoded) => {
-        if (err) return;
-        else {
-          const user = await User.findById(decoded.id).select(
-            "firstName lastName email currency"
-          );
-          const accessToken = await user.generateAuthToken();
-          return { user, accessToken };
+        try {
+          if (err) throw err;
+          else {
+            const user = await User.findById(decoded.id).select(
+              "firstName lastName email currency"
+            );
+            const accessToken = await user.generateAuthToken();
+            return { user, accessToken };
+          }
+        } catch (error) {
+          throw new Error(error);
         }
       }
     );
