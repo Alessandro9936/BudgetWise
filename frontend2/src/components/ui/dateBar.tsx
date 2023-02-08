@@ -6,14 +6,15 @@ import { childVariants } from "../../pages/dashboard/utils/variants";
 import { usePrefetchTransactionsByDate } from "../../services/transaction-services";
 import { formatMonth } from "../../services/format/date";
 import { usePrefetchBudgetsByDate } from "../../services/budget-services";
+import { TimeSpanType } from "../../types/timeSpanType";
 
-interface IDateBar {
+type DateBarProps = {
   updateActiveDate: (action: "sub" | "add") => void;
   activeDate: Date;
-  activeTimeSpan: "Yearly" | "Monthly" | "Weekly";
+  activeTimeSpan: TimeSpanType;
   activeDateFormatted: string | number;
   toPrefetch: "transactions" | "budgets";
-}
+};
 
 const DateBar = ({
   updateActiveDate,
@@ -21,7 +22,7 @@ const DateBar = ({
   activeDateFormatted,
   activeTimeSpan,
   toPrefetch,
-}: IDateBar) => {
+}: DateBarProps) => {
   const { prefetchTransactions } = usePrefetchTransactionsByDate();
   const { prefetchBudgets } = usePrefetchBudgetsByDate();
 
@@ -49,7 +50,7 @@ const DateBar = ({
               : subMonths(activeDate, 1)
           )
         }
-        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500 dark:bg-slate-600"
+        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500 dark:bg-slate-600 dark:hover:bg-indigo-600"
         onClick={() => updateActiveDate("sub")}
       >
         <BiChevronLeft size={18} className="stroke-white" />
@@ -63,7 +64,7 @@ const DateBar = ({
               : addMonths(activeDate, 1)
           )
         }
-        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500 dark:bg-slate-600"
+        className="cursor-pointer rounded-full bg-slate-700 p-1 text-white transition hover:bg-indigo-500 dark:bg-slate-600 dark:hover:bg-indigo-600"
         onClick={() => updateActiveDate("add")}
       >
         <BiChevronRight size={18} className="stroke-white" />

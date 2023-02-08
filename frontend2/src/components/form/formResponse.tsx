@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { BiCheckCircle } from "react-icons/bi";
 
 import { motion } from "framer-motion";
 
-const variants1 = {
+const parentVariants = {
   initial: { opacity: 0 },
   ending: {
     opacity: 1,
@@ -14,20 +14,21 @@ const variants1 = {
     },
   },
 };
-const variants = {
+const childrenVariants = {
   initial: { scaleX: 0 },
   ending: {
     scaleX: 1,
     transition: { duration: 0.5, type: "tween", ease: "easeOut" },
   },
 };
+const subChildrenVariants = {
+  initial: { opacity: 0 },
+  ending: { opacity: 1, delay: 0.8 },
+};
 
-interface IFormResponse {
-  children: React.ReactNode;
-}
-
-const FormResponse = ({ children }: IFormResponse) => {
+const FormResponse = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
+
   const [secondsToRedirect, setSecondsToRedirect] = useState(5);
 
   useEffect(() => {
@@ -45,29 +46,25 @@ const FormResponse = ({ children }: IFormResponse) => {
 
   return (
     <motion.div
-      variants={variants1}
+      variants={parentVariants}
       initial="initial"
       animate="ending"
       className="flex overflow-hidden rounded-lg "
     >
       <div className="w-2 bg-green-500" />
       <motion.div
-        variants={variants}
+        variants={childrenVariants}
         className="flex w-full origin-left bg-green-200"
       >
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          variants={subChildrenVariants}
           className="flex items-center  px-4"
         >
           <BiCheckCircle color="#16a34a" size={34} />
         </motion.div>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="flex flex-1 flex-col  py-2 "
+          variants={subChildrenVariants}
+          className="flex flex-1 flex-col py-2 "
         >
           {children}
           <p className="text-sm dark:text-slate-800">

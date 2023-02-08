@@ -1,17 +1,13 @@
-import CloseIcon from "../Icons/CloseIcon";
 import Modal from "./modal";
-import ButtonRedirect from "../Buttons/ButtonRedirect";
+import ButtonRedirect from "../buttons/redirectButton";
 import { useCloseModal } from "../../hooks/useCloseWindow";
 import { useDeleteTransaction } from "../../services/transaction-services";
 import { useDeleteBudget } from "../../services/budget-services";
-import { useNavigate } from "react-router-dom";
-import FormResponse from "../Form/form-response";
+import FormResponse from "../form/formResponse";
+import ModalHeader from "./modalHeader";
 
 const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
   useCloseModal();
-
-  const navigate = useNavigate();
-
   const transactionDelete = useDeleteTransaction();
   const budgetDelete = useDeleteBudget();
 
@@ -33,10 +29,8 @@ const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
   return (
     <Modal>
       <section className="flex flex-col gap-4 p-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Delete {toDelete}</h1>
-          <CloseIcon />
-        </div>
+        <ModalHeader label={`Delete ${toDelete}`} />
+
         {!isSubmitSuccessful && (
           <>
             <p>Are you sure you want to delete this {toDelete}?</p>
@@ -52,6 +46,7 @@ const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
             </div>
           </>
         )}
+
         {isSubmitSuccessful && !isLoadingSubmission && (
           <FormResponse>
             <p className="font-semibold dark:text-slate-800">

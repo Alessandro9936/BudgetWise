@@ -5,17 +5,17 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import FieldError from "../Error/field-error";
+import FieldError from "../error/fieldError";
 
-interface IinputText {
-  label?: string;
+type TextInputProps = {
+  label: string;
   type: string;
   placeholder?: string;
   isRequired?: boolean;
   disabled?: boolean;
-}
+};
 
-function InputText<
+function TextInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
@@ -25,7 +25,7 @@ function InputText<
   placeholder,
   disabled,
   ...props
-}: UseControllerProps<TFieldValues, TName> & IinputText) {
+}: UseControllerProps<TFieldValues, TName> & TextInputProps) {
   const { fieldState, field } = useController(props);
 
   return (
@@ -39,7 +39,9 @@ function InputText<
         disabled={disabled}
         {...field}
         className={`input-form ${
-          fieldState.error?.message ? "border-red-400 dark:border-red-400" : ""
+          fieldState.error?.message
+            ? "border-red-400 transition-colors duration-200 dark:border-red-400"
+            : ""
         } `}
       />
       {fieldState.error?.message && (
@@ -49,4 +51,4 @@ function InputText<
   );
 }
 
-export default InputText;
+export default TextInput;

@@ -19,7 +19,7 @@ function RangeInput<
   } = useController({ name, control });
 
   return (
-    <div className="mt-4 flex items-center justify-between gap-6">
+    <div className="mt-4 flex items-center justify-between gap-6 pl-2">
       <p className="w-[35px]">{field.value}</p>
       <input
         type="range"
@@ -27,7 +27,7 @@ function RangeInput<
         max={1000}
         step={10}
         disabled={isSubmitSuccessful || disable}
-        className="flex-1 cursor-pointer accent-purple-500"
+        className="flex-1 cursor-pointer accent-indigo-500"
       />
     </div>
   );

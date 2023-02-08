@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-interface IRedirectlink {
+type RedirectLinkProps = {
   redirectTo: string;
   label: string;
-}
-const RedirectLink = ({ redirectTo, label }: IRedirectlink) => {
+};
+const RedirectLink = ({ redirectTo, label }: RedirectLinkProps) => {
   return (
     <Link to={redirectTo} className="transition-colors hover:text-indigo-500">
       {label}

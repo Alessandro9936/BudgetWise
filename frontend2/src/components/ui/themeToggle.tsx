@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { BiBulb, BiMoon } from "react-icons/bi";
 import useCheckMobile from "../../hooks/useCheckMobile";
 
 import { motion } from "framer-motion";
+import useToggleTheme from "../../hooks/useToggleTheme";
 
 const itemsVariants = {
   closed: { opacity: 0, width: 0, y: "-25%" },
@@ -12,35 +12,9 @@ const itemsVariants = {
   },
 };
 
-interface IThemeToggle {
-  isOpen: boolean;
-}
-
-const ThemeToggle = ({ isOpen }: IThemeToggle) => {
+const ThemeToggle = ({ isOpen }: { isOpen: boolean }) => {
   const { isMobile } = useCheckMobile();
-
-  const getInitialTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) return storedTheme as "dark" | "light";
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    } else {
-      return "light";
-    }
-  };
-  const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme());
-
-  useEffect(() => {
-    theme === "dark"
-      ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark");
-  }, [theme]);
-
-  const handleThemeSwitch = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+  const { theme, handleThemeSwitch } = useToggleTheme();
 
   return isOpen ? (
     <div

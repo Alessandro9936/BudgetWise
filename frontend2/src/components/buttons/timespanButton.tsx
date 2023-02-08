@@ -1,14 +1,16 @@
-interface ITimeSpanButton {
-  timeSpan: "Yearly" | "Monthly" | "Weekly";
-  activeTimeSpan: "Yearly" | "Monthly" | "Weekly";
-  updateActiveTimeSpan: (timeSpan: "Yearly" | "Monthly" | "Weekly") => void;
-}
+import { TimeSpanType } from "../../types/timeSpanType";
+
+type TimeSpanButtonProps = {
+  timeSpan: TimeSpanType;
+  activeTimeSpan: TimeSpanType;
+  updateActiveTimeSpan: (timeSpan: TimeSpanType) => void;
+};
 
 const TimeSpanButton = ({
   timeSpan,
   activeTimeSpan,
   updateActiveTimeSpan,
-}: ITimeSpanButton) => {
+}: TimeSpanButtonProps) => {
   return (
     <button
       onClick={() => updateActiveTimeSpan(timeSpan)}

@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { BiChevronRight } from "react-icons/bi";
 
-interface IToggleMenu {
-  trigger: boolean;
-}
-
-const ToggleMenu = ({ trigger }: IToggleMenu) => {
+const ToggleIcon = ({ trigger }: { trigger: boolean }) => {
   return (
     <motion.span
       animate={{ rotate: trigger ? 90 : 0 }}
@@ -19,4 +15,4 @@ const ToggleMenu = ({ trigger }: IToggleMenu) => {
   );
 };
 
-export default ToggleMenu;
+export default ToggleIcon;

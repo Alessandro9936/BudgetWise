@@ -1,4 +1,4 @@
-import { BiX, BiXCircle } from "react-icons/bi";
+import { BiXCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const CloseIcon = () => {
