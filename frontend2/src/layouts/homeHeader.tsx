@@ -1,8 +1,8 @@
-import GithubRedirect from "../components/Buttons/GitHubRedirect";
-import Logo from "../components/UI/logo";
-import ThemeToggle from "../components/Utilities/ThemeToggle";
+import GithubRedirect from "../components/links/githubRedirect";
+import Logo from "../components/links/logo";
+import ThemeToggle from "../components/ui/themeToggle";
 
-const Header = () => {
+const HomeHeader = () => {
   return (
     <div className="flex w-full items-center justify-between p-4">
       <Logo redirect="/home" />
@@ -14,4 +14,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomeHeader;

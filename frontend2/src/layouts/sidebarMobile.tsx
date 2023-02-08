@@ -1,17 +1,11 @@
-import ThemeToggle from "../components/Utilities/ThemeToggle";
-import LinkSidebarMobile from "./components/sidebarLinkMobile";
-import useRoutes from "./hooks/useRoutes";
+import { useState } from "react";
+import ThemeToggle from "../components/ui/themeToggle";
+import LinkSidebarMobile from "./components/sidebarMobile/sidebarLinkMobile";
 import routes from "./utils/sidebar-routes";
 
-interface ISidebarMobile {
-  isMobile: boolean;
-}
-
-const SidebarMobile = ({ isMobile }: ISidebarMobile) => {
+const SidebarMobile = ({ isMobile }: { isMobile: boolean }) => {
+  const [hoveredRoute, setHoveredRoute] = useState<string | null>(null);
   const sidebarRoutes = routes(isMobile);
-
-  const { activeRoute, onActiveRouteChange, hoveredRoute, setHoveredRoute } =
-    useRoutes();
 
   return (
     <nav className="fixed bottom-0 right-4 left-4 z-10 mb-4">
@@ -23,8 +17,6 @@ const SidebarMobile = ({ isMobile }: ISidebarMobile) => {
           <LinkSidebarMobile
             key={link.route}
             link={link}
-            activeRoute={activeRoute}
-            setActiveRoute={onActiveRouteChange}
             hoveredRoute={hoveredRoute}
             setHoveredRoute={setHoveredRoute}
           />

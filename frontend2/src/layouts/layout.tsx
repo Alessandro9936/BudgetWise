@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import useCheckMobile from "../hooks/useCheckMobile";
 import Sidebar from "./sidebar";
-
-import SidebarMobile from "./sidebar-mobile";
+import SidebarMobile from "./sidebarMobile";
 
 const Layout = () => {
   const { isMobile } = useCheckMobile();
@@ -15,9 +13,7 @@ const Layout = () => {
       ) : (
         <SidebarMobile isMobile={isMobile} />
       )}
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </main>
   );
 };

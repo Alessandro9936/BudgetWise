@@ -1,7 +1,7 @@
 import { BiHomeAlt, BiPieChartAlt2, BiTransfer, BiUser } from "react-icons/bi";
-import { IRoute } from "../types";
+import { RouteProps } from "../types/types";
 
-const routes = (isMobile: boolean): IRoute[] => {
+const routes = (isMobile: boolean): RouteProps[] => {
   return [
     {
       name: "Dashboard",

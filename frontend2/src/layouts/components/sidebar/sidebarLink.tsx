@@ -1,21 +1,20 @@
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
-import { ILinkSidebar } from "../types";
-import { itemsVariants } from "../utils/variants";
+import { NavLink, useLocation } from "react-router-dom";
+import { LinkSidebarProps } from "../../types/types";
+import { itemsVariants } from "../../utils/variants";
 
 const LinkSidebar = ({
   link,
   isOpen,
-  activeRoute,
-  setActiveRoute,
   hoveredRoute,
   setHoveredRoute,
-}: ILinkSidebar) => {
+}: LinkSidebarProps) => {
+  const { pathname } = useLocation();
+
   return (
     <motion.li
       className="relative"
       key={link.route}
-      onClick={() => setActiveRoute(link.route)}
       onHoverStart={() => setHoveredRoute(link.route)}
     >
       <NavLink
@@ -33,7 +32,7 @@ const LinkSidebar = ({
           </motion.p>
         )}
 
-        {link.route === activeRoute ? (
+        {link.route === pathname ? (
           <motion.div
             layoutId="selected"
             className="absolute top-0 bottom-0 left-0 right-0 -z-10 mr-4 rounded-lg bg-indigo-500 dark:bg-indigo-600"
