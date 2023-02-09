@@ -4,7 +4,7 @@ import {
   isSameMonth,
   isSameWeek,
 } from "date-fns";
-import { ITransactionResponse } from "../../../services/transaction-services";
+import { TransactionResponse } from "../../../services/transaction-services";
 
 const dayNames = [
   "Monday",
@@ -34,7 +34,7 @@ const monthNames = [
 import _ from "lodash";
 
 const incomeExpenseCalc = (
-  transactions: ITransactionResponse[],
+  transactions: TransactionResponse[],
   timeSpan: string
 ) => {
   return transactions.reduce(
@@ -62,7 +62,7 @@ The groupBy method in lodash is used to group an array of objects by a specific 
 
 // Active timespan is 'Yearly', all the transactions in activeYear must be extracted and collocated inside their corresponding month, it returns the sum of all incomes and expenses in each month of active year.
 const getGraphYearData = (
-  transactions: ITransactionResponse[],
+  transactions: TransactionResponse[],
   activeDate: Date
 ) => {
   const activeYear = activeDate.getFullYear();
@@ -82,7 +82,7 @@ const getGraphYearData = (
 
 // Active timespan is 'Monthly', all the transactions inside activeMonth must be extracted and collocated inside their corresponding week, it returns the sum of all incomes and expenses in each week of active month.
 const getGraphMonthData = (
-  transactions: ITransactionResponse[],
+  transactions: TransactionResponse[],
   activeDate: Date
 ) => {
   const groupedTransactions = _.groupBy(transactions, (transaction) =>
@@ -107,7 +107,7 @@ const getGraphMonthData = (
 
 // Active timespan is 'Weekly', all the transactions that happened on the same week of activeDate must be extracted and collocated inside their corresponding day in week, it returns the sum of all incomes and expenses in each day of active week.
 const getGraphWeekData = (
-  transactions: ITransactionResponse[],
+  transactions: TransactionResponse[],
   activeDate: Date
 ) => {
   // getUTCDay allows to group transactions by day of the month (from 1 to 31) in the specified date according to universal time, using getDay often doesn't distribute transactions correctly across specific time zones.

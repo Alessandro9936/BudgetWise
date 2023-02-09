@@ -1,5 +1,6 @@
 import { startOfMonth } from "date-fns";
 import { z } from "zod";
+import { useGetBudgetDetails } from "../../../services/budget-services";
 
 const BudgetSchema = z.object({
   name: z.string().min(1, { message: "Budget name must be defined" }),
@@ -12,4 +13,16 @@ const BudgetSchema = z.object({
   usedAmount: z.coerce.number().optional().default(0),
 });
 
-export default BudgetSchema;
+const formInitialValues = () => {
+  const queryTransactionDetail = useGetBudgetDetails();
+  const budgetDetail = queryTransactionDetail?.data;
+
+  return {
+    name: budgetDetail?.name ?? "",
+    date: budgetDetail?.date ?? new Date(),
+    maxAmount: budgetDetail?.maxAmount ?? 0,
+    usedAmount: budgetDetail?.usedAmount ?? 0,
+  };
+};
+
+export { BudgetSchema, formInitialValues };

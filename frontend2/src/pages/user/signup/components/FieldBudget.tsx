@@ -7,11 +7,11 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 
-import FieldError from "../../../../components/error/FieldError";
+import FieldError from "../../../../components/error/fieldError";
 import { SignUpFormType } from "../types/types";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
-import ToggleIcon from "../../../../components/icons/ToggleIcon";
+import ToggleIcon from "../../../../components/icons/toggleIcon";
 
 interface ICurrencyPicker {
   isModalOpen: boolean;

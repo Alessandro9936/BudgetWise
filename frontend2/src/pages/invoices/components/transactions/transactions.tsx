@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Card from "../../../../components/Utilities/card";
+import Card from "../../../../components/wrapper/card";
 import { useGetFilteredTransactions } from "../../../../services/transaction-services";
+import useCurrentPage from "./hooks/useCurrentPage";
 
-import PaginationBar from "./components/PaginationBar";
-import TransactionPreview from "./components/TransactionPreview";
+import PaginationBar from "./paginationBar";
+import TransactionPreview from "./transactionPreview";
 
 const Transactions = () => {
-  const [searchParams, _] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPage, setCurrentPage } = useCurrentPage();
 
   const query = useGetFilteredTransactions(currentPage);
   const transactions = query?.data ?? [];
   const isLoading = query.isLoading;
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchParams.toString()]);
 
   return (
     <>
