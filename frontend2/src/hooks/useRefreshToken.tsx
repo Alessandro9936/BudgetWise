@@ -1,9 +1,9 @@
 import axios from "axios";
-import { IUser } from "../context/user-context";
+import { UserProps } from "../types/userType";
 
 const useRefreshToken = () => {
   const refresh = async () => {
-    const response = await axios.post<IUser>("/api/refresh", {
+    const response = await axios.post<UserProps>("/api/refresh", {
       withCredentials: true,
     });
 
