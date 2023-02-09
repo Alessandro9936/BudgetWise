@@ -6,7 +6,7 @@ export const useCloseModal = () => {
 
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
-      if (e.code === "Escape") navigate(-1);
+      if (e.code === "Escape") navigate("..");
     }
 
     document.addEventListener("keydown", handleEscape);
