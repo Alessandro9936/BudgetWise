@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { NavLink, useLocation } from "react-router-dom";
-import { LinkSidebarProps } from "../../types/types";
+import { LinkSidebarProps } from "../types/types";
 
 const LinkSidebarMobile = ({
   link,
@@ -40,6 +40,7 @@ const LinkSidebarMobile = ({
           className="absolute top-0 bottom-0 left-0 right-0 -z-10 rounded-xl bg-white"
         />
       ) : null}
+
       {link.route === hoveredRoute ? (
         <motion.div
           layoutId="hovered"

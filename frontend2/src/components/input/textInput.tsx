@@ -5,7 +5,7 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import FieldError from "../error/fieldError";
+import FieldError from "@/components/error/fieldError";
 
 type TextInputProps = {
   label: string;

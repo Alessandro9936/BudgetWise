@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { BiCaretLeftCircle } from "react-icons/bi";
-import Logo from "../../../components/links/logo";
-import { itemsVariants } from "../../utils/variants";
+import Logo from "@/components/links/logo";
+import { itemsVariants } from "../utils/variants";
 
 type SidebarHeaderProps = {
   isOpen: boolean;

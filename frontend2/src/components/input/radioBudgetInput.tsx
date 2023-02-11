@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { getBudgetUI } from "../../utils/getBudgetUI";
+import { getBudgetUI } from "@/utils/getBudgetUI";
 
 type RadioBudgetInputProps = {
   value: string;

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
-import Card from "../wrapper/card";
+import Card from "@/components/wrapper/card";
 
 import { motion } from "framer-motion";
 

@@ -6,8 +6,8 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import FieldError from "../error/fieldError";
-import ShowPassword from "../wrapper/passwordPreview";
+import FieldError from "@/components/error/fieldError";
+import ShowPassword from "@/components/wrapper/passwordPreview";
 
 type PasswordInputProps = {
   label: string;

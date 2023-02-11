@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useContext, useEffect } from "react";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "@/context/userContext";
 import useRefreshToken from "./useRefreshToken";
 
 const axiosPrivate = axios.create({

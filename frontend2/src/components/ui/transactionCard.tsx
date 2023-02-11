@@ -1,19 +1,21 @@
-import { MoreHorizontal } from "react-feather";
-import { BiMoney } from "react-icons/bi";
+import { BiDotsHorizontalRounded, BiMoney } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { getCurrency } from "../../context/userContext";
+import { getCurrency } from "@/context/userContext";
 import {
-  ITransactionResponse,
+  TransactionResponse,
   usePrefetchTransactionDetails,
-} from "../../services/transaction-services";
-
+} from "@/services/transaction-services";
 import { motion } from "framer-motion";
-import { childVariants } from "../../pages/dashboard/utils/variants";
-import { getBudgetUI } from "../../utils/getBudgetUI";
-import { formatDate } from "../../services/format/date";
+import { getBudgetUI } from "@/utils/getBudgetUI";
+import { formatDate } from "@/services/format/date";
+
+const childVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
+};
 
 interface TransactionCardProps {
-  transaction: ITransactionResponse;
+  transaction: TransactionResponse;
   disabled?: boolean;
 }
 
@@ -30,15 +32,18 @@ const TransactionCard = ({ transaction, disabled }: TransactionCardProps) => {
       <div className="flex-1">
         <div className="mb-1 flex items-center justify-between">
           <p className="font-semibold">{transaction.description}</p>
+
+          {/* Display icon that redirect to update transaction if disable props is false */}
           {!disabled && (
             <Link to={`transaction/${transaction._id}`}>
-              <MoreHorizontal
-                className="cursor-pointer"
+              <BiDotsHorizontalRounded
+                size={24}
                 onMouseEnter={() => prefetchTransactionDetails(transaction._id)}
               />
             </Link>
           )}
         </div>
+
         <div className="flex flex-col justify-between text-sm font-semibold text-neutral-400 midsm:flex-row midsm:items-center">
           <p>{formatDate(transaction.date)}</p>
           <p
@@ -57,7 +62,7 @@ const TransactionCard = ({ transaction, disabled }: TransactionCardProps) => {
 const TransactionIcon = ({
   transaction,
 }: {
-  transaction: ITransactionResponse;
+  transaction: TransactionResponse;
 }) => {
   if (transaction.type === "expense" && transaction.budget) {
     return getBudgetUI(transaction.budget.name)!.icon;

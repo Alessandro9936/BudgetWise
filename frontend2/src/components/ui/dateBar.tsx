@@ -2,18 +2,24 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 import { motion } from "framer-motion";
 import { addMonths, addYears, subMonths, subYears } from "date-fns";
-import { childVariants } from "../../pages/dashboard/utils/variants";
-import { usePrefetchTransactionsByDate } from "../../services/transaction-services";
-import { formatMonth } from "../../services/format/date";
-import { usePrefetchBudgetsByDate } from "../../services/budget-services";
-import { TimeSpanType } from "../../types/timeSpanType";
+import { usePrefetchTransactionsByDate } from "@/services/transaction-services";
+import { formatMonth } from "@/services/format/date";
+import { usePrefetchBudgetsByDate } from "@/services/budget-services";
+import { TimeSpanType } from "@/types/timeSpanType";
+import { ProcessType } from "@/types/processType";
+import { ActionType } from "@/types/actionType";
+
+const childVariants = {
+  initial: { opacity: 0, y: 20 },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
+};
 
 type DateBarProps = {
-  updateActiveDate: (action: "sub" | "add") => void;
+  updateActiveDate: (action: ActionType) => void;
   activeDate: Date;
   activeTimeSpan: TimeSpanType;
   activeDateFormatted: string | number;
-  toPrefetch: "transactions" | "budgets";
+  toPrefetch: ProcessType;
 };
 
 const DateBar = ({
@@ -32,7 +38,7 @@ const DateBar = ({
         ? dateToPrefetch.getFullYear()
         : formatMonth(dateToPrefetch);
 
-    toPrefetch === "transactions"
+    toPrefetch === "transaction"
       ? prefetchTransactions(formatDate)
       : prefetchBudgets(formatDate);
   };

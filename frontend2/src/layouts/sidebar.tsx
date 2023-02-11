@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import ThemeToggle from "../components/ui/themeToggle";
+import ThemeToggle from "@/components/ui/themeToggle";
 import routes from "./utils/sidebar-routes";
 import { useState } from "react";
-import LinkSidebar from "./components/sidebar/sidebarLink";
+import LinkSidebar from "./components/sidebarLink";
 import { sidebarVariants } from "./utils/variants";
-import LogoutSidebar from "./components/sidebar/logoutSidebar";
-import SidebarHeader from "./components/sidebar/sidebarHeader";
+import LogoutSidebar from "./components/logoutSidebar";
+import SidebarHeader from "./components/sidebarHeader";
 
 const Sidebar = ({ isMobile }: { isMobile: boolean }) => {
   const [isOpen, setIsOpen] = useState(isMobile ? true : false);

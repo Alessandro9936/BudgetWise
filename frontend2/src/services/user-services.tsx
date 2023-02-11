@@ -3,16 +3,13 @@ import { UseFormSetError } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { SignUpFormType } from "../pages/user/signup/types/types";
-import { LoginFormType } from "../pages/user/login/types/schemaType";
-import { UserProps } from "../types/userType";
-import {
-  userFormNoPassword,
-  userFormPassword,
-} from "../pages/user/update/types/schemaTypes";
-import { UserContext } from "../context/userContext";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { DeleteUserType } from "../pages/user/delete/types/schemaType";
+import { SignUpFormType } from "@/features/signup";
+import { LoginFormType } from "@/features/login/types/formType";
+import { UserProps } from "@/types/userType";
+import { UserFormNoPassword, UserFormPassword } from "@/features/userUpdate";
+import { UserContext } from "@/context/userContext";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import { DeleteUserType } from "@/features/userDelete";
 
 export type LoginResponse = {
   firstName: string;
@@ -39,7 +36,7 @@ const getUserFn = async (instance: AxiosInstance) => {
 
 const updateUserFn = async (
   instance: AxiosInstance,
-  formData: userFormPassword | userFormNoPassword
+  formData: UserFormPassword | UserFormNoPassword
 ) => {
   const result = await instance.put("/api/user/", formData);
   return result.data;
@@ -147,13 +144,13 @@ const useUpdateUser = () => {
   const navigate = useNavigate();
 
   const { mutate, isLoading, isSuccess } = useMutation(
-    (formData: userFormPassword | userFormNoPassword) =>
+    (formData: UserFormPassword | UserFormNoPassword) =>
       updateUserFn(axiosPrivate, formData)
   );
 
   const updateUser = (
-    formData: userFormPassword | userFormNoPassword,
-    setError: UseFormSetError<userFormPassword | userFormNoPassword>
+    formData: UserFormPassword | UserFormNoPassword,
+    setError: UseFormSetError<UserFormPassword | UserFormNoPassword>
   ) => {
     return mutate(formData, {
       onSuccess: async () => {

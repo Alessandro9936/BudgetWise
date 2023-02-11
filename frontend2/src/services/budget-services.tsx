@@ -5,8 +5,8 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { IBudgetForm } from "../pages/budget/types/types";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import { IBudgetForm } from "@/features/budgetForm";
 import { AxiosInstance } from "axios";
 import { formatMonth } from "./format/date";
 

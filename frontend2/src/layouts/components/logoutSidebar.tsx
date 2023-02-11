@@ -1,7 +1,7 @@
-import { itemsVariants } from "../../utils/variants";
+import { itemsVariants } from "../utils/variants";
 
 import { motion } from "framer-motion";
-import { useLogoutUser } from "../../../services/user/user-services";
+import { useLogoutUser } from "@/services/user-services";
 import { BiExit } from "react-icons/bi";
 
 type LogoutSidebarProps = {

@@ -1,4 +1,4 @@
-import CloseIcon from "../icons/closeIcon";
+import CloseIcon from "@/components/icons/closeIcon";
 
 const ModalHeader = ({ label }: { label: string }) => {
   return (

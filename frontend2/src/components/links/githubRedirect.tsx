@@ -1,5 +1,5 @@
 import { TbBrandGithub } from "react-icons/tb";
-import useCheckMobile from "../../hooks/useCheckMobile";
+import useCheckMobile from "@/hooks/useCheckMobile";
 
 const GithubRedirect = () => {
   const { isMobile } = useCheckMobile();

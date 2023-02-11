@@ -1,6 +1,6 @@
 import { Calendar, CalendarProps } from "react-calendar";
 import { useFormContext } from "react-hook-form";
-import "../../styles/calendar.css";
+import "@/styles/calendar.css";
 
 type CalendarInputProps = {
   disabled: boolean;

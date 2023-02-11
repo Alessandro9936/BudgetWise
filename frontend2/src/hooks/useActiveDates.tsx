@@ -10,7 +10,8 @@ import {
   subYears,
 } from "date-fns";
 import { useState } from "react";
-import { TimeSpanType } from "../types/timeSpanType";
+import { ActionType } from "@/types/actionType";
+import { TimeSpanType } from "@/types/timeSpanType";
 
 const monthNames = [
   "January",
@@ -54,7 +55,7 @@ This custom hook is used throughout the application wherever dates and their upd
 The hook uses the useState hook from React to manage the state for the active date and active timespan.
 
 It returns: 
-- updateActiveDate: A function that can be called to update the active date based on the current time span. It takes an argument of "add" or "sub" to determine whether to add or subtract a time span from the active date.
+- updateActiveDate: A function that can be called to update the active date based on the current time span. It takes an argument of "add" or "sub" to determine whether to add or subtract time span from the active date.
 
 - updateActiveTimeSpan: A function that can be called to update the active time span. It takes an argument of "Yearly", "Monthly", or "Weekly" to set the active time span.
 
@@ -71,7 +72,7 @@ const useActiveDates = () => {
 
   const [activeDate, setActiveDate] = useState(new Date());
 
-  const updateActiveDate = (action: "add" | "sub") => {
+  const updateActiveDate = (action: ActionType) => {
     switch (activeTimeSpan) {
       case "Yearly":
         {

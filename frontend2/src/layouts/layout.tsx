@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import useCheckMobile from "../hooks/useCheckMobile";
+import useCheckMobile from "@/hooks/useCheckMobile";
 import Sidebar from "./sidebar";
 import SidebarMobile from "./sidebarMobile";
 

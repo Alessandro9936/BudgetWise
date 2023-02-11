@@ -1,7 +1,7 @@
-import { IBudgetResponse } from "../../services/budget-services";
+import { BudgetResponse } from "@/services/budget-services";
 
-import { getBudgetUI } from "../../utils/getBudgetUI";
-import { getCurrency } from "../../context/userContext";
+import { getBudgetUI } from "@/utils/getBudgetUI";
+import { getCurrency } from "@/context/userContext";
 import { motion } from "framer-motion";
 
 const progressVariants = {
@@ -9,10 +9,12 @@ const progressVariants = {
   ending: { scaleX: "100%", transition: { type: "tween", duration: 0.75 } },
 };
 
-const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
+const ProgressBar = ({ budget }: { budget: BudgetResponse }) => {
   const currency = getCurrency();
 
-  const percentage = Math.ceil((budget.usedAmount / budget.maxAmount) * 100);
+  const percentageSpent = Math.ceil(
+    (budget.usedAmount / budget.maxAmount) * 100
+  );
 
   const budgetColor = getBudgetUI(budget.name)?.color;
 
@@ -33,14 +35,14 @@ const ProgressBar = ({ budget }: { budget: IBudgetResponse }) => {
       <div className="w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-slate-700">
         <motion.span
           style={{
-            width: `${percentage}%`,
+            width: `${percentageSpent}%`,
             maxWidth: "100%",
             backgroundColor: budgetColor,
           }}
           variants={progressVariants}
           className="block origin-left rounded-full p-1 text-center text-xs font-semibold leading-none text-white"
         >
-          {percentage}%
+          {percentageSpent}%
         </motion.span>
       </div>
     </div>

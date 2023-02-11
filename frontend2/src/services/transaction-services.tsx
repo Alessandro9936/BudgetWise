@@ -6,8 +6,8 @@ import {
   useQueryClient,
 } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { TransactionFormProps } from "../pages/transaction/types/types";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import { TransactionFormProps } from "@/features/transactionForm";
 import { BudgetResponse } from "./budget-services";
 import { formatMonth } from "./format/date";
 

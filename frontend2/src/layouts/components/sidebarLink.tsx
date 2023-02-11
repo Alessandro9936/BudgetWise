@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { NavLink, useLocation } from "react-router-dom";
-import { LinkSidebarProps } from "../../types/types";
-import { itemsVariants } from "../../utils/variants";
+import { LinkSidebarProps } from "../types/types";
+import { itemsVariants } from "../utils/variants";
 
 const LinkSidebar = ({
   link,

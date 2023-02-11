@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { getStateUI } from "../../utils/getStateUI";
+import { getStateUI } from "@/utils/getStateUI";
 
 type RadioStateInputProps = {
   value: string;
@@ -9,7 +9,7 @@ type RadioStateInputProps = {
   disabled?: boolean;
 };
 
-const CustomRadioState = ({
+const RadioStateInput = ({
   value,
   stateName,
   disabled,
@@ -43,4 +43,4 @@ const CustomRadioState = ({
     </li>
   );
 };
-export default CustomRadioState;
+export default RadioStateInput;

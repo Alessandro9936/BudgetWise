@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ThemeToggle from "../components/ui/themeToggle";
-import LinkSidebarMobile from "./components/sidebarMobile/sidebarLinkMobile";
+import ThemeToggle from "@/components/ui/themeToggle";
+import LinkSidebarMobile from "./components/sidebarLinkMobile";
 import routes from "./utils/sidebar-routes";
 
 const SidebarMobile = ({ isMobile }: { isMobile: boolean }) => {

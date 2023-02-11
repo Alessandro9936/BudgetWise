@@ -1,9 +1,9 @@
 import Modal from "./modal";
-import ButtonRedirect from "../buttons/redirectButton";
-import { useCloseModal } from "../../hooks/useCloseWindow";
-import { useDeleteTransaction } from "../../services/transaction-services";
-import { useDeleteBudget } from "../../services/budget-services";
-import FormResponse from "../form/formResponse";
+import ButtonRedirect from "@/components/buttons/redirectButton";
+import { useCloseModal } from "@/hooks/useCloseWindow";
+import { useDeleteTransaction } from "@/services/transaction-services";
+import { useDeleteBudget } from "@/services/budget-services";
+import FormResponse from "@/components/form/formResponse";
 import ModalHeader from "./modalHeader";
 
 const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
