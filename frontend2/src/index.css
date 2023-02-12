@@ -25,7 +25,7 @@
 
 @layer components {
   .input-form {
-    @apply rounded-lg border border-neutral-300 bg-white py-2 px-4 shadow-sm placeholder:text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-slate-800 disabled:text-neutral-500 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-300 dark:placeholder:text-slate-600 dark:focus:ring-slate-600;
+    @apply rounded-lg border border-neutral-300 bg-transparent py-2 px-4 shadow-sm placeholder:text-sm placeholder:text-neutral-400 focus:border-transparent focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:pointer-events-none disabled:text-neutral-400 dark:border-slate-700 dark:bg-slate-700 dark:text-neutral-300 dark:placeholder:text-slate-500 dark:focus:ring-slate-600 dark:disabled:text-slate-500;
   }
 
   .button {
@@ -33,10 +33,13 @@
   }
 
   .button-primary {
-    @apply button bg-indigo-500 text-white ring-1 ring-indigo-500  dark:border-none dark:bg-indigo-600 dark:ring-indigo-600 dark:disabled:border-slate-700 dark:disabled:bg-slate-800 dark:disabled:text-slate-700;
+    @apply button bg-indigo-500 text-white ring-1 ring-indigo-500  disabled:ring-0 dark:border-none dark:bg-indigo-600 dark:ring-indigo-600 dark:disabled:border-slate-700 dark:disabled:bg-slate-700 dark:disabled:text-slate-600;
   }
   .button-secondary {
-    @apply button bg-transparent text-indigo-500 ring-1 ring-indigo-500 dark:disabled:border-slate-700 dark:disabled:bg-slate-800 dark:disabled:text-slate-700;
+    @apply button bg-transparent text-indigo-500 ring-1 ring-indigo-500 dark:disabled:border-slate-700 dark:disabled:bg-slate-700 dark:disabled:text-slate-600;
+  }
+  .button-delete {
+    @apply button bg-transparent text-red-400 ring-1 ring-red-400 hover:bg-red-400 hover:text-white hover:transition disabled:ring-red-400 dark:disabled:bg-transparent;
   }
 }
 
