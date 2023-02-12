@@ -2,27 +2,31 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-import SignUpForm from "./pages/user/signup/sign-up";
-
+import SignUpForm from "./pages/signUp";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import LoginForm from "./pages/user/login/login";
+import LoginForm from "./pages/login";
 import Layout from "./layouts/layout";
-import Dashboard from "./pages/dashboard/dashboard";
-import Invoices from "./pages/invoices/invoices";
-import Budgets from "./pages/budgets/budgets";
-import BudgetForm from "./pages/budget/budget-form";
-import BudgetDetails from "./pages/budget/budget-detail";
-import UserContextProvider from "./context/user-context";
-import TransactionForm from "./pages/transaction/transaction-form";
-import TransactionDetail from "./pages/transaction/transaction-detail";
-import DeleteModal from "./components/Utilities/delete-modal";
-import UserForm from "./pages/user/update/user-form";
-import DeleteUserModal from "./pages/user/delete/user-delete";
-import ErrorPage from "./pages/error/error-page";
-import Home from "./pages/home/home";
-import { ParamsProvider } from "./context/params-content";
+import Dashboard from "./pages/dashboard";
+import Invoices from "./pages/invoices";
+import Budgets from "./pages/budgets";
+import BudgetForm from "./pages/budgetForm";
+import BudgetDetails from "./pages/budgetDetails";
+import UserContextProvider from "./context/userContext";
+import TransactionForm from "./pages/transactionForm";
+import TransactionDetail from "./pages/transactionDetails";
+import DeleteModal from "./components/modal/deleteModal";
+import UserForm from "./pages/userForm";
+import DeleteUserModal from "./pages/userDelete";
+import ErrorPage from "./pages/errorPage";
+import Home from "./pages/homePage";
+import { ParamsProvider } from "./features/invoices/filters/context/paramsContext";
 
+/* 
+  403: Refresh token expired, user need to login again
+  500: Error server
+  With these two states the error is thrown directly to the errorBoundary element without retrying
+*/
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
