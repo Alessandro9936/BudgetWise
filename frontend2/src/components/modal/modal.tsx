@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
 import Card from "@/components/wrapper/card";
-
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { fadeInVariants } from "@/utils/reusableVariants";
 
 const Modal = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -18,8 +18,9 @@ const Modal = ({ children }: { children: ReactNode }) => {
           />
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            variants={fadeInVariants}
+            initial="initial"
+            animate="ending"
             transition={{ duration: 0.25 }}
             className="fixed z-50 h-fit w-fit "
           >

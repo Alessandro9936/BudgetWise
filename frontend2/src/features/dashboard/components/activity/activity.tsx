@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import ButtonRedirect from "@/components/buttons/redirectButton";
-import { motion } from "framer-motion";
 import Card from "@/components/wrapper/card";
 import TransactionCard from "@/components/ui/transactionCard";
 import { useGetTransactionsByDate } from "@/services/transaction-services";
 import { activityParentVariants } from "../../utils/variants";
+import { motion } from "framer-motion";
 
 const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
   const queryTransactions = useGetTransactionsByDate(new Date(), "Monthly");

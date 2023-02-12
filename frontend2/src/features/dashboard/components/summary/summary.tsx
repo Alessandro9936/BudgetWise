@@ -1,13 +1,16 @@
 import { useMemo } from "react";
 import TimeSpanButton from "@/components/buttons/timespanButton";
 import DateBar from "@/components/ui/dateBar";
+import AmountWrapper from "./amountWrapper";
 import useActiveDates from "@/hooks/useActiveDates";
 import { useGetTransactionsByDate } from "@/services/transaction-services";
 import { motion } from "framer-motion";
-import { childVariants, parentVariants } from "../../utils/variants";
 import { TimeSpanType } from "@/types/timeSpanType";
 
-import AmountWrapper from "./amountWrapper";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
   const {
@@ -47,10 +50,12 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
       variants={parentVariants}
       initial="initial"
       animate="ending"
+      custom={0.15}
       className={`${gridDisposition} flex flex-col gap-y-4`}
     >
       <motion.div
-        variants={childVariants}
+        variants={transitionFadeInVariants}
+        transition={{ type: "tween" }}
         className="flex items-center justify-between"
       >
         <h3>Summary</h3>

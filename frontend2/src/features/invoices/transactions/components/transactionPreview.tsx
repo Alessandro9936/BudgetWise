@@ -7,6 +7,7 @@ import { getBudgetUI } from "@/utils/getBudgetUI";
 import { motion } from "framer-motion";
 import UpdateIcon from "@/components/icons/updateIcon";
 import StateTag from "@/components/ui/stateTag";
+import { fadeInVariants } from "@/utils/reusableVariants";
 
 const TransactionPreview = ({
   transaction,
@@ -30,8 +31,9 @@ const TransactionPreview = ({
 
   return (
     <motion.li
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      variants={fadeInVariants}
+      initial="initial"
+      animate="ending"
       className="flex flex-1 items-center border-b border-neutral-200 last-of-type:border-none  dark:border-slate-600"
     >
       <p className="flex-1 grow-[2]">{transaction.description}</p>

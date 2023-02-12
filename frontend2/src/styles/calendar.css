@@ -5,8 +5,9 @@
   font: inherit;
   line-height: 1.125em;
 }
+
 .dark .react-calendar {
-  background-color: #1e293b;
+  background-color: transparent;
   color: #d6d3d1;
 }
 

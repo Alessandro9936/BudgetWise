@@ -1,5 +1,5 @@
 import ToggleIcon from "@/components/icons/toggleIcon";
-import { childrenVariants } from "../utils/variants";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 
 import { motion } from "framer-motion";
 import { DropdownTypes } from "../types/types";
@@ -21,7 +21,8 @@ const ToggleFieldHeader = ({
 
   return (
     <motion.div
-      variants={childrenVariants}
+      variants={transitionFadeInVariants}
+      transition={{type:'tween'}}
       className="flex cursor-pointer items-center justify-between"
       onClick={() => setActive((prev) => (prev === label ? null : label))}
     >

@@ -3,7 +3,6 @@ import {
   formInitialValues,
   TransactionSchema,
 } from "./utils/validation-schema";
-import { childrenVariants, parentVariants } from "./utils/variants";
 import TransactionAmountField from "./components/transactionAmountField";
 import TransactionTypeField from "./components/transactionTypeField";
 import ToggleFieldHeader from "./components/toggleFieldHeader";
@@ -14,8 +13,6 @@ export {
   type TransactionFormProps,
   formInitialValues,
   TransactionSchema,
-  childrenVariants,
-  parentVariants,
   TransactionAmountField,
   TransactionTypeField,
   ToggleFieldHeader,

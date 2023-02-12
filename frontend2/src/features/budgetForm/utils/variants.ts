@@ -21,7 +21,7 @@ export const parentVariants = {
 
 export const childrenVariants = {
   initial: { opacity: 0, y: 20 },
-  ending: { opacity: 1, y: 0, height: "auto", transition: { type: "tween" } },
+  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
   exit: {
     opacity: 0,
     y: 20,

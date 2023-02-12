@@ -1,8 +1,7 @@
 import { BiBulb, BiMoon } from "react-icons/bi";
 import useCheckMobile from "@/hooks/useCheckMobile";
-
-import { motion } from "framer-motion";
 import useToggleTheme from "@/hooks/useToggleTheme";
+import { motion } from "framer-motion";
 
 const itemsVariants = {
   closed: { opacity: 0, width: 0, y: "-25%" },

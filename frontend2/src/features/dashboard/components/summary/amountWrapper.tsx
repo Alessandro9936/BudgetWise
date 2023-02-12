@@ -1,8 +1,7 @@
 import Card from "@/components/wrapper/card";
 import { getCurrency } from "@/context/userContext";
-import { childVariants } from "../../utils/variants";
-
 import { motion } from "framer-motion";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 
 type AmountWrapperProps = {
   amount: number;
@@ -17,7 +16,10 @@ const AmountWrapper = ({ amount, label }: AmountWrapperProps) => {
   }[label];
 
   return (
-    <motion.div variants={childVariants}>
+    <motion.div
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
+    >
       <Card classNames="dark:bg-slate-800 flex-1 flex overflow-hidden">
         <span className={`mr-3 w-2 transition-colors ${color}`} />
         <div className="mr-5 flex-1 py-3">

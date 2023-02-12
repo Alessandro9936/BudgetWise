@@ -20,10 +20,12 @@ import {
   initialValues,
   noPasswordSchema,
   passwordSchema,
-  parentVariants,
-  childrenVariants,
   MobileLogout,
 } from "@/features/userUpdate";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const UserForm = () => {
   const { isMobile } = useCheckMobile();
@@ -65,6 +67,7 @@ const UserForm = () => {
         {!isLoading && loggedUser ? (
           <motion.form
             variants={parentVariants}
+            custom={0.15}
             initial="initial"
             animate="ending"
             exit="exit"
@@ -72,19 +75,25 @@ const UserForm = () => {
             className="flex h-full flex-1 flex-col gap-y-4"
           >
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex items-center justify-between"
             >
               <h1 className="text-2xl font-semibold">Your Profile</h1>
               {isMobile && <MobileLogout />}
             </motion.div>
 
-            <motion.p variants={childrenVariants} className="font-medium">
+            <motion.p
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
+              className="font-medium"
+            >
               Created: {formatDate(new Date(loggedUser.createdAt!))}
             </motion.p>
 
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex flex-col gap-y-4 gap-x-4 md:flex-row md:gap-y-0"
             >
               <TextInput
@@ -104,7 +113,10 @@ const UserForm = () => {
               />
             </motion.div>
 
-            <motion.div variants={childrenVariants}>
+            <motion.div
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
+            >
               <TextInput
                 disabled={isSuccess}
                 type="email"
@@ -115,7 +127,8 @@ const UserForm = () => {
               />
             </motion.div>
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               onClick={() => setIsUpdatingPassword((prev) => !prev)}
               className="flex cursor-pointer items-center"
             >
@@ -133,9 +146,14 @@ const UserForm = () => {
                   initial="initial"
                   animate="ending"
                   variants={parentVariants}
+                  custom={0.15}
                   className="flex flex-col gap-y-4"
                 >
-                  <motion.div variants={childrenVariants} key="oldPassword">
+                  <motion.div
+                    variants={transitionFadeInVariants}
+                    transition={{ type: "tween" }}
+                    key="oldPassword"
+                  >
                     <PasswordInput
                       disabled={isSuccess}
                       name="oldPassword"
@@ -143,7 +161,11 @@ const UserForm = () => {
                       control={control}
                     />
                   </motion.div>
-                  <motion.div variants={childrenVariants} key="password">
+                  <motion.div
+                    variants={transitionFadeInVariants}
+                    transition={{ type: "tween" }}
+                    key="password"
+                  >
                     <PasswordInput
                       disabled={isSuccess}
                       name="password"
@@ -151,11 +173,18 @@ const UserForm = () => {
                       control={control}
                     />
                   </motion.div>
-                  <motion.div variants={childrenVariants}>
+                  <motion.div
+                    variants={transitionFadeInVariants}
+                    transition={{ type: "tween" }}
+                  >
                     <PasswordRequirements />
                   </motion.div>
 
-                  <motion.div variants={childrenVariants} key="confirmPassword">
+                  <motion.div
+                    variants={transitionFadeInVariants}
+                    transition={{ type: "tween" }}
+                    key="confirmPassword"
+                  >
                     <PasswordInput
                       disabled={isSuccess}
                       name="confirmPassword"
@@ -168,7 +197,8 @@ const UserForm = () => {
             </AnimatePresence>
 
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex flex-1 flex-col items-stretch justify-end gap-4 midsm:flex-row midsm:items-end"
             >
               <SubmitButton label="Update profile" isLoading={isLoading} />

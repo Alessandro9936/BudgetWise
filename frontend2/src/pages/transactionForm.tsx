@@ -19,13 +19,15 @@ import {
   TransactionFormProps,
   formInitialValues,
   TransactionSchema,
-  childrenVariants,
-  parentVariants,
   TransactionAmountField,
   TransactionTypeField,
   ToggleFieldHeader,
   ExpenseFields,
 } from "@/features/transactionForm";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const TransactionForm = () => {
   useCloseModal();
@@ -73,6 +75,7 @@ const TransactionForm = () => {
           variants={parentVariants}
           initial="initial"
           animate="ending"
+          custom={0.15}
           onSubmit={methods.handleSubmit(onSubmit)}
           className="flex flex-col gap-4 p-6"
         >
@@ -81,7 +84,11 @@ const TransactionForm = () => {
           />
 
           {/* Calendar field */}
-          <motion.div variants={childrenVariants} className="h-full rounded-md">
+          <motion.div
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
+            className="h-full rounded-md"
+          >
             <CalendarInput
               minDetail="year"
               disabled={isUpdate}
@@ -94,7 +101,8 @@ const TransactionForm = () => {
 
           {/* Transaction type field*/}
           <motion.div
-            variants={childrenVariants}
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
             className={`mb-4 flex items-center justify-between ${
               isUpdate || isSubmitSuccessful ? "pointer-events-none" : ""
             }`}
@@ -143,7 +151,10 @@ const TransactionForm = () => {
           )}
 
           {/* Transaction description field*/}
-          <motion.div variants={childrenVariants}>
+          <motion.div
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
+          >
             <p className="mb-4 font-semibold">Description</p>
             <textarea
               rows={2}

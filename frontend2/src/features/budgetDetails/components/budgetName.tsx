@@ -1,6 +1,5 @@
 import { getBudgetUI } from "@/utils/getBudgetUI";
-import { childrenVariants } from "../utils/variants";
-
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 import { motion } from "framer-motion";
 import { BudgetResponse } from "@/services/budget-services";
 
@@ -9,7 +8,8 @@ const BudgetName = ({ budget }: { budget: BudgetResponse }) => {
 
   return (
     <motion.div
-      variants={childrenVariants}
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
       className="flex items-center justify-between"
     >
       <p className="font-semibold">Budget type</p>

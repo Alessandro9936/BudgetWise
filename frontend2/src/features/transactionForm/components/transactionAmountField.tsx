@@ -2,7 +2,7 @@ import { Control, useController } from "react-hook-form";
 import { getCurrency } from "@/context/userContext";
 import { TransactionFormProps } from "../types/types";
 import { motion } from "framer-motion";
-import { childrenVariants } from "../utils/variants";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 
 type AmountFieldProps = {
   control: Control<TransactionFormProps>;
@@ -26,7 +26,8 @@ const TransactionAmountField = ({
 
   return (
     <motion.div
-      variants={childrenVariants}
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
       className="rounder-lg relative shadow-sm"
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

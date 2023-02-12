@@ -1,6 +1,0 @@
-.overlay-disable {
-  pointer-events: none;
-  user-select: none;
-  border: 1px solid var(--red);
-  border-radius: var(--border10);
-}

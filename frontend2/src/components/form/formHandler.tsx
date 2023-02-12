@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
-import { LabelProcessType } from "@/types/processType";
 import ButtonRedirect from "@/components/buttons/redirectButton";
 import SubmitButton from "@/components/buttons/submitButton";
 import FormResponse from "./formResponse";
+import { LabelProcessType } from "@/types/processType";
+import { fadeInVariants } from "@/utils/reusableVariants";
+import { motion } from "framer-motion";
 
 type FormHandlerProps = {
   isSuccess: boolean;
@@ -31,8 +32,9 @@ const FormHandler = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      variants={fadeInVariants}
+      initial="initial"
+      animate="ending"
       transition={{ duration: 0.5, delay: 1 }}
       className="ml-auto flex w-fit justify-end gap-x-2"
     >

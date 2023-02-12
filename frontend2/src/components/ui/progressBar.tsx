@@ -1,13 +1,8 @@
 import { BudgetResponse } from "@/services/budget-services";
-
 import { getBudgetUI } from "@/utils/getBudgetUI";
-import { getCurrency } from "@/context/userContext";
 import { motion } from "framer-motion";
-
-const progressVariants = {
-  initial: { scaleX: 0 },
-  ending: { scaleX: "100%", transition: { type: "tween", duration: 0.75 } },
-};
+import { scaleFadeInVariants } from "@/utils/reusableVariants";
+import { getCurrency } from "@/context/userContext";
 
 const ProgressBar = ({ budget }: { budget: BudgetResponse }) => {
   const currency = getCurrency();
@@ -39,7 +34,7 @@ const ProgressBar = ({ budget }: { budget: BudgetResponse }) => {
             maxWidth: "100%",
             backgroundColor: budgetColor,
           }}
-          variants={progressVariants}
+          variants={scaleFadeInVariants}
           className="block origin-left rounded-full p-1 text-center text-xs font-semibold leading-none text-white"
         >
           {percentageSpent}%

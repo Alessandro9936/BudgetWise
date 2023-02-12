@@ -5,12 +5,11 @@ import useActiveDates from "@/hooks/useActiveDates";
 import { useGetBudgetsByDate } from "@/services/budget-services";
 import { motion } from "framer-motion";
 
+import { BudgetPreviews, BudgetsChart } from "@/features/budgets";
 import {
-  BudgetPreviews,
-  BudgetsChart,
-  childVariants,
   parentVariants,
-} from "@/features/budgets";
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const Budgets = () => {
   const {
@@ -35,7 +34,7 @@ const Budgets = () => {
             className="flex min-w-[320px] basis-3/12 flex-col gap-y-4"
           >
             <motion.div
-              variants={childVariants}
+              variants={transitionFadeInVariants}
               transition={{ type: "tween" }}
               className="mx-auto flex gap-x-6"
             >

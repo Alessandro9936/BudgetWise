@@ -1,18 +1,13 @@
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-
-import { motion } from "framer-motion";
-import { addMonths, addYears, subMonths, subYears } from "date-fns";
-import { usePrefetchTransactionsByDate } from "@/services/transaction-services";
-import { formatMonth } from "@/services/format/date";
-import { usePrefetchBudgetsByDate } from "@/services/budget-services";
 import { TimeSpanType } from "@/types/timeSpanType";
 import { ProcessType } from "@/types/processType";
 import { ActionType } from "@/types/actionType";
-
-const childVariants = {
-  initial: { opacity: 0, y: 20 },
-  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
-};
+import { usePrefetchTransactionsByDate } from "@/services/transaction-services";
+import { usePrefetchBudgetsByDate } from "@/services/budget-services";
+import { formatMonth } from "@/services/format/date";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { addMonths, addYears, subMonths, subYears } from "date-fns";
+import { motion } from "framer-motion";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 
 type DateBarProps = {
   updateActiveDate: (action: ActionType) => void;
@@ -22,6 +17,8 @@ type DateBarProps = {
   toPrefetch: ProcessType;
 };
 
+// This component, besides adding or subtracting dates, also handle the prefetching of transactions/budgets
+// that belong to the future (next date when button is hovered) date
 const DateBar = ({
   updateActiveDate,
   activeDate,
@@ -45,7 +42,8 @@ const DateBar = ({
 
   return (
     <motion.div
-      variants={childVariants}
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
       className="flex items-center justify-between rounded-full bg-white py-1 px-[6px] text-sm font-semibold shadow dark:bg-slate-800"
     >
       <button

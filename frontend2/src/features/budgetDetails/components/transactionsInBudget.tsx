@@ -1,15 +1,14 @@
 import { BudgetResponse } from "@/services/budget-services";
 import { useGetTransactionsInBudget } from "@/services/transaction-services";
-import {
-  cardVariants,
-  childrenVariants,
-  parentVariants,
-} from "../utils/variants";
-
+import { cardVariants } from "../utils/variants";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import ToggleIcon from "@/components/icons/toggleIcon";
 import TransactionCard from "@/components/ui/transactionCard";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const TransactionsInBudget = ({ budget }: { budget: BudgetResponse }) => {
   const [showTransactions, setShowTransactions] = useState(false);
@@ -19,7 +18,10 @@ const TransactionsInBudget = ({ budget }: { budget: BudgetResponse }) => {
   const transactionsInBudget = queryTransactionsInBudget?.data ?? [];
 
   return (
-    <motion.div variants={childrenVariants}>
+    <motion.div
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
+    >
       <div
         className="flex cursor-pointer items-center"
         onClick={() => setShowTransactions(!showTransactions)}
@@ -34,6 +36,7 @@ const TransactionsInBudget = ({ budget }: { budget: BudgetResponse }) => {
             variants={parentVariants}
             initial="initial"
             animate="ending"
+            custom={0.15}
             exit="exit"
           >
             {transactionsInBudget.map((transaction) => (

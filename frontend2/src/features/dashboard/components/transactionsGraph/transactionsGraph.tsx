@@ -5,8 +5,8 @@ import useActiveDates from "@/hooks/useActiveDates";
 import { useGetTransactionsByDate } from "@/services/transaction-services";
 import { BiSync } from "react-icons/bi";
 import { motion } from "framer-motion";
-import { graphVariants } from "../../utils/variants";
 import Graph from "./graph";
+import { fadeInVariants } from "@/utils/reusableVariants";
 
 const TransactionsGraph = ({
   gridDisposition,
@@ -32,7 +32,8 @@ const TransactionsGraph = ({
 
   return (
     <motion.section
-      variants={graphVariants}
+      variants={fadeInVariants}
+      transition={{ delay: 1.5 }}
       initial="initial"
       animate="ending"
       className={`${gridDisposition} flex flex-col gap-y-4 `}

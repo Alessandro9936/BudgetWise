@@ -1,6 +1,5 @@
 import FieldError from "@/components/error/fieldError";
 import { useGetBudgetsByDate } from "@/services/budget-services";
-import { childrenVariants } from "../utils/variants";
 import ToggleFieldHeader from "./toggleFieldHeader";
 
 import { motion } from "framer-motion";
@@ -8,14 +7,13 @@ import RadioBudgetInput from "@/components/input/radioBudgetInput";
 import RadioStateInput from "@/components/input/radioStateInput";
 import { stateNames } from "@/utils/getStateUI";
 import { FieldErrorsImpl, UseFormGetValues } from "react-hook-form";
-import { TransactionFormProps } from "../types/types";
+import { DropdownTypes, TransactionFormProps } from "../types/types";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 
 type ExpenseFieldsProps = {
   activeDate: Date;
-  activeDropdown: "Budget" | "State" | "Amount" | null;
-  setActiveDropdown: React.Dispatch<
-    React.SetStateAction<"Budget" | "State" | "Amount" | null>
-  >;
+  activeDropdown: DropdownTypes;
+  setActiveDropdown: React.Dispatch<React.SetStateAction<DropdownTypes>>;
   isUpdate: boolean;
   isLoadingSubmission: boolean;
   getValues: UseFormGetValues<TransactionFormProps>;
@@ -50,7 +48,8 @@ const ExpenseFields = ({
       />
       {activeDropdown === "Budget" && (
         <motion.ul
-          variants={childrenVariants}
+          variants={transitionFadeInVariants}
+          transition={{type: 'tween'}}
           className="grid max-h-36 grid-cols-2 gap-3 overflow-auto px-2"
         >
           {budgetsOnActiveDate.map((budget) => (
@@ -75,7 +74,8 @@ const ExpenseFields = ({
       />
       {activeDropdown === "State" && (
         <motion.ul
-          variants={childrenVariants}
+          variants={transitionFadeInVariants}
+          transition={{type: 'tween'}}
           className="flex flex-wrap gap-3 font-semibold"
         >
           {stateNames.map((state) => (

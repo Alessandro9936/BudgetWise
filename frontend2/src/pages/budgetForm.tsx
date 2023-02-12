@@ -20,9 +20,11 @@ import {
   IBudgetForm,
   BudgetSchema,
   formInitialValues,
-  parentVariants,
-  childrenVariants,
 } from "../features/budgetForm";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 // This form allow to both create or update a new budget
 const BudgetForm = () => {
@@ -61,13 +63,18 @@ const BudgetForm = () => {
           variants={parentVariants}
           initial="initial"
           animate="ending"
+          custom={0.15}
           onSubmit={methods.handleSubmit(onSubmit)}
           className="flex flex-col gap-6 p-6"
         >
           <ModalHeader label={!isUpdate ? "New budget" : "Update budget"} />
 
           {/* Calendar field */}
-          <motion.div variants={childrenVariants} className="h-full rounded-md">
+          <motion.div
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
+            className="h-full rounded-md"
+          >
             <CalendarInput
               minDetail="year"
               maxDetail="year"
@@ -78,7 +85,11 @@ const BudgetForm = () => {
           </motion.div>
 
           {/* Budget type field */}
-          <motion.div variants={childrenVariants} className="font-semibold">
+          <motion.div
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
+            className="font-semibold"
+          >
             <p>Budget type</p>
             <BudgetsList
               activeDate={activeDate}
@@ -91,14 +102,20 @@ const BudgetForm = () => {
           )}
 
           {/* maxAmount field */}
-          <motion.div variants={childrenVariants}>
+          <motion.div
+            variants={transitionFadeInVariants}
+            transition={{ type: "tween" }}
+          >
             <p className="font-semibold">Maximum amount</p>
             <RangeInput name="maxAmount" control={methods.control} />
           </motion.div>
 
           {/* usedAmount field, displayed only when updating a budget and not editable. The main purpose is to just show how much of the budget amount has already been spent */}
           {isUpdate && (
-            <motion.div variants={childrenVariants}>
+            <motion.div
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
+            >
               <p className="font-semibold">Used amount</p>
               <RangeInput
                 disable={isUpdate}

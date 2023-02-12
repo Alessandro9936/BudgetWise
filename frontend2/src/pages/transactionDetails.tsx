@@ -5,12 +5,13 @@ import { useCloseModal } from "@/hooks/useCloseWindow";
 import { useGetTransactionDetail } from "@/services/transaction-services";
 
 import { motion } from "framer-motion";
-import {
-  childrenVariants,
-  parentVariants,
-} from "@/features/transactionForm/utils/variants";
+
 import ModalHeader from "@/components/modal/modalHeader";
 import StateTag from "@/components/ui/stateTag";
+import {
+  parentVariants,
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const TransactionDetail = () => {
   useCloseModal();
@@ -25,6 +26,7 @@ const TransactionDetail = () => {
         variants={parentVariants}
         initial="initial"
         animate="ending"
+        custom={0.15}
         className="flex flex-col gap-6 p-6"
       >
         <ModalHeader label="Transaction details" />
@@ -32,7 +34,8 @@ const TransactionDetail = () => {
           <>
             {/* Transaction type */}
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex items-center justify-between"
             >
               <p className="font-semibold">Type</p>
@@ -44,7 +47,8 @@ const TransactionDetail = () => {
 
             {/* Transaction amount */}
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex items-center justify-between"
             >
               <p className="font-semibold">Amount</p>
@@ -57,7 +61,8 @@ const TransactionDetail = () => {
               <>
                 {/* Transaction budget */}
                 <motion.div
-                  variants={childrenVariants}
+                  variants={transitionFadeInVariants}
+                  transition={{ type: "tween" }}
                   className="flex items-center justify-between"
                 >
                   <p className="font-semibold">Budget</p>
@@ -66,7 +71,8 @@ const TransactionDetail = () => {
 
                 {/* Transaction state */}
                 <motion.div
-                  variants={childrenVariants}
+                  variants={transitionFadeInVariants}
+                  transition={{ type: "tween" }}
                   className="flex items-center justify-between"
                 >
                   <p className="font-semibold">State</p>
@@ -76,7 +82,10 @@ const TransactionDetail = () => {
             )}
 
             {/* Transaction description */}
-            <motion.div variants={childrenVariants}>
+            <motion.div
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
+            >
               <p className="mb-4 font-semibold">Description</p>
               <textarea
                 className="w-full resize-none rounded-lg border border-gray-300 bg-white p-2 text-sm shadow-sm dark:bg-slate-800"

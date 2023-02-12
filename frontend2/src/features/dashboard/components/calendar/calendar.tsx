@@ -1,13 +1,14 @@
 import Card from "@/components/wrapper/card";
-import { Calendar as CalendarDep } from "react-calendar";
-import "@/styles/calendar.css";
+import TransactionPopup from "./transactionPopup";
 import {
   TransactionResponse,
   useGetTransactionsByDate,
 } from "@/services/transaction-services";
 import { useState } from "react";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 import { AnimatePresence, EventInfo, motion } from "framer-motion";
-import TransactionPopup from "./transactionPopup";
+import { Calendar as CalendarDep } from "react-calendar";
+import "@/styles/calendar.css";
 
 const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -22,8 +23,9 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      variants={transitionFadeInVariants}
+      initial="initial"
+      animate="ending"
       transition={{ delay: 0.75, type: "tween" }}
       className={`${gridDisposition} flex flex-col gap-y-4`}
     >
@@ -54,6 +56,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
             return transactionsOnDate.length > 0 ? (
               <motion.span
                 className={`absolute top-1 right-1 rounded-full bg-indigo-500  p-1 hover:animate-pulse`}
+                //onHoverStart returns info of the hovered point, which are set as the preview coordinates of popup
                 onHoverStart={(_, info) => {
                   setIsPopupVisible({ info, transactionsOnDate });
                 }}

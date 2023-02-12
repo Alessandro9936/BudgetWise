@@ -1,11 +1,13 @@
+import FormResponse from "@/components/form/formResponse";
 import Modal from "./modal";
 import ButtonRedirect from "@/components/buttons/redirectButton";
+import ModalHeader from "./modalHeader";
 import { useCloseModal } from "@/hooks/useCloseWindow";
 import { useDeleteTransaction } from "@/services/transaction-services";
 import { useDeleteBudget } from "@/services/budget-services";
-import FormResponse from "@/components/form/formResponse";
-import ModalHeader from "./modalHeader";
 
+// Since the UI was the same DeleteModal has the functionality to delete both transactions and budgets
+// using an union type prop (toDelete) to determine which element must be deleted
 const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
   useCloseModal();
   const transactionDelete = useDeleteTransaction();

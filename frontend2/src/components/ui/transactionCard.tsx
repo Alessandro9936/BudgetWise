@@ -1,31 +1,29 @@
-import { BiDotsHorizontalRounded, BiMoney } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { getCurrency } from "@/context/userContext";
 import {
   TransactionResponse,
   usePrefetchTransactionDetails,
 } from "@/services/transaction-services";
+import { BiDotsHorizontalRounded, BiMoney } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { getCurrency } from "@/context/userContext";
 import { motion } from "framer-motion";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 import { getBudgetUI } from "@/utils/getBudgetUI";
 import { formatDate } from "@/services/format/date";
 
-const childVariants = {
-  initial: { opacity: 0, y: 20 },
-  ending: { opacity: 1, y: 0, transition: { type: "tween" } },
-};
-
-interface TransactionCardProps {
+type TransactionCardProps = {
   transaction: TransactionResponse;
   disabled?: boolean;
-}
+};
 
 const TransactionCard = ({ transaction, disabled }: TransactionCardProps) => {
   const currency = getCurrency();
+  // Prefetch transaction detail when button to open transactionDetail modal is hovered
   const { prefetchTransactionDetails } = usePrefetchTransactionDetails();
 
   return (
     <motion.div
-      variants={childVariants}
+      variants={transitionFadeInVariants}
+      transition={{ type: "tween" }}
       className="flex items-center gap-4 rounded-lg p-4 shadow-[0_0_6px_rgba(0,0,0,0.1)] dark:bg-slate-700"
     >
       <TransactionIcon transaction={transaction} />

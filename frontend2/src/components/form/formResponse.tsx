@@ -1,34 +1,17 @@
-import { useNavigate } from "react-router-dom";
 import { ReactNode, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  fadeInVariants,
+  parentVariants,
+  scaleFadeInVariants,
+} from "@/utils/reusableVariants";
 import { BiCheckCircle } from "react-icons/bi";
-
 import { motion } from "framer-motion";
-
-const parentVariants = {
-  initial: { opacity: 0 },
-  ending: {
-    opacity: 1,
-    transition: {
-      duration: 0.25,
-      when: "beforeChildren",
-    },
-  },
-};
-const childrenVariants = {
-  initial: { scaleX: 0 },
-  ending: {
-    scaleX: 1,
-    transition: { duration: 0.5, type: "tween", ease: "easeOut" },
-  },
-};
-const subChildrenVariants = {
-  initial: { opacity: 0 },
-  ending: { opacity: 1, delay: 0.8 },
-};
 
 const FormResponse = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
+  // Utilize a combination of useEffect and useState hooks to redirect user automatically after the form is submitted
   const [secondsToRedirect, setSecondsToRedirect] = useState(5);
 
   useEffect(() => {
@@ -53,17 +36,19 @@ const FormResponse = ({ children }: { children: ReactNode }) => {
     >
       <div className="w-2 bg-green-500" />
       <motion.div
-        variants={childrenVariants}
+        variants={scaleFadeInVariants}
         className="flex w-full origin-left bg-green-200"
       >
         <motion.div
-          variants={subChildrenVariants}
+          variants={fadeInVariants}
+          transition={{ delay: 0.4 }}
           className="flex items-center  px-4"
         >
           <BiCheckCircle color="#16a34a" size={34} />
         </motion.div>
         <motion.div
-          variants={subChildrenVariants}
+          variants={fadeInVariants}
+          transition={{ delay: 0.4 }}
           className="flex flex-1 flex-col py-2 "
         >
           {children}

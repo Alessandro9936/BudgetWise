@@ -1,41 +1,41 @@
-import { endOfMonth, isFuture } from "date-fns";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import ButtonRedirect from "@/components/buttons/redirectButton";
 import Card from "@/components/wrapper/card";
+import PercentageText from "./percentageText";
+import BudgetLegend from "./budgetLegend";
 import { getCurrency } from "@/context/userContext";
 import { useGetBudgetsByDate } from "@/services/budget-services";
 import { getBudgetUI } from "@/utils/getBudgetUI";
-import { motion } from "framer-motion";
-import { childVariants } from "../../utils/variants";
-import { TooltipProps } from "recharts";
+import { transitionFadeInVariants } from "@/utils/reusableVariants";
 import {
   ValueType,
   NameType,
 } from "recharts/types/component/DefaultTooltipContent";
-import PercentageText from "./percentageText";
-import BudgetLegend from "./budgetLegend";
+import { motion } from "framer-motion";
+import { endOfMonth, isFuture } from "date-fns";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { TooltipProps } from "recharts";
 
-interface IBudgetsChart {
+type BudgetsChartProps = {
   activeDate: Date;
   timeSpan: string;
   activeDateFormatted: string | number;
-}
+};
 
 const BudgetsChart = ({
   activeDateFormatted,
   activeDate,
   timeSpan,
-}: IBudgetsChart) => {
+}: BudgetsChartProps) => {
   const query = useGetBudgetsByDate(activeDate, timeSpan);
   const budgets = query?.data ?? [];
   const isFetching = query.isFetching;
 
   return (
     <motion.div
-      variants={childVariants}
+      variants={transitionFadeInVariants}
       initial="initial"
       animate="ending"
-      transition={{ delay: 0.3, type: "tween" }}
+      transition={{ type: "tween", delay: 0.4 }}
       className="flex flex-1 flex-col"
     >
       <h3 className="mb-4">Budgets distribution</h3>
@@ -93,8 +93,6 @@ const BudgetsChart = ({
   );
 };
 
-export default BudgetsChart;
-
 const CustomTooltip = ({
   active,
   payload,
@@ -117,3 +115,5 @@ const CustomTooltip = ({
   }
   return null;
 };
+
+export default BudgetsChart;

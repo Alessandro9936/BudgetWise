@@ -8,12 +8,11 @@ import { motion } from "framer-motion";
 import { formatDate } from "@/services/format/date";
 import ModalHeader from "@/components/modal/modalHeader";
 
+import { TransactionsInBudget, BudgetName } from "@/features/budgetDetails";
 import {
-  TransactionsInBudget,
-  BudgetName,
-  childrenVariants,
   parentVariants,
-} from "@/features/budgetDetails";
+  transitionFadeInVariants,
+} from "@/utils/reusableVariants";
 
 const BudgetDetails = () => {
   useCloseModal();
@@ -27,6 +26,7 @@ const BudgetDetails = () => {
         variants={parentVariants}
         initial="initial"
         animate="ending"
+        custom={0.15}
         className="flex flex-col gap-6 p-6"
       >
         <ModalHeader label="Budget details" />
@@ -35,7 +35,8 @@ const BudgetDetails = () => {
           <>
             <BudgetName budget={budgetDetails} />
             <motion.div
-              variants={childrenVariants}
+              variants={transitionFadeInVariants}
+              transition={{ type: "tween" }}
               className="flex items-center justify-between"
             >
               <p className="font-semibold">Budget month</p>

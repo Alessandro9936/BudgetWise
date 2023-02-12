@@ -1,8 +1,8 @@
 import { useGetBudgetsByDate } from "@/services/budget-services";
 import { motion } from "framer-motion";
-import { budgetPreviewParentVariants } from "../../utils/variants";
 import BudgetCardPreview from "./budgetCardPreview";
 import { TimeSpanType } from "@/types/timeSpanType";
+import { fadeInVariants } from "@/utils/reusableVariants";
 
 type BudgetPreviewsProps = {
   activeDate: Date;
@@ -15,7 +15,14 @@ const BudgetPreviews = ({ activeDate, timeSpan }: BudgetPreviewsProps) => {
 
   return (
     <motion.div
-      variants={budgetPreviewParentVariants}
+      variants={fadeInVariants}
+      transition={{
+        type: "tween",
+        duration: 0.25,
+        when: "beforeChildren",
+        staggerChildren: 0.15,
+        delay: 0.6,
+      }}
       initial="initial"
       animate="ending"
       className="relative flex-1 overflow-auto"

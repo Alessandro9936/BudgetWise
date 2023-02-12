@@ -11,7 +11,9 @@ const SubmitButton = ({ isLoading, label, styles }: SubmitButtonProps) => {
     <button
       disabled={isLoading}
       type="submit"
-      className={`${styles ? styles : "button-primary"} px-6`}
+      className={`${
+        styles ? styles : "button-primary transition-colors duration-100"
+      } px-6`}
     >
       {!isLoading ? label : <PulseLoader size={8} color="#4f46e5" />}
     </button>
