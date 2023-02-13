@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const createHttpError = require("http-errors");
 const cors = require("cors");
 const errorHandler = require("./middlewares/error-handler");
+const port = process.env.PORT || 8000;
 
 const dbConnect = require("./config/db.config");
 
@@ -17,6 +18,7 @@ const budgetRoutes = require("./routes/budget-routes");
 // Initiate app and connect to database
 const app = express();
 dbConnect();
+app.listen(port, () => console.log(`Server started on port ${port}`));
 
 // Initiate middlewares
 app.use(logger("dev"));

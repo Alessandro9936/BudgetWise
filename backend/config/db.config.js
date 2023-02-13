@@ -6,12 +6,10 @@ function dbConnect() {
   const URI = process.env.DB_STRING;
 
   // Setup default connection
-  mongoose
-    .connect(URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then(app.listen(process.env.PORT || 8000));
+  mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   // Get connection
   const database = mongoose.connection;
