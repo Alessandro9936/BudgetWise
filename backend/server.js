@@ -23,26 +23,12 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-//app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://budgetwise.onrender.com", credentials: true }));
 
 // Initiate routes
 app.use("/", userRoutes);
 app.use("/", transactionRoutes);
 app.use("/", budgetRoutes);
-
-// Serve frontend
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend2/dist")));
-
-  app.get("*", (_, res) =>
-    res.sendFile(
-      path.join(__dirname, "../frontend2/dist/index.html"),
-      function (err) {
-        res.status(500).send(err);
-      }
-    )
-  );
-}
 
 // Handle error if route not found (error 404) ot DB connection error
 app.use((req, res, next) => {
