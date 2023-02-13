@@ -17,7 +17,6 @@ const budgetRoutes = require("./routes/budget-routes");
 // Initiate app and connect to database
 const app = express();
 dbConnect();
-app.listen(process.env.PORT || 8000);
 
 // Initiate middlewares
 app.use(logger("dev"));
