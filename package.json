@@ -2,9 +2,9 @@
   "name": "s2i_finalproject",
   "version": "1.0.0",
   "description": "Budgeting app for students",
-  "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" "
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
+    "start": "cd backend && node server.js"
   },
   "repository": {
     "type": "git",
