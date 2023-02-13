@@ -16,8 +16,11 @@ const userBudgetsService = async (userID, query) => {
         : isSameMonth(new Date(budget.date), new Date(dateFilter))
     );
 
-    // When budgets are filtered by year, all the budgets in each month are returned.
-    // This allow to reduce budgets with same name in a single object.
+    /* 
+    When budgets are filtered by year, all the budgets in each month are returned. This allow to reduce and sum the budgets with same type (ex. all "groceries" budgets) in a single object.
+
+    If dateFilter can be converted to a number it means that timeSpan of requested date is equal to year. If it doesn't convert to a number timeSpan of requested date must be month, no need to reduce budgets.
+    */
     return Number(dateFilter)
       ? filterBudgetsByDate.reduce((previousValue, budget) => {
           const budgetByName = previousValue.find(

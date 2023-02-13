@@ -49,6 +49,7 @@ const refreshTokenService = async (refreshToken) => {
       REFRESH_TOKEN_SECRET,
       async (err, decoded) => {
         try {
+          // error throw when refresh token has expired but still in http cookie
           if (err) throw err;
           else {
             const user = await User.findById(decoded.id).select(
@@ -104,6 +105,7 @@ const updateUserService = async (body, id) => {
 const deleteUserService = async (id) => {
   try {
     const deletedUser = await User.findByIdAndDelete(id);
+    // Delete budgets and transactions that belong to deleted user
     await Transaction.deleteMany({ user: deletedUser._id });
     await Budget.deleteMany({ user: deletedUser._id });
     return deletedUser;

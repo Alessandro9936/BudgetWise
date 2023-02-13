@@ -29,17 +29,27 @@ const userTransactionsService = async (userID, query) => {
   }
 
   /*
-  1. The $match stage filters the transactions to only include those that belong to the logged in user. It does this
-     by matching the user field of the transactions to the _id of the logged in user.
+  1. The $match stage filters the transactions to only include those that belong to the logged in user. it checks if the transaction user property matches the _id of the logged in user.
 
-  2. The $project stage specifies the fields to include in the output documents. It also includes a computed field
-     state that depends on the value of the type field. If the type field is equal to expense, the state field is set to the value of the state field in the input document. If the type field is equal to income or is not defined, the state field is set to the string "Received".
+  2. The $project stage specifies the fields to include in the output documents. It also includes a computed field state that depends on the value of the type field. If the type field is equal to expense, the state field is set to the value of the state field in the input document. If the type field is equal to income or is not defined, the state field is set to empty string.
 
-  3. The $lookup stage performs a left outer join with the budgets collection and returns a new array field for each
-     document that contains the matching documents from the budgets collection. It does this by using the $match stage in the budgets collection to filter the budgets documents based on the value of the _id field. It then uses the $project stage to specify the fields to include in the output documents from the budgets collection.
+  3. The $lookup stage performs a left outer join between the Transactions collection and the budgets collection.
 
-  4. The final $project stage includes the fields from the input documents and the budget field from the budgets
-     collection. It uses the $arrayElemAt operator to select the first element from the budget array.
+  The $lookup operator is used to specify the join. The from field specifies the right (inner) collection, which is the budgets collection in this case.
+
+  The let field defines a variable budgetId that is set to the value of the budget field in the Transactions collection. This allows us to refer to the value of budget in the pipeline that is executed in the budgets collection.
+
+  The pipeline field specifies the operations that should be performed on the right (inner) collection. In this example, two operations are performed:
+
+  The $match operator is used to match documents in the budgets collection where the value of the _id field is equal to the value of the budgetId variable defined in the let field. This ensures that only the budget document that corresponds to the transaction is returned.
+
+  The $project operator is used to project (or select) the fields that should be returned in the result. In this example, only the name field is selected.
+
+  Finally, the as field specifies the name of the new array field that will be added to each document in the Transactions collection. The result of the $lookup operation will be stored in this array field.
+
+  So, after the $lookup operation, each document in the Transactions collection will have a new array field named budget that contains the matching budget document from the budgets collection (or an empty array if there is no match).
+
+  4. The final $project stage includes the fields from the input documents and the budget field from the budgets collection. It uses the $arrayElemAt operator to select the first element from the budget array.
 */
 
   const pipeline = [
