@@ -49,7 +49,6 @@ const refreshTokenService = async (refreshToken) => {
       REFRESH_TOKEN_SECRET,
       async (err, decoded) => {
         try {
-          // error throw when refresh token has expired but still in http cookie
           if (err) throw err;
           else {
             const user = await User.findById(decoded.id).select(
