@@ -1,6 +1,5 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const app = require("../server");
 
 function dbConnect() {
   const URI = process.env.DB_STRING;
