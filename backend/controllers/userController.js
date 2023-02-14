@@ -95,7 +95,7 @@ const updateUser = async (req, res, next) => {
     await updateUserService(req.body, req.user.id);
 
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
       .status(201)
       .end();
   } catch (error) {
@@ -111,7 +111,7 @@ const deleteUser = async (req, res, next) => {
     await deleteUserService(req.user.id);
 
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None" })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
       .status(204)
       .end();
   } catch (error) {
@@ -125,7 +125,7 @@ const deleteUser = async (req, res, next) => {
 const logoutUser = async (req, res, next) => {
   try {
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
       .status(204)
       .end();
   } catch (error) {
