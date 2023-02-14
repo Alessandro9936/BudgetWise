@@ -3,9 +3,12 @@ import { UserProps } from "@/types/userType";
 
 const useRefreshToken = () => {
   const refresh = async () => {
-    const response = await axios.post<UserProps>("/api/refresh", {
-      withCredentials: true,
-    });
+    const response = await axios.post<UserProps>(
+      "https://budgetwise-api.up.railway.app/api/refresh",
+      {
+        withCredentials: true,
+      }
+    );
 
     const loggedUser = response.data;
     return loggedUser;
