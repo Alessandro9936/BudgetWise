@@ -34,8 +34,7 @@ const loginUser = async (req, res, next) => {
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
-      secure: true, // https
-      sameSite: "None", // cross-site cookie
+      sameSite: "Strict", // cross-site cookie
       maxAge: 30 * 24 * 60 * 60 * 1000, // refresh cookie expire in one month
     });
 
