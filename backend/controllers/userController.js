@@ -82,7 +82,7 @@ const refreshToken = async (req, res, next) => {
     }
   } catch (error) {
     error.message === "TokenExpiredError: jwt expired"
-      ? next(createHttpError(403, "Forbidden"))
+      ? next(createHttpError(403, "TokenExpiredError"))
       : next(createHttpError(error));
   }
 };
