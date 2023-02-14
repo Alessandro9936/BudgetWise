@@ -32,12 +32,6 @@ app.use("/", userRoutes);
 app.use("/", transactionRoutes);
 app.use("/", budgetRoutes);
 
-// Catch-all route handler to serve the index.html file
-app.use(express.static(path.join(__dirname, "../frontend2/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend2/dist", "index.html"));
-});
-
 // Handle error if route not found (error 404) ot DB connection error
 app.use((req, res, next) => {
   next(createHttpError(404));
