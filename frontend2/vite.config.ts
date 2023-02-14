@@ -28,7 +28,7 @@ export default defineConfig({
                 .split("node_modules/")[1]
                 // ex. ["C:/project/","react-dom/index.js"] => "react-dom/index.js"
                 .split("/")[0]
-                // ex. ["react-dom","index.js"] => "react-dom"
+                // ex. ["C:/project/","react-dom/index.js"] => "react-dom/"
                 .toString()
             );
           }
@@ -37,14 +37,4 @@ export default defineConfig({
     },
   },
   plugins: [react(), splitVendorChunkPlugin()],
-
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://budgetwise-api.up.railway.app",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 });
