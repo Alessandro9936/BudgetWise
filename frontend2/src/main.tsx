@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -6,21 +6,22 @@ import SignUpForm from "./pages/signUp";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import LoginForm from "./pages/login";
-import Layout from "./layouts/layout";
-import Dashboard from "./pages/dashboard";
-import Invoices from "./pages/invoices";
-import Budgets from "./pages/budgets";
 import BudgetForm from "./pages/budgetForm";
 import BudgetDetails from "./pages/budgetDetails";
 import UserContextProvider from "./context/userContext";
 import TransactionForm from "./pages/transactionForm";
 import TransactionDetail from "./pages/transactionDetails";
 import DeleteModal from "./components/modal/deleteModal";
-import UserForm from "./pages/userForm";
 import DeleteUserModal from "./pages/userDelete";
 import ErrorPage from "./pages/errorPage";
 import Home from "./pages/homePage";
 import { ParamsProvider } from "./features/invoices/filters/context/paramsContext";
+
+const Dashboard = lazy(() => import("./pages/dashboard"));
+const Invoices = lazy(() => import("./pages/invoices"));
+const Budgets = lazy(() => import("./pages/budgets"));
+const UserForm = lazy(() => import("./pages/userForm"));
+const Layout = lazy(() => import("./layouts/layout"));
 
 /* 
   403: Refresh token expired, user need to login again
@@ -59,12 +60,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    element: <Layout />,
+    element: (
+      <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
+        <Layout />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
+            <Dashboard />
+          </Suspense>
+        ),
         children: [
           {
             path: "transaction/new",
@@ -86,7 +95,11 @@ const router = createBrowserRouter([
       },
       {
         path: "invoices",
-        element: <Invoices />,
+        element: (
+          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
+            <Invoices />
+          </Suspense>
+        ),
         children: [
           {
             path: "transaction/:id",
@@ -104,7 +117,11 @@ const router = createBrowserRouter([
       },
       {
         path: "budgets",
-        element: <Budgets />,
+        element: (
+          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
+            <Budgets />
+          </Suspense>
+        ),
         children: [
           {
             path: "new",
@@ -127,7 +144,11 @@ const router = createBrowserRouter([
 
       {
         path: "profile",
-        element: <UserForm />,
+        element: (
+          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
+            <UserForm />
+          </Suspense>
+        ),
         children: [
           {
             path: "delete",

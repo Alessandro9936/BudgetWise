@@ -10,7 +10,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
   plugins: [react(), splitVendorChunkPlugin()],
+
   server: {
     proxy: {
       "/api": {
