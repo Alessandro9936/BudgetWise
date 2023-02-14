@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
@@ -9,11 +10,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  plugins: [react()],
+  plugins: [react(), splitVendorChunkPlugin()],
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
+        target: "https://budgetwise-api.up.railway.app",
         changeOrigin: true,
         secure: false,
       },
