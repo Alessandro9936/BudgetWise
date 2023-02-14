@@ -34,7 +34,8 @@ const loginUser = async (req, res, next) => {
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true, // accessible only by web server
-      sameSite: "Strict", // cross-site cookie
+      secure: true, // https
+      sameSite: "None", // cross-site cookie
       maxAge: 30 * 24 * 60 * 60 * 1000, // refresh cookie expire in one month
     });
 
@@ -94,7 +95,7 @@ const updateUser = async (req, res, next) => {
     await updateUserService(req.body, req.user.id);
 
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
       .status(201)
       .end();
   } catch (error) {
@@ -110,7 +111,7 @@ const deleteUser = async (req, res, next) => {
     await deleteUserService(req.user.id);
 
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
       .status(204)
       .end();
   } catch (error) {
@@ -124,7 +125,7 @@ const deleteUser = async (req, res, next) => {
 const logoutUser = async (req, res, next) => {
   try {
     res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "Strict" })
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
       .status(204)
       .end();
   } catch (error) {
