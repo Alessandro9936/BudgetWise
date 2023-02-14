@@ -4,7 +4,7 @@
   "description": "Budgeting app for students",
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
-    "start": "cd backend && npm run start"
+    "start": "concurrently \"cd backend && npm run dev\""
   },
   "repository": {
     "type": "git",
