@@ -16,7 +16,7 @@ const PaginationBar = ({
 }: PaginationBarProps) => {
   const { prefetchTransactions } = usePrefetchTransactionsByFilters();
   return (
-    <div className="mx-auto flex w-20 items-center">
+    <div className="mx-auto mb-16 flex w-20 items-center midsm:mb-0">
       <button
         disabled={!hasPrevious}
         className="disabled:pointer-events-none disabled:opacity-0"

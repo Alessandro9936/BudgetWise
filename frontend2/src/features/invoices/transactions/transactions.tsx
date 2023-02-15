@@ -14,7 +14,7 @@ const Transactions = () => {
 
   return (
     <>
-      <Card classNames="dark:bg-slate-800 flex-1 p-6 pb-0 flex flex-col overlay-x mb-6 midsm:mb-0">
+      <Card classNames="dark:bg-slate-800 flex-1 p-6 pb-0 flex flex-col overlay-x">
         <div className="flex min-w-[876px] items-center border-b border-neutral-200 pb-4 dark:border-slate-600">
           <p className="flex-1 grow-[2] font-semibold uppercase">Description</p>
           <p className="flex-1 font-semibold uppercase">Type</p>
