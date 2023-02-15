@@ -33,10 +33,9 @@ const loginUser = async (req, res, next) => {
     // Assign refresh token in http-only cookie
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
-      httpOnly: true, // accessible only by web server
-      secure: true, // https
-      sameSite: "None", // cross-site cookie
-      maxAge: 30 * 24 * 60 * 60 * 1000, // refresh cookie expire in one month
+      httpOnly: true,
+
+      maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({ ...user, accessToken });
@@ -63,8 +62,9 @@ const getUser = async (req, res, next) => {
 // @access Public
 const refreshToken = async (req, res, next) => {
   try {
-    if (req.cookies?.jwt) {
-      const refToken = req.cookies.jwt;
+    const cookies = req.cookies;
+    if (cookies.jwt) {
+      const refToken = cookies.jwt;
 
       const { user, accessToken } = await refreshTokenService(refToken);
 
@@ -94,10 +94,7 @@ const updateUser = async (req, res, next) => {
   try {
     await updateUserService(req.body, req.user.id);
 
-    res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
-      .status(201)
-      .end();
+    res.clearCookie("jwt", { httpOnly: true }).status(201).end();
   } catch (error) {
     next(createHttpError(error));
   }
@@ -110,10 +107,7 @@ const deleteUser = async (req, res, next) => {
   try {
     await deleteUserService(req.user.id);
 
-    res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
-      .status(204)
-      .end();
+    res.clearCookie("jwt", { httpOnly: true }).status(204).end();
   } catch (error) {
     next(createHttpError(error));
   }
