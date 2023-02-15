@@ -34,9 +34,9 @@ const loginUser = async (req, res, next) => {
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      domain: "budgetwise.onrender.com",
-      path: "/",
     });
 
     res.status(200).json({ ...user, accessToken });
@@ -64,24 +64,22 @@ const getUser = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
   try {
     const cookies = req.cookies;
-    console.log(req.cookies);
-    if (cookies.jwt) {
-      const refToken = cookies.jwt;
 
-      const { user, accessToken } = await refreshTokenService(refToken);
+    if (!cookies?.jwt) next(createHttpError(403, "Forbidden"));
 
-      const formatUser = {
-        firstName: user.firstName,
-        lastName: user?.lastName,
-        email: user.email,
-        currency: user.currency,
-        accessToken: accessToken,
-      };
+    const refToken = cookies.jwt;
 
-      res.status(200).json(formatUser);
-    } else {
-      next(createHttpError(403, "Forbidden"));
-    }
+    const { user, accessToken } = await refreshTokenService(refToken);
+
+    const formatUser = {
+      firstName: user.firstName,
+      lastName: user?.lastName,
+      email: user.email,
+      currency: user.currency,
+      accessToken: accessToken,
+    };
+
+    res.status(200).json(formatUser);
   } catch (error) {
     error.message === "TokenExpiredError: jwt expired"
       ? next(createHttpError(403, "TokenExpiredError"))
@@ -96,7 +94,10 @@ const updateUser = async (req, res, next) => {
   try {
     await updateUserService(req.body, req.user.id);
 
-    res.clearCookie("jwt", { httpOnly: true }).status(201).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .status(201)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
@@ -109,7 +110,10 @@ const deleteUser = async (req, res, next) => {
   try {
     await deleteUserService(req.user.id);
 
-    res.clearCookie("jwt", { httpOnly: true }).status(204).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .status(204)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
