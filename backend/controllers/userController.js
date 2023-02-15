@@ -94,7 +94,10 @@ const updateUser = async (req, res, next) => {
   try {
     await updateUserService(req.body, req.user.id);
 
-    res.clearCookie("jwt", { httpOnly: true }).status(201).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .status(201)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
@@ -107,7 +110,10 @@ const deleteUser = async (req, res, next) => {
   try {
     await deleteUserService(req.user.id);
 
-    res.clearCookie("jwt", { httpOnly: true }).status(204).end();
+    res
+      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
+      .status(204)
+      .end();
   } catch (error) {
     next(createHttpError(error));
   }
