@@ -5,12 +5,11 @@ const User = require("../models/userModel");
 const { JWT_SECRET } = process.env;
 
 const protect = async (req, res, next) => {
-  let token;
-
-  if (req.headers.authorization?.startsWith("Bearer")) {
+  const authHeader = req.headers.authorization || req.headers.Authorization;
+  if (authHeader?.startsWith("Bearer")) {
     try {
       // Get token from header
-      token = req.headers.authorization.split(" ")[1]; // Bearer Token
+      const token = authHeader.split(" ")[1]; // Bearer Token
 
       // Verify token
       const decoded = jwt.verify(token, JWT_SECRET);
@@ -22,9 +21,6 @@ const protect = async (req, res, next) => {
     } catch (error) {
       next(createHttpError(401, "Not authorized"));
     }
-  }
-  if (!token) {
-    next(createHttpError(401, "Not authorized"));
   }
 };
 
