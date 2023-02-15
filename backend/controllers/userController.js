@@ -34,7 +34,8 @@ const loginUser = async (req, res, next) => {
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
-
+      sameSite: "None",
+      secure: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
