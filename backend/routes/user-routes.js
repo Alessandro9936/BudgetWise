@@ -19,11 +19,11 @@ const {
 
 router.post("/api/register", registationInputs, registerUser);
 router.post("/api/login", loginInputs, loginUser);
-router.post("/api/refresh", refreshToken);
+router.get("/api/refresh", refreshToken);
 
 router.get("/api/user", protect, getUser);
 router.put("/api/user", protect, registationInputs, updateUser);
 router.delete("/api/user", protect, deleteInputs, deleteUser);
-router.post("/api/user/logout", protect, logoutUser);
+router.get("/api/user/logout", logoutUser);
 
 module.exports = router;
