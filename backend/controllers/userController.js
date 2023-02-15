@@ -35,6 +35,8 @@ const loginUser = async (req, res, next) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
+      domain: "budgetwise.onrender.com",
+      path: "/",
     });
 
     res.status(200).json({ ...user, accessToken });
@@ -62,8 +64,8 @@ const getUser = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
   try {
     const cookies = req.cookies;
+    console.log(req.cookies);
     if (cookies.jwt) {
-      console.log(cookies.jwt);
       const refToken = cookies.jwt;
 
       const { user, accessToken } = await refreshTokenService(refToken);
