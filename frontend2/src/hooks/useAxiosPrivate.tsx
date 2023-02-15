@@ -4,7 +4,6 @@ import { UserContext } from "@/context/userContext";
 import useRefreshToken from "./useRefreshToken";
 
 const axiosPrivate = axios.create({
-  baseURL: "https://budgetwise-api.up.railway.app",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
