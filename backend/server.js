@@ -3,6 +3,7 @@ const express = require("express");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const createHttpError = require("http-errors");
+const credentials = require("./middlewares/credentials");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./middlewares/error-handler");
@@ -25,6 +26,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(credentials);
 app.use(cors(corsOptions));
 
 // Initiate routes
