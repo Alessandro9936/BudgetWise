@@ -1,10 +1,10 @@
 require("dotenv").config();
-const path = require("path");
 const express = require("express");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const createHttpError = require("http-errors");
 const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 const errorHandler = require("./middlewares/error-handler");
 const port = process.env.PORT || 8000;
 
@@ -25,7 +25,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: "https://budgetwise.onrender.com", credentials: true }));
+app.use(cors(corsOptions));
 
 // Initiate routes
 app.use("/", userRoutes);
