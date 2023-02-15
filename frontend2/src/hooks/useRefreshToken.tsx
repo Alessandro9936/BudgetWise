@@ -6,10 +6,11 @@ import { UserContext } from "@/context/userContext";
 const useRefreshToken = () => {
   const { setUser } = useContext(UserContext);
   const refresh = async () => {
-    const response = await axios.post<UserProps>(
+    const response = await axios.get<UserProps>(
       "https://budgetwise-api.up.railway.app/api/refresh",
-      {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+      }
     );
 
     setUser(response.data);

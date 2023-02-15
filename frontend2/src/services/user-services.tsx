@@ -22,7 +22,8 @@ export type LoginResponse = {
 const signUpFn = async (formData: SignUpFormType) => {
   const result = await axios.post<201>(
     "https://budgetwise-api.up.railway.app/api/register",
-    formData
+    formData,
+    { withCredentials: true }
   );
   return result.status;
 };
@@ -30,7 +31,8 @@ const signUpFn = async (formData: SignUpFormType) => {
 const loginFn = async (formData: LoginFormType) => {
   const result = await axios.post<LoginResponse>(
     "https://budgetwise-api.up.railway.app/api/login",
-    formData
+    formData,
+    { withCredentials: true }
   );
   return result.data;
 };
@@ -56,8 +58,14 @@ const deleteUserFn = async (instance: AxiosInstance, password: string) => {
   return result.status;
 };
 
-const logoutUserFn = async (instance: AxiosInstance) => {
-  const result = await instance.post<204>("/api/user/logout");
+const logoutUserFn = async () => {
+  const result = await axios.get<204>(
+    "https://budgetwise-api.up.railway.app/api/user/logout",
+    {
+      withCredentials: true,
+    }
+  );
+
   return result.status;
 };
 
@@ -232,12 +240,13 @@ const useDeleteUser = () => {
 };
 
 const useLogoutUser = () => {
-  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
-  const { mutate: logoutUser } = useMutation(() => logoutUserFn(axiosPrivate), {
+  const { mutate: logoutUser } = useMutation(() => logoutUserFn(), {
     onSuccess: (status) => {
       if (status === 204) {
+        setUser(null);
         navigate("/login", { replace: true });
       }
     },
