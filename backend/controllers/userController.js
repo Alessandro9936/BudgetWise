@@ -34,8 +34,6 @@ const loginUser = async (req, res, next) => {
     // to prevent it from being exposed to client-side
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
-      sameSite: "None",
-      secure: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -65,6 +63,7 @@ const refreshToken = async (req, res, next) => {
   try {
     const cookies = req.cookies;
     if (cookies.jwt) {
+      console.log(cookies.jwt);
       const refToken = cookies.jwt;
 
       const { user, accessToken } = await refreshTokenService(refToken);
@@ -95,10 +94,7 @@ const updateUser = async (req, res, next) => {
   try {
     await updateUserService(req.body, req.user.id);
 
-    res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
-      .status(201)
-      .end();
+    res.clearCookie("jwt", { httpOnly: true }).status(201).end();
   } catch (error) {
     next(createHttpError(error));
   }
@@ -111,10 +107,7 @@ const deleteUser = async (req, res, next) => {
   try {
     await deleteUserService(req.user.id);
 
-    res
-      .clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true })
-      .status(204)
-      .end();
+    res.clearCookie("jwt", { httpOnly: true }).status(204).end();
   } catch (error) {
     next(createHttpError(error));
   }

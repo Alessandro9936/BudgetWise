@@ -21,6 +21,8 @@ const protect = async (req, res, next) => {
     } catch (error) {
       next(createHttpError(401, "Not authorized"));
     }
+  } else {
+    next(createHttpError(401, "Not authorized"));
   }
 };
 
