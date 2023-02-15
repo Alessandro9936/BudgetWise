@@ -10,9 +10,8 @@ const axiosPrivate = axios.create({
 });
 
 const useAxiosPrivate = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const refresh = useRefreshToken();
-  const accessToken = user?.accessToken;
 
   useEffect(() => {
     /*
@@ -20,13 +19,15 @@ const useAxiosPrivate = () => {
       attached to the header. This request interceptor handle the attachment of the
       access token to the header on first call after login
       */
-    const requestIntercept = axiosPrivate.interceptors.request.use((config) => {
-      config.headers = config.headers ?? {};
-      if (!config.headers["Authorization"]) {
-        config.headers["Authorization"] = `Bearer ${accessToken}`;
-      }
-      return config;
-    });
+    const requestIntercept = axiosPrivate.interceptors.request.use(
+      (config) => {
+        if (config.headers && !config.headers["Authorization"]) {
+          config.headers["Authorization"] = `Bearer ${user?.accessToken}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
     /*
       Access tokens have a short life span (10 mins), this allows to limit the time
@@ -38,17 +39,14 @@ const useAxiosPrivate = () => {
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,
       async (error: AxiosError) => {
-        const prevRequest = error.config!;
+        const prevRequest = error.config;
         let isSent = false;
-        if (error.response?.status === 401 && !isSent) {
+        if (prevRequest?.headers && error.response?.status === 401 && !isSent) {
           /* isSent variable allow to retry to get an accessToken only once, if the
           first call returns an error it means that also the refrsh token has expired */
           isSent = true;
-          const loggedUser = await refresh();
-          setUser(loggedUser);
-          prevRequest.headers![
-            "Authorization"
-          ] = `Bearer ${loggedUser.accessToken}`;
+          const accessToken = await refresh();
+          prevRequest.headers["Authorization"] = `Bearer ${accessToken}`;
           return axiosPrivate(prevRequest);
         }
         return Promise.reject(error);
@@ -59,7 +57,7 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.response.eject(responseIntercept);
       axiosPrivate.interceptors.request.eject(requestIntercept);
     };
-  }, [accessToken, refresh]);
+  }, [user, refresh]);
 
   return axiosPrivate;
 };
