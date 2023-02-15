@@ -20,12 +20,18 @@ export type LoginResponse = {
 };
 
 const signUpFn = async (formData: SignUpFormType) => {
-  const result = await axios.post<201>("/api/register", formData);
+  const result = await axios.post<201>(
+    "https://budgetwise-api.up.railway.app/api/register",
+    formData
+  );
   return result.status;
 };
 
 const loginFn = async (formData: LoginFormType) => {
-  const result = await axios.post<LoginResponse>("/api/login", formData);
+  const result = await axios.post<LoginResponse>(
+    "https://budgetwise-api.up.railway.app/api/login",
+    formData
+  );
   return result.data;
 };
 

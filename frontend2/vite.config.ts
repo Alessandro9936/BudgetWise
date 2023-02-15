@@ -37,13 +37,4 @@ export default defineConfig({
     },
   },
   plugins: [react(), splitVendorChunkPlugin()],
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://budgetwise-api.up.railway.app",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 });
