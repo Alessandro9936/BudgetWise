@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -17,11 +17,11 @@ import ErrorPage from "./pages/errorPage";
 import Home from "./pages/homePage";
 import { ParamsProvider } from "./features/invoices/filters/context/paramsContext";
 
-const Dashboard = lazy(() => import("./pages/dashboard"));
-const Invoices = lazy(() => import("./pages/invoices"));
-const Budgets = lazy(() => import("./pages/budgets"));
-const UserForm = lazy(() => import("./pages/userForm"));
-const Layout = lazy(() => import("./layouts/layout"));
+import Dashboard from "./pages/dashboard";
+import Invoices from "./pages/invoices";
+import Budgets from "./pages/budgets";
+import UserForm from "./pages/userForm";
+import Layout from "./layouts/layout";
 
 /* 
   403: Refresh token expired, user need to login again
@@ -60,20 +60,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    element: (
-      <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
-        <Layout />
-      </Suspense>
-    ),
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "dashboard",
-        element: (
-          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
-            <Dashboard />
-          </Suspense>
-        ),
+        element: <Dashboard />,
         children: [
           {
             path: "transaction/new",
@@ -95,11 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: "invoices",
-        element: (
-          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
-            <Invoices />
-          </Suspense>
-        ),
+        element: <Invoices />,
         children: [
           {
             path: "transaction/:id",
@@ -117,11 +105,7 @@ const router = createBrowserRouter([
       },
       {
         path: "budgets",
-        element: (
-          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
-            <Budgets />
-          </Suspense>
-        ),
+        element: <Budgets />,
         children: [
           {
             path: "new",
@@ -144,11 +128,7 @@ const router = createBrowserRouter([
 
       {
         path: "profile",
-        element: (
-          <Suspense fallback={<h3 className="p-6">Loading...</h3>}>
-            <UserForm />
-          </Suspense>
-        ),
+        element: <UserForm />,
         children: [
           {
             path: "delete",
