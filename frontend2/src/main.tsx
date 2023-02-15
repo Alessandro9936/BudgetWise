@@ -23,6 +23,9 @@ import Budgets from "./pages/budgets";
 import UserForm from "./pages/userForm";
 import Layout from "./layouts/layout";
 
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 /* 
   403: Refresh token expired, user need to login again
   500: Error server
