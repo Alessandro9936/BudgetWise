@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const createHttpError = require("http-errors");
 const User = require("../models/userModel");
@@ -6,7 +7,7 @@ const { JWT_SECRET } = process.env;
 
 const protect = async (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
-  if (authHeader?.startsWith("Bearer")) {
+  if (authHeader && authHeader.startsWith("Bearer")) {
     try {
       // Get token from header
       const token = authHeader.split(" ")[1]; // Bearer Token
