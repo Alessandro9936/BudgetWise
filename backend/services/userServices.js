@@ -1,3 +1,4 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Transaction = require("../models/transactionModel");
@@ -50,21 +51,20 @@ const refreshTokenService = async (refreshToken) => {
       async (err, decoded) => {
         try {
           if (err) throw err;
-          else {
-            const user = await User.findById(decoded.id).select(
-              "firstName lastName email currency"
-            );
-            const accessToken = await user.generateAuthToken();
-            return { user, accessToken };
-          }
+
+          const user = await User.findById(decoded.id).select(
+            "firstName lastName email currency"
+          );
+          const accessToken = await user.generateAuthToken();
+          return { user, accessToken };
         } catch (error) {
-          throw new Error(error);
+          throw error;
         }
       }
     );
     return token;
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 };
 
