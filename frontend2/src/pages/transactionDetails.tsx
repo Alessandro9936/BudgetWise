@@ -33,7 +33,7 @@ const TransactionDetail = () => {
             initial="initial"
             animate="ending"
             custom={0.15}
-            className="flex flex-col gap-6"
+            className="mt-6 flex flex-col gap-6"
           >
             {/* Transaction type */}
             <motion.div

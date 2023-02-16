@@ -12,7 +12,7 @@ const SkeletonDetails = ({ rowLarge, rowSmall }: SkeletonDetailsPros) => {
           .map((_, i) => (
             <span
               key={Math.random()}
-              className="block h-8 w-full animate-pulse  rounded-xl bg-slate-700"
+              className="block h-8 w-full animate-pulse  rounded-xl bg-neutral-200 dark:bg-slate-700"
             />
           ))}
       {rowLarge &&
@@ -21,7 +21,7 @@ const SkeletonDetails = ({ rowLarge, rowSmall }: SkeletonDetailsPros) => {
           .map((_, i) => (
             <span
               key={Math.random()}
-              className="block h-24 w-full animate-pulse rounded-xl bg-slate-700"
+              className="block h-24 w-full animate-pulse rounded-xl bg-neutral-200 dark:bg-slate-700"
             />
           ))}
     </div>
