@@ -13,6 +13,7 @@ import {
   parentVariants,
   transitionFadeInVariants,
 } from "@/utils/reusableVariants";
+import SkeletonDetails from "@/components/ui/skeleton";
 
 const BudgetDetails = () => {
   useCloseModal();
@@ -22,17 +23,17 @@ const BudgetDetails = () => {
 
   return (
     <Modal>
-      <motion.section
-        variants={parentVariants}
-        initial="initial"
-        animate="ending"
-        custom={0.15}
-        className="flex flex-col gap-6 p-6"
-      >
+      <section className="p-6">
         <ModalHeader label="Budget details" />
 
         {budgetDetails ? (
-          <>
+          <motion.div
+            variants={parentVariants}
+            initial="initial"
+            animate="ending"
+            custom={0.15}
+            className="mt-6 flex flex-col gap-6"
+          >
             <BudgetName budget={budgetDetails} />
             <motion.div
               variants={transitionFadeInVariants}
@@ -53,11 +54,11 @@ const BudgetDetails = () => {
                 styles="button-primary"
               />
             )}
-          </>
+          </motion.div>
         ) : (
-          <h3>Loading@.</h3>
+          <SkeletonDetails rowSmall={3} rowLarge={1} />
         )}
-      </motion.section>
+      </section>
     </Modal>
   );
 };

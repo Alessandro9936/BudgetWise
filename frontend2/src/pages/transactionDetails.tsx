@@ -12,6 +12,7 @@ import {
   parentVariants,
   transitionFadeInVariants,
 } from "@/utils/reusableVariants";
+import SkeletonDetails from "@/components/ui/skeleton";
 
 const TransactionDetail = () => {
   useCloseModal();
@@ -20,18 +21,20 @@ const TransactionDetail = () => {
   const transactionDetail = queryTransactionDetail?.data;
   const currency = getCurrency();
 
+  console.log(transactionDetail);
+
   return (
     <Modal>
-      <motion.section
-        variants={parentVariants}
-        initial="initial"
-        animate="ending"
-        custom={0.15}
-        className="flex flex-col gap-6 p-6"
-      >
+      <section className="p-6">
         <ModalHeader label="Transaction details" />
         {transactionDetail ? (
-          <>
+          <motion.div
+            variants={parentVariants}
+            initial="initial"
+            animate="ending"
+            custom={0.15}
+            className="flex flex-col gap-6"
+          >
             {/* Transaction type */}
             <motion.div
               variants={transitionFadeInVariants}
@@ -108,11 +111,11 @@ const TransactionDetail = () => {
                 label="Delete transaction"
               />
             </div>
-          </>
+          </motion.div>
         ) : (
-          <h3>Loading...</h3>
+          <SkeletonDetails rowSmall={4} rowLarge={1} />
         )}
-      </motion.section>
+      </section>
     </Modal>
   );
 };
