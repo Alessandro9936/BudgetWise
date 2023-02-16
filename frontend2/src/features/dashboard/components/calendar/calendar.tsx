@@ -9,6 +9,7 @@ import { transitionFadeInVariants } from "@/utils/reusableVariants";
 import { AnimatePresence, EventInfo, motion } from "framer-motion";
 import { Calendar as CalendarDep } from "react-calendar";
 import "@/styles/calendar.css";
+import ContentHeader from "@/components/ui/contentHeader";
 
 const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -20,6 +21,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
 
   const queryTransactions = useGetTransactionsByDate(calendarDate, "Monthly");
   const transactions = queryTransactions.data ?? [];
+  const isFetching = queryTransactions.isFetching;
 
   return (
     <motion.section
@@ -29,7 +31,7 @@ const Calendar = ({ gridDisposition }: { gridDisposition: string }) => {
       transition={{ delay: 0.75, type: "tween" }}
       className={`${gridDisposition} flex flex-col gap-y-4`}
     >
-      <h3>Calendar</h3>
+      <ContentHeader isFetching={isFetching} sectionTitle="Calendar" />
       {/* Popup */}
       <AnimatePresence>
         {isPopupVisible && (

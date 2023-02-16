@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { endOfMonth, isFuture } from "date-fns";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { TooltipProps } from "recharts";
+import ContentHeader from "@/components/ui/contentHeader";
 
 type BudgetsChartProps = {
   activeDate: Date;
@@ -38,19 +39,17 @@ const BudgetsChart = ({
       transition={{ type: "tween", delay: 0.4 }}
       className="flex flex-1 flex-col"
     >
-      <h3 className="mb-4">Budgets distribution</h3>
-      <Card classNames="dark:bg-slate-800 flex-1 w-full flex flex-col items-center px-6 min-h-[200px]">
+      <ContentHeader
+        isFetching={isFetching}
+        sectionTitle="Budgets distribution"
+      />
+      <Card classNames="mt-4 dark:bg-slate-800 flex-1 w-full flex flex-col items-center px-6 min-h-[200px]">
         {budgets.length > 0 ? (
           <>
             <ResponsiveContainer width={"99%"} height={250}>
               <PieChart height={250}>
                 {!isFetching && (
-                  <Pie
-                    data={budgets}
-                    innerRadius={"50%"}
-                    dataKey="usedAmount"
-                    animationBegin={300}
-                  >
+                  <Pie data={budgets} innerRadius={"50%"} dataKey="usedAmount">
                     {budgets.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}

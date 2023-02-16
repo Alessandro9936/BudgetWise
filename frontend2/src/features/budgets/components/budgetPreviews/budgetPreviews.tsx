@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import BudgetCardPreview from "./budgetCardPreview";
 import { TimeSpanType } from "@/types/timeSpanType";
 import { fadeInVariants } from "@/utils/reusableVariants";
+import ContentHeader from "@/components/ui/contentHeader";
 
 type BudgetPreviewsProps = {
   activeDate: Date;
@@ -10,8 +11,9 @@ type BudgetPreviewsProps = {
 };
 
 const BudgetPreviews = ({ activeDate, timeSpan }: BudgetPreviewsProps) => {
-  const query = useGetBudgetsByDate(activeDate, timeSpan);
-  const budgets = query?.data ?? [];
+  const queryBudgets = useGetBudgetsByDate(activeDate, timeSpan);
+  const budgets = queryBudgets.data ?? [];
+  const isFetching = queryBudgets.isFetching;
 
   return (
     <motion.div
@@ -27,8 +29,8 @@ const BudgetPreviews = ({ activeDate, timeSpan }: BudgetPreviewsProps) => {
       animate="ending"
       className="relative flex-1 overflow-auto"
     >
-      <h3 className="mb-4">Budget Previews</h3>
-      <ul className="mb-16 grid grid-cols-autoFillBudgets gap-8 overflow-y-auto midsm:mb-0">
+      <ContentHeader isFetching={isFetching} sectionTitle="Budget previews" />
+      <ul className="mt-4 mb-16 grid grid-cols-autoFillBudgets gap-8 overflow-y-auto midsm:mb-0">
         {budgets.map((budget) => (
           <BudgetCardPreview
             key={budget._id}

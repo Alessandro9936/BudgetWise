@@ -11,6 +11,7 @@ import {
   parentVariants,
   transitionFadeInVariants,
 } from "@/utils/reusableVariants";
+import ContentHeader from "@/components/ui/contentHeader";
 
 const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
   const {
@@ -26,6 +27,7 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
     activeTimeSpan
   );
   const transactions = queryTransactions.data ?? [];
+  const isFetching = queryTransactions.isFetching;
 
   const amounts = useMemo(
     () =>
@@ -58,7 +60,7 @@ const Summary = ({ gridDisposition }: { gridDisposition: string }) => {
         transition={{ type: "tween" }}
         className="flex items-center justify-between"
       >
-        <h3>Summary</h3>
+        <ContentHeader isFetching={isFetching} sectionTitle="Summary" />
         <div className="flex gap-2">
           {["Yearly", "Monthly"].map((timeSpan) => (
             <TimeSpanButton

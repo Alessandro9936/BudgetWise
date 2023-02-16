@@ -7,6 +7,7 @@ import { BiSync } from "react-icons/bi";
 import { motion } from "framer-motion";
 import Graph from "./graph";
 import { fadeInVariants } from "@/utils/reusableVariants";
+import ContentHeader from "@/components/ui/contentHeader";
 
 const TransactionsGraph = ({
   gridDisposition,
@@ -26,9 +27,9 @@ const TransactionsGraph = ({
     activeDate,
     activeTimeSpan
   );
-  const transactions = queryTransactions?.data ?? [];
+  const transactions = queryTransactions.data ?? [];
 
-  const isFetching = queryTransactions?.isFetching;
+  const isFetching = queryTransactions.isFetching;
 
   return (
     <motion.section
@@ -39,7 +40,7 @@ const TransactionsGraph = ({
       className={`${gridDisposition} flex flex-col gap-y-4 `}
     >
       <div className="flex items-center justify-between">
-        <h3>Overview</h3>
+        <ContentHeader isFetching={isFetching} sectionTitle="Overview" />
         <div className="flex items-center gap-2 ">
           {["Yearly", "Monthly", "Weekly"].map((timeSpan) => (
             <TimeSpanButton

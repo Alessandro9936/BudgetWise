@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ClearFilterButton from "./components/clearFilterButton";
 
@@ -27,19 +27,22 @@ const TypeFilter = ({ isOpen, setActiveDropdown }: FilterProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeType = searchParams.get("type") || "";
 
+  // Anytime activeType change check value. State and budget parameters should be active only when activeType is equal to expense, if it is not delete them from url
+  useEffect(() => {
+    if (activeType !== "expense") {
+      setParams((prev) => ({ ...prev, state: [], budget: [] }));
+      searchParams.delete("state");
+      searchParams.delete("budget");
+      setSearchParams(searchParams);
+    }
+  }, [activeType]);
+
   const { setParams } = useContext(ParamsContext);
   useContextParams({ paramName: "type", activeValues: activeType });
 
   const onTypeChange = (value: string) => {
     searchParams.set("type", value);
     setSearchParams(searchParams);
-
-    if (value === "income") {
-      setParams((prev) => ({ ...prev, state: [], budget: [] }));
-      searchParams.delete("state");
-      searchParams.delete("budget");
-      setSearchParams(searchParams);
-    }
   };
 
   const ref = useOutsideClick<HTMLUListElement>(
