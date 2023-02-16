@@ -10,12 +10,13 @@ import { UserFormNoPassword, UserFormPassword } from "@/features/userUpdate";
 import { UserContext } from "@/context/userContext";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import { DeleteUserType } from "@/features/userDelete";
+import { setAccessToken } from "@/services/accessToken";
 
 export type LoginResponse = {
   firstName: string;
   lastName?: string;
   email: string;
-  accessToken?: string;
+  accessToken: string;
   currency: string;
 };
 
@@ -127,6 +128,7 @@ const useLogin = () => {
     return mutate(formData, {
       onSuccess: (userData) => {
         setUser(userData);
+        setAccessToken(userData.accessToken);
         navigate("/dashboard", { replace: true });
       },
       onError: (error) => {

@@ -3,6 +3,5 @@ export type UserProps = {
   lastName?: string;
   email: string;
   currency: string;
-  accessToken?: string;
   createdAt?: Date;
 };

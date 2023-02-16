@@ -10,6 +10,8 @@ import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import { TransactionFormProps } from "@/features/transactionForm";
 import { BudgetResponse } from "./budget-services";
 import { formatMonth } from "./format/date";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 
 const transactionKeys = {
   listByDate: (date: string | number) => ["transactions", date] as const,
@@ -120,6 +122,7 @@ const useGetTransactionsByDate = (date: Date, timeSpan: string) => {
     () => getTransactionsByDateFn(axiosPrivate, formatDate),
     {
       // Increase staleTime to make UI more smooth
+
       staleTime: 20000,
       keepPreviousData: true,
       select: (transactions) =>

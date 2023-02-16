@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
-import { useContext, useEffect } from "react";
-import { UserContext } from "@/context/userContext";
+import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
+import { getAccessToken } from "@/services/accessToken";
 
 const axiosPrivate = axios.create({
   baseURL: "https://budgetwise-api.up.railway.app",
@@ -10,7 +10,7 @@ const axiosPrivate = axios.create({
 });
 
 const useAxiosPrivate = () => {
-  const { user } = useContext(UserContext);
+  const accessToken = getAccessToken();
   const refresh = useRefreshToken();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useAxiosPrivate = () => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
         if (config.headers && !config.headers["Authorization"]) {
-          config.headers["Authorization"] = `Bearer ${user?.accessToken}`;
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
         return config;
       },
@@ -57,7 +57,7 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.response.eject(responseIntercept);
       axiosPrivate.interceptors.request.eject(requestIntercept);
     };
-  }, [user, refresh]);
+  }, [accessToken, refresh]);
 
   return axiosPrivate;
 };
