@@ -7,7 +7,7 @@ const Layout = () => {
   const { isMobile } = useCheckMobile();
 
   return (
-    <main className="flex min-h-screen lg:h-screen">
+    <main className="flex min-h-screen lg:h-full">
       {!isMobile ? (
         <Sidebar isMobile={isMobile} />
       ) : (

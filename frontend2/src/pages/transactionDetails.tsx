@@ -21,8 +21,6 @@ const TransactionDetail = () => {
   const transactionDetail = queryTransactionDetail?.data;
   const currency = getCurrency();
 
-  console.log(transactionDetail);
-
   return (
     <Modal>
       <section className="p-6">
@@ -97,7 +95,7 @@ const TransactionDetail = () => {
               />
             </motion.div>
 
-            <div className="ml-auto flex w-fit justify-end gap-x-2">
+            <div className="ml-auto flex w-full flex-col justify-end gap-2 midsm:w-fit midsm:flex-row">
               {transactionDetail.type === "expense" && (
                 <ButtonRedirect
                   redirect="update"

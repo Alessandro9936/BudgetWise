@@ -90,7 +90,6 @@ const BudgetForm = () => {
             transition={{ type: "tween" }}
             className="font-semibold"
           >
-            <p>Budget type</p>
             <BudgetsList
               activeDate={activeDate}
               isUpdate={isUpdate}

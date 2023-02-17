@@ -14,7 +14,7 @@ const Transactions = () => {
 
   return (
     <>
-      <Card classNames="dark:bg-slate-800 flex-1 p-6 pb-0 flex flex-col overlay-x">
+      <Card classNames="dark:bg-slate-800 flex-1 p-6 pb-0 flex flex-col overlay-x scrollbar-horizontal">
         <div className="flex min-w-[876px] items-center border-b border-neutral-200 pb-4 dark:border-slate-600">
           <p className="flex-1 grow-[2] font-semibold uppercase">Description</p>
           <p className="flex-1 font-semibold uppercase">Type</p>
@@ -23,7 +23,7 @@ const Transactions = () => {
           <p className="flex-1 grow-[1.5] font-semibold uppercase">Budget</p>
           <p className="mr-6 flex-1 font-semibold uppercase">State</p>
         </div>
-        <ul className="flex min-w-[876px] flex-1 flex-col overflow-x-scroll lg:overflow-x-hidden">
+        <ul className="flex min-w-[876px] flex-1 flex-col lg:overflow-x-hidden">
           {isLoading ? (
             <h3 className="mt-4">Loading...</h3>
           ) : transactions.length >= 1 ? (

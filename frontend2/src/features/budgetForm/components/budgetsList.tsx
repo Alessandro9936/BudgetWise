@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import RadioBudgetInput from "@/components/input/radioBudgetInput";
 import { useGetBudgetsByDate } from "@/services/budget-services";
 import { budgets } from "@/utils/getBudgetUI";
+import { PuffLoader } from "react-spinners";
 
 type BudgetsListProps = {
   activeDate: Date;
@@ -17,6 +18,7 @@ const BudgetsList = ({
   // Get already created budgets in active month
   const budgetsQuery = useGetBudgetsByDate(activeDate, "Monthly");
   const budgetsInActiveMonth = budgetsQuery?.data ?? [];
+  const isFetching = budgetsQuery.isFetching;
 
   // Compare all budgets with created budgets and keep only the ones that are still available to create
   const remainingBudgetsInActiveMonth = useMemo(() => {
@@ -38,17 +40,23 @@ const BudgetsList = ({
   }, [budgetsInActiveMonth]);
 
   return (
-    <ul className="mt-4 grid max-h-36 grid-cols-2 gap-3 overflow-auto px-2">
-      {remainingBudgetsInActiveMonth.map((budget) => (
-        <RadioBudgetInput
-          key={budget}
-          value={budget}
-          budgetName={budget}
-          inputName="name"
-          disabled={isUpdate}
-        />
-      ))}
-    </ul>
+    <>
+      <div className="flex items-center gap-2">
+        <p>Budget type</p>
+        {isFetching && <PuffLoader color="#6366f1" size={20} />}
+      </div>
+      <ul className="scrollbar-vertical mt-4 grid max-h-36 grid-cols-1 gap-3 overflow-auto px-2 midsm:grid-cols-2">
+        {remainingBudgetsInActiveMonth.map((budget) => (
+          <RadioBudgetInput
+            key={budget}
+            value={budget}
+            budgetName={budget}
+            inputName="name"
+            disabled={isUpdate}
+          />
+        ))}
+      </ul>
+    </>
   );
 };
 

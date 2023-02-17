@@ -34,7 +34,7 @@ const TransactionPreview = ({
       variants={fadeInVariants}
       initial="initial"
       animate="ending"
-      className="flex flex-1 items-center border-b border-neutral-200 last-of-type:border-none  dark:border-slate-600"
+      className="flex min-h-[50px] flex-1 items-center border-b border-neutral-200 last-of-type:border-none  dark:border-slate-600"
     >
       <p className="flex-1 grow-[2]">{transaction.description}</p>
       <p className="flex-1">{transactionTypeLabel}</p>

@@ -45,6 +45,44 @@
 
 @layer utilities {
   .overlay-x {
-    overflow: overlay;
+    overflow: auto;
+  }
+
+  .scrollbar-vertical::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .scrollbar-vertical::-webkit-scrollbar-track {
+    @apply bg-white dark:bg-slate-700;
+    @apply my-4;
+    @apply rounded-full;
+  }
+
+  .scrollbar-vertical::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 dark:bg-slate-600;
+    @apply rounded-full;
+  }
+
+  .scrollbar-vertical::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-400;
+  }
+
+  .scrollbar-horizontal::-webkit-scrollbar {
+    @apply h-2;
+  }
+
+  .scrollbar-horizontal::-webkit-scrollbar-track {
+    @apply bg-white dark:bg-slate-700;
+    @apply mx-4;
+    @apply rounded-full;
+  }
+
+  .scrollbar-horizontal::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 dark:bg-slate-600;
+    @apply rounded-full;
+  }
+
+  .scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-400;
   }
 }

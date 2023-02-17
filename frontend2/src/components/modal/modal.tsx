@@ -22,9 +22,9 @@ const Modal = ({ children }: { children: ReactNode }) => {
             initial="initial"
             animate="ending"
             transition={{ duration: 0.25 }}
-            className="fixed z-50 h-fit w-fit "
+            className="fixed z-50 h-fit w-fit"
           >
-            <Card classNames="dark:bg-slate-800 w-11/12 min-w-[300px] midsm:w-8/12 lg:w-1/2 xl:w-4/12 fixed top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4">
+            <Card classNames="dark:bg-slate-800 w-11/12 min-w-[300px] midsm:w-9/12 lg:w-1/2 xl:w-4/12 fixed top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 max-h-[98%] overflow-auto scrollbar-vertical">
               {children}
             </Card>
           </motion.div>

@@ -27,11 +27,11 @@ const SignUpForm = () => {
   const onSubmit = (formData: SignUpFormType) => signUp(formData, setError);
 
   return (
-    <>
+    <div className="flex flex-col">
       <HomeHeader />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="absolute top-2/4 left-2/4 flex w-screen -translate-x-2/4 -translate-y-2/4 flex-col gap-y-6 p-4 px-8 md:w-fit md:px-0"
+        className="mx-auto mt-4 flex w-screen flex-col gap-y-6 p-4 px-8 md:absolute md:top-2/4 md:left-2/4 md:mt-0 md:w-fit md:-translate-x-2/4 md:-translate-y-2/4 md:px-0"
       >
         <h1 className="mb-2">Create a new account</h1>
 
@@ -88,7 +88,7 @@ const SignUpForm = () => {
           <RedirectLink redirectTo="/login" label="Login" />
         </p>
       </form>
-    </>
+    </div>
   );
 };
 
