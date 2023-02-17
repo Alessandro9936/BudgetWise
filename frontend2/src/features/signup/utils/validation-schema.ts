@@ -1,15 +1,6 @@
 import { z } from "zod";
 import validator from "validator";
-
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  userBudget: "",
-  password: "",
-  currency: "USD",
-  confirmPassword: "",
-};
+import { SignUpFormType } from "@/features/signup/types/formType";
 
 const SignUpSchema = z
   .object({
@@ -24,13 +15,7 @@ const SignUpSchema = z
       .string()
       .min(1, { message: "Email is required" })
       .email({ message: "Invalid email adress" }),
-    userBudget: z
-      .string()
-      .min(1, { message: "Your initial budget is required" })
-      .refine((val) => Number(val), {
-        message: "This field can include only numbers",
-      }),
-    currency: z.string(),
+    currency: z.enum(["EUR", "USD", "GBP"]).default("USD"),
     password: z
       .string()
       .min(1, { message: "Password is required" })
@@ -39,7 +24,14 @@ const SignUpSchema = z
       }),
     confirmPassword: z.string().optional(),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
+  .superRefine(({ confirmPassword, password, currency }, ctx) => {
+    if (!currency) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Select your currenct",
+        path: ["currency"],
+      });
+    }
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
@@ -48,5 +40,14 @@ const SignUpSchema = z
       });
     }
   });
+
+const initialValues: SignUpFormType = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  currency: "USD",
+  confirmPassword: "",
+};
 
 export { SignUpSchema, initialValues };

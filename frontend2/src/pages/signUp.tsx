@@ -16,12 +16,18 @@ import {
 } from "@/features/signup";
 
 const SignUpForm = () => {
-  const { control, handleSubmit, setError, setValue, getValues } =
-    useForm<SignUpFormType>({
-      defaultValues: initialValues,
-      resolver: zodResolver(SignUpSchema),
-      mode: "onTouched",
-    });
+  const {
+    control,
+    handleSubmit,
+    setError,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<SignUpFormType>({
+    defaultValues: initialValues,
+    resolver: zodResolver(SignUpSchema),
+    mode: "onTouched",
+  });
 
   const { signUp, isLoading } = useSignUp();
   const onSubmit = (formData: SignUpFormType) => signUp(formData, setError);
@@ -69,10 +75,9 @@ const SignUpForm = () => {
 
         {/* Budget Field */}
         <FieldBudget
-          control={control}
-          name="userBudget"
           setValue={setValue}
           getValues={getValues}
+          error={errors.currency?.message}
         />
         {/* Password Field */}
         <PasswordInput

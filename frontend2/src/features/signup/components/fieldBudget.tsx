@@ -1,121 +1,57 @@
-import { useCallback, useState } from "react";
-
-import {
-  useController,
-  UseControllerProps,
-  UseFormGetValues,
-  UseFormSetValue,
-} from "react-hook-form";
-
 import FieldError from "@/components/error/fieldError";
+import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
+
+import { motion } from "framer-motion";
+
 import { SignUpFormType } from "../types/formType";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
-
-import ToggleIcon from "@/components/icons/toggleIcon";
-
-type CurrencyPickerProps = {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setValue: UseFormSetValue<SignUpFormType>;
-  activeCurrency: string;
-};
 
 type FieldBudgetProps = {
   setValue: UseFormSetValue<SignUpFormType>;
   getValues: UseFormGetValues<SignUpFormType>;
+  error?: string;
 };
 
-const CurrencyPicker = ({
-  isModalOpen,
-  setIsModalOpen,
-  setValue,
-  activeCurrency,
-}: CurrencyPickerProps) => {
-  const ref = useOnClickOutside<HTMLDivElement>(
-    useCallback(() => setIsModalOpen(false), [])
-  );
+const FieldBudget = ({ setValue, getValues, error }: FieldBudgetProps) => {
+  const currencies: { symbol: string; code: SignUpFormType["currency"] }[] = [
+    { symbol: "$", code: "USD" },
+    { symbol: "€", code: "EUR" },
+    { symbol: "£", code: "GBP" },
+  ];
+
+  const activeCurrency = getValues("currency");
+
+  const setActiveCurrency = (currency: SignUpFormType["currency"]) => {
+    setValue("currency", currency, { shouldValidate: true });
+  };
 
   return (
-    <div ref={ref}>
-      <div
-        className="absolute inset-y-0 right-0 z-10 flex cursor-pointer items-center rounded-r-lg border border-neutral-300 bg-white px-2 focus:outline-none dark:border-slate-700 dark:border-l-slate-600  dark:bg-slate-700"
-        onClick={() => setIsModalOpen(!isModalOpen)}
-      >
-        <span className="mr-1 text-sm text-neutral-500 dark:text-neutral-400">
-          {activeCurrency}
-        </span>
-        <ToggleIcon trigger={isModalOpen} />
-      </div>
-      {isModalOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-slate-700">
-          <div className="py-2">
-            {["USD", "GBP", "EUR"].map((currency) => (
-              <span
-                key={currency}
-                className="block cursor-pointer px-4 py-2 text-neutral-500 hover:bg-neutral-100 hover:text-slate-800 dark:text-neutral-300 dark:hover:bg-slate-600 dark:hover:text-white"
-                onClick={() => {
-                  setValue("currency", currency);
-                  setIsModalOpen(false);
-                }}
-              >
-                {currency}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const FieldBudget = ({
-  setValue,
-  getValues,
-  ...props
-}: FieldBudgetProps & UseControllerProps<SignUpFormType>) => {
-  const { fieldState, field } = useController(props);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const currencySymbol = {
-    USD: "$",
-    EUR: "€",
-    GBP: "£",
-  }[getValues("currency")];
-
-  return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor="userBudget" className="font-medium dark:text-neutral-300">
-        Your starting budget <span className="text-red-400">*</span>
+    <div>
+      <label htmlFor="currency" className="font-medium dark:text-neutral-300">
+        Select your currency <span className="text-red-400">*</span>
       </label>
-      <div className="rounder-lg relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-          <span className="text-sm text-neutral-500 dark:text-neutral-400">
-            {currencySymbol}
-          </span>
-        </div>
-        <input
-          type="number"
-          placeholder="0.00"
-          {...field}
-          className={`input-form w-full appearance-none pr-4 pl-7 ${
-            fieldState.error?.message
-              ? "border-red-400 dark:border-red-400"
-              : ""
-          }`}
-        />
-        <CurrencyPicker
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          setValue={setValue}
-          activeCurrency={getValues("currency")}
-        />
+      <div className="my-2 flex w-full items-center justify-between gap-6">
+        {currencies.map((currency) => (
+          <div
+            key={currency.code}
+            className="relative flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-lg py-2 ring-1 ring-slate-300 dark:bg-slate-700 dark:ring-slate-600"
+            onClick={() => setActiveCurrency(currency.code)}
+          >
+            <p className="relative z-10">{currency.symbol}</p>
+            <p className="relative z-10">{currency.code}</p>
+            {activeCurrency === currency.code ? (
+              <motion.span
+                layoutId="selected"
+                className="absolute top-0 bottom-0 left-0 right-0 rounded-lg bg-indigo-300/25 ring-1 ring-indigo-600 dark:bg-indigo-900/25 dark:ring-indigo-300"
+              />
+            ) : null}
+          </div>
+        ))}
       </div>
-      {fieldState.error?.message && (
-        <FieldError message={fieldState.error.message} />
-      )}
+      {error && <FieldError message={error} />}
     </div>
   );
 };
 
 export default FieldBudget;
+
+//#3730a3

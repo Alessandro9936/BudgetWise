@@ -12,7 +12,6 @@ const registerUserService = async (body) => {
       firstName: body.firstName,
       lastName: body.lastName,
       email: body.email,
-      userBudget: body.userBudget,
       password: await hashPassword(body.password),
       currency: body.currency,
     });

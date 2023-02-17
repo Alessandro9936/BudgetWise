@@ -10,7 +10,6 @@ const userSchema = new schema(
     firstName: { type: String, required: true },
     lastName: { type: String },
     email: { type: String, required: true, unique: true },
-    userBudget: { type: Number, required: true },
     password: { type: String, required: true },
     currency: { type: String },
   },
