@@ -5,7 +5,7 @@ import ModalHeader from "./modalHeader";
 import { useCloseModal } from "@/hooks/useCloseWindow";
 import { useDeleteTransaction } from "@/services/transaction-services";
 import { useDeleteBudget } from "@/services/budget-services";
-import { PulseLoader } from "react-spinners";
+import DeleteButton from "@/components/buttons/deleteButton";
 
 // Since the UI was the same DeleteModal has the functionality to delete both transactions and budgets
 // using an union type prop (toDelete) to determine which element must be deleted
@@ -38,18 +38,18 @@ const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
           <>
             <p>Are you sure you want to delete this {toDelete}?</p>
             <div className="ml-auto flex items-center gap-2">
-              <button onClick={handleDelete} className="button-delete px-6">
-                {isLoadingSubmission ? (
-                  <PulseLoader size={8} color="#f87171" />
-                ) : (
-                  "Delete"
-                )}
-              </button>
-              <ButtonRedirect
-                label="Go back"
-                redirect={".."}
-                styles=" button-secondary px-6"
+              <DeleteButton
+                label="Delete"
+                isLoading={isLoadingSubmission}
+                onClick={() => handleDelete()}
               />
+              {!isLoadingSubmission && (
+                <ButtonRedirect
+                  label="Go back"
+                  redirect={".."}
+                  styles=" button-secondary px-6"
+                />
+              )}
             </div>
           </>
         )}

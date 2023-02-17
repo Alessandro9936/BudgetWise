@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import ButtonRedirect from "@/components/buttons/redirectButton";
-import SubmitButton from "@/components/buttons/submitButton";
 import CloseIcon from "@/components/icons/closeIcon";
 import TextInput from "@/components/input/textInput";
 import Modal from "@/components/modal/modal";
 import { useDeleteUser } from "@/services/user-services";
 
 import { DeleteUserType, DeleteUserSchema } from "@/features/userDelete";
+import DeleteButton from "@/components/buttons/deleteButton";
 
 const DeleteUserModal = () => {
   const { control, setError, handleSubmit } = useForm<DeleteUserType>({
@@ -36,16 +36,14 @@ const DeleteUserModal = () => {
           control={control}
         />
         <div className="ml-auto flex items-center gap-2">
-          <SubmitButton
-            label="Delete profile"
-            styles="button-delete"
-            isLoading={isLoading}
-          />
-          <ButtonRedirect
-            redirect=".."
-            styles="px-6 button-secondary"
-            label="Go back"
-          />
+          <DeleteButton label="Delete profile" isLoading={isLoading} />
+          {!isLoading && (
+            <ButtonRedirect
+              redirect=".."
+              styles="px-6 button-secondary"
+              label="Go back"
+            />
+          )}
         </div>
       </form>
     </Modal>
