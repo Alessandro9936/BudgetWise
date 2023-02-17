@@ -38,8 +38,14 @@ const LoginForm = () => {
           label="Email"
           placeholder="johndoe@example.com"
           control={control}
+          disabled={isLoading}
         />
-        <PasswordInput name="password" label="Password" control={control} />
+        <PasswordInput
+          name="password"
+          label="Password"
+          control={control}
+          disabled={isLoading}
+        />
 
         <SubmitButton label="Login" isLoading={isLoading} />
         <p className="-mt-2 text-center text-sm md:text-left">

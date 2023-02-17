@@ -30,8 +30,8 @@ import {
 const UserForm = () => {
   const { isMobile } = useCheckMobile();
 
-  const { data: loggedUser, isLoading } = useGetUser();
-  const { updateUser, isSuccess } = useUpdateUser();
+  const { data: loggedUser, isLoading: isLoadingUser } = useGetUser();
+  const { updateUser, isSuccess, isLoading: isUpdatingUser } = useUpdateUser();
 
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
@@ -64,7 +64,7 @@ const UserForm = () => {
   return (
     <section className="flex w-full flex-1 flex-col items-center gap-6 overflow-x-hidden bg-gray-100 p-6 dark:bg-slate-900">
       <Card classNames=" dark:bg-slate-800 w-full flex-1 p-6 mb-16 midsm:mb-0">
-        {!isLoading && loggedUser ? (
+        {!isLoadingUser && loggedUser ? (
           <motion.form
             variants={parentVariants}
             custom={0.15}
@@ -201,13 +201,15 @@ const UserForm = () => {
               transition={{ type: "tween" }}
               className="flex flex-1 flex-col items-stretch justify-end gap-4 midsm:flex-row midsm:items-end"
             >
-              <SubmitButton label="Update profile" isLoading={isLoading} />
+              <SubmitButton label="Update profile" isLoading={isUpdatingUser} />
 
-              <ButtonRedirect
-                redirect="delete"
-                label="Delete profile"
-                styles="button-delete px-6"
-              />
+              {!isUpdatingUser && (
+                <ButtonRedirect
+                  redirect="delete"
+                  label="Delete profile"
+                  styles="button-delete px-6"
+                />
+              )}
             </motion.div>
           </motion.form>
         ) : (

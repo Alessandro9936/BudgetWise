@@ -31,7 +31,7 @@ const SignUpForm = () => {
       <HomeHeader />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto mt-4 flex w-screen flex-col gap-y-6 p-4 px-8 md:absolute md:top-2/4 md:left-2/4 md:mt-0 md:w-fit md:-translate-x-2/4 md:-translate-y-2/4 md:px-0"
+        className="mx-auto mt-4 flex w-screen flex-col gap-y-6 p-4 px-8 md:w-fit md:px-0 lg:absolute lg:top-2/4 lg:left-2/4 lg:mt-0 lg:-translate-x-2/4 lg:-translate-y-2/4"
       >
         <h1 className="mb-2">Create a new account</h1>
 
@@ -44,6 +44,7 @@ const SignUpForm = () => {
             placeholder="John"
             isRequired={true}
             control={control}
+            disabled={isLoading}
           />
           <TextInput
             type="text"
@@ -51,6 +52,7 @@ const SignUpForm = () => {
             label="Last name"
             placeholder="Doe"
             control={control}
+            disabled={isLoading}
           />
         </div>
 
@@ -62,6 +64,7 @@ const SignUpForm = () => {
           isRequired={true}
           placeholder="johndoe@example.com"
           control={control}
+          disabled={isLoading}
         />
 
         {/* Budget Field */}
@@ -72,13 +75,19 @@ const SignUpForm = () => {
           getValues={getValues}
         />
         {/* Password Field */}
-        <PasswordInput name="password" label="Password" control={control} />
+        <PasswordInput
+          name="password"
+          label="Password"
+          control={control}
+          disabled={isLoading}
+        />
 
         {/* Confirm assword field */}
         <PasswordInput
           name="confirmPassword"
           label="Confirm password"
           control={control}
+          disabled={isLoading}
         />
 
         <PasswordRequirements />

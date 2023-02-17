@@ -42,11 +42,13 @@ const FormHandler = ({
         label={isUpdate ? `Update ${label}` : `Create ${label}`}
         isLoading={isLoading}
       />
-      <ButtonRedirect
-        redirect=".."
-        styles="px-6 button-secondary"
-        label="Go back"
-      />
+      {!isLoading && (
+        <ButtonRedirect
+          redirect=".."
+          styles="px-6 button-secondary"
+          label="Go back"
+        />
+      )}
     </motion.div>
   );
 };
