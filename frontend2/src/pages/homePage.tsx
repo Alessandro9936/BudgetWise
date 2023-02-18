@@ -32,7 +32,7 @@ const childVariants = {
 const Home = () => {
   return (
     <>
-      <div className="flex h-screen w-screen flex-col">
+      <div className="flex h-screen w-full flex-col overflow-hidden">
         <header className="flex h-fit items-center justify-between p-4">
           <Logo redirect="/" />
           <GithubRedirect />
@@ -55,7 +55,7 @@ const Home = () => {
             variants={parentVariants}
             initial="initial"
             animate="visible"
-            className="mx-8 flex max-w-[700px] flex-col items-center gap-y-10 midsm:mx-14 md:mx-20 lg:order-1 lg:mx-0 lg:ml-14 lg:items-start "
+            className="mx-8 flex max-w-[700px] flex-col items-center gap-y-10 midsm:mx-14 md:mx-20 lg:order-1 lg:mx-0 lg:ml-14 lg:items-start"
           >
             <motion.h1
               variants={childVariants}
@@ -74,7 +74,7 @@ const Home = () => {
             </motion.p>
             <motion.div
               variants={childVariants}
-              className="lg:mg-0 mb-10 flex w-full flex-col items-center gap-4 lg:items-start"
+              className="mb-10 flex w-full flex-col items-center gap-4 lg:mb-0 lg:items-start"
             >
               <ButtonRedirect
                 redirect="/register"

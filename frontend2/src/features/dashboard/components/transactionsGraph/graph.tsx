@@ -49,14 +49,12 @@ const Graph = ({
   }[activeTimeSpan];
 
   return (
-    <ResponsiveContainer width="99%" height="93%">
+    <ResponsiveContainer width="99%" height="92%">
       <AreaChart
         data={graphData()}
         margin={{
           top: 30,
-          right: 30,
           left: 0,
-          bottom: 0,
         }}
         layout={isMobile ? "vertical" : "horizontal"}
       >

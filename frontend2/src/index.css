@@ -85,4 +85,8 @@
   .scrollbar-horizontal::-webkit-scrollbar-thumb:hover {
     @apply bg-indigo-400;
   }
+
+  body {
+    @apply scrollbar-vertical;
+  }
 }

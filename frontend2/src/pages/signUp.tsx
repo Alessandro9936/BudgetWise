@@ -12,7 +12,7 @@ import {
   SignUpFormType,
   SignUpSchema,
   initialValues,
-  FieldBudget,
+  FieldCurrency,
 } from "@/features/signup";
 
 const SignUpForm = () => {
@@ -74,7 +74,7 @@ const SignUpForm = () => {
         />
 
         {/* Budget Field */}
-        <FieldBudget
+        <FieldCurrency
           setValue={setValue}
           getValues={getValues}
           error={errors.currency?.message}

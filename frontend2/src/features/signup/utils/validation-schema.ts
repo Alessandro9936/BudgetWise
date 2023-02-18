@@ -1,6 +1,6 @@
 import { z } from "zod";
 import validator from "validator";
-import { SignUpFormType } from "@/features/signup/types/formType";
+import { SignUpFormType } from "../types/formType";
 
 const SignUpSchema = z
   .object({

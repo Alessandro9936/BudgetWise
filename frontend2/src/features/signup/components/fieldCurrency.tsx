@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 
 import { SignUpFormType } from "../types/formType";
 
-type FieldBudgetProps = {
+type FieldCurrencyProps = {
   setValue: UseFormSetValue<SignUpFormType>;
   getValues: UseFormGetValues<SignUpFormType>;
   error?: string;
 };
 
-const FieldBudget = ({ setValue, getValues, error }: FieldBudgetProps) => {
+const FieldCurrency = ({ setValue, getValues, error }: FieldCurrencyProps) => {
   const currencies: { symbol: string; code: SignUpFormType["currency"] }[] = [
     { symbol: "$", code: "USD" },
     { symbol: "€", code: "EUR" },
@@ -52,6 +52,4 @@ const FieldBudget = ({ setValue, getValues, error }: FieldBudgetProps) => {
   );
 };
 
-export default FieldBudget;
-
-//#3730a3
+export default FieldCurrency;
