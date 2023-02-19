@@ -59,7 +59,7 @@ const DateBar = ({
       >
         <BiChevronLeft size={18} className="stroke-white" />
       </button>
-      <p>{activeDateFormatted}</p>
+      <p className="text-center">{activeDateFormatted}</p>
       <button
         onMouseOver={() =>
           prefetchOnHover(

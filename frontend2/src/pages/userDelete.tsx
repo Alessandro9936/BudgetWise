@@ -35,7 +35,7 @@ const DeleteUserModal = () => {
           name="password"
           control={control}
         />
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-4">
           <DeleteButton label="Delete profile" isLoading={isLoading} />
           {!isLoading && (
             <ButtonRedirect

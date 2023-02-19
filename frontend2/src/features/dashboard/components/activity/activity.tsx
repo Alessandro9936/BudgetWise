@@ -26,20 +26,20 @@ const Activity = ({ gridDisposition }: { gridDisposition: string }) => {
     >
       <ContentHeader isFetching={isFetching} sectionTitle="Recent activity" />
       <Card classNames="flex-1 flex flex-col gap-4 lg:overflow-hidden relative dark:bg-slate-800 mb-16 midsm:mb-0">
-        <div className="scrollbar-vertical flex h-[500px] flex-col gap-4 overflow-y-auto px-4 pt-4 pb-1 md:grid-cols-autoFill lg:flex-1">
+        <div className="scrollbar-vertical grid h-[500px] gap-4 overflow-y-auto px-4 pt-4 pb-1  md:grid-cols-2 xl:flex-1 xl:grid-cols-1">
           {sortTransactions.map((transaction) => (
             <TransactionCard transaction={transaction} key={transaction._id} />
           ))}
         </div>
-        <div className="grid gap-x-6 gap-y-4 px-4 pb-4 md:grid-cols-2 lg:grid-cols-autoFill">
+        <div className="grid gap-4 px-4 pb-4 md:ml-auto md:grid-cols-2 xl:ml-0 xl:grid-cols-autoFill">
           <ButtonRedirect
             redirect="transaction/new"
-            styles="flex-1 button-primary"
+            styles="flex-1 button-primary md:px-6"
             label="New transaction"
           />
           <ButtonRedirect
             redirect="../invoices"
-            styles="flex-1 button-secondary"
+            styles="flex-1 button-secondary md:px-6"
             label="All transactions"
           />
         </div>

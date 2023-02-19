@@ -37,7 +37,7 @@ const SignUpForm = () => {
       <HomeHeader />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto mt-4 flex w-screen flex-col gap-y-6 p-4 px-8 md:w-fit md:px-0 lg:absolute lg:top-2/4 lg:left-2/4 lg:mt-0 lg:-translate-x-2/4 lg:-translate-y-2/4"
+        className="mx-auto mt-4 mb-4 flex w-screen flex-col gap-y-6 p-4 px-8 md:w-fit md:px-0 xl:absolute xl:top-2/4 xl:left-2/4 xl:mt-0 xl:mb-0 xl:-translate-x-2/4 xl:-translate-y-2/4"
       >
         <h1 className="mb-2">Create a new account</h1>
 

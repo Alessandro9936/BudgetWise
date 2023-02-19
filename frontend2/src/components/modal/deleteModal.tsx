@@ -37,7 +37,7 @@ const DeleteModal = ({ toDelete }: { toDelete: "transaction" | "budget" }) => {
         {!isSubmitSuccessful && (
           <>
             <p>Are you sure you want to delete this {toDelete}?</p>
-            <div className="ml-auto flex items-center gap-2">
+            <div className="ml-auto flex items-center gap-4">
               <DeleteButton
                 label="Delete"
                 isLoading={isLoadingSubmission}

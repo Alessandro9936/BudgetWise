@@ -54,7 +54,7 @@ const Graph = ({
         data={graphData()}
         margin={{
           top: 30,
-          left: 0,
+          left: 5,
         }}
         layout={isMobile ? "vertical" : "horizontal"}
       >

@@ -16,13 +16,13 @@ const Dashboard = () => {
 
   return (
     <>
-      <section className="grid flex-1 gap-6 bg-neutral-100 p-6 dark:bg-slate-900 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1.25fr] lg:grid-rows-[auto_1fr]">
+      <section className="grid flex-1 gap-6 bg-neutral-100 p-6 dark:bg-slate-900 md:grid-cols-2 xl:grid-cols-[1.25fr_1fr_1.25fr] xl:grid-rows-[auto_1fr]">
         <Summary gridDisposition="md:order-0" />
-        <TransactionsGraph gridDisposition="md:order-3 md:col-span-full lg:order-3 lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3" />
+        <TransactionsGraph gridDisposition="md:order-3 md:col-span-full xl:order-3 xl:col-start-1 xl:col-end-3 xl:row-start-2 xl:row-end-3" />
 
         <Calendar gridDisposition="md:order-1" />
 
-        <Activity gridDisposition="md:order-3 md:col-span-full lg:order-2 lg:row-span-full lg:col-start-3 lg:col-end-5 lg:row-start-1" />
+        <Activity gridDisposition="md:order-3 md:col-span-full xl:order-2 xl:row-span-full xl:col-start-3 xl:col-end-5 xl:row-start-1" />
       </section>
       <Outlet />
     </>

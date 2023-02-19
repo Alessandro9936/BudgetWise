@@ -32,14 +32,14 @@ const childVariants = {
 const Home = () => {
   return (
     <>
-      <div className="flex h-screen w-full flex-col overflow-hidden">
+      <div className="flex min-h-screen w-full flex-col overflow-hidden">
         <header className="flex h-fit items-center justify-between p-4">
           <Logo redirect="/" />
           <GithubRedirect />
         </header>
         <img
           src={shape}
-          className="absolute top-0 right-0 -z-10 w-full  opacity-50 md:w-4/5 lg:w-4/6 xl:w-7/12"
+          className="fixed top-0 right-0 -z-10 w-full  opacity-50 md:w-4/5 lg:w-4/6 xl:w-7/12"
         />
 
         <section className="mt-10 flex flex-col items-center justify-between gap-5 lg:my-auto lg:mx-10 lg:flex-row lg:gap-20">

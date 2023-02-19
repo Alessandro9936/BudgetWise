@@ -36,7 +36,7 @@ const FormHandler = ({
       initial="initial"
       animate="ending"
       transition={{ duration: 0.5, delay: 1 }}
-      className="ml-auto flex w-full flex-col justify-end gap-2 midsm:w-fit midsm:flex-row"
+      className="ml-auto flex w-full flex-col justify-end gap-4 midsm:w-fit midsm:flex-row"
     >
       <SubmitButton
         label={isUpdate ? `Update ${label}` : `Create ${label}`}

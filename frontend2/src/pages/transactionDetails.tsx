@@ -95,7 +95,7 @@ const TransactionDetail = () => {
               />
             </motion.div>
 
-            <div className="ml-auto flex w-full flex-col justify-end gap-2 midsm:w-fit midsm:flex-row">
+            <div className="ml-auto flex w-full flex-col justify-end gap-4 midsm:w-fit midsm:flex-row">
               {transactionDetail.type === "expense" && (
                 <ButtonRedirect
                   redirect="update"
