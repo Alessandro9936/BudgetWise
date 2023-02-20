@@ -20,7 +20,7 @@ module.exports = {
       midsm: "608px",
       md: "768px",
       lg: "1080px",
-      xl: "1440px",
+      xl: "1600px",
     },
   },
   plugins: [],
