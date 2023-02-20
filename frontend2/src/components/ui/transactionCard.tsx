@@ -24,7 +24,7 @@ const TransactionCard = ({ transaction, disabled }: TransactionCardProps) => {
     <motion.div
       variants={transitionFadeInVariants}
       transition={{ type: "tween" }}
-      className="flex items-center gap-4 rounded-lg p-4 shadow-[0_0_6px_rgba(0,0,0,0.1)] dark:bg-slate-700 xl:h-fit"
+      className="flex h-fit items-center gap-4 rounded-lg p-4 shadow-[0_0_6px_rgba(0,0,0,0.1)] dark:bg-slate-700"
     >
       <TransactionIcon transaction={transaction} />
       <div className="flex-1">
