@@ -1,4 +1,4 @@
-const { isSameYear, isSameMonth, startOfMonth } = require("date-fns");
+const { isSameYear, isSameMonth } = require("date-fns");
 const Budget = require("../models/budgetModel");
 const Transaction = require("../models/transactionModel");
 
@@ -10,18 +10,10 @@ const userBudgetsService = async (userID, query) => {
 
     // First condition get budgets of each month in year
     // Second condition get budgets of single month
-
-    console.log(
-      `Data budget: ${new Date(
-        userBudgets[0]?.date
-      )}. Il mio pensiero era viene inserito ultimo giorno nel mese precedente`
-    );
-    console.log(`Data filtro: ${new Date(dateFilter)}`);
-
     const filterBudgetsByDate = userBudgets.filter((budget) =>
       Number(dateFilter)
         ? isSameYear(new Date(budget.date), new Date(dateFilter))
-        : isSameMonth(startOfMonth(new Date(budget.date)), new Date(dateFilter))
+        : isSameMonth(new Date(budget.date), new Date(dateFilter))
     );
 
     /* 
@@ -58,11 +50,23 @@ const userBudgetsService = async (userID, query) => {
 };
 
 const newBudgetService = async (req) => {
+  const budgetDate = new Date(req.body.date);
+  console.log("budgetDate default: " + budgetDate.toString());
+
+  console.log(budgetDate);
+  const formatBudgetDate = new Date(
+    `Budget date formatted: ${budgetDate.getFullYear()}-${
+      budgetDate.getMonth() + 1
+    }-2`
+  ).toString();
+  console.log(formatBudgetDate);
   try {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      date: req.body.date,
+      date: new Date(
+        `${budgetDate.getFullYear()}-${budgetDate.getMonth() + 1}-2`
+      ),
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
