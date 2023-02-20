@@ -1,4 +1,4 @@
-const { isSameYear, isSameMonth } = require("date-fns");
+const { isSameYear, isSameMonth, addDays } = require("date-fns");
 const Budget = require("../models/budgetModel");
 const Transaction = require("../models/transactionModel");
 
@@ -50,19 +50,11 @@ const userBudgetsService = async (userID, query) => {
 };
 
 const newBudgetService = async (req) => {
-  const budgetDate = new Date(req.body.date);
-  console.log("budgetDate default: " + budgetDate.toString());
-
-  const formatBudgetDate = new Date(
-    `${budgetDate.getFullYear()}-${budgetDate.getMonth() + 1}-2`
-  ).toString();
-  console.log("bedgetDate formatted: " + formatBudgetDate);
-
   try {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      date: req.body.date,
+      date: addDays(req.body.date, 1),
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
