@@ -54,7 +54,7 @@ const newBudgetService = async (req) => {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      date: addDays(req.body.date, 1),
+      date: addDays(new Date(req.body.date), 1),
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
