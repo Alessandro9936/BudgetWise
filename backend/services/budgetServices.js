@@ -1,4 +1,4 @@
-const { isSameYear, isSameMonth } = require("date-fns");
+const { isSameYear, isSameMonth, startOfMonth } = require("date-fns");
 const Budget = require("../models/budgetModel");
 const Transaction = require("../models/transactionModel");
 
@@ -21,7 +21,7 @@ const userBudgetsService = async (userID, query) => {
     const filterBudgetsByDate = userBudgets.filter((budget) =>
       Number(dateFilter)
         ? isSameYear(new Date(budget.date), new Date(dateFilter))
-        : isSameMonth(new Date(budget.date), new Date(dateFilter))
+        : isSameMonth(startOfMonth(new Date(budget.date)), new Date(dateFilter))
     );
 
     /* 
