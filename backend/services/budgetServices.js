@@ -53,23 +53,21 @@ const newBudgetService = async (req) => {
   const budgetDate = new Date(req.body.date);
   console.log("budgetDate default: " + budgetDate.toString());
 
-  console.log(budgetDate);
   const formatBudgetDate = new Date(
-    `Budget date formatted: ${budgetDate.getFullYear()}-${
-      budgetDate.getMonth() + 1
-    }-2`
+    `${budgetDate.getFullYear()}-${budgetDate.getMonth() + 1}-2`
   ).toString();
-  console.log(formatBudgetDate);
+  console.log("bedgetDate formatted: " + formatBudgetDate);
+
   try {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      date: new Date(
-        `${budgetDate.getFullYear()}-${budgetDate.getMonth() + 1}-2`
-      ),
+      date: req.body.date,
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
+
+    console.log(budget);
 
     await budget.save();
     return budget;
