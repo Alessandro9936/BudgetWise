@@ -56,10 +56,8 @@ const userBudgetsService = async (userID, query) => {
 };
 
 const newBudgetService = async (req) => {
-  // When a new budget is created, its date property, if it is not created in the current month, will be by default formatted as follows (ex. creating a new budget in March 2023): Tue Feb 28 2023 23:00:00 GMT+0000. However, when it comes to production, the property date is detected as a date that still belongs to February, perhaps due to an incongruity with timezones between client and platform on which the server is deployed. As a consequence, when a budget is created in a future month, it will be set in the previous month, in our example if we create a budget in March it will be set to February. To avoid this problem, although it may not be the best solution, when creating a new budget in the future add a fews days to be sure that it will be set to the right month.
-  const budgetMonth = isFirstDayOfMonth(new Date(req.body.date))
-    ? addDays(new Date(req.body.date), 7)
-    : new Date(req.body.date);
+  // When a new budget is created, its date property, if it is not created in the current month, will be by default formatted as follows (ex. creating a new budget in March 2023): Tue Feb 28 2023 23:00:00 GMT+0000. However, when it comes to production, the property date is detected as a date that still belongs to February, perhaps due to an incongruity with timezones between client and platform on which the server is deployed. As a consequence, when a budget is created in a future month, it will be set in the previous month, in our example if we create a budget in March it will be set to February. To avoid this problem, although it may not be the best solution, when creating a new budget in the future add one day to be sure that it will be set to the right month.
+  const budgetMonth = addDays(new Date(req.body.date), 1);
 
   try {
     const budget = new Budget({
@@ -69,8 +67,6 @@ const newBudgetService = async (req) => {
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
-
-    console.log(budget);
 
     await budget.save();
     return budget;
