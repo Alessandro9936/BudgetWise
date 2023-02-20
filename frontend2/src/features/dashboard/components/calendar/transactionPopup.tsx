@@ -21,7 +21,7 @@ const TransactionPopup = ({ popupInfo, transactions }: ITransactionPopup) => {
       initial="initial"
       animate="ending"
       exit="exit"
-      className={`pointer-events-none absolute z-10 flex w-44 origin-top-right flex-col gap-y-3 rounded-xl bg-indigo-500 p-2 px-3 font-semibold text-white shadow-xl`}
+      className={`pointer-events-none absolute z-50 flex w-44 origin-top-right flex-col gap-y-3 rounded-xl bg-indigo-500 p-2 px-3 font-semibold text-white shadow-xl`}
       style={popupCoords}
     >
       {transactions.map((transaction) => (
