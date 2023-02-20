@@ -30,7 +30,7 @@ const BudgetPreviews = ({ activeDate, timeSpan }: BudgetPreviewsProps) => {
       className="relative flex-1 overflow-auto"
     >
       <ContentHeader isFetching={isFetching} sectionTitle="Budget previews" />
-      <ul className="mt-4 mb-16 grid grid-cols-autoFillBudgets gap-8 overflow-y-auto midsm:mb-0">
+      <ul className="scrollbar-vertical mt-4 mb-16 grid grid-cols-autoFillBudgets gap-8 overflow-y-auto midsm:mb-0">
         {budgets.map((budget) => (
           <BudgetCardPreview
             key={budget._id}
