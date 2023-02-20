@@ -10,6 +10,14 @@ const userBudgetsService = async (userID, query) => {
 
     // First condition get budgets of each month in year
     // Second condition get budgets of single month
+
+    console.log(
+      `Data budget: ${new Date(
+        userBudgets[0]?.date
+      )}. Il mio pensiero era viene inserito ultimo giorno nel mese precedente`
+    );
+    console.log(`Data filtro: ${new Date(dateFilter)}`);
+
     const filterBudgetsByDate = userBudgets.filter((budget) =>
       Number(dateFilter)
         ? isSameYear(new Date(budget.date), new Date(dateFilter))
