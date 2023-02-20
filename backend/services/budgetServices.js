@@ -1,4 +1,10 @@
-const { isSameYear, isSameMonth, addDays } = require("date-fns");
+const {
+  isSameYear,
+  isSameMonth,
+  addDays,
+  isLastDayOfMonth,
+  isFirstDayOfMonth,
+} = require("date-fns");
 const Budget = require("../models/budgetModel");
 const Transaction = require("../models/transactionModel");
 
@@ -50,11 +56,16 @@ const userBudgetsService = async (userID, query) => {
 };
 
 const newBudgetService = async (req) => {
+  const budgetMonth = isFirstDayOfMonth(new Date(req.body.date))
+    ? addDays(new Date(req.body.date), 1)
+    : new Date(req.body.date);
+
   try {
     const budget = new Budget({
       user: req.user._id,
       name: req.body.name,
-      date: addDays(new Date(req.body.date), 1),
+      //
+      date: budgetMonth,
       maxAmount: Number(req.body.maxAmount),
       usedAmount: Number(req.body.usedAmount),
     });
