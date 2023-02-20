@@ -31,6 +31,7 @@ const ExpenseFields = ({
 }: ExpenseFieldsProps) => {
   const queryBudgetsOnActiveDate = useGetBudgetsByDate(activeDate, "Monthly");
   const budgetsOnActiveDate = queryBudgetsOnActiveDate.data ?? [];
+  const isFetching = queryBudgetsOnActiveDate.isFetching;
 
   // Get label from id value of selected budget to display in preview
   const activeBudget = budgetsOnActiveDate?.find(
@@ -45,12 +46,13 @@ const ExpenseFields = ({
         label="Budget"
         setActive={setActiveDropdown}
         activeDropdown={activeDropdown}
+        isFetching={isFetching}
       />
       {activeDropdown === "Budget" && (
         <motion.ul
           variants={transitionFadeInVariants}
-          transition={{type: 'tween'}}
-          className="grid max-h-36 grid-cols-2 gap-3 overflow-auto px-2"
+          transition={{ type: "tween" }}
+          className="scrollbar-vertical grid max-h-36 grid-cols-2 gap-3 overflow-auto px-2"
         >
           {budgetsOnActiveDate.map((budget) => (
             <RadioBudgetInput
@@ -75,7 +77,7 @@ const ExpenseFields = ({
       {activeDropdown === "State" && (
         <motion.ul
           variants={transitionFadeInVariants}
-          transition={{type: 'tween'}}
+          transition={{ type: "tween" }}
           className="flex flex-wrap gap-3 font-semibold"
         >
           {stateNames.map((state) => (
