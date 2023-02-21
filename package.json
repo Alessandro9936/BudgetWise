@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Budgeting app for students",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
-    "start": "concurrently \"cd backend && npm run dev\""
+    "install-and-start": "npm install && cd backend && npm install && cd .. && cd frontend2 && npm install"
   },
   "repository": {
     "type": "git",
