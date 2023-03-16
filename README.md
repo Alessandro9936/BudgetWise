@@ -21,7 +21,7 @@ Choose a back end language and a front end framework from those studied in your 
 ## About the project <a name="about-the-project"></a>
 ![Screenshot 2023-02-26 22-16-55 (1)](https://user-images.githubusercontent.com/64644550/221437858-fafd94ae-a0a6-4fd8-894b-d7cf2c4d9147.png)
 
-BudgetWise is a money manager and financial tracker budgeting app that allows to track your income, expenses and budgets effortlessly in one single place.
+BudgetWise is a personal finance application that simplifies money management by offering a simple and intuitive user experience. It allows you to easily and quickly keep track of income, expenses, and personal balances, enabling you to immediately identify major spending patterns and save effectively.
 
 ## Demo Link <a name="demo-link"></a>
 
